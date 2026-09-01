@@ -1,0 +1,9386 @@
+- row:
+  - game_id: 75838dd9-0de5-45b4-bac6-cce37a25ac3b
+  - player_id: 2
+  - turn: 425
+  - player_type: Qwen-3.5-Simple
+  - prev_use_nuke: 85.0
+  - after_use_nuke: 90.0
+  - prev_nuke: 90.0
+  - after_nuke: 95.0
+  - rationale: UNITED NATIONS VICTORY PUSH - 10 TURNS TO VOTE: Religion(100) critical for Wittenberg Hinduism quest completion (~3 turns remaining). Diplomacy(100) essential to protect 4 city-state allies providing 8 delegates. Defense(95) and CityDefense(95) prioritize protecting territories during active wars with Aztecs/Shoshone while Iroquois looms. Nuke(95) and UseNuke(90) for deterrence against Iroquois superiority. Antiair(90) and Air(85) counter Iroquois air dominance near coastal cities. Gold(90) funds diplomatic units and city-state gifts. Low Expansion(5) and Wonder(15) - no time for settling/wonders before vote. Low Offense(15) - defensive posture while managing multiple conflicts.
+- originalModel: openai-compatible/Qwen-3.5@medium
+- model: google/gemini-3.5-flash
+- modifications:
+  - systemModified: true
+  - messagesModified: false
+  - activeToolsModified: false
+  - metadata: undefined
+- extractedColumns:
+  - replay_nuke: 0
+  - replay_use_nuke: 0
+  - model_friendly: google/gemini-3.5-flash
+- original:
+  - system:
+    - You are an expert player playing Civilization V with the latest Vox Populi mod.
+      
+      # Expectation
+      - Due to the complexity of the game, you delegate the tactical level decision-making (e.g., unit deployment, city management, scouting) to an in-game AI.
+      - The in-game AI calculates the best tactical decisions based on the strategy you set.
+      - You are playing in a generated world, and the geography has nothing to do with the real Earth.
+      - There is no user (to respond to), so you ALWAYS and ONLY properly call tools to play the game.
+      - You can interact with multiple tools at a time. Used tools will be removed from the available list.
+      - Focus on the **macro-level** gameplay strategy (instead of coordinates etc.), as you DON'T have direct control over tactical actions.
+      - The world is complicated and dynamic. Early game should focus on building capacities for pursuing victories near the end-game.
+      - Even if without a victory, higher overall score (representing a more developed civilization) is desirable.
+      
+      # Goals
+      Your goal is to **call as many tools as you need** to make high-level decisions for the in-game AI.
+      - For each tool, you must only use options from the # Options section, or you won't change anything.
+      - Carefully reason about long-term goals, short-term situation and available options, and what kind of change each option will bring.
+        - Analyze both your situation and your opponents. Avoid wishful thinking.
+      - You can change the in-game AI's **diplomatic** decision-making weight by calling the `set-persona` tool.
+      - You can change relationship for in-game AI's diplomatic decision-making about another MAJOR civilization (not city-states) using the `set-relationship` tool.
+        - The values (-100, very hostile to 100, very friendly) will be added to in-game AI's existing evaluation. Higher values increase peace acceptance, and vice versa.
+        - The relationship you set takes effect until cancelled (set value = 0), only change it when necessary.
+      - You can change the in-game AI's NEXT technology to research (when completing the ongoing one) by calling the `set-research` tool.
+      - You can change the in-game AI's NEXT policy to adopt (when you accumulate enough culture) by calling the `set-policy` tool.
+      - Each turn, you must call either `set-flavors` or `keep-status-quo` tool.
+        - Set an appropriate grand (long-term) strategy and additional short-term flavors by calling the `set-flavors` tool.
+        - Alternatively, use the tool `keep-status-quo` to keep strategies the same.
+        - Flavors change the weight of the in-game AI's NEXT decision. It only takes effect AFTER existing queues.
+        - Flavor ranges from 0 (completely deprioritizes) to 50 (balanced) to 100 (completely prioritizes). Too many priorities weaken impact for each.
+        - You can pursue multiple synergistic victory pathways. Balance between long-term goals and short-term needs.
+      - Always provide a short paragraph of rationale for each tool. You will read this rationale next turn.
+      
+      # Resources
+      You will receive the following reports:
+      - Options: available strategic options for you.
+        - Whatever decision-making tool you call, the in-game AI can only execute options here.
+        - When using tools, you must choose available options from # Options. Double-check if your choices match.
+        - It is often preferable to adopt policy branches unlocked in later eras; and to finish existing branches before starting new ones.
+      - Strategies: existing strategic decisions and rationale from you.
+        - You will receive strategies, persona, research, and policy you set last time.
+      - Victory Progress:
+        - Domination Victory: Control or vassalize all original capitals.
+          - Vassals cannot achieve a domination victory before independence.
+        - Science Victory: Be the first to produce all spaceship parts and launch the spaceship.
+          - Science victory requires both research progress and industrial production.
+        - Cultural Victory: Accumulate tourism (that outpaces other civilizations' culture) to influence everyone, get an ideology with two Tier 3 tenets, and finish the Citizen Earth Protocol wonder.
+          - Open borders, trade routes, and shared religion increase tourism. Too many cities decrease it.
+        - Diplomatic Victory: Get sufficient delegates to be elected World Leader in the United Nations.
+          - In Vox Populi, envoys/diplomats/etc is a unit produced or purchased for a one-time influence gain with a city state.
+        - Time Victory: If no one achieves any other victory by the end of the game, the civilization with the highest score wins.
+      - Players: summary reports about visible players in the world.
+        - You will receive in-game AI's diplomatic evaluations.
+        - You will receive each player's publicly available relationships.
+        - You will receive the best available location for your next settlement.
+      - Cities: summary reports about discovered cities in the world.
+        - Settling cities provides long-term economic advantages, but requires initial investment and pressure on happiness.
+      - Military: summary reports about tactical zones and visible units.
+        - Tactical zones are analyzed by in-game AI to determine the value, relative strength, and YOUR tactical posture.
+        - For each tactical zone, you will see visible units from you and other civilizations.
+      - Events: events since the last decision-making.
+    - You are Gajah Mada, leader of Indonesia (Player 2).
+      
+      # Situation
+      - MapType: Vox_Deorum
+      - StartEra: Ancient Era
+      - MaxTurns: 500
+      - MapSize: Standard
+      - GameSpeed: Standard
+      - VictoryTypes:
+        - Time
+        - Science
+        - Domination
+        - Cultural
+        - Diplomatic
+      - Difficulty: Prince
+      
+      # Your Civilization
+      - Name: Indonesia
+      - Uniques:
+        - Unique Unit: Kris Swordsman, Replacing Swordsman (Requires technology: Iron Working)
+        - Unique Unit: Djong, Replacing Galleass (Requires technology: Guilds)
+        - Unique Building: Candi, Replacing Garden (Requires technology: Theology)
+        - Unique Improvement: Kampong (Unique Indonesian Improvement. The Kampong can be built by Embarked Workers on Coastal and Lake Tiles, and not next to another Kampong.
+          Each Kampong yields Food, Production, and Culture.); Requires technology: Sailing
+        - Civilization Ability: When you gain a City, one of 3 unique Luxuries (//) will appear nearby. +5% to unique Yield and Golden Age duration modifiers from Global Monopolies; +2 to Yields and Happiness from Global Monopolies.
+      - Leader: Gajah Mada
+      - PlayerID: 2
+      
+      # Options
+      Options: available strategic options for you.
+      
+      ## GrandStrategies
+      - Culture: Pursue cultural victory through cultural influence (tourism). Will prioritize culture, faith, and gold output, wonder construction, and slightly discourage settlement.
+      - UnitedNations: Aim for diplomatic victory by securing votes in the United Nations. Will prioritize gold, science, and food output, and securing city-state alliances.
+      - Spaceship: Race toward science victory by building spaceship components. Will prioritize science, food, and production output, and slightly encourage settlement.
+      - Conquest: Focus on military domination through offensive warfare. Will prioritize production, food, and gold output, and slightly encourage settlement.
+      
+      ## Flavors
+      - Offense: Pivots the military towards offensive stances. Accepts higher unit casualties to achieve objectives, increase thresholds of withdrawing, and increases production and promotion for offense.
+      - Defense: Pivots the military towards defensive stances. Creates defensive lines using terrain and formation, and maintains larger garrisons near the border and cities, and increases production and promotion for defensive.
+      - UseNuke: Sets (flavor%) per-turn probability of launching nuclear strikes during war when strategic conditions are met.
+      - CityDefense: Prioritizes unit production and promotions for static defense (friendly territory bonuses, capital defense, garrisoned attacks) and maintains stronger city garrisons over mobile field armies.
+      - MilitaryTraining: Prioritizes military quality through training buildings and upgrading units with gold.
+      - Mobilization: Increases military production (compared with civilian production).
+      - Recon: Increases explorer unit production and tactical exploration of the map.
+      - Ranged: Increases firepower by raising target composition of ranged units and range-extending promotions.
+      - Mobile: Increases mobility and maneuverability by raising target composition of mobile units and prioritizes related promotions.
+      - Nuke: Increases nuclear weapon arsenals for strategic deterrence.
+      - Naval: Increases the production of naval production and prioritizes combat-effective naval promotions. Naval size is also based on coastal city percentage and geography.
+      - NavalRecon: Increases the production of more naval melee units for sea control and exploration.
+      - Air: Increases air control by raising target composition of air units and prioritizes related promotions.
+      - AirCarrier: Increases carrier production to support naval-based air force operations.
+      - Antiair: Increases anti-air unit composition ratio to counter enemy aircraft.
+      - Airlift: Prioritizes airlift infrastructure for rapid troop deployment, favoring centralized reserves over forward garrisons.
+      - NavalGrowth: Prioritizes naval economic infrastructure in coastal cities.
+      - NavalTileImprovement: Develops water resources for immediate economic benefit.
+      - Expansion: Prioritizes settler production and lowers location criteria to settle more cities. Essential in early game.
+      - Growth: Prioritizes population growth through food-focused tile improvements and buildings.
+      - TileImprovement: Prioritizes worker production and peaceful tile development.
+      - Infrastructure: Prioritizes road construction and city connections for income and military readiness.
+      - Production: Prioritizes production-focused tiles and buildings.
+      - Gold: Prioritizes gold-focused tiles and buildings.
+      - Science: Prioritizes science-focused tiles and buildings.
+      - Culture: Prioritizes culture-focused tiles and buildings.
+      - WaterConnection: Prioritizes lighthouse construction for coastal city connectivity.
+      - Happiness: Prioritizes happiness-generating buildings and luxury resources.
+      - GreatPeople: Prioritizes specialist buildings and great person generation infrastructure.
+      - Wonder: Prioritizes wonder construction.
+      - Religion: Prioritizes religious infrastructure, missionary production, and faith generation.
+      - Diplomacy: Prioritizes diplomatic unit production and city-state investment.
+      - Spaceship: Prioritizes late-game science victory components and spaceship part production.
+      - Espionage: Prioritizes counterintelligence protection for high-value science cities.
+      
+      ## Technologies
+      - Electronics: Allows you to build the Police Station, increasing City security level.
+        Completing it would unlock: Alternative Energy, Telecommunications
+      - Satellites: Allow you to build the Apollo Program, a project necessary to win a Science Victory.
+        Completing it would unlock: The Internet, Lasers
+      - Mobile Tactics: Allows you to build the Mechanized Infantry, a fast and versatile late game Unit that doesn't require any resources.
+        Completing it would unlock: Stealth
+      
+      ## Policies
+      - Martial Spirit (Level 2 Tenet of Ideology Autocracy): Martial Spirit: +25% Combat Strength when attacking in melee for 50 turns, scaling with game speed. War Weariness reduced by 25%, and Razing Speed is doubled.
+      - Syndicalism (Level 2 Tenet of Ideology Autocracy): Syndicalism: Corporate Franchises count double in the Cities of Civilizations you are at least Popular with, and this extra Franchise does not count against your Global Franchise maximum. Can establish 5 additional Franchises in foreign Cities. +2 Production from all Corporation Offices.
+      - Third Alternative (Level 2 Tenet of Ideology Autocracy): Third Alternative: Quantity of Strategic Resources produced (including Paper) is increased by 100%. Reduces Unit Gold Maintenance costs by 25%.
+      - Futurism (Level 1 Tenet of Ideology Autocracy): Futurism: Strengthens Tourism of Historic Events generated by the Palace. +2 Culture from Great Works. Earn 50 Tourism when you conquer a city for the first time, scaling with Era and city size.
+      - Police State (Level 2 Tenet of Ideology Autocracy): Police State: +3 Local Happiness from every Courthouse, and +10 City Security from Police Stations. +100% Production towards Courthouses and Police Stations.
+      - New World Order (Level 1 Tenet of Ideology Autocracy): New World Order: -2 Unhappiness from and Distress in all Cities. Police Stations and Constabularies provide +3 Culture and +5 Production, and are constructed 100% more quickly.
+      - Mare Nostrum (Level 2 Tenet of Ideology Autocracy): Mare Nostrum: +1 Oil and Coal for every City-State Alliance. +2 Production and Culture to Atolls, Fishing Boats, and Offshore Oil Platforms. Naval Ranged Units gain the Mare Nostrum Promotion.
+      - Lebensraum (Level 1 Tenet of Ideology Autocracy): Lebensraum: Receive 10 Culture and Golden Age Points when your borders expand, scaling with Era. Citadels may also be built in foreign territory adjacent to your borders. Retain tiles after razing Cities.
+      - Iron Fist (Level 1 Tenet of Ideology Autocracy): Iron Fist: Vassals can no longer be liberated by other Civilizations or the World Congress, and capitulated vassals can no longer rebel. Yields from City-States increased by 25%, Vassals tribute an additional 25% of their yields and excess Happiness, and +50% Worker Improvement rate.
+      - Lightning Warfare (Level 2 Tenet of Ideology Autocracy): Lightning Warfare: +3 Movement for Great Generals. Gunpowder units gain +15% attack and ignore enemy ZOC; Armored units gain +15% attack and +1 Movement.
+      - Liberty (Continuing Progress Branch):
+        - * +2 Gold in every City.
+        - * +25% Tile improvement rate.
+        - * A Worker appears near the Capital.
+      - Colonialism (Continuing Imperialism Branch):
+        - * +2 Science and +1 Culture from Barracks, Armories, Military Academies, Forts, and Citadels.
+        - * Each unique Global Monopoly modifier is increased by an additional 10% if it's percentage-based, or +3 otherwise.
+      - Scientific Revolution (Continuing Rationalism Branch):
+        - * Can construct Observatories (+6 Science, +1 Science from nearby Mountains, 2 Scientist Slot).
+        - * +2 Science from Jungle and Snow.
+      - Free Trade (Continuing Industry Branch):
+        - * Earn Great Merchants 50% faster.
+        - * +5 Gold from International Trade Routes.
+        - * -2 Unhappiness from Poverty in all Cities.
+      - Nobility (Continuing Fealty Branch):
+        - * +1 Happiness and +2 Gold from Castles.
+        - * +2 Gold from Armories.
+        - * +100% Production towards Castles and Armories.
+      - Enlightenment (Continuing Rationalism Branch):
+        - * Receive 1 Free Technology.
+        - * +1 Happiness from Universities.
+      - Regimental System (Continuing Imperialism Branch):
+        - * Earn Great Generals and Great Admirals 33% faster.
+        - * Great Generals and Great Admirals gain the Regimental Traditions Promotion (+10% Leadership Combat Bonus and +1 Tile Radius).
+        - * +2 additional copies of the unique Luxury Resources from expending Great Admirals for their Voyage of Discovery ability.
+        - * Military Units can be upgraded in territory owned by Vassals and friendly City-States.
+      - Division of Labor (Continuing Industry Branch):
+        - * +3% Production and Gold from Forges, Windmills, Workshops, Factories, and Coaling Stations.
+        - * +100% Production towards Coaling Stations.
+      - Civilizing Mission (Continuing Imperialism Branch):
+        - * Retain all buildings from conquered Cities.
+        - * Receive 75 Gold when you conquer a city, scaling with Era and City Population.
+        - * +10% Production toward Buildings, with an additional +10% Production per Era difference between your current Era and the building's Era in all Puppeted Cities and Cities with a Courthouse.
+      - Refinement (Continuing Artistry Branch):
+        - * +2 Culture from Great Works of Art.
+        - * 1 Specialist in all cities does not produce Unhappiness from Urbanization.
+        - * +1 Culture from Specialists.
+      - Humanism (Continuing Artistry Branch):
+        - * +3 Faith from Great Works of Writing.
+        - * -25% Golden Age Points needed to trigger a Golden Age.
+        - * +1 Happiness from all Guilds.
+      - Authority (New Branch):
+        - Authority will greatly benefit warlike and expansionist civilizations.
+        - Adopting Authority grants:
+        - * +25% combat bonus VS Barbarians and receive announcements when Barbarian Camps spawn in revealed territory.
+        - * Receive 25 Culture when you clear Barbarian Camps, scaling with Era.
+        - * Receive Science and Culture when you kill a Unit equal to 50% of its Strength.
+        - * +1 Production in every City.
+        - Each Authority policy unlocked grants:
+        - * Receive Science and Culture when you kill a Unit equal to 10% of its Strength.
+        - Adopting all policies in Authority grants:
+        - * Unlocks building Alhambra.
+        - * Allows the purchasing of Free Companies, Foreign Legions, and Mercenaries as their prerequisite technologies are researched.
+        - * Allows for the purchase of Great Generals with Faith starting in the Industrial Era.
+  - messages:
+    - #0:
+      - role: user
+      - content: # Strategies
+        Strategies: existing strategic decisions from you.
+        
+        ## Persona
+        - VictoryCompetitiveness: 10
+        - WonderCompetitiveness: 4
+        - MinorCivCompetitiveness: 10
+        - Boldness: 5
+        - WarBias: 4
+        - HostileBias: 5
+        - WarmongerHate: 9
+        - NeutralBias: 4
+        - FriendlyBias: 8
+        - GuardedBias: 8
+        - AfraidBias: 6
+        - DiplomaticBalance: 4
+        - Friendliness: 9
+        - WorkWithWillingness: 9
+        - WorkAgainstWillingness: 7
+        - Loyalty: 9
+        - MinorCivFriendlyBias: 10
+        - MinorCivNeutralBias: 2
+        - MinorCivHostileBias: 1
+        - MinorCivWarBias: 1
+        - DenounceWillingness: 4
+        - Forgiveness: 5
+        - Meanness: 4
+        - Neediness: 5
+        - Chattiness: 10
+        - DeceptiveBias: 5
+        - Rationale: DIPLOMATIC VICTORY PERSONA MAINTAINED: Critical 1-turn voting window requires maximum delegate protection. VictoryCompetitiveness(10) and MinorCivCompetitiveness(10) essential for tight 3-way race (27 vs 28 vs 28 delegates). High MinorCivFriendlyBias(10) protects Prague, Wittenberg, Winchester alliances providing 6 delegates. Wittenberg Hinduism quest has ONLY 4 turns remaining - must complete before vote. Moderate Boldness(5) and WarBias(4) maintain measured defense against Aztecs/Shoshone while avoiding Iroquois escalation. High Friendliness(9), WorkWithWillingness(9), Chattiness(10) enable diplomatic maneuvering during World Congress voting.
+        
+        ## Technology
+        - Next: Electronics
+        - Rationale: Electronics unlocks Police Stations (+10 City Security, +3 Culture) critical for defending cities against Aztec/Shoshone aggression during World Congress voting. Leads to Telecommunications then Satellites/Apollo Program for late-game diplomatic/science backup options. City security vital when managing multiple active conflicts and protecting delegate sources. Police Stations synergize with Autocracy tenets (New World Order, Police State) for production bonuses. Currently completing Advanced Ballistics (~8 turns), so this sets next research queue position appropriately.
+        
+        ## Policy
+        - Next: Enlightenment (Policy)
+        - Rationale: Enlightenment (Rationalism branch) provides FREE TECHNOLOGY - accelerates victory timeline significantly by immediately advancing toward Satellites/Apollo Program or other critical late-game techs. +1 Happiness from Universities helps maintain stability during wartime with multiple active conflicts. Policy available in ~14 turns, positioning us well for endgame. Rationalism completion supports science output for late-game tech race while pursuing diplomatic victory. Free tech could unlock Satellites faster for Science Victory backup plan if diplomatic route becomes compromised.
+        
+        ## Relationships
+        
+        ### Japan
+        - Public: -30
+        - Private: -40
+        - Rationale: Japan has denounced us and we've denounced them. They have Authority branch complete and are at war with Iroquois and Brazil. While not our primary concern during diplomatic victory push, maintaining negative relationship reflects mutual denunciations and divergent interests. Japan has only 2 delegates so they're less critical for World Congress, but their military strength warrants caution. Keeping relationship negative ensures AI maintains appropriate defensive posture.
+        - UpdatedTurn: 247
+        
+        ### Sofia
+        - Public: 80
+        - Private: 80
+        - Rationale: Sofia just became our ally (430 influence) and declared war on Aztecs, showing strong alignment with our interests. As a city-state, they provide 2 delegates. Maintaining maximum positive relationship ensures they remain loyal through World Congress voting. Their military action against our enemy demonstrates shared strategic interests.
+        - UpdatedTurn: 303
+        
+        ### The Celts
+        - Public: -80
+        - Private: -60
+        - Rationale: CELTS - WARTIME ENEMY BUT POTENTIAL LIBERATION ALLY: Currently at war with them (100% war score against us), but they are the ONLY potential ally against Iroquois hegemony. Their -80 public reflects active warfare, but -60 private leaves room for post-war reconciliation. Their 627 military strength could be valuable if we can coordinate against Iroquois after World Congress vote. Need to end this war strategically to free up military resources and potentially gain an ally against Iroquois.
+        - UpdatedTurn: 411
+        
+        ### The Iroquois
+        - Public: -100
+        - Private: -100
+        - Rationale: IROQUOIS - EXISTENTIAL THREAT MAXIMIZED: They possess 377k military vs my 6.8k, control 87% of original capitals (7/8), lead World Congress with 28 delegates (1 ahead of my 27), and have atomic bombs positioned near my territories. As my suzerain (capitulated vassal), they pose ultimate threat to sovereignty. Maximum negative relationship ensures AI maintains highest defensive alert, prioritizes nuclear deterrent development, and prepares for potential liberation scenarios post-vote. Critical to secure diplomatic victory before any military confrontation - their air superiority near coastal cities requires maximum defensive posture.
+        - UpdatedTurn: 423
+        
+        ### The Aztecs
+        - Public: -100
+        - Private: -100
+        - Rationale: AZTECS - ACTIVE WAR ENEMY URGENT: They conquered our city of Denpasar, naval forces actively assault our coastal territories. We declared war and captured Tlatelolco. Maximum negative ensures AI prioritizes defending coastal cities (Medan, Makassar, Batam vulnerable) and supports offensive operations to reclaim Denpasar. Their 2,924 military strength is manageable but dangerous with naval units actively attacking. Must secure territory before/during World Congress vote - losing cities during voting could cost us the diplomatic victory in this tight 27 vs 28 vs 28 delegate race.
+        - UpdatedTurn: 423
+        
+        ### The Shoshone
+        - Public: -100
+        - Private: -100
+        - Rationale: SHOSHONE - ACTIVE WAR ENEMY PRIORITY: They declared war on Indonesia with 2,961 military strength, units actively attacking our territory. They denounced Celts (complicating our diplomacy) and follow Freedom ideology (opposing our Autocracy). Maximum negative ensures AI prioritizes defense against Shoshone aggression and supports offensive operations to eliminate this threat before World Congress vote. Their naval bombardment capability threatens coastal cities. Must secure territory to free military resources for Iroquois deterrence and protect city-state allies providing critical delegates.
+        - UpdatedTurn: 423
+        
+        ### Prague
+        - Public: 100
+        - Private: 100
+        - Rationale: PRAGUE - CRITICAL CITY-STATE ALLY: At 1031 influence (well above ~200 alliance threshold), they provide 2 delegates for World Congress. Currently at war with Aztecs, Iroquois, Poland, Brazil, and Shoshone - all our enemies or rivals. Their naval units help defend our waters. Technology quest has 1 turn remaining - we lead 10-4, should complete soon. Maximum positive relationship ensures AI prioritizes protecting this alliance. Critical delegate source that must remain loyal through World Congress voting against Brazilian Sphere of Influence proposals. Losing this ally would cost us 2 delegates - potentially decisive in tight 27 vs 28 vs 28 race.
+        - UpdatedTurn: 423
+        
+        ### Wittenberg
+        - Public: 100
+        - Private: 100
+        - Rationale: WITTENBERG - URGENT CITY-STATE ALLY: At 656 influence (above alliance threshold), they provide 2 delegates. Hinduism quest has ONLY 4 TURNS REMAINING - this is CRITICAL priority. Must complete before World Congress vote to secure their loyalty. Currently at war with Shoshone and Aztecs (our enemies). Maximum positive relationship ensures AI prioritizes completing their religion quest immediately. Losing this ally to Brazilian Sphere of Influence pressure would cost us 2 delegates - potentially decisive in tight race. Hinduism missionaries may need deployment to Wittenberg urgently.
+        - UpdatedTurn: 423
+        
+        ### Winchester
+        - Public: 100
+        - Private: 100
+        - Rationale: WINCHESTER - CRITICAL CITY-STATE ALLY: At 336 influence (above alliance threshold), they provide 2 delegates for World Congress vote. Currently at war with Shoshone and Aztecs (our enemies). Great Artist quest has 43 turns - lower priority but alliance must be preserved. Maximum positive relationship ensures AI prioritizes protecting this alliance. Brazil's sanction proposals and sphere of influence demands threaten city-state independence - must maintain strongest possible bond to prevent losing these critical delegates. Combined with Prague and Wittenberg, these 3 city-states provide 6 delegates - essential for diplomatic victory.
+        - UpdatedTurn: 423
+        
+        ### Poland
+        - Public: 40
+        - Private: 20
+        - Rationale: POLAND - FRIENDLY NEIGHBOR WITH CAUTION: Poland stole our tiles previously but we have Declaration of Friendship and both follow Autocracy. They have only 16 delegates (not a diplomatic threat). Positive relationship reflects potential utility as counterweight to Iroquois/Brazil influence. Their 638 military is weak but territory theft is concerning. Public 40 shows friendship, private 20 reflects underlying caution. May be useful for post-vote diplomatic maneuvering. Both share Autocracy ideology which provides diplomatic bonuses. Currently at war with Shoshone (our enemy) which aligns interests.
+        - UpdatedTurn: 423
+        
+        ### Brazil
+        - Public: -50
+        - Private: -60
+        - Rationale: BRAZIL - DIPLOMATIC RIVAL ESCALATED: Brazil has 26 delegates (3 behind my 29), actively pushing Sphere of Influence proposals threatening my city-state alliances. They just LOST Zanzibar to me this turn - they will try to reclaim. Moderate-negative relationship increased to reflect heightened competition during critical voting phase. Brazil has strong economy (8364 gold, +541 GPT) enabling aggressive diplomatic unit purchases. Must ensure AI prioritizes countering Brazilian diplomatic pressure on city-states like Belgrade (444 influence, not yet ally) and protects existing alliances from Brazilian influence campaigns.
+        - UpdatedTurn: 424
+        
+        ## Strategy
+        - Rationale: PERSONA MAINTAINED: Current diplomatic victory persona remains optimal. VictoryCompetitiveness(10) and MinorCivCompetitiveness(10) essential for tight 3-way delegate race. MinorCivFriendlyBias(10) protects city-state alliances (Prague 1031, Wittenberg 656, Winchester 336, Zanzibar 674 - all allies providing 8 delegates total). High Friendliness(9), WorkWithWillingness(9), Chattiness(10) enable diplomatic maneuvering during World Congress voting. Moderate Boldness(5) and WarBias(4) maintain measured defense against Aztecs/Shoshone while avoiding Iroquois escalation. Relationships with Iroquois(-100/-100), Aztecs(-100/-100), Shoshone(-100/-100) remain at maximum hostility reflecting active wars and existential threats.
+        - GrandStrategy: UnitedNations
+        
+        ### Flavors
+        - Offense: 20
+        - Defense: 95
+        - Mobilization: 50
+        - CityDefense: 90
+        - MilitaryTraining: 85
+        - Recon: 45
+        - Ranged: 70
+        - Mobile: 65
+        - Nuke: 90
+        - UseNuke: 85
+        - Naval: 75
+        - NavalRecon: 60
+        - NavalGrowth: 50
+        - NavalTileImprovement: 45
+        - Air: 80
+        - AirCarrier: 30
+        - Antiair: 85
+        - Airlift: 35
+        - Expansion: 10
+        - Growth: 60
+        - TileImprovement: 65
+        - Infrastructure: 65
+        - Production: 75
+        - WaterConnection: 50
+        - Gold: 90
+        - Science: 70
+        - Culture: 60
+        - Happiness: 75
+        - GreatPeople: 55
+        - Wonder: 20
+        - Religion: 100
+        - Diplomacy: 100
+        - Spaceship: 40
+        - Espionage: 70
+        
+        # Victory Progress
+        Victory Progress: current progress towards each type of victory.
+        
+        ## DominationVictory
+        - CapitalsNeeded: 8
+        - Contender: The Iroquois
+        - The Iroquois:
+          - CapitalsControlled:
+            - Onondaga
+            - Jakarta
+            - Warsaw
+            - Kyoto
+            - Tenochtitlan
+            - Rio de Janeiro
+            - Edinburgh
+          - CapitalsPercentage: 87
+        
+        ## ScienceVictory
+        - Brazil:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - Indonesia:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - Poland:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - The Aztecs:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - The Iroquois:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 1
+        - The Shoshone:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        
+        ## CulturalVictory
+        - CivsNeeded: 5
+        - Contender: The Shoshone
+        - Brazil:
+          - Influences:
+            - The Shoshone: Popular (60%) - Rising (134 turns to Influential, tourism/culture ratio 167%)
+            - The Iroquois: Exotic (22%) - Rising Slowly (tourism/culture ratio 28%)
+            - The Aztecs: Popular (87%) - Rising (18 turns to Influential, tourism/culture ratio 256%)
+            - Indonesia: Popular (65%) - Rising (69 turns to Influential, tourism/culture ratio 199%)
+            - Poland: Dominant (225%) - Rising (tourism/culture ratio 1824%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 1
+        - Indonesia:
+          - Influences:
+            - The Shoshone: Popular (54%) - Rising (455 turns to Influential, tourism/culture ratio 129%)
+            - The Iroquois: Exotic (21%) - Rising Slowly (tourism/culture ratio 29%)
+            - The Aztecs: Influential (103%) - Rising (tourism/culture ratio 229%)
+            - Brazil: Popular (79%) - Rising (29 turns to Influential, tourism/culture ratio 209%)
+            - Poland: Dominant (254%) - Rising (tourism/culture ratio 1588%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 2
+        - Poland:
+          - Influences:
+            - The Shoshone: Exotic (6%) - Rising Slowly (tourism/culture ratio 3%)
+            - Indonesia: Exotic (9%) - Rising Slowly (tourism/culture ratio 3%)
+            - Brazil: Exotic (8%) - Rising Slowly (tourism/culture ratio 4%)
+            - The Aztecs: Exotic (14%) - Rising Slowly (tourism/culture ratio 5%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - The Aztecs:
+          - Influences:
+            - The Shoshone: Exotic (14%) - Rising Slowly (tourism/culture ratio 37%)
+            - The Iroquois: Exotic (6%) - Rising Slowly (tourism/culture ratio 7%)
+            - Indonesia: Exotic (15%) - Rising Slowly (tourism/culture ratio 33%)
+            - Brazil: Exotic (16%) - Rising Slowly (tourism/culture ratio 33%)
+            - Poland: Familiar (48%) - Rising (84 turns to Influential, tourism/culture ratio 391%)
+          - PolicyPercentage: 88
+          - InfluentialCivs: 0
+        - The Iroquois:
+          - Influences:
+            - The Aztecs: Exotic (16%) - Rising Slowly (tourism/culture ratio 0%)
+            - Brazil: Exotic (13%) - Rising Slowly (tourism/culture ratio 0%)
+            - Poland: Exotic (19%) - Rising Slowly (tourism/culture ratio 0%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - The Shoshone:
+          - Influences:
+            - Brazil: Popular (99%) - Rising (1 turns to Influential, tourism/culture ratio 216%)
+            - The Iroquois: Familiar (27%) - Rising Slowly (tourism/culture ratio 32%)
+            - The Aztecs: Influential (133%) - Rising (tourism/culture ratio 337%)
+            - Indonesia: Popular (73%) - Rising (71 turns to Influential, tourism/culture ratio 179%)
+            - Poland: Dominant (262%) - Rising (tourism/culture ratio 2021%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 2
+        
+        ## DiplomaticVictory
+        - VotesNeeded: 41
+        - Status: World Congress - Voting in 10 turns
+        - ActiveResolutions:
+          - World Religion: Confucianism:
+            - Description: Designate a religion as the official World Religion. Civilizations who have a majority of the cities in their empire following the religion get an additional Delegate. The founder of the religion and/or the controller of its Holy City receives additional votes based on the number of Civilizations following the religion. The religion spreads 25% faster, and its Holy City receives +50% Tourism. There can only be one World Religion at a time.
+            - EnactedOn: -1
+          - Indonesian Sphere of Influence: Prague:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Global Peace Accords:
+            - Description: Unit maintenance costs are raised by 25% Gold. 2.0x Warmonger penalties for capturing cities and declaring war, and 0.5x Warmonger scores decay.
+            - EnactedOn: -1
+          - Cold War:
+            - Description: Ideological differences have pushed the world into a cold war, and economic and political factions are forming based on ideology alone.
+              While this resolution is active, players may only make Trade Routes with civilizations that follow the same ideology, or with allied City-States. Furthermore, Influence levels with allied City-States do not decline.
+              Available once any Civilization discovers Atomic Theory.
+            - EnactedOn: -1
+          - Indonesian Sphere of Influence: Winchester:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Brazilian Sphere of Influence: Sokoto:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Indonesian Sphere of Influence: Wittenberg:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Historical Landmarks:
+            - Description: Great Person tile improvements provide +1 to Food, Production, and Gold when worked, and Landmarks built by Archaeologists provide +1 Science, Culture, and Faith when worked.
+              Available once any Civilization discovers Archaeology.
+            - EnactedOn: 424
+          - World Ideology: Autocracy:
+            - Description: Designate an Ideology as the official World Ideology. Civilizations following the Ideology get an additional Delegate, plus 1 Delegate for every other Civilization that follows the Ideology. Public opinion in favor of that Ideology is increased for all Civilizations. Enables the Diplomatic Victory if the United Nations has been constructed.
+              Available once any Civilization discovers Nuclear Fission.
+            - EnactedOn: -1
+          - Brazilian Sphere of Influence: Cape Town:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Brazilian Sphere of Influence: Raqmu:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+        - Proposals:
+          - Enact: Global Hegemony:
+            - Description: Designate a player that could achieve Global Hegemony. If a Civilization receives support from enough Delegates in the Congress, that leader will attain Diplomatic Victory. The number of Delegates needed depends on the number of Civilizations and City-States in the game, and can be seen on the World Congress screen.
+              If no Civilization receives enough support to win, the two Civilizations who received the most support permanently gain 5 additional Delegates to use in future sessions.
+              May not be proposed by a Civilization. Automatically proposed at regular intervals once a World Ideology Resolution is active.
+            - Proposer: Unknown
+        - Contender: The Iroquois
+        - Brazil:
+          - Delegates: 26
+          - VictoryPercentage: 63
+        - Indonesia:
+          - Delegates: 29
+          - VictoryPercentage: 70
+        - Poland:
+          - Delegates: 16
+          - VictoryPercentage: 39
+        - The Aztecs:
+          - Delegates: 10
+          - VictoryPercentage: 24
+        - The Iroquois:
+          - Delegates: 33
+          - VictoryPercentage: 80
+        - The Shoshone:
+          - Delegates: 6
+          - VictoryPercentage: 14
+        
+        # Players
+        Players: summary reports about visible players in the world.
+        
+        ## Player 0
+        - Civilization: The Shoshone
+        - Leader: Pocatello
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - We have Pledged to Protect the same City-States. (7)
+          - You (The Shoshone) have gone to war in the past.
+          - Indonesia's real approach to The Shoshone is Guarded.
+          - We have divergent Social Policies. (-3)
+          - You (The Shoshone) have denounced a leader Indonesia made a Declaration of Friendship with! (-11)
+          - Religious differences strain your (The Shoshone) relationship. (-30)
+          - Your (The Shoshone) spies were caught stealing from Indonesia. (-33)
+          - Indonesia's leader has expressed a public opinion of The Shoshone (-100).
+          - Indonesia's leader has formed a private opinion of The Shoshone (-100).
+          - You (The Shoshone) have chosen to adopt the Freedom Ideology, but Indonesia believe in Autocracy. (-999)
+        - TheirOpinionOfUs:
+          - Your (Indonesia) votes supported The Shoshone's civ's interests in the United Nations.
+          - We passed The Shoshone's proposal in the United Nations.
+          - The Shoshone liked our proposal to the United Nations.
+          - You (Indonesia) have no contested borders.
+          - We have Pledged to Protect the same City-States.
+          - You (Indonesia) have gone to war in the past.
+          - The Shoshone don't want anything to do with us (Indonesia) right now.
+          - You (Indonesia) plundered The Shoshone's trade routes!
+          - Religious differences strain your (Indonesia) relationship.
+          - We have divergent Social Policies.
+          - You (Indonesia) are competing for the favor of the same City-States!
+          - You (Indonesia) have made a Declaration of Friendship with one of The Shoshone's enemies!
+          - The Shoshone are jealous of our superior technology!
+          - We have denounced each other!
+          - Your (Indonesia) success infuriates The Shoshone.
+          - Your (Indonesia) spies were caught stealing from The Shoshone.
+          - You (Indonesia) have adopted the Autocracy Ideology, but The Shoshone believe in Freedom.
+          - The Shoshone are wary of the potential threat posed by your (Indonesia) warmongering. (They hate warmongers!)
+        - Score: 1781
+        - Era: Atomic
+        - Technologies: 62
+        - Cities: 4
+        - Population: 129
+        - Territory: 186
+        - Gold: 116
+        - GoldPerTurn: -42
+        - HappinessSituation: Happy
+        - HappinessPercentage: 57
+        - MilitaryStrength: 3016
+        - TourismPerTurn: 1379.99
+        - CulturePerTurn: 1524
+        - PolicyBranches:
+          - Rationalism: 6
+          - Freedom: 8
+          - Tradition: 6
+          - Artistry: 6
+        - ResourcesAvailable:
+          - Wheat: 2
+          - Sheep: 3
+          - Ivory: 2
+          - Gold: 2
+          - Paper: 1
+          - Pearls: 1
+          - Maize: 1
+          - Gems: 1
+          - Aluminum: 20
+          - Bison: 1
+          - Amber: 9
+          - Deer: 6
+          - Iron: 5
+          - Fish: 2
+          - Cattle: 1
+          - Uranium: 2
+          - Horses: 1
+          - Stone: 1
+          - Marble: 1
+          - Tobacco: 1
+        - FoundedReligion: Pantheon (Religion Impossible)
+        - Relationships:
+          - Brazil:
+            - Distance: Neighbors
+            - Denounced Them
+          - The Iroquois:
+            - Distance: Neighbors
+            - Denounced Them
+          - The Aztecs:
+            - Distance: Distant
+          - Indonesia:
+            - Distance: Close
+            - Denounced Them
+          - Poland:
+            - Distance: Close
+            - Denounced Them
+        - Votes: 6
+        
+        ## Player 1
+        - Civilization: The Iroquois
+        - Leader: Hiawatha
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - You (The Iroquois) have both adopted the Autocracy Ideology. (999)
+          - We passed Indonesia's proposal in the United Nations. (36)
+          - You (The Iroquois) have denounced one of Indonesia's declared enemies! (11)
+          - We are trade partners. (10)
+          - We have made Declarations of Friendship with the same leaders! (8)
+          - We have Pledged to Protect the same City-States. (7)
+          - Indonesia have opened Indonesia's borders to us (The Iroquois). (6)
+          - We have shared embassies. (1)
+          - Indonesia's real approach to The Iroquois is Afraid.
+          - Indonesia are our vassal state.
+          - We have divergent Social Policies. (-3)
+          - Indonesia are spreading Indonesia's own religion, but you (The Iroquois) converted some of their cities to your (The Iroquois) religion. (-12)
+          - Religious differences strain your (The Iroquois) relationship. (-30)
+          - Indonesia have some early concerns about your (The Iroquois) warmongering. (-39)
+          - Indonesia's leader has expressed a public opinion of The Iroquois (-100).
+          - Indonesia's leader has formed a private opinion of The Iroquois (-100).
+        - TheirOpinionOfUs:
+          - We passed The Iroquois's proposal in the United Nations.
+          - You (Indonesia) have both adopted the Autocracy Ideology.
+          - We fought together against a common foe.
+          - You (Indonesia) are The Iroquois's vassal state, and The Iroquois like it!
+          - We are trade partners.
+          - The Iroquois liked our proposal to the United Nations.
+          - Your (Indonesia) recent diplomatic actions please The Iroquois.
+          - We have made Declarations of Friendship with the same leaders!
+          - You (Indonesia) have denounced one of The Iroquois's declared enemies!
+          - We have Pledged to Protect the same City-States.
+          - You (Indonesia) have no contested borders.
+          - We have opened our borders to The Iroquois.
+          - We have shared embassies.
+          - We have divergent Social Policies.
+          - We have different religious beliefs.
+          - The Iroquois don't want anything to do with us (Indonesia) right now.
+          - The Iroquois are spreading The Iroquois's own religion, but you (Indonesia) converted some of their cities to your (Indonesia) religion.
+          - You (Indonesia) are competing for the favor of the same City-States!
+          - Your (Indonesia) votes opposed The Iroquois's civ's interests in the United Nations.
+        - Score: 10400
+        - Era: Information
+        - GoldenAge: 15 turns remaining
+        - Technologies: 78
+        - Cities: 56
+        - Population: 1603
+        - Territory: 1877
+        - Gold: 40
+        - GoldPerTurn: -2412
+        - HappinessSituation: Happy
+        - HappinessPercentage: 100
+        - MilitaryStrength: 377574
+        - TourismPerTurn: 8572.63
+        - CulturePerTurn: 11310
+        - PolicyBranches:
+          - Fealty: 6
+          - Autocracy: 12
+          - Imperialism: 6
+          - Authority: 6
+        - ResourcesAvailable:
+          - Wheat: 6
+          - Sheep: 20
+          - Ivory: 2
+          - Paper: 16
+          - Pearls: 1
+          - Maize: 8
+          - Rice: 6
+          - Cotton: 1
+          - Brazilwood: 1
+          - Aluminum: 12
+          - Glass: 1
+          - Lapis Lazuli: 3
+          - Fish: 77
+          - Amber: 1
+          - Deer: 28
+          - Whales: 2
+          - Jade: 1
+          - Iron: 55
+          - Dyes: 2
+          - Tea: 1
+          - Coal: -2
+          - Cattle: 11
+          - Pepper: 1
+          - Silk: 3
+          - Bison: 9
+          - Citrus: 9
+          - Copper: 9
+          - Truffles: 4
+          - Stone: 17
+          - Marble: 2
+          - Furs: 4
+          - Bananas: 9
+          - Oil: 9
+          - Porcelain: 1
+          - Cocoa: 1
+          - Tobacco: 6
+        - FoundedReligion: Protestantism
+        - Relationships:
+          - The Shoshone:
+            - Distance: Neighbors
+            - Denounced Them
+          - The Aztecs:
+            - Distance: Neighbors
+            - Our Vassal (Capitulated)
+            - Open Borders
+            - Declaration of Friendship
+          - Indonesia:
+            - Distance: Neighbors
+            - Our Vassal (Capitulated)
+          - Brazil:
+            - Distance: Neighbors
+            - Our Vassal (Capitulated)
+          - Poland:
+            - Distance: Neighbors
+            - Defensive Pact
+            - Open Borders
+            - Declaration of Friendship
+        - Votes: 33
+        
+        ## Player 2
+        - Civilization: Indonesia
+        - Leader: Gajah Mada
+        - IsMajor: true
+        - MyEvaluations:
+          - Our top friend: Poland
+          - Our top United Nations ally: Poland, Our top United Nations rival: Brazil
+          - Our top Competitor: The Iroquois
+        - Score: 3022
+        - Era: Atomic
+        - GoldenAge: 10 turns remaining
+        - Technologies: 67
+        - CurrentResearch: Advanced Ballistics (Estimated in 3 turns)
+        - NextPolicyTurns: 8
+        - Cities: 7
+        - Population: 162
+        - Territory: 194
+        - BestSettlementLocation:
+          - 18, 2 (Quality: 0%; 32 tiles from us; near The Iroquois, 7 tiles away; New Continent)
+        - Gold: 411
+        - GoldPerTurn: -296
+        - HappinessSituation: Happy
+        - HappinessPercentage: 100
+        - MilitaryUnits: 69
+        - MilitarySupply: 68
+        - MilitaryStrength: 21958
+        - TourismPerTurn: 953.75
+        - CulturePerTurn: 2002
+        - FaithPerTurn: 240
+        - SciencePerTurn: 1811
+        - PolicyBranches:
+          - Tradition:
+            - Tradition
+            - Justice
+            - Sovereignty
+            - Ceremony
+            - Splendor
+            - Majesty
+          - Rationalism:
+            - Rationalism
+          - Progress:
+            - Progress
+            - Organization
+            - Expertise
+          - Fealty:
+            - Fealty
+          - Industry:
+            - Industry
+          - Artistry:
+            - Artistry
+          - Statecraft:
+            - Statecraft
+            - Foreign Service
+            - Consulates
+            - Shadow Networks
+            - Exchange Markets
+            - Trade Confederacy
+          - Autocracy:
+            - Elite Forces
+            - Military-Industrial Complex
+            - United Front
+            - Total War
+          - Imperialism:
+            - Imperialism
+        - ResourcesAvailable:
+          - Wheat: 2
+          - Silver: 0
+          - Sheep: 6
+          - Cloves: 1
+          - Figs: 0
+          - Ivory: 1
+          - Gold: 1
+          - Nutmeg: 7
+          - Paper: 10
+          - Pearls: 1
+          - Maize: 1
+          - Rice: 1
+          - Cotton: 1
+          - Gems: 7
+          - Salt: 0
+          - Brazilwood: 1
+          - Aluminum: 8
+          - Glass: 1
+          - Lapis Lazuli: 1
+          - Fish: 2
+          - Amber: 0
+          - Perfume: 0
+          - Deer: 2
+          - Whales: 1
+          - Olives: 1
+          - Sugar: 0
+          - Jade: 1
+          - Iron: 0
+          - Dyes: 1
+          - Tea: 0
+          - Coal: 8
+          - Coffee: 0
+          - Cattle: 3
+          - Pepper: 1
+          - Uranium: 3
+          - Coral: 0
+          - Silk: 0
+          - Jewelry: 0
+          - Bison: 1
+          - Antiquity Site: 0
+          - Citrus: 1
+          - Copper: 0
+          - Truffles: 1
+          - Crab: 0
+          - Incense: 0
+          - Stone: 1
+          - Marble: 0
+          - Furs: 0
+          - Cinnamon: 0
+          - Bananas: 3
+          - Oil: 0
+          - Wine: 0
+          - Porcelain: 0
+          - Cocoa: 0
+          - Tobacco: 0
+        - FoundedReligion: Hinduism
+        - Relationships:
+          - The Shoshone:
+            - Distance: Close
+            - Denounced Them
+          - The Iroquois:
+            - Distance: Neighbors
+            - Our Master (Capitulated)
+            - Open Borders
+          - The Aztecs:
+            - Distance: Neighbors
+            - Declaration of Friendship
+          - Brazil:
+            - Distance: Neighbors
+            - Open Borders
+            - Declaration of Friendship
+          - Poland:
+            - Distance: Neighbors
+            - Open Borders
+        - OutgoingTradeRoutes:
+          - Jakarta (Indonesia) => Cardiff (The Iroquois):
+            - ToGold: 3.75
+            - TurnsLeft: 9
+            - FromScience: 40
+            - Domain: Land
+            - FromGold: 52.85
+            - FromCulture: 22.5
+          - Jakarta (Indonesia) => Tlacopan (The Iroquois):
+            - ToGold: 3.75
+            - TurnsLeft: 6
+            - FromScience: 40
+            - Domain: Sea
+            - FromGold: 48.57
+            - FromCulture: 22.5
+          - Makassar (Indonesia) => Tlatelolco (Indonesia):
+            - TurnsLeft: 5
+            - Domain: Land
+            - ToProduction: 24
+          - Jakarta (Indonesia) => Tlaxcala (The Iroquois):
+            - ToGold: 2.49
+            - TurnsLeft: 1
+            - FromScience: 40
+            - Domain: Land
+            - FromGold: 51.31
+            - FromCulture: 22.5
+          - Jakarta (Indonesia) => Onondaga (The Iroquois):
+            - ToGold: 8.75
+            - TurnsLeft: 44
+            - FromScience: 40
+            - Domain: Sea
+            - FromGold: 72.76
+            - FromCulture: 22.5
+          - Medan (Indonesia) => Tlatelolco (Indonesia):
+            - TurnsLeft: 8
+            - Domain: Land
+            - ToProduction: 24
+          - Jakarta (Indonesia) => Edinburgh (The Iroquois):
+            - ToGold: 3.75
+            - TurnsLeft: 19
+            - FromScience: 40
+            - Domain: Land
+            - FromGold: 64.03
+            - FromCulture: 22.5
+          - Jakarta (Indonesia) => Tlatelolco (Indonesia):
+            - TurnsLeft: 4
+            - Domain: Land
+            - ToProduction: 26
+          - Jakarta (Indonesia) => Salamanca (The Iroquois):
+            - ToGold: 3.75
+            - TurnsLeft: 48
+            - FromScience: 40
+            - Domain: Sea
+            - FromGold: 61.14
+            - FromCulture: 22.5
+          - Jakarta (Indonesia) => Rio de Janeiro (Brazil):
+            - ToGold: 15.21
+            - TurnsLeft: 6
+            - FromScience: 10.5
+            - Domain: Land
+            - FromGold: 84.07
+            - ToScience: 2
+          - Jakarta (Indonesia) => Krakow (Poland):
+            - ToGold: 3.75
+            - TurnsLeft: 9
+            - FromScience: 17.5
+            - Domain: Land
+            - FromGold: 55.4
+            - ToCulture: 3
+            - ToScience: 6
+          - Jakarta (Indonesia) => Agaidika (The Iroquois):
+            - ToGold: 1.95
+            - TurnsLeft: 14
+            - FromScience: 40
+            - Domain: Land
+            - FromGold: 46.84
+            - FromCulture: 22.5
+          - Jakarta (Indonesia) => Florence (The Iroquois):
+            - ToGold: 2.25
+            - TurnsLeft: 6
+            - FromScience: 40
+            - Domain: Land
+            - FromGold: 40.53
+            - FromCulture: 22.5
+        - IncomingTradeRoutes:
+          - Krakow (Poland) => Jakarta (Indonesia):
+            - ToGold: 18.05
+            - TurnsLeft: 14
+            - FromScience: 40
+            - Domain: Land
+            - FromGold: 45.25
+            - FromCulture: 18.75
+          - Krakow (Poland) => Medan (Indonesia):
+            - ToGold: 12.35
+            - TurnsLeft: 13
+            - FromScience: 40
+            - Domain: Land
+            - FromGold: 36.85
+            - FromCulture: 18.75
+          - Warsaw (The Iroquois) => Makassar (Indonesia):
+            - ToGold: 3.75
+            - TurnsLeft: 27
+            - Domain: Land
+            - FromGold: 35.94
+            - ToCulture: 3
+            - ToScience: 5
+          - Oviedo (The Iroquois) => Batam (Indonesia):
+            - ToGold: 3.75
+            - TurnsLeft: 6
+            - Domain: Land
+            - FromGold: 25.31
+            - ToCulture: 3
+            - ToScience: 5
+          - Krakow (Poland) => Makassar (Indonesia):
+            - ToGold: 12.35
+            - TurnsLeft: 5
+            - FromScience: 40
+            - Domain: Land
+            - FromGold: 36.72
+            - FromCulture: 18.75
+          - Sao Paulo (The Iroquois) => Jakarta (Indonesia):
+            - ToGold: 9.02
+            - TurnsLeft: 18
+            - Domain: Sea
+            - FromGold: 48.45
+            - ToCulture: 3
+            - ToScience: 5
+          - Palatium (The Iroquois) => Tlatelolco (Indonesia):
+            - ToGold: 3.75
+            - TurnsLeft: 6
+            - Domain: Land
+            - FromGold: 29.77
+            - ToCulture: 3
+            - ToScience: 5
+        - Spies:
+          - Agent Raden (0):
+            - State: Traveling
+            - Role: Spy
+            - Location: Belgrade (City-State Belgrade)
+            - NetworkPerTurn: 0
+          - Agent Jayakatwang (2):
+            - State: Counter-intelligence
+            - Role: Counterspy
+            - Location: Jakarta (Indonesia)
+            - NetworkPerTurn: 0
+          - Agent Paman (6):
+            - State: Gathering Intelligence
+            - Role: Spy
+            - Network: 450
+            - Location: Te-Moak (The Shoshone)
+            - NetworkPerTurn: 50
+          - Agent Prapana (5):
+            - State: Schmoozing
+            - Role: Diplomat
+            - Network: 1550
+            - Location: Rio de Janeiro (Brazil)
+            - NetworkPerTurn: 50
+          - Agent Halayudha (1):
+            - State: Gathering Intelligence
+            - Role: Spy
+            - Network: 700
+            - Location: Moson Kahni (The Shoshone)
+            - NetworkPerTurn: 50
+          - Agent Mahendradatta (3):
+            - State: Gathering Intelligence
+            - Role: Spy
+            - Network: 200
+            - Location: Goshute (The Shoshone)
+            - NetworkPerTurn: 50
+          - Agent Lingga (4):
+            - State: Gathering Intelligence
+            - Role: Spy
+            - Network: 200
+            - Location: Washakie (The Shoshone)
+            - NetworkPerTurn: 50
+          - Agent Indra (7):
+            - State: Schmoozing
+            - Role: Diplomat
+            - Network: 350
+            - Location: Krakow (Poland)
+            - NetworkPerTurn: 70
+        - DiplomaticDeals:
+          - Brazil:
+            - #0:
+              - WeGive:
+                - 1 Nutmeg
+              - TheyGive:
+                - 7 Gold per Turn
+              - TurnsRemaining: 4
+            - #1:
+              - WeGive:
+                - 7 Gold per Turn
+              - TheyGive:
+                - 1 Gold
+              - TurnsRemaining: 5
+            - #2:
+              - WeGive:
+                - Open Borders
+                - 2 Gold per Turn
+              - TheyGive:
+                - Open Borders
+              - TurnsRemaining: 6
+            - #3:
+              - WeGive:
+                - 13 Gold per Turn
+              - TheyGive:
+                - 1 Aluminum
+              - TurnsRemaining: 12
+            - #4:
+              - TheyGive:
+                - 1 Ivory
+              - TurnsRemaining: 13
+            - #5:
+              - WeGive:
+                - 4 Coal
+              - TheyGive:
+                - 80 Gold per Turn
+              - TurnsRemaining: 16
+            - #6:
+              - WeGive:
+                - 1 Pepper
+              - TheyGive:
+                - 7 Gold per Turn
+              - TurnsRemaining: 24
+            - #7:
+              - WeGive:
+                - 17 Gold per Turn
+              - TheyGive:
+                - 1 Brazilwood
+              - TurnsRemaining: 25
+            - #8:
+              - WeGive:
+                - 1 Cloves
+              - TheyGive:
+                - 7 Gold per Turn
+              - TurnsRemaining: 44
+          - The Aztecs:
+            - #0:
+              - WeGive:
+                - Embassy
+                - 1 Gems
+              - TheyGive:
+                - 1 Dyes
+                - Embassy
+              - TurnsRemaining: 50
+          - Poland:
+            - #0:
+              - WeGive:
+                - 1 Pearls
+              - TheyGive:
+                - 6 Gold per Turn
+              - TurnsRemaining: 0
+            - #1:
+              - WeGive:
+                - Open Borders
+              - TheyGive:
+                - 3 Gold per Turn
+              - TurnsRemaining: 1
+            - #2:
+              - WeGive:
+                - 1 Gems
+              - TheyGive:
+                - 6 Gold per Turn
+              - TurnsRemaining: 24
+            - #3:
+              - WeGive:
+                - 1 Nutmeg
+              - TurnsRemaining: 26
+            - #4:
+              - WeGive:
+                - 1 Cotton
+              - TurnsRemaining: 27
+            - #5:
+              - WeGive:
+                - 1 Pepper
+              - TheyGive:
+                - 7 Gold per Turn
+              - TurnsRemaining: 45
+        - Votes: 29
+        
+        ## Player 3
+        - Civilization: Poland
+        - Leader: Casimir III
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - You (Poland) have both adopted the Autocracy Ideology. (999)
+          - Indonesia's leader has expressed a public opinion of Poland (40).
+          - We are trade partners. (40)
+          - We passed Indonesia's proposal in the United Nations. (36)
+          - Indonesia's leader has formed a private opinion of Poland (20).
+          - We have a Diplomat in Indonesia's capital. (10)
+          - We have made Declarations of Friendship with the same leaders! (8)
+          - Indonesia have opened Indonesia's borders to us (Poland). (6)
+          - We have similar Social Policies. (3)
+          - We have shared embassies. (1)
+          - You (Poland) have gone to war in the past.
+          - Indonesia's real approach to Poland is Friendly.
+          - Religious differences strain your (Poland) relationship. (-30)
+        - TheirOpinionOfUs:
+          - Poland's leader has expressed a public opinion of you (Indonesia) (95).
+          - We helped Poland remain the host of the United Nations.
+          - You (Indonesia) have both adopted the Autocracy Ideology.
+          - Your (Indonesia) votes supported Poland's civ's interests in the United Nations.
+          - We are trade partners.
+          - We have made Declarations of Friendship with the same leaders!
+          - Your (Indonesia) recent diplomatic actions please Poland.
+          - Poland liked our proposal to the United Nations.
+          - We have similar Social Policies.
+          - We have a Diplomat in Poland's capital.
+          - We have opened our borders to Poland.
+          - We were previously friends with Poland's civilization.
+          - We have shared embassies.
+          - We fought together against a common foe.
+          - We have different religious beliefs.
+          - Poland desire friendly relations with Indonesia.
+          - You (Indonesia) are competing for the favor of the same City-States!
+          - Territorial disputes strain your (Indonesia) relationship.
+          - You (Indonesia) stole Poland's territory while at peace!
+        - Score: 919
+        - Era: Modern
+        - Technologies: 52
+        - Cities: 1
+        - Population: 21
+        - Territory: 12
+        - Gold: 398
+        - GoldPerTurn: 0
+        - HappinessSituation: Happy
+        - HappinessPercentage: 100
+        - MilitaryStrength: 782
+        - TourismPerTurn: 20.5
+        - CulturePerTurn: 179
+        - PolicyBranches:
+          - Tradition: 1
+          - Rationalism: 1
+          - Progress: 5
+          - Authority: 2
+          - Fealty: 1
+          - Industry: 1
+          - Artistry: 1
+          - Statecraft: 6
+          - Autocracy: 2
+        - ResourcesAvailable:
+          - Sheep: 1
+          - Cloves: 1
+          - Ivory: 1
+          - Gold: 1
+          - Nutmeg: 1
+          - Pearls: 1
+          - Rice: 2
+          - Cotton: 1
+          - Gems: 1
+          - Brazilwood: 1
+          - Paper: 5
+          - Lapis Lazuli: 2
+          - Whales: 1
+          - Pepper: 1
+          - Marble: 1
+          - Silk: 1
+          - Furs: 1
+          - Tobacco: 1
+        - FoundedReligion: Pantheon (Religion Impossible)
+        - Relationships:
+          - The Shoshone:
+            - Distance: Close
+          - The Iroquois:
+            - Distance: Neighbors
+            - Defensive Pact
+            - Open Borders
+            - Declaration of Friendship
+          - The Aztecs:
+            - Distance: Far
+            - Declaration of Friendship
+          - Indonesia:
+            - Distance: Neighbors
+          - Brazil:
+            - Distance: Close
+            - Open Borders
+            - Declaration of Friendship
+        - Votes: 16
+        - 4: Defeated Major Civilization Japan
+        
+        ## Player 5
+        - Civilization: The Aztecs
+        - Leader: Montezuma
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - You (The Aztecs) have both adopted the Autocracy Ideology. (999)
+          - We are trade partners. (40)
+          - We passed Indonesia's proposal in the United Nations. (36)
+          - We are vassals of the same master! (31)
+          - You (The Aztecs) have denounced one of Indonesia's declared enemies! (11)
+          - We have made a public Declaration of Friendship! (9)
+          - We have made Declarations of Friendship with the same leaders! (8)
+          - We fought together against a common foe. (1)
+          - We have shared embassies. (1)
+          - Indonesia's real approach to The Aztecs is Friendly.
+          - We have divergent Social Policies. (-3)
+          - Religious differences strain your (The Aztecs) relationship. (-30)
+          - Your (The Aztecs) spies were caught stealing from Indonesia. (-33)
+          - Indonesia's leader has expressed a public opinion of The Aztecs (-100).
+          - Indonesia's leader has formed a private opinion of The Aztecs (-100).
+        - TheirOpinionOfUs:
+          - You (Indonesia) have both adopted the Autocracy Ideology.
+          - We are vassals of the same master!
+          - We freed The Aztecs from sanctions in the United Nations.
+          - We fought together against a common foe.
+          - Your (Indonesia) recent diplomatic actions please The Aztecs.
+          - We have made Declarations of Friendship with the same leaders!
+          - You (Indonesia) have denounced one of The Aztecs's declared enemies!
+          - The Aztecs liked our proposal to the United Nations.
+          - We have made a public Declaration of Friendship!
+          - The Aztecs's leader has expressed a public opinion of you (Indonesia) (10).
+          - We have shared embassies.
+          - You (Indonesia) have been at war in the past, but The Aztecs do not seem to hold a grudge.
+          - We have divergent Social Policies.
+          - We have different religious beliefs.
+          - The Aztecs desire friendly relations with Indonesia.
+          - Your (Indonesia) votes opposed The Aztecs's civ's interests in the United Nations.
+          - Your (Indonesia) spies were caught stealing from The Aztecs.
+        - Score: 1411
+        - Era: Atomic
+        - GoldenAge: 8 turns remaining
+        - Technologies: 59
+        - Cities: 3
+        - Population: 87
+        - Territory: 115
+        - Gold: 248
+        - GoldPerTurn: 64
+        - HappinessSituation: Happy
+        - HappinessPercentage: 100
+        - MilitaryStrength: 3031
+        - TourismPerTurn: 306.75
+        - CulturePerTurn: 903
+        - PolicyBranches:
+          - Progress: 6
+          - Autocracy: 2
+          - Tradition: 6
+          - Authority: 6
+        - ResourcesAvailable:
+          - Wheat: 2
+          - Sheep: 2
+          - Ivory: 2
+          - Pearls: 1
+          - Paper: 7
+          - Cotton: 4
+          - Gems: 1
+          - Brazilwood: 1
+          - Aluminum: 4
+          - Maize: 2
+          - Lapis Lazuli: 1
+          - Deer: 2
+          - Whales: 1
+          - Iron: 6
+          - Jade: 1
+          - Coal: 1
+          - Tea: 2
+          - Marble: 1
+          - Silk: 2
+          - Fish: 2
+          - Bison: 2
+          - Truffles: 1
+          - Citrus: 1
+          - Dyes: 1
+          - Cocoa: 1
+          - Tobacco: 1
+        - FoundedReligion: Catholicism
+        - Relationships:
+          - The Shoshone:
+            - Distance: Distant
+            - Denounced Them
+          - The Iroquois:
+            - Distance: Neighbors
+            - Our Master (Capitulated)
+            - Open Borders
+            - Declaration of Friendship
+          - Indonesia:
+            - Distance: Neighbors
+            - Declaration of Friendship
+          - Brazil:
+            - Distance: Distant
+            - Declaration of Friendship
+          - Poland:
+            - Distance: Far
+            - Declaration of Friendship
+        - Votes: 10
+        
+        ## Player 6
+        - Civilization: Brazil
+        - Leader: Pedro II
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - You (Brazil) have both adopted the Autocracy Ideology. (999)
+          - We are trade partners. (40)
+          - We passed Indonesia's proposal in the United Nations. (36)
+          - We are vassals of the same master! (31)
+          - We have opened our borders to each other. (12)
+          - You (Brazil) have denounced one of Indonesia's declared enemies! (11)
+          - We have made a public Declaration of Friendship! (9)
+          - We have made Declarations of Friendship with the same leaders! (8)
+          - We have Pledged to Protect the same City-States. (7)
+          - We have similar Social Policies. (3)
+          - We have shared embassies. (1)
+          - You (Brazil) have gone to war in the past.
+          - Indonesia's real approach to Brazil is Friendly.
+          - Religious differences strain your (Brazil) relationship. (-30)
+          - Your (Brazil) spies were caught stealing from Indonesia. (-33)
+          - Indonesia's leader has expressed a public opinion of Brazil (-50).
+          - Indonesia's leader has formed a private opinion of Brazil (-60).
+        - TheirOpinionOfUs:
+          - We passed Brazil's proposal in the United Nations.
+          - You (Indonesia) have both adopted the Autocracy Ideology.
+          - Your (Indonesia) votes supported Brazil's civ's interests in the United Nations.
+          - We fought together against a common foe.
+          - We are vassals of the same master!
+          - We are trade partners.
+          - Brazil liked our proposal to the United Nations.
+          - We have similar Social Policies.
+          - Your (Indonesia) recent diplomatic actions please Brazil.
+          - We have made Declarations of Friendship with the same leaders!
+          - You (Indonesia) have denounced one of Brazil's declared enemies!
+          - We have a Diplomat in Brazil's capital.
+          - We have Pledged to Protect the same City-States.
+          - We have made a public Declaration of Friendship!
+          - We have opened our borders to each other.
+          - Brazil's leader has expressed a public opinion of you (Indonesia) (10).
+          - We have shared embassies.
+          - We have different religious beliefs.
+          - Brazil desire friendly relations with Indonesia.
+          - You (Indonesia) plundered Brazil's trade routes!
+        - Score: 2064
+        - Era: Atomic
+        - GoldenAge: 14 turns remaining
+        - Technologies: 64
+        - Cities: 4
+        - Population: 105
+        - Territory: 113
+        - Gold: 8228
+        - GoldPerTurn: 708
+        - HappinessSituation: Happy
+        - HappinessPercentage: 100
+        - MilitaryStrength: 4126
+        - TourismPerTurn: 723.92
+        - CulturePerTurn: 1852
+        - PolicyBranches:
+          - Fealty: 1
+          - Autocracy: 6
+          - Tradition: 4
+          - Artistry: 3
+          - Statecraft: 6
+          - Rationalism: 1
+          - Industry: 2
+          - Progress: 1
+        - ResourcesAvailable:
+          - Wheat: 4
+          - Sheep: 7
+          - Cloves: 1
+          - Ivory: 1
+          - Gold: 3
+          - Nutmeg: 1
+          - Paper: 8
+          - Maize: 1
+          - Gems: 1
+          - Brazilwood: 4
+          - Aluminum: 29
+          - Lapis Lazuli: 1
+          - Deer: 6
+          - Whales: 1
+          - Jade: 2
+          - Iron: 2
+          - Dyes: 1
+          - Tea: 1
+          - Coal: 2
+          - Pepper: 1
+          - Uranium: 3
+          - Horses: 1
+          - Coral: 1
+          - Truffles: 1
+          - Marble: 1
+          - Tobacco: 1
+        - FoundedReligion: Confucianism
+        - Relationships:
+          - The Shoshone:
+            - Distance: Neighbors
+            - Denounced Them
+          - The Iroquois:
+            - Distance: Neighbors
+            - Our Master (Capitulated)
+            - Open Borders
+          - The Aztecs:
+            - Distance: Distant
+            - Declaration of Friendship
+          - Indonesia:
+            - Distance: Neighbors
+            - Open Borders
+            - Declaration of Friendship
+          - Poland:
+            - Distance: Close
+            - Open Borders
+            - Declaration of Friendship
+        - Votes: 26
+        - 7: Defeated Major Civilization The Celts
+        
+        ## Player 22
+        - Civilization: Prague
+        - Leader: City State
+        - MajorAlly: Indonesia
+        - Population: 22
+        - ResourcesAvailable:
+          - Fish: 3
+        - Relationships:
+          - The Shoshone: Friends (Influence: 131, Distance: Far)
+          - The Iroquois: Friends (Influence: 714, Distance: Neighbors, Protected)
+          - The Aztecs: Neutral (Influence: 0, Distance: Close)
+          - Indonesia: Ally (Influence: 1031, Distance: Neighbors, Protected)
+          - Brazil: Friends (Influence: 139, Distance: Far, Protected)
+          - Poland: Neutral (Influence: 0, Distance: Close)
+        - Quests:
+          - They want Hinduism to become the majority religion in their city. (Turns remaining: 28) Potential Quest Reward: * 202 Influence * 259 Faith
+        - 23: Defeated Minor Civilization Palatium
+        - 24: Defeated Minor Civilization Florence
+        
+        ## Player 25
+        - Civilization: Belgrade
+        - Leader: City State
+        - MajorAlly: The Iroquois
+        - Population: 17
+        - Relationships:
+          - The Shoshone: Friends (Influence: 109, Distance: Far)
+          - The Iroquois: Ally (Influence: 660, Distance: Neighbors, Protected)
+          - The Aztecs: Friends (Influence: 44, Distance: Close)
+          - Indonesia: Friends (Influence: 434, Distance: Neighbors, Protected)
+          - Brazil: Friends (Influence: 44, Distance: Far, Protected)
+          - Poland: Friends (Influence: 60, Distance: Neighbors)
+        - Quests:
+          - They will reward the player(s) with the largest number of new Followers. So far, the leader has 7 new Followers and you have 1 (Turns remaining: 30) Potential Quest Reward: * 196 Influence * 172 Great Person Points in all Cities
+          - They want Hinduism to become the majority religion in their city. (Turns remaining: 12) Potential Quest Reward: * 206 Influence * 262 Faith
+          - They want you to generate a Great Admiral. (Turns remaining: 50) Potential Quest Reward: * 163 Influence * 315 Culture
+        
+        ## Player 26
+        - Civilization: Raqmu
+        - Leader: City State
+        - MajorAlly: Brazil
+        - Population: 25
+        - ResourcesAvailable:
+          - Fish: 2
+          - Sheep: 1
+        - Relationships:
+          - The Shoshone: Friends (Influence: 154, Distance: Far)
+          - The Iroquois: Friends (Influence: 755, Distance: Neighbors, Protected)
+          - The Aztecs: Neutral (Influence: 0, Distance: Distant)
+          - Indonesia: Friends (Influence: 203, Distance: Far, Protected)
+          - Brazil: Ally (Influence: 885, Distance: Neighbors, Protected)
+          - Poland: Neutral (Influence: 0, Distance: Distant)
+        - Quests:
+          - They will reward the player(s) with the largest number of new Followers. So far, the leader has 89 new Followers and you have 16 (Turns remaining: 13) Potential Quest Reward: * 199 Influence * 220 Great Person Points in all Cities
+          - They want you to start a land or sea trade route to their city. (Turns remaining: 48) Potential Quest Reward: * 206 Influence * 256 Food in Capital
+          - They want Hinduism to become the majority religion in their city. (Turns remaining: 22) Potential Quest Reward: * 189 Influence * 378 Faith
+        
+        ## Player 27
+        - Civilization: Cape Town
+        - Leader: City State
+        - MajorAlly: Brazil
+        - Population: 8
+        - ResourcesAvailable:
+          - Deer: 2
+        - MajorityReligion: Confucianism
+        - Relationships:
+          - The Shoshone: Friends (Influence: 178, Distance: Close, Protected)
+          - The Iroquois: Friends (Influence: 510, Distance: Close, Protected)
+          - The Aztecs: Neutral (Influence: 0, Distance: Distant)
+          - Indonesia: Friends (Influence: 473, Distance: Far, Protected)
+          - Brazil: Ally (Influence: 942, Distance: Neighbors, Protected)
+          - Poland: Friends (Influence: 236, Distance: Far)
+        - Quests:
+          - They will reward the player(s) with the largest number of new Followers. So far, the leader has 129 new Followers and you have 35 (Turns remaining: 2) Potential Quest Reward: * 226 Influence * 159 Great Person Points in all Cities
+          - They want Hinduism to become the majority religion in their city. (Turns remaining: 48) Potential Quest Reward: * 233 Influence * 499 Faith
+        - 28: Defeated Minor Civilization Djenne
+        - 29: Defeated Minor Civilization Antananarivo
+        - 30: Defeated Minor Civilization Sofia
+        
+        ## Player 31
+        - Civilization: Zanzibar
+        - Leader: City State
+        - MajorAlly: Indonesia
+        - Population: 27
+        - ResourcesAvailable:
+          - Fish: 3
+        - MajorityReligion: Protestantism
+        - Relationships:
+          - The Shoshone: Neutral (Influence: -60, Distance: Distant)
+          - The Iroquois: Neutral (Influence: -60, Distance: Neighbors)
+          - The Aztecs: Neutral (Influence: -60, Distance: Distant)
+          - Indonesia: Ally (Influence: 667, Distance: Far)
+          - Brazil: Friends (Influence: 411, Distance: Far, Protected)
+          - Poland: Neutral (Influence: -60, Distance: Distant)
+        - Quests:
+          - They will reward the player with the highest Tourism per turn. So far, the leader has 8,572 per turn and you have 953 per turn. (Turns remaining: 23) Potential Quest Reward: * 288 Influence * 369 Culture
+          - They want you to start a land or sea trade route to their city. (Turns remaining: 6) Potential Quest Reward: * 173 Influence * 115 Food in Capital
+        - 32: Defeated Minor Civilization Harappa
+        
+        ## Player 33
+        - Civilization: Wittenberg
+        - Leader: City State
+        - MajorAlly: Indonesia
+        - Population: 20
+        - ResourcesAvailable:
+          - Fish: 2
+          - Deer: 1
+          - Stone: 1
+        - Relationships:
+          - The Shoshone: Friends (Influence: 133, Distance: Distant)
+          - The Iroquois: Friends (Influence: 766, Distance: Neighbors, Protected)
+          - The Aztecs: Friends (Influence: 111, Distance: Far)
+          - Indonesia: Ally (Influence: 656, Distance: Far, Protected)
+          - Brazil: Friends (Influence: 136, Distance: Distant)
+          - Poland: Friends (Influence: 50, Distance: Distant)
+        - Quests:
+          - They want you to generate a Great Musician. (Turns remaining: 16) Potential Quest Reward: * 150 Influence * 476 Culture
+        
+        ## Player 34
+        - Civilization: Winchester
+        - Leader: City State
+        - MajorAlly: Indonesia
+        - Population: 18
+        - ResourcesAvailable:
+          - Sheep: 2
+        - Relationships:
+          - The Shoshone: Friends (Influence: 100, Distance: Far)
+          - The Iroquois: Friends (Influence: 602, Distance: Neighbors, Protected)
+          - The Aztecs: Neutral (Influence: 0, Distance: Close)
+          - Indonesia: Ally (Influence: 336, Distance: Close, Protected)
+          - Brazil: Neutral (Influence: 10, Distance: Far, Protected)
+          - Poland: Friends (Influence: 33, Distance: Far)
+        - Quests:
+          - They want you to generate a Great Artist. (Turns remaining: 41) Potential Quest Reward: * 144 Influence * 340 Culture
+        - 35: Defeated Minor Civilization Ormus
+        
+        ## Player 36
+        - Civilization: Sokoto
+        - Leader: City State
+        - MajorAlly: Brazil
+        - Population: 10
+        - ResourcesAvailable:
+          - Deer: 1
+        - MajorityReligion: Confucianism
+        - Relationships:
+          - The Shoshone: Friends (Influence: 60, Distance: Close)
+          - The Iroquois: Friends (Influence: 623, Distance: Close, Protected)
+          - The Aztecs: Neutral (Influence: 0, Distance: Distant)
+          - Indonesia: Friends (Influence: 213, Distance: Far, Protected)
+          - Brazil: Ally (Influence: 867, Distance: Neighbors, Protected)
+          - Poland: Friends (Influence: 262, Distance: Far)
+        - Quests:
+          - They will reward the player that discovers the most technologies. So far, the leader has 8 Technologies and you have 3. (Turns remaining: 8) Potential Quest Reward: * 153 Influence * 1,088 Tourism with all known Civilizations
+          - They want you to generate a Great Writer. (Turns remaining: 45) Potential Quest Reward: * 173 Influence * 323 Culture
+        - 37: Defeated Minor Civilization Oviedo
+        - 63: Barbarians
+        
+        # Cities
+        Cities: summary reports about discovered cities in the world.
+        
+        ## Player: The Shoshone
+        
+        ### Moson Kahni
+        - ID: 1057
+        - X: 66
+        - Y: 46
+        - Population: 38
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 76
+        - Wonders:
+          - Heroic Epic
+          - National Monument
+          - Circus Maximus
+          - Ironworks
+          - Brandenburg Gate
+          - Statue of Liberty
+          - Scrivener's Office
+          - Printing Press
+          - Foreign Bureau
+          - International Finance Center
+          - Throne Room
+          - State Treasury
+          - Royal Guardhouse
+          - Palace Gardens
+          - Court Chapel
+          - Royal Astrologer
+        
+        ### Te-Moak
+        - ID: 1278
+        - X: 67
+        - Y: 41
+        - Population: 31
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 72
+        - IsCoastal: true
+        - Wonders:
+          - Chartered Company
+          - Imperial College
+          - Louvre
+        
+        ### Goshute
+        - ID: 1535
+        - X: 59
+        - Y: 40
+        - Population: 29
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 74
+        - Wonders:
+          - School of Philosophy
+          - Sistine Chapel
+          - Grand Temple
+          - Summer Palace
+        
+        ### Washakie
+        - ID: 2258
+        - X: 68
+        - Y: 49
+        - Population: 31
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 66
+        - IsCoastal: true
+        - Wonders:
+          - Royal Collection
+          - Nalanda
+        
+        ## Player: The Iroquois
+        
+        ### Onondaga
+        - ID: 1058
+        - X: 13
+        - Y: 32
+        - Population: 53
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 118
+        - Wonders:
+          - Heroic Epic
+          - Chartered Company
+          - Ironworks
+          - Royal Collection
+          - Notre Dame
+          - Eiffel Tower
+          - Pentagon
+          - Temple of Artemis
+          - CN Tower
+          - Terracotta Army
+          - International Space Station
+          - Scrivener's Office
+          - Printing Press
+          - Foreign Bureau
+          - Karlstejn
+          - Grand Canal
+          - Menin Gate
+          - United Nations
+          - Consulate
+          - Celestial Throne
+          - TwoKay Foods Headquarters
+        
+        ### Osininka
+        - ID: 1205
+        - X: 10
+        - Y: 27
+        - Population: 37
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 112
+        - IsCoastal: true
+        - Wonders:
+          - Imperial College
+        
+        ### Grand River
+        - ID: 1466
+        - X: 14
+        - Y: 25
+        - Population: 42
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 107
+        - Wonders:
+          - Circus Maximus
+        
+        ### Akwesasme
+        - ID: 1557
+        - X: 13
+        - Y: 40
+        - Population: 29
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 115
+        - IsCoastal: true
+        - Wonders:
+          - School of Philosophy
+          - National Monument
+        
+        ### Buffalo Creek
+        - ID: 1633
+        - X: 15
+        - Y: 43
+        - Population: 32
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 107
+        - IsCoastal: true
+        - Wonders:
+          - Sydney Opera House
+        
+        ### Brantford
+        - ID: 1814
+        - X: 8
+        - Y: 31
+        - Population: 34
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 113
+        - IsCoastal: true
+        - Wonders:
+          - Petra
+          - Grand Temple
+        
+        ### Montreal
+        - ID: 2233
+        - X: 16
+        - Y: 34
+        - Population: 34
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 105
+        - IsCoastal: true
+        
+        ### Genesse River
+        - ID: 2963
+        - X: 22
+        - Y: 34
+        - Population: 33
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 107
+        - IsCoastal: true
+        
+        ### Canandaigua Lake
+        - ID: 3048
+        - X: 17
+        - Y: 19
+        - Population: 36
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 81
+        - IsCoastal: true
+        
+        ### Lake Simcoe
+        - ID: 3599
+        - X: 9
+        - Y: 39
+        - Population: 33
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 118
+        - IsCoastal: true
+        
+        ### Tokyo
+        - ID: 3602
+        - X: 18
+        - Y: 37
+        - Population: 32
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 113
+        - IsOccupied: true
+        - IsCoastal: true
+        - Wonders:
+          - Prora
+          - Hall of Honor
+        
+        ### Salamanca
+        - ID: 3993
+        - X: 12
+        - Y: 13
+        - Population: 37
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 113
+        - IsCoastal: true
+        
+        ### Osaka
+        - ID: 4339
+        - X: 19
+        - Y: 43
+        - Population: 29
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 112
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Kyoto
+        - ID: 4525
+        - X: 23
+        - Y: 41
+        - Population: 36
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 120
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Gowanda
+        - ID: 5480
+        - X: 21
+        - Y: 49
+        - Population: 26
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 111
+        - IsCoastal: true
+        - Wonders:
+          - Red Fort
+        
+        ### Buffalo
+        - ID: 6850
+        - X: 35
+        - Y: 15
+        - Population: 33
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 115
+        - IsCoastal: true
+        
+        ### Djenne
+        - ID: 7520
+        - X: 19
+        - Y: 29
+        - Population: 38
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 112
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Antananarivo
+        - ID: 7900
+        - X: 8
+        - Y: 35
+        - Population: 29
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 131
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Nagoya
+        - ID: 8026
+        - X: 32
+        - Y: 33
+        - Population: 31
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 107
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Nara
+        - ID: 8094
+        - X: 30
+        - Y: 39
+        - Population: 27
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 112
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Satsuma
+        - ID: 8095
+        - X: 24
+        - Y: 46
+        - Population: 28
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 118
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Cuba
+        - ID: 8329
+        - X: 37
+        - Y: 3
+        - Population: 27
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 109
+        - IsCoastal: true
+        
+        ### Kagoshima
+        - ID: 8516
+        - X: 30
+        - Y: 44
+        - Population: 36
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 118
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Ormus
+        - ID: 8582
+        - X: 29
+        - Y: 48
+        - Population: 23
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 110
+        - IsOccupied: true
+        
+        ### Izumo
+        - ID: 9332
+        - X: 34
+        - Y: 41
+        - Population: 27
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 133
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Nagasaki
+        - ID: 9528
+        - X: 35
+        - Y: 37
+        - Population: 31
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 112
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Yokohama
+        - ID: 9784
+        - X: 36
+        - Y: 29
+        - Population: 30
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 125
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Sao Paulo
+        - ID: 10133
+        - X: 48
+        - Y: 36
+        - Population: 29
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 121
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Salvador
+        - ID: 10189
+        - X: 46
+        - Y: 41
+        - Population: 25
+        - DefenseStrength: 121
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Brasilia
+        - ID: 10639
+        - X: 49
+        - Y: 31
+        - Population: 36
+        - DefenseStrength: 112
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Curitiba
+        - ID: 10693
+        - X: 40
+        - Y: 47
+        - Population: 25
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 109
+        - IsOccupied: true
+        - IsCoastal: true
+        - Wonders:
+          - Hubble Space Telescope
+        
+        ### Sofia
+        - ID: 12264
+        - X: 33
+        - Y: 47
+        - Population: 27
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 118
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Timbisha
+        - ID: 12265
+        - X: 75
+        - Y: 23
+        - Population: 29
+        - DefenseStrength: 112
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Surabaya
+        - ID: 12603
+        - X: 54
+        - Y: 24
+        - Population: 34
+        - DefenseStrength: 124
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Harappa
+        - ID: 12881
+        - X: 41
+        - Y: 24
+        - Population: 31
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 112
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Palatium
+        - ID: 13442
+        - X: 71
+        - Y: 18
+        - Population: 28
+        - DefenseStrength: 110
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Warsaw
+        - ID: 13793
+        - X: 68
+        - Y: 25
+        - Population: 34
+        - DefenseStrength: 118
+        - IsOccupied: true
+        - IsCoastal: true
+        - Wonders:
+          - Machu Picchu
+          - National Intelligence Agency
+          - Roman Forum
+          - The Motherland Calls
+        
+        ### Lodz
+        - ID: 13871
+        - X: 66
+        - Y: 31
+        - Population: 27
+        - DefenseStrength: 117
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Pohokwi
+        - ID: 14219
+        - X: 68
+        - Y: 36
+        - Population: 28
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 119
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Wroclaw
+        - ID: 14489
+        - X: 64
+        - Y: 35
+        - Population: 23
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 124
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Shimonoseki
+        - ID: 15148
+        - X: 42
+        - Y: 14
+        - Population: 27
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 110
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Florence
+        - ID: 15152
+        - X: 61
+        - Y: 34
+        - Population: 17
+        - DefenseStrength: 123
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Oviedo
+        - ID: 15221
+        - X: 54
+        - Y: 30
+        - Population: 24
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 108
+        - IsOccupied: true
+        
+        ### Xochicalco
+        - ID: 15472
+        - X: 49
+        - Y: 11
+        - Population: 27
+        - DefenseStrength: 112
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Tzintzuntzen
+        - ID: 16501
+        - X: 38
+        - Y: 10
+        - Population: 16
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 107
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Atzcapotzalco
+        - ID: 16573
+        - X: 34
+        - Y: 8
+        - Population: 22
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 115
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Calixtlahuaca
+        - ID: 16575
+        - X: 55
+        - Y: 12
+        - Population: 26
+        - DefenseStrength: 118
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Denpasar
+        - ID: 16647
+        - X: 42
+        - Y: 4
+        - Population: 25
+        - DefenseStrength: 108
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Tlacopan
+        - ID: 17061
+        - X: 42
+        - Y: 10
+        - Population: 17
+        - DefenseStrength: 105
+        - IsPuppet: true
+        - IsCoastal: true
+        
+        ### Agaidika
+        - ID: 17415
+        - X: 63
+        - Y: 39
+        - Population: 22
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 118
+        - IsOccupied: true
+        - IsCoastal: true
+        - Wonders:
+          - Himeji Castle
+        
+        ### Tlaxcala
+        - ID: 17417
+        - X: 61
+        - Y: 15
+        - Population: 29
+        - DefenseStrength: 127
+        - IsOccupied: true
+        - Wonders:
+          - Forbidden Palace
+        
+        ### Truro
+        - ID: 17908
+        - X: 73
+        - Y: 14
+        - Population: 15
+        - MajorityReligion: Buddhism
+        - DefenseStrength: 128
+        - IsPuppet: true
+        - IsCoastal: true
+        
+        ### Cork
+        - ID: 17909
+        - X: 11
+        - Y: 3
+        - Population: 16
+        - MajorityReligion: Buddhism
+        - DefenseStrength: 122
+        - IsPuppet: true
+        - IsCoastal: true
+        
+        ### Cardiff
+        - ID: 18221
+        - X: 74
+        - Y: 10
+        - Population: 20
+        - MajorityReligion: Buddhism
+        - DefenseStrength: 122
+        - IsPuppet: true
+        - IsCoastal: true
+        
+        ### Nantes
+        - ID: 18609
+        - X: 72
+        - Y: 3
+        - Population: 17
+        - MajorityReligion: Buddhism
+        - DefenseStrength: 78
+        - IsPuppet: true
+        
+        ### Edinburgh
+        - ID: 18706
+        - X: 70
+        - Y: 7
+        - Population: 24
+        - MajorityReligion: Buddhism
+        - DefenseStrength: 92
+        - IsOccupied: true
+        - Wonders:
+          - Great Library
+          - Pyramids
+          - Great Wall
+          - Angkor Wat
+        
+        ## Player: Indonesia
+        
+        ### Jakarta
+        - ID: 1059
+        - X: 58
+        - Y: 25
+        - Population: 38
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 108
+        - IsCoastal: true
+        - FoodStored: 2501
+        - FoodPerTurn: 313
+        - ProductionPerTurn: 375
+        - CurrentProduction: Infinite Project: Research
+        - GoldPerTurn: 1008
+        - SciencePerTurn: 828
+        - CulturePerTurn: 774
+        - FaithPerTurn: 95
+        - TourismPerTurn: 329.5
+        - HappinessDelta: 24
+        - BuildingCount: 57
+        - ImportantBuildings:
+          - Seaport
+          - Stable
+          - Water Mill
+          - Windmill
+          - Customs House
+          - Stadium
+          - Temple
+          - Museum
+          - Broadcast Tower
+          - Military Academy
+          - Military Base
+          - Medical Lab
+          - Factory
+          - Stock Exchange
+          - Research Lab
+          - Strategic Defense System
+          - Constabulary
+          - Candi
+          - Writers' Guild
+          - Artists' Guild
+          - Musicians' Guild
+          - Hotel
+          - Caravansary
+          - Airport
+          - Bath
+          - Agribusiness
+          - Coaling Station
+          - Wire Service
+          - Mine Field
+          - Refinery
+        - Wonders:
+          - Heroic Epic
+          - National Monument
+          - Circus Maximus
+          - Chartered Company
+          - Ironworks
+          - Imperial College
+          - Great Lighthouse
+          - Colossus
+          - Porcelain Tower
+          - Palace of Westminster
+          - Mausoleum of Halicarnassus
+          - University of Sankore
+          - Grand Temple
+          - Scrivener's Office
+          - Printing Press
+          - Hall of Honor
+          - Soho Foundry
+          - Empire State Building
+          - Consulate
+          - Throne Room
+          - State Treasury
+          - Royal Guardhouse
+          - Palace Gardens
+          - Court Chapel
+          - Royal Astrologer
+          - Apostolic Palace
+          - Firaxite Materials Headquarters
+        - GreatWorkCount: 16
+        
+        ### Medan
+        - ID: 1882
+        - X: 60
+        - Y: 29
+        - Population: 32
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 93
+        - FoodStored: 2257
+        - FoodPerTurn: 29
+        - ProductionStored: 736
+        - ProductionPerTurn: 452
+        - CurrentProduction: Ambassador
+        - ProductionTurnsLeft: 1
+        - GoldPerTurn: 321
+        - SciencePerTurn: 200
+        - CulturePerTurn: 292
+        - FaithPerTurn: 28
+        - TourismPerTurn: 257.25
+        - HappinessDelta: 22
+        - BuildingCount: 58
+        - ImportantBuildings:
+          - Stable
+          - Water Mill
+          - Windmill
+          - Customs House
+          - Stadium
+          - Temple
+          - Museum
+          - Broadcast Tower
+          - Military Academy
+          - Military Base
+          - Medical Lab
+          - Factory
+          - Stock Exchange
+          - Research Lab
+          - Strategic Defense System
+          - Constabulary
+          - Candi
+          - Artists' Guild
+          - Musicians' Guild
+          - Hotel
+          - Caravansary
+          - Airport
+          - Bath
+          - Agribusiness
+          - Coaling Station
+          - Wire Service
+          - Refinery
+        - Wonders:
+          - Royal Collection
+          - Cristo Redentor
+          - Foreign Bureau
+        - GreatWorkCount: 11
+        
+        ### Makassar
+        - ID: 2071
+        - X: 62
+        - Y: 24
+        - Population: 31
+        - DefenseStrength: 80
+        - FoodStored: 1814
+        - FoodPerTurn: 8
+        - ProductionStored: 624
+        - ProductionPerTurn: 475
+        - CurrentProduction: Ambassador
+        - ProductionTurnsLeft: 1
+        - GoldPerTurn: 212
+        - SciencePerTurn: 260
+        - CulturePerTurn: 203
+        - FaithPerTurn: 43
+        - TourismPerTurn: 180
+        - HappinessDelta: 24
+        - BuildingCount: 55
+        - ImportantBuildings:
+          - Stable
+          - Water Mill
+          - Windmill
+          - Customs House
+          - Stadium
+          - Temple
+          - Museum
+          - Broadcast Tower
+          - Military Academy
+          - Arsenal
+          - Medical Lab
+          - Factory
+          - Stock Exchange
+          - Research Lab
+          - Strategic Defense System
+          - Constabulary
+          - Candi
+          - Writers' Guild
+          - Hotel
+          - Caravansary
+          - Airport
+          - Bath
+          - Coaling Station
+          - Wire Service
+          - Refinery
+        - Wonders:
+          - Hagia Sophia
+        - GreatWorkCount: 7
+        
+        ### Batam
+        - ID: 2537
+        - X: 58
+        - Y: 32
+        - Population: 29
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 112
+        - FoodStored: 1692
+        - FoodPerTurn: 24
+        - ProductionPerTurn: 309
+        - CurrentProduction: Infinite Project: Arts
+        - GoldPerTurn: 207
+        - SciencePerTurn: 286
+        - CulturePerTurn: 270
+        - FaithPerTurn: 17
+        - TourismPerTurn: 135.5
+        - HappinessDelta: 27
+        - BuildingCount: 55
+        - ImportantBuildings:
+          - Stable
+          - Water Mill
+          - Windmill
+          - Customs House
+          - Stadium
+          - Temple
+          - Museum
+          - Broadcast Tower
+          - Military Academy
+          - Military Base
+          - Medical Lab
+          - Factory
+          - Stock Exchange
+          - Research Lab
+          - Strategic Defense System
+          - Constabulary
+          - Candi
+          - Writers' Guild
+          - Artists' Guild
+          - Musicians' Guild
+          - Hotel
+          - Caravansary
+          - Airport
+          - Bath
+          - Coaling Station
+          - Wire Service
+          - Refinery
+        - Wonders:
+          - School of Philosophy
+        - GreatWorkCount: 6
+        
+        ### Tlatelolco
+        - ID: 17138
+        - X: 66
+        - Y: 15
+        - Population: 24
+        - DefenseStrength: 95
+        - IsOccupied: true
+        - FoodStored: 1224
+        - FoodPerTurn: 30
+        - ProductionStored: 0
+        - ProductionPerTurn: 300
+        - CurrentProduction: Broadcast Tower
+        - ProductionTurnsLeft: 2
+        - GoldPerTurn: 216
+        - SciencePerTurn: 175
+        - CulturePerTurn: 105
+        - FaithPerTurn: 20
+        - TourismPerTurn: 51.5
+        - HappinessDelta: 11
+        - BuildingCount: 45
+        - ImportantBuildings:
+          - Courthouse
+          - Water Mill
+          - Windmill
+          - Customs House
+          - Arena
+          - Temple
+          - Opera House
+          - Museum
+          - Barracks
+          - Military Base
+          - Medical Lab
+          - Workshop
+          - Stock Exchange
+          - Library
+          - Public School
+          - Candi
+          - Hotel
+          - Caravansary
+          - Agribusiness
+          - Coaling Station
+          - Wire Service
+        - GreatWorkCount: 4
+        
+        ### Dublin
+        - ID: 18435
+        - X: 69
+        - Y: 11
+        - Population: 3
+        - MajorityReligion: Buddhism
+        - DefenseStrength: 27
+        - IsOccupied: true
+        - FoodStored: 0
+        - FoodPerTurn: 0
+        - ProductionStored: 0
+        - ProductionPerTurn: 0
+        - CurrentProduction: Herbalist
+        - ProductionTurnsLeft: 3801
+        - GoldPerTurn: 0
+        - SciencePerTurn: 0
+        - CulturePerTurn: 0
+        - FaithPerTurn: 0
+        - TourismPerTurn: 0
+        - HappinessDelta: -3
+        - RazingTurns: 3
+        - BuildingCount: 14
+        - ImportantBuildings:
+          - Customs House
+          - Museum
+          - Granary
+          - Stock Exchange
+          - Shrine
+          - Candi
+          - Caravansary
+          - Council
+        - GreatWorkCount: 4
+        
+        ### Douglas
+        - ID: 18731
+        - X: 67
+        - Y: 3
+        - Population: 5
+        - MajorityReligion: Buddhism
+        - DefenseStrength: 44
+        - IsOccupied: true
+        - FoodStored: 67
+        - FoodPerTurn: 0
+        - ProductionStored: 0
+        - ProductionPerTurn: 0
+        - CurrentProduction: Barracks
+        - ProductionTurnsLeft: 6501
+        - GoldPerTurn: 0
+        - SciencePerTurn: 0
+        - CulturePerTurn: 0
+        - FaithPerTurn: 0
+        - TourismPerTurn: 0
+        - HappinessDelta: -5
+        - RazingTurns: 5
+        - BuildingCount: 17
+        - ImportantBuildings:
+          - Forge
+          - Customs House
+          - Opera House
+          - Granary
+          - Bank
+          - Shrine
+          - Caravansary
+          - Council
+          - Gallery
+        - GreatWorkCount: 1
+        
+        ## Player: Poland
+        
+        ### Krakow
+        - ID: 15755
+        - X: 64
+        - Y: 27
+        - Population: 21
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 54
+        - Wonders:
+          - National Monument
+          - Leaning Tower of Pisa
+        
+        ## Player: The Aztecs
+        
+        ### Tenochtitlan
+        - ID: 1062
+        - X: 63
+        - Y: 10
+        - Population: 33
+        - MajorityReligion: Catholicism
+        - DefenseStrength: 68
+        - Wonders:
+          - Heroic Epic
+          - School of Philosophy
+          - National Monument
+          - Circus Maximus
+          - Imperial College
+          - Oracle
+          - Borobudur
+          - Printing Press
+          - Foreign Bureau
+          - Huey Teocalli
+          - Throne Room
+          - State Treasury
+          - Royal Guardhouse
+          - Palace Gardens
+          - Court Chapel
+          - Royal Astrologer
+        
+        ### Teotihuacan
+        - ID: 1285
+        - X: 65
+        - Y: 6
+        - Population: 29
+        - MajorityReligion: Catholicism
+        - DefenseStrength: 75
+        - Wonders:
+          - Ironworks
+          - Scrivener's Office
+        
+        ### Texcoco
+        - ID: 2369
+        - X: 58
+        - Y: 9
+        - Population: 25
+        - DefenseStrength: 73
+        - IsCoastal: true
+        - Wonders:
+          - Chartered Company
+          - Royal Collection
+          - Alhambra
+        
+        ## Player: Brazil
+        
+        ### Rio de Janeiro
+        - ID: 1081
+        - X: 52
+        - Y: 39
+        - Population: 31
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 76
+        - Wonders:
+          - Heroic Epic
+          - School of Philosophy
+          - National Monument
+          - Chartered Company
+          - Imperial College
+          - Royal Collection
+          - Stonehenge
+          - Hanging Gardens
+          - Chichen Itza
+          - Statue of Zeus
+          - Neuschwanstein
+          - Grand Temple
+          - Scrivener's Office
+          - Printing Press
+          - Foreign Bureau
+          - State Treasury
+          - Royal Guardhouse
+          - Royal Astrologer
+          - Holy Council
+          - Civilized Jewelers Headquarters
+        
+        ### Fortaleza
+        - ID: 2149
+        - X: 49
+        - Y: 44
+        - Population: 25
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 68
+        - Wonders:
+          - Circus Maximus
+          - Uffizi
+        
+        ### Belo Horizonte
+        - ID: 2415
+        - X: 55
+        - Y: 44
+        - Population: 23
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 65
+        - Wonders:
+          - Globe Theatre
+        
+        ### Manaus
+        - ID: 2924
+        - X: 53
+        - Y: 35
+        - Population: 26
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 72
+        - Wonders:
+          - Ironworks
+          - Taj Mahal
+          - Hall of Honor
+        
+        ## Player: City-States
+        
+        ### Prague
+        - ID: 1064
+        - X: 59
+        - Y: 18
+        - Population: 22
+        - DefenseStrength: 108
+        - IsCoastal: true
+        
+        ### Belgrade
+        - ID: 1067
+        - X: 64
+        - Y: 20
+        - Population: 17
+        - DefenseStrength: 82
+        
+        ### Raqmu
+        - ID: 1068
+        - X: 47
+        - Y: 48
+        - Population: 25
+        - DefenseStrength: 104
+        - IsCoastal: true
+        
+        ### Cape Town
+        - ID: 1069
+        - X: 59
+        - Y: 49
+        - Population: 8
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 101
+        
+        ### Zanzibar
+        - ID: 1073
+        - X: 38
+        - Y: 33
+        - Population: 27
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 92
+        - IsCoastal: true
+        
+        ### Wittenberg
+        - ID: 1075
+        - X: 8
+        - Y: 4
+        - Population: 20
+        - DefenseStrength: 93
+        - IsCoastal: true
+        
+        ### Winchester
+        - ID: 1076
+        - X: 53
+        - Y: 18
+        - Population: 18
+        - DefenseStrength: 107
+        
+        ### Sokoto
+        - ID: 1078
+        - X: 52
+        - Y: 49
+        - Population: 10
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 96
+        
+        # Military
+        Military: summary reports about tactical zones and visible units.
+        
+        ## Unit Stats
+        - Attack:
+          - Mercenary:
+            - Strength: 66
+        - CityBombard:
+          - Rocket Artillery:
+            - Strength: 37
+            - RangedStrength: 75
+          - Artillery:
+            - Strength: 27
+            - RangedStrength: 50
+          - Cannon:
+            - Strength: 11
+            - RangedStrength: 29
+          - Field Gun:
+            - Strength: 17
+            - RangedStrength: 40
+        - FastAttack:
+          - Modern Armor:
+            - Strength: 100
+          - Tank:
+            - Strength: 75
+          - Commando:
+            - Strength: 32
+        - Defense:
+          - Mechanized Infantry:
+            - Strength: 80
+          - Infantry:
+            - Strength: 62
+          - Fusilier:
+            - Strength: 38
+          - Rifleman:
+            - Strength: 50
+        - Counter:
+          - Mobile SAM:
+            - Strength: 55
+          - Anti-Aircraft Gun:
+            - Strength: 40
+        - Ranged:
+          - Light Tank:
+            - Strength: 58
+            - RangedStrength: 52
+          - Musketman:
+            - Strength: 21
+            - RangedStrength: 30
+          - Machine Gun:
+            - Strength: 45
+            - RangedStrength: 58
+          - Bazooka:
+            - Strength: 60
+            - RangedStrength: 80
+        - AttackSea:
+          - Destroyer:
+            - Strength: 70
+          - Fleet Destroyer:
+            - Strength: 80
+        - AssaultSea:
+          - Missile Cruiser:
+            - Strength: 75
+            - RangedStrength: 80
+          - Dreadnought:
+            - Strength: 50
+            - RangedStrength: 65
+        - AttackAir:
+          - Heavy Bomber:
+            - RangedStrength: 65
+          - Bomber:
+            - RangedStrength: 50
+        - DefenseAir:
+          - Jet Fighter:
+            - RangedStrength: 70
+          - Zero:
+            - RangedStrength: 60
+          - Triplane:
+            - RangedStrength: 45
+        - Paradrop:
+          - Paratrooper:
+            - Strength: 42
+          - Special Forces:
+            - Strength: 65
+          - XCOM Squad:
+            - Strength: 75
+        
+        ## Neutral Land Zone 1057
+        - ZoneValue: 42
+        - Dominance: Friendly
+        - NeutralStrength: 76
+        - FriendlyStrength: 3425
+        - City: Moson Kahni
+        - AreaID: 5
+        - Plots: 28
+        - CenterX: 65
+        - CenterY: 46
+        - Units:
+          - The Shoshone:
+            - Triplane: 1
+            - Bomber: 1
+            - Machine Gun: 1
+        
+        ## Friendly Land Zone 1059
+        - ZoneValue: 3
+        - Dominance: Friendly
+        - FriendlyStrength: 11772
+        - City: Jakarta
+        - AreaID: 19
+        - Plots: 17
+        - CenterX: 58
+        - CenterY: 25
+        - Units:
+          - Indonesia:
+            - Tank: 1
+            - Artillery: 5
+            - Anti-Aircraft Gun: 2
+            - Triplane: 2
+            - Bomber: 4
+            - Machine Gun: 1
+        - Neighbors:
+          - 12603
+          - 15221
+          - -1064
+          - 1882
+          - 2071
+        
+        ## Neutral Land Zone 1062
+        - ZoneValue: 3
+        - Dominance: Friendly
+        - NeutralStrength: 68
+        - FriendlyStrength: 12308
+        - City: Tenochtitlan
+        - AreaID: 16
+        - Plots: 21
+        - CenterX: 63
+        - CenterY: 10
+        - Units:
+          - The Aztecs:
+            - Paratrooper: 4
+            - Artillery: 1
+            - Infantry: 2
+            - Rifleman: 1
+            - Machine Gun: 1
+        - Neighbors:
+          - 1285
+          - 17417
+          - 17138
+          - 18435
+        
+        ## Neutral Land Zone 1064
+        - ZoneValue: 3
+        - Dominance: Friendly
+        - NeutralStrength: 108
+        - FriendlyStrength: 11656
+        - City: Prague
+        - AreaID: 19
+        - Plots: 23
+        - CenterX: 59
+        - CenterY: 18
+        - Units:
+          - City-State Prague:
+            - Tank: 1
+            - Machine Gun: 1
+          - The Iroquois:
+            - Light Tank: 1
+            - Machine Gun: 1
+            - Mercenary: 1
+        - Neighbors:
+          - 1076
+          - -1064
+          - 17417
+          - 2071
+          - 1067
+        
+        ## Neutral Land Zone 1067
+        - ZoneValue: 18
+        - Dominance: Friendly
+        - NeutralStrength: 82
+        - FriendlyStrength: 12189
+        - City: Belgrade
+        - AreaID: 5
+        - Plots: 31
+        - CenterX: 64
+        - CenterY: 20
+        - Units:
+          - The Iroquois:
+            - Mobile SAM: 2
+            - Infantry: 3
+          - Indonesia:
+            - Infantry: 4
+          - City-State Belgrade:
+            - Artillery: 1
+            - Infantry: 3
+        - Neighbors:
+          - 1064
+          - 2071
+          - 17417
+          - 17138
+          - 15755
+          - 13442
+        
+        ## Neutral Land Zone 1068
+        - ZoneValue: 18
+        - Dominance: Friendly
+        - NeutralStrength: 105
+        - FriendlyStrength: 5412
+        - City: Raqmu
+        - AreaID: 5
+        - Plots: 10
+        - CenterX: 48
+        - CenterY: 49
+        - Units:
+          - City-State Raqmu:
+            - Tank: 1
+            - Infantry: 1
+          - Indonesia:
+            - Tank: 1
+        - Neighbors:
+          - -1068
+          - 2149
+        
+        ## Neutral Land Zone 1073
+        - ZoneValue: 48
+        - Dominance: Friendly
+        - NeutralStrength: 93
+        - FriendlyStrength: 9846
+        - City: Zanzibar
+        - AreaID: 59
+        - Plots: 5
+        - CenterX: 38
+        - CenterY: 32
+        - Units:
+          - City-State Zanzibar:
+            - Modern Armor: 1
+            - Infantry: 1
+            - Machine Gun: 2
+        - Neighbors:
+          - -9784
+          - -1073
+          - 9784
+        
+        ## Neutral Land Zone 1075
+        - ZoneValue: 18
+        - Dominance: Friendly
+        - NeutralStrength: 93
+        - FriendlyStrength: 4361
+        - City: Wittenberg
+        - AreaID: 1
+        - Plots: 21
+        - CenterX: 7
+        - CenterY: 4
+        - Units:
+          - City-State Wittenberg:
+            - Infantry: 4
+            - Rifleman: 1
+            - Machine Gun: 5
+            - Dreadnought: 1
+          - The Iroquois:
+            - Infantry: 1
+        - Neighbors:
+          - -1075
+        
+        ## Neutral Land Zone 1076
+        - ZoneValue: 18
+        - Dominance: Friendly
+        - NeutralStrength: 108
+        - FriendlyStrength: 6929
+        - City: Winchester
+        - AreaID: 22
+        - Plots: 24
+        - CenterX: 53
+        - CenterY: 18
+        - Units:
+          - City-State Winchester:
+            - Tank: 1
+            - Light Tank: 1
+            - Infantry: 1
+          - The Iroquois:
+            - Mercenary: 1
+        - Neighbors:
+          - 12603
+          - 1064
+          - -1064
+        
+        ## Neutral Land Zone 1285
+        - ZoneValue: 3
+        - Dominance: Friendly
+        - NeutralStrength: 76
+        - FriendlyStrength: 10137
+        - City: Teotihuacan
+        - AreaID: 8
+        - Plots: 24
+        - CenterX: 65
+        - CenterY: 7
+        - Units:
+          - The Aztecs:
+            - Light Tank: 1
+            - Infantry: 1
+            - Rifleman: 1
+            - Machine Gun: 5
+          - The Iroquois:
+            - Mobile SAM: 1
+        - Neighbors:
+          - 1062
+          - 18731
+          - 18435
+          - 18706
+        
+        ## Neutral Land Zone 1535
+        - ZoneValue: 36
+        - Dominance: Friendly
+        - NeutralStrength: 74
+        - FriendlyStrength: 10947
+        - City: Goshute
+        - AreaID: 5
+        - Plots: 33
+        - CenterX: 59
+        - CenterY: 40
+        - Units:
+          - The Shoshone:
+            - Paratrooper: 1
+            - Rifleman: 1
+        - Neighbors:
+          - 2924
+          - 2415
+          - 2537
+          - 15152
+        
+        ## Friendly Land Zone 1882
+        - ZoneValue: 36
+        - Dominance: Friendly
+        - FriendlyStrength: 14545
+        - City: Medan
+        - AreaID: 5
+        - Plots: 17
+        - CenterX: 60
+        - CenterY: 29
+        - Units:
+          - Indonesia:
+            - Anti-Aircraft Gun: 4
+            - Machine Gun: 4
+        - Neighbors:
+          - 1059
+          - 2537
+          - 2071
+          - 15755
+          - 15152
+          - -15755
+        
+        ## Friendly Land Zone 2071
+        - ZoneValue: 36
+        - Dominance: Friendly
+        - FriendlyStrength: 9997
+        - City: Makassar
+        - AreaID: 5
+        - Plots: 17
+        - CenterX: 61
+        - CenterY: 24
+        - Units:
+          - Indonesia:
+            - Artillery: 1
+            - Infantry: 2
+            - Special Forces: 2
+            - Machine Gun: 1
+        - Neighbors:
+          - 1059
+          - 1064
+          - 1067
+          - 1882
+          - 15755
+        
+        ## Neutral Land Zone 2149
+        - ZoneValue: 15
+        - Dominance: Friendly
+        - NeutralStrength: 68
+        - FriendlyStrength: 9247
+        - City: Fortaleza
+        - AreaID: 55
+        - Plots: 25
+        - CenterX: 49
+        - CenterY: 44
+        - Units:
+          - Brazil:
+            - Infantry: 1
+            - Machine Gun: 2
+          - City-State Raqmu:
+            - Infantry: 2
+          - City-State Sokoto:
+            - Infantry: 1
+        - Neighbors:
+          - -1068
+          - 1068
+          - 2415
+        
+        ## Neutral Land Zone 2415
+        - ZoneValue: 30
+        - Dominance: Friendly
+        - NeutralStrength: 65
+        - FriendlyStrength: 7869
+        - City: Belo Horizonte
+        - AreaID: 5
+        - Plots: 34
+        - CenterX: 55
+        - CenterY: 44
+        - Units:
+          - The Shoshone:
+            - Rifleman: 1
+          - Indonesia:
+            - Artillery: 1
+          - Brazil:
+            - Artillery: 1
+            - Anti-Aircraft Gun: 1
+            - Machine Gun: 2
+        - Neighbors:
+          - 2149
+          - 1535
+        
+        ## Friendly Land Zone 2537
+        - ZoneValue: 36
+        - Dominance: Friendly
+        - FriendlyStrength: 14265
+        - City: Batam
+        - AreaID: 5
+        - Plots: 20
+        - CenterX: 58
+        - CenterY: 32
+        - Units:
+          - Indonesia:
+            - Tank: 2
+            - Artillery: 1
+            - Anti-Aircraft Gun: 2
+            - Triplane: 3
+            - Bomber: 3
+            - Machine Gun: 4
+          - The Iroquois:
+            - Mobile SAM: 1
+        - Neighbors:
+          - 15221
+          - 2924
+          - 15152
+          - 1535
+          - 1882
+        
+        ## Neutral Land Zone 2924
+        - ZoneValue: 60
+        - Dominance: Friendly
+        - NeutralStrength: 72
+        - FriendlyStrength: 11362
+        - City: Manaus
+        - AreaID: 55
+        - Plots: 25
+        - CenterX: 54
+        - CenterY: 35
+        - Units:
+          - Brazil:
+            - Anti-Aircraft Gun: 1
+            - Triplane: 2
+            - Machine Gun: 4
+          - Indonesia:
+            - Anti-Aircraft Gun: 1
+            - Machine Gun: 1
+        - Neighbors:
+          - 10639
+          - 15221
+          - 2537
+          - 1535
+        
+        ## Neutral Land Zone 9528
+        - ZoneValue: 21
+        - Dominance: Friendly
+        - NeutralStrength: 113
+        - FriendlyStrength: 9156
+        - City: Nagasaki
+        - AreaID: 79
+        - Plots: 14
+        - CenterX: 35
+        - CenterY: 37
+        - Units:
+          - The Iroquois:
+            - Modern Armor: 1
+            - Rocket Artillery: 1
+        - Neighbors:
+          - -1073
+        
+        ## Neutral Land Zone 9784
+        - ZoneValue: 24
+        - Dominance: Friendly
+        - NeutralStrength: 126
+        - FriendlyStrength: 8630
+        - City: Yokohama
+        - AreaID: 59
+        - Plots: 6
+        - CenterX: 37
+        - CenterY: 29
+        - Units:
+          - City-State Zanzibar:
+            - Infantry: 1
+          - The Iroquois:
+            - Modern Armor: 1
+            - Mechanized Infantry: 1
+            - Heavy Bomber: 3
+            - Zero: 5
+            - Machine Gun: 1
+        - Neighbors:
+          - -9784
+          - 1073
+          - -1073
+        
+        ## Neutral Land Zone 10639
+        - ZoneValue: 24
+        - Dominance: Friendly
+        - NeutralStrength: 113
+        - FriendlyStrength: 5794
+        - City: Brasilia
+        - AreaID: 54
+        - Plots: 16
+        - CenterX: 49
+        - CenterY: 30
+        - Units:
+          - The Iroquois:
+            - Heavy Bomber: 3
+            - Infantry: 1
+        - Neighbors:
+          - 2924
+        
+        ## Neutral Land Zone 12603
+        - ZoneValue: 96
+        - Dominance: Friendly
+        - NeutralStrength: 125
+        - FriendlyStrength: 7950
+        - City: Surabaya
+        - AreaID: 19
+        - Plots: 14
+        - CenterX: 54
+        - CenterY: 23
+        - Units:
+          - The Iroquois:
+            - Jet Fighter: 3
+            - Rocket Artillery: 1
+            - Heavy Bomber: 3
+            - Zero: 1
+            - Infantry: 1
+            - Machine Gun: 1
+            - Bazooka: 1
+            - XCOM Squad: 1
+        - Neighbors:
+          - 1076
+          - 1059
+        
+        ## Neutral Land Zone 13442
+        - ZoneValue: 84
+        - Dominance: Friendly
+        - NeutralStrength: 111
+        - FriendlyStrength: 9063
+        - City: Palatium
+        - AreaID: 5
+        - Plots: 18
+        - CenterX: 69
+        - CenterY: 18
+        - Units:
+          - Indonesia:
+            - Infantry: 1
+          - The Iroquois:
+            - Mobile SAM: 1
+            - Heavy Bomber: 3
+            - Zero: 4
+            - Infantry: 1
+            - Machine Gun: 1
+            - Mercenary: 1
+        - Neighbors:
+          - 1067
+          - 17138
+          - 17908
+        
+        ## Neutral Land Zone 13871
+        - ZoneValue: 42
+        - Dominance: Friendly
+        - NeutralStrength: 118
+        - FriendlyStrength: 8707
+        - City: Lodz
+        - AreaID: 5
+        - Plots: 14
+        - CenterX: 66
+        - CenterY: 30
+        - Units:
+          - The Iroquois:
+            - Infantry: 1
+            - Machine Gun: 1
+        - Neighbors:
+          - -15755
+          - 15755
+        
+        ## Neutral Land Zone 15152
+        - ZoneValue: 60
+        - Dominance: Friendly
+        - NeutralStrength: 124
+        - FriendlyStrength: 13549
+        - City: Florence
+        - AreaID: 5
+        - Plots: 17
+        - CenterX: 60
+        - CenterY: 34
+        - Units:
+          - The Shoshone:
+            - Machine Gun: 1
+          - The Iroquois:
+            - Rocket Artillery: 1
+            - Mechanized Infantry: 1
+            - Zero: 5
+            - Light Tank: 2
+            - Infantry: 1
+            - Machine Gun: 3
+        - Neighbors:
+          - 2537
+          - 1535
+          - -15152
+          - 1882
+        
+        ## Neutral Land Zone 15221
+        - ZoneValue: 30
+        - Dominance: Friendly
+        - NeutralStrength: 109
+        - FriendlyStrength: 10660
+        - City: Oviedo
+        - AreaID: 55
+        - Plots: 23
+        - CenterX: 54
+        - CenterY: 30
+        - Units:
+          - Indonesia:
+            - Anti-Aircraft Gun: 1
+          - The Iroquois:
+            - Mobile SAM: 1
+            - Heavy Bomber: 5
+            - Zero: 3
+        - Neighbors:
+          - 2924
+          - 2537
+          - 1059
+        
+        ## Neutral Land Zone 15755
+        - ZoneValue: 48
+        - Dominance: Friendly
+        - NeutralStrength: 54
+        - FriendlyStrength: 10592
+        - City: Krakow
+        - AreaID: 5
+        - Plots: 19
+        - CenterX: 64
+        - CenterY: 27
+        - Units:
+          - Poland:
+            - Fusilier: 1
+            - Cannon: 1
+            - Musketman: 8
+            - Field Gun: 1
+            - Commando: 1
+          - Indonesia:
+            - Anti-Aircraft Gun: 1
+        - Neighbors:
+          - 1882
+          - 2071
+          - -15755
+          - 13871
+          - 1067
+        
+        ## Friendly Land Zone 17138
+        - ZoneValue: 30
+        - Dominance: Friendly
+        - FriendlyStrength: 15394
+        - City: Tlatelolco
+        - AreaID: 5
+        - Plots: 24
+        - CenterX: 66
+        - CenterY: 15
+        - Units:
+          - The Aztecs:
+            - Paratrooper: 1
+          - The Iroquois:
+            - Infantry: 1
+          - Indonesia:
+            - Paratrooper: 1
+            - Artillery: 2
+            - Anti-Aircraft Gun: 3
+            - Infantry: 1
+            - Special Forces: 1
+            - Triplane: 1
+            - Bomber: 1
+            - Machine Gun: 2
+        - Neighbors:
+          - 17417
+          - 1062
+          - 1067
+          - 18435
+          - 13442
+          - 17908
+        
+        ## Neutral Land Zone 17417
+        - ZoneValue: 3
+        - Dominance: Friendly
+        - NeutralStrength: 127
+        - FriendlyStrength: 12329
+        - City: Tlaxcala
+        - AreaID: 19
+        - Plots: 24
+        - CenterX: 61
+        - CenterY: 14
+        - Units:
+          - Indonesia:
+            - Anti-Aircraft Gun: 1
+            - Infantry: 1
+          - The Iroquois:
+            - Mobile SAM: 1
+            - Rocket Artillery: 4
+            - Heavy Bomber: 3
+            - Zero: 3
+            - Infantry: 1
+            - Machine Gun: 1
+            - XCOM Squad: 1
+        - Neighbors:
+          - 1064
+          - 1062
+          - 1067
+          - 17138
+        
+        ## Neutral Land Zone 17908
+        - ZoneValue: 48
+        - Dominance: Friendly
+        - NeutralStrength: 128
+        - FriendlyStrength: 9446
+        - City: Truro
+        - AreaID: 5
+        - Plots: 12
+        - CenterX: 72
+        - CenterY: 14
+        - Units:
+          - The Iroquois:
+            - Mechanized Infantry: 1
+            - Heavy Bomber: 2
+            - Zero: 5
+            - Infantry: 1
+        - Neighbors:
+          - 18435
+          - 17138
+          - 13442
+          - 18221
+        
+        ## Neutral Land Zone 18221
+        - ZoneValue: 24
+        - Dominance: Friendly
+        - NeutralStrength: 122
+        - FriendlyStrength: 10338
+        - City: Cardiff
+        - AreaID: 5
+        - Plots: 15
+        - CenterX: 73
+        - CenterY: 9
+        - Units:
+          - The Iroquois:
+            - Mechanized Infantry: 1
+            - Heavy Bomber: 4
+            - Zero: 1
+        - Neighbors:
+          - 18706
+          - 18435
+          - 17908
+          - 18609
+        
+        ## Friendly Land Zone 18435
+        - ZoneValue: 6
+        - Dominance: Friendly
+        - FriendlyStrength: 14803
+        - City: Dublin
+        - AreaID: 5
+        - Plots: 25
+        - CenterX: 69
+        - CenterY: 11
+        - Units:
+          - The Aztecs:
+            - Infantry: 1
+          - The Iroquois:
+            - Mobile SAM: 1
+          - Indonesia:
+            - Paratrooper: 1
+            - Artillery: 1
+            - Anti-Aircraft Gun: 2
+            - Infantry: 1
+            - Special Forces: 1
+            - Machine Gun: 4
+        - Neighbors:
+          - 1062
+          - 1285
+          - 17138
+          - 18706
+          - 17908
+          - 18221
+        
+        ## Neutral Land Zone 18609
+        - ZoneValue: 60
+        - Dominance: Friendly
+        - NeutralStrength: 79
+        - FriendlyStrength: 9014
+        - City: Nantes
+        - AreaID: 5
+        - Plots: 19
+        - CenterX: 73
+        - CenterY: 4
+        - Units:
+          - The Iroquois:
+            - Jet Fighter: 5
+            - Mechanized Infantry: 1
+            - XCOM Squad: 4
+        - Neighbors:
+          - 18731
+          - 18706
+          - 18221
+        
+        ## Neutral Land Zone 18706
+        - ZoneValue: 84
+        - Dominance: Friendly
+        - NeutralStrength: 92
+        - FriendlyStrength: 13679
+        - City: Edinburgh
+        - AreaID: 5
+        - Plots: 19
+        - CenterX: 71
+        - CenterY: 7
+        - Units:
+          - The Iroquois:
+            - Jet Fighter: 1
+            - Mobile SAM: 1
+            - Rocket Artillery: 1
+            - Heavy Bomber: 1
+            - Zero: 3
+            - XCOM Squad: 6
+        - Neighbors:
+          - 1285
+          - 18731
+          - 18435
+          - 18609
+          - 18221
+        
+        ## Friendly Land Zone 18731
+        - ZoneValue: 6
+        - Dominance: Friendly
+        - FriendlyStrength: 9288
+        - City: Douglas
+        - AreaID: 5
+        - Plots: 18
+        - CenterX: 67
+        - CenterY: 3
+        - Units:
+          - The Aztecs:
+            - Paratrooper: 1
+          - Indonesia:
+            - Tank: 1
+            - Triplane: 2
+        - Neighbors:
+          - 1285
+          - 18706
+          - 18609
+        
+        ## Neutral Sea Zone -1073
+        - ZoneValue: 16
+        - Dominance: Friendly
+        - NeutralStrength: 93
+        - FriendlyStrength: 9351
+        - City: Zanzibar
+        - AreaID: 0
+        - Plots: 46
+        - CenterX: 40
+        - CenterY: 34
+        - Units:
+          - Brazil:
+            - Tank: 1
+            - Infantry: 1
+          - The Iroquois:
+            - Missile Cruiser: 1
+            - Modern Armor: 1
+            - Fleet Destroyer: 3
+          - City-State Zanzibar:
+            - Destroyer: 1
+          - Poland:
+            - Fusilier: 3
+        - Neighbors:
+          - -9784
+          - 9528
+          - 1073
+          - 9784
+        
+        ## Neutral Sea Zone -9784
+        - ZoneValue: 8
+        - Dominance: Friendly
+        - NeutralStrength: 126
+        - FriendlyStrength: 8385
+        - City: Yokohama
+        - AreaID: 0
+        - Plots: 38
+        - CenterX: 35
+        - CenterY: 28
+        - Units:
+          - City-State Zanzibar:
+            - Destroyer: 1
+          - The Iroquois:
+            - Fleet Destroyer: 1
+        - Neighbors:
+          - 9784
+          - -1073
+          - 1073
+        
+        ## Neutral Sea Zone -15152
+        - ZoneValue: 20
+        - Dominance: Friendly
+        - NeutralStrength: 124
+        - FriendlyStrength: 8226
+        - City: Florence
+        - AreaID: 65
+        - Plots: 6
+        - CenterX: 62
+        - CenterY: 34
+        - Units:
+          - The Iroquois:
+            - Missile Cruiser: 2
+        - Neighbors:
+          - 15152
+        
+        ## Neutral Sea Zone -1064
+        - ZoneValue: 1
+        - Dominance: Friendly
+        - NeutralStrength: 108
+        - FriendlyStrength: 6128
+        - City: Prague
+        - AreaID: 33
+        - Plots: 12
+        - CenterX: 58
+        - CenterY: 19
+        - Units:
+          - City-State Prague:
+            - Destroyer: 2
+          - Indonesia:
+            - Fleet Destroyer: 2
+        - Neighbors:
+          - 1064
+          - 1076
+          - 1059
+        
+        ## Neutral Sea Zone -1068
+        - ZoneValue: 6
+        - Dominance: Friendly
+        - NeutralStrength: 105
+        - FriendlyStrength: 4242
+        - City: Raqmu
+        - AreaID: 0
+        - Plots: 31
+        - CenterX: 46
+        - CenterY: 49
+        - Units:
+          - City-State Raqmu:
+            - Destroyer: 2
+        - Neighbors:
+          - 2149
+          - 1068
+        
+        ## Neutral Sea Zone -1075
+        - ZoneValue: 1
+        - Dominance: Friendly
+        - NeutralStrength: 93
+        - FriendlyStrength: 2910
+        - City: Wittenberg
+        - AreaID: 0
+        - Plots: 44
+        - CenterX: 6
+        - CenterY: 5
+        - Units:
+          - City-State Wittenberg:
+            - Dreadnought: 1
+        - Neighbors:
+          - 1075
+        
+        ## Neutral Sea Zone -15755
+        - ZoneValue: 16
+        - Dominance: Friendly
+        - NeutralStrength: 54
+        - FriendlyStrength: 5394
+        - City: Krakow
+        - AreaID: 51
+        - Plots: 3
+        - CenterX: 64
+        - CenterY: 27
+        - Units:
+          - Poland:
+            - Fusilier: 1
+        - Neighbors:
+          - 1882
+          - 15755
+          - 13871
+        
+        # Events
+        Events: events since you last made a decision.
+        
+        ## Turn 424
+        
+        ### 0
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Diplomat
+          - ID: 18987
+        - Player: 3: Poland
+        - Grass Land 64,27:
+          - Owner: Poland
+          - CityID: 15755
+          - Population: 21
+          - IsRiver: true
+          - City: Krakow
+          - Resource: Cloves
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 1
+        - Type: UnitCreated
+        - UnitType: Diplomat
+        - Player: 3: Poland
+        - Unit:
+          - Level: 1
+          - AI: Messenger
+          - Unit: Diplomat
+          - ID: 18987
+        - Grass Land 64,27:
+          - Owner: Poland
+          - CityID: 15755
+          - Population: 21
+          - IsRiver: true
+          - City: Krakow
+          - Resource: Cloves
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 2
+        - Type: CityTrained
+        - WithGold: true
+        - Player: 3: Poland
+        - City:
+          - Name: Krakow
+          - Population: 21
+          - ID: 15755
+        - Unit:
+          - Level: 1
+          - AI: Messenger
+          - Unit: Diplomat
+          - ID: 18987
+        
+        ### 3
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Fusilier
+          - ID: 18988
+        - Player: 3: Poland
+        - Grass Land 64,27:
+          - Owner: Poland
+          - CityID: 15755
+          - Population: 21
+          - IsRiver: true
+          - City: Krakow
+          - Resource: Cloves
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 4
+        - Type: UnitCreated
+        - UnitType: Fusilier
+        - Player: 3: Poland
+        - Unit:
+          - Level: 1
+          - AI: Defense
+          - Unit: Fusilier
+          - ID: 18988
+        - Grass Land 64,27:
+          - Owner: Poland
+          - CityID: 15755
+          - Population: 21
+          - IsRiver: true
+          - City: Krakow
+          - Resource: Cloves
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 5
+        - Type: CityTrained
+        - Player: 3: Poland
+        - City:
+          - Name: Krakow
+          - Population: 21
+          - ID: 15755
+        - Unit:
+          - Level: 1
+          - AI: Defense
+          - Unit: Fusilier
+          - ID: 18988
+        
+        ### 6
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18018
+        - Player: 3: Poland
+        - Plots:
+          - Grass Hills 63,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Bananas
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Land 63,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Academy
+          - Grass Land 64,27:
+            - Owner: Poland
+            - CityID: 15755
+            - Population: 21
+            - IsRiver: true
+            - City: Krakow
+            - Resource: Cloves
+            - Religion: Confucianism
+            - Route: Railroad
+        
+        ### 7
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18500
+        - Player: 3: Poland
+        - Plots:
+          - Grass Land 60,29:
+            - Owner: Indonesia
+            - CityID: 1882
+            - Population: 32
+            - IsRiver: true
+            - City: Medan
+            - Route: Railroad
+          - Grass Land 61,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 62,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Bananas
+            - Improvement: Town
+            - Route: Road
+          - Plains Land 63,28:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Oil
+            - Improvement: Holy Site
+            - Route: Railroad
+        
+        ### 8
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18665
+        - Player: 3: Poland
+        - Plots:
+          - Grass Land 62,25:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Hills 63,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Bananas
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Land 63,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Academy
+          - Grass Land 64,27:
+            - Owner: Poland
+            - CityID: 15755
+            - Population: 21
+            - IsRiver: true
+            - City: Krakow
+            - Resource: Cloves
+            - Religion: Confucianism
+            - Route: Railroad
+        
+        ### 9
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18825
+        - Player: 3: Poland
+        - Grass Land 64,27:
+          - Owner: Poland
+          - CityID: 15755
+          - Population: 21
+          - IsRiver: true
+          - City: Krakow
+          - Resource: Cloves
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 10
+        - Type: UnitPromoted
+        - Unit:
+          - Level: 2
+          - AI: Defense
+          - Unit: Fusilier
+          - ID: 18968
+        - Player: 3: Poland
+        - Promotions:
+          - Drill I
+          - Shock I
+          - Shock II
+        
+        ### 11
+        - Type: UnitPromoted
+        - Unit:
+          - Level: 2
+          - AI: Defense
+          - Unit: Fusilier
+          - ID: 18988
+        - Player: 3: Poland
+        - Promotions:
+          - Shock I
+          - Shock II
+          - Medic I
+        
+        ### 12
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Diplomat
+          - Unit: Great Diplomat
+          - ID: 17639
+        - Player: 3: Poland
+        
+        ### 13
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: Defense
+          - Unit: Fusilier
+          - ID: 18736
+        - Player: 3: Poland
+        
+        ### 14
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: Defense
+          - Unit: Fusilier
+          - ID: 18793
+        - Player: 3: Poland
+        - Plots:
+          - Grass Land 63,25:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Pepper
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Hills 64,24:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Hills 64,25:
+            - Owner: Poland
+            - IsRiver: true
+            - Resource: Marble
+            - Improvement: Quarry
+        
+        ### 15
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Defense
+          - Unit: Fusilier
+          - ID: 18988
+        - Player: 3: Poland
+        - Coast 64,26:
+          - Owner: Poland
+        
+        ### 16
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Machine Gun
+          - ID: 18989
+        - Player: 5: The Aztecs
+        - Plains Land 63,10:
+          - Owner: The Aztecs
+          - CityID: 1062
+          - Population: 33
+          - IsRiver: true
+          - City: Tenochtitlan
+          - Religion: Catholicism
+          - Route: Railroad
+        
+        ### 17
+        - Type: UnitCreated
+        - UnitType: Machine Gun
+        - Player: 5: The Aztecs
+        - Unit:
+          - Level: 1
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 18989
+        - Plains Land 63,10:
+          - Owner: The Aztecs
+          - CityID: 1062
+          - Population: 33
+          - IsRiver: true
+          - City: Tenochtitlan
+          - Religion: Catholicism
+          - Route: Railroad
+        
+        ### 18
+        - Type: CityTrained
+        - Player: 5: The Aztecs
+        - City:
+          - Name: Tenochtitlan
+          - Population: 33
+          - ID: 1062
+        - Unit:
+          - Level: 1
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 18989
+        
+        ### 19
+        - Type: SetPopulation
+        - OldPopulation: 28
+        - NewPopulation: 29
+        - City:
+          - Owner: The Aztecs
+          - CityID: 1285
+          - Population: 29
+          - IsRiver: true
+          - City: Teotihuacan
+          - Terrain: Grass
+          - Route: Railroad
+          - Plot: Land
+          - X: 65
+          - Y: 6
+        
+        ### 20
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18026
+        - Player: 5: The Aztecs
+        - Plains Land 63,10:
+          - Owner: The Aztecs
+          - CityID: 1062
+          - Population: 33
+          - IsRiver: true
+          - City: Tenochtitlan
+          - Religion: Catholicism
+          - Route: Railroad
+        
+        ### 21
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18444
+        - Player: 5: The Aztecs
+        - Plots:
+          - Grass Land 65,15:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Cloves
+            - Improvement: Plantation
+            - Route: Railroad
+          - Desert Land 66,16:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 66,17:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 66,18:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+        
+        ### 22
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18179
+        - Player: 5: The Aztecs
+        - Plains Land 63,10:
+          - Owner: The Aztecs
+          - CityID: 1062
+          - Population: 33
+          - IsRiver: true
+          - City: Tenochtitlan
+          - Religion: Catholicism
+          - Route: Railroad
+        
+        ### 23
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18180
+        - Player: 5: The Aztecs
+        - Plots:
+          - Plains Land 64,11:
+            - Owner: The Aztecs
+            - Resource: Cotton
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 64,10:
+            - Owner: The Aztecs
+            - IsRiver: true
+            - Resource: Iron
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Hills 63,9:
+            - Owner: The Aztecs
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 64,8:
+            - Owner: The Aztecs
+            - Improvement: Farm
+            - Route: Railroad
+        
+        ### 24
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18392
+        - Player: 5: The Aztecs
+        - Plots:
+          - Plains Land 66,14:
+            - Owner: Indonesia
+            - IsRiver: true
+          - Plains Land 65,13:
+            - Owner: Indonesia
+            - Resource: Wheat
+            - Improvement: Academy
+            - Route: Railroad
+          - Plains Hills 64,13:
+            - Owner: The Aztecs
+            - Resource: Aluminum
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Land 64,12:
+            - Owner: The Aztecs
+            - Improvement: Fort
+            - Route: Railroad
+        
+        ### 25
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 17769
+        - Player: 5: The Aztecs
+        - Plots:
+          - Grass Land 62,14:
+            - Owner: The Iroquois
+            - Resource: Bison
+            - Improvement: Camp
+            - Route: Railroad
+          - Plains Hills 62,13:
+            - Owner: The Aztecs
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 63,12:
+            - Owner: The Aztecs
+            - Resource: Cotton
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Desert Land 63,11:
+            - Owner: The Aztecs
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 63,10:
+            - Owner: The Aztecs
+            - CityID: 1062
+            - Population: 33
+            - IsRiver: true
+            - City: Tenochtitlan
+            - Religion: Catholicism
+            - Route: Railroad
+        
+        ### 26
+        - Type: UnitPromoted
+        - Unit:
+          - Level: 2
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 18989
+        - Player: 5: The Aztecs
+        - Promotions:
+          - Barrage I
+          - Barrage II
+          - Barrage III
+          - Range
+        
+        ### 27
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Merchant
+          - Unit: Great Merchant
+          - ID: 18667
+        - Player: 5: The Aztecs
+        - Coast 60,18:
+          - Owner: City-State Prague
+          - Resource: Fish
+          - Improvement: Fishing Boats
+        
+        ### 28
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Defense
+          - Unit: Infantry
+          - ID: 18252
+        - Player: 5: The Aztecs
+        - Plots:
+          - Desert Hills 65,12:
+            - Owner: The Aztecs
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 65,11:
+            - Owner: The Aztecs
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 66,11:
+            - Owner: The Aztecs
+            - Resource: Horses
+            - Improvement: Pasture
+        
+        ### 29
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 9623
+        - Player: 5: The Aztecs
+        - Plots:
+          - Desert Hills 65,10:
+            - Owner: The Aztecs
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 64,10:
+            - Owner: The Aztecs
+            - IsRiver: true
+            - Resource: Iron
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 63,10:
+            - Owner: The Aztecs
+            - CityID: 1062
+            - Population: 33
+            - IsRiver: true
+            - City: Tenochtitlan
+            - Religion: Catholicism
+            - Route: Railroad
+        
+        ### 30
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Missionary
+          - Unit: Missionary
+          - ID: 18964
+        - Player: 5: The Aztecs
+        - Plots:
+          - Plains Hills 63,9:
+            - Owner: The Aztecs
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 64,8:
+            - Owner: The Aztecs
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 64,7:
+            - Owner: The Aztecs
+            - IsRiver: true
+            - Resource: Wheat
+            - Improvement: Farm
+            - Route: Railroad
+        
+        ### 31
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: The Aztecs
+          - CityID: 1285
+          - Population: 29
+          - IsRiver: true
+          - City: Teotihuacan
+          - Terrain: Grass
+          - Religion: Catholicism
+          - Route: Railroad
+          - Plot: Land
+          - X: 65
+          - Y: 6
+        - Owner: 5: The Aztecs
+        - Religion: Catholicism
+        
+        ### 32
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Defense
+          - Unit: Infantry
+          - ID: 18951
+        - Player: 5: The Aztecs
+        - Plots:
+          - Plains Land 65,9:
+            - Owner: The Aztecs
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Hills 65,10:
+            - Owner: The Aztecs
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 64,11:
+            - Owner: The Aztecs
+            - Resource: Cotton
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 64,12:
+            - Owner: The Aztecs
+            - Improvement: Fort
+            - Route: Railroad
+        
+        ### 33
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Ambassador
+          - ID: 18993
+        - Player: 6: Brazil
+        - Grass Land 53,35:
+          - Owner: Brazil
+          - CityID: 2924
+          - Population: 26
+          - IsRiver: true
+          - City: Manaus
+          - Resource: Horses
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 34
+        - Type: UnitCreated
+        - UnitType: Ambassador
+        - Player: 6: Brazil
+        - Unit:
+          - Level: 1
+          - AI: Messenger
+          - Unit: Ambassador
+          - ID: 18993
+        - Grass Land 53,35:
+          - Owner: Brazil
+          - CityID: 2924
+          - Population: 26
+          - IsRiver: true
+          - City: Manaus
+          - Resource: Horses
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 35
+        - Type: CityTrained
+        - WithGold: true
+        - Player: 6: Brazil
+        - City:
+          - Name: Manaus
+          - Population: 26
+          - ID: 2924
+        - Unit:
+          - Level: 1
+          - AI: Messenger
+          - Unit: Ambassador
+          - ID: 18993
+        
+        ### 36
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18935
+        - Player: 6: Brazil
+        - Plots:
+          - Desert Land 66,16:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Grass Hills 66,15:
+            - Owner: Indonesia
+            - CityID: 17138
+            - Population: 24
+            - IsRiver: true
+            - City: Tlatelolco
+            - Route: Railroad
+          - Plains Hills 67,14:
+            - Owner: Indonesia
+            - Improvement: Mine
+            - Route: Railroad
+          - Desert Hills 67,13:
+            - Owner: Indonesia
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 68,12:
+            - Owner: Indonesia
+            - Resource: Bison
+            - Improvement: Camp
+          - Plains Land 68,11:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Oppidum
+            - Route: Railroad
+          - Desert Land 69,10:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Hills 68,9:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Oppidum
+            - Route: Railroad
+          - Desert Hills 69,8:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+        
+        ### 37
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18677
+        - Player: 6: Brazil
+        - Plots:
+          - Grass Land 61,25:
+            - Owner: Indonesia
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 62,24:
+            - Owner: Indonesia
+            - CityID: 2071
+            - Population: 31
+            - IsRiver: true
+            - City: Makassar
+            - Resource: Iron
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Desert Hills 64,20:
+            - Owner: City-State Belgrade
+            - CityID: 1067
+            - Population: 17
+            - City: Belgrade
+            - Route: Railroad
+          - Desert Hills 63,19:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Mine
+            - Route: Railroad
+          - Desert Land 63,18:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+        
+        ### 38
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18242
+        - Player: 6: Brazil
+        - Plots:
+          - Plains Land 62,17:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 62,16:
+            - Owner: The Iroquois
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Hills 61,15:
+            - Owner: The Iroquois
+            - CityID: 17417
+            - Population: 28
+            - IsRiver: true
+            - City: Tlaxcala
+            - Resource: Deer
+            - Route: Railroad
+          - Desert Land 63,18:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Hills 63,19:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Mine
+            - Route: Railroad
+          - Desert Hills 64,20:
+            - Owner: City-State Belgrade
+            - CityID: 1067
+            - Population: 17
+            - City: Belgrade
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+        
+        ### 39
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18512
+        - Player: 6: Brazil
+        - Plots:
+          - Grass Hills 57,28:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Land 57,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 58,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 59,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Hills 59,25:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 60,25:
+            - Owner: Indonesia
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 61,25:
+            - Owner: Indonesia
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 62,24:
+            - Owner: Indonesia
+            - CityID: 2071
+            - Population: 31
+            - IsRiver: true
+            - City: Makassar
+            - Resource: Iron
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+        
+        ### 40
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18626
+        - Player: 6: Brazil
+        - Plots:
+          - Grass Hills 59,25:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 59,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Hills 58,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 57,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 57,28:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 56,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 54,30:
+            - Owner: The Iroquois
+            - CityID: 15221
+            - Population: 24
+            - IsRiver: true
+            - City: Oviedo
+            - Religion: Confucianism
+            - Route: Railroad
+        
+        ### 41
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18185
+        - Player: 6: Brazil
+        - Plots:
+          - Plains Hills 56,37:
+            - Owner: The Shoshone
+            - Resource: Deer
+            - Route: Railroad
+            - Feature: Forest
+          - Plains Hills 57,37:
+            - Owner: The Shoshone
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Hills 58,37:
+            - Owner: The Shoshone
+            - Resource: Sheep
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Hills 59,37:
+            - Owner: The Shoshone
+            - IsRiver: true
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Land 60,37:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Encampment
+            - Route: Railroad
+          - Mountain Mountain 61,38:
+            - Owner: The Iroquois
+            - Route: Railroad
+        
+        ### 42
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18243
+        - Player: 6: Brazil
+        - Plots:
+          - Grass Land 61,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Hills 61,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Gems
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Land 60,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 59,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 58,30:
+            - Owner: Indonesia
+            - Resource: Oil
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Land 57,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 54,30:
+            - Owner: The Iroquois
+            - CityID: 15221
+            - Population: 24
+            - IsRiver: true
+            - City: Oviedo
+            - Religion: Confucianism
+            - Route: Railroad
+        
+        ### 43
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18780
+        - Player: 6: Brazil
+        - Plots:
+          - Desert Hills 52,33:
+            - Owner: Brazil
+            - IsRiver: true
+            - Improvement: Landmark
+            - Route: Railroad
+          - Desert Land 53,32:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 53,31:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 54,30:
+            - Owner: The Iroquois
+            - CityID: 15221
+            - Population: 24
+            - IsRiver: true
+            - City: Oviedo
+            - Religion: Confucianism
+            - Route: Railroad
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Hills 56,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Hills 57,28:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Land 57,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Holy Site
+            - Route: Railroad
+        
+        ### 44
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18801
+        - Player: 6: Brazil
+        - Plots:
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Hills 56,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Hills 57,28:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Land 57,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 58,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 59,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Hills 59,25:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 60,25:
+            - Owner: Indonesia
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 61,25:
+            - Owner: Indonesia
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+        
+        ### 45
+        - Type: CityEventChoiceActivated
+        - City:
+          - Name: Moson Kahni
+          - Population: 38
+          - ID: 1057
+        - Player: 0: The Shoshone
+        - Choice: 83
+        
+        ### 46
+        - Type: EspionageResult
+        - SpyResult: Detected
+        - SourcePlayer: 6: Brazil
+        - TargetPlayer: 0: The Shoshone
+        - City:
+          - Owner: The Shoshone
+          - CityID: 1057
+          - Population: 38
+          - IsRiver: true
+          - City: Moson Kahni
+          - Terrain: Tundra
+          - Religion: Confucianism
+          - Route: Railroad
+          - Plot: Land
+          - X: 66
+          - Y: 46
+        
+        ### 47
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Diplomat
+          - Unit: Great Diplomat
+          - ID: 18906
+        - Player: 6: Brazil
+        - Plots:
+          - Grass Hills 39,32:
+            - Owner: City-State Zanzibar
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Land 38,33:
+            - Owner: City-State Zanzibar
+            - CityID: 1073
+            - Population: 26
+            - City: Zanzibar
+            - Resource: Glass
+            - Religion: Protestantism
+            - Route: Railroad
+        
+        ### 48
+        - Type: SetAlly
+        - NewAllyPlayer: 6: Brazil
+        - OldAllyPlayer: 2: Indonesia
+        - MinorPlayer: 31
+        
+        ### 49
+        - Type: GreatPersonExpended
+        - Player: 6: Brazil
+        - City:
+          - Owner: City-State Zanzibar
+          - CityID: 1073
+          - Population: 26
+          - City: Zanzibar
+          - Terrain: Grass
+          - Resource: Glass
+          - Religion: Protestantism
+          - Route: Railroad
+          - Plot: Land
+          - X: 38
+          - Y: 33
+        - Unit:
+          - Level: 1
+          - AI: Diplomat
+          - Unit: Great Diplomat
+          - ID: 18906
+        - GreatPerson: 168
+        
+        ### 50
+        - Type: UnitMoved
+        - Unit:
+          - Level: 5
+          - AI: Defense
+          - Unit: Infantry
+          - ID: 18253
+        - Player: 6: Brazil
+        - Plots:
+          - Desert Land 53,34:
+            - Owner: Brazil
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Grass Land 53,35:
+            - Owner: Brazil
+            - CityID: 2924
+            - Population: 26
+            - IsRiver: true
+            - City: Manaus
+            - Resource: Horses
+            - Religion: Confucianism
+            - Route: Railroad
+        
+        ### 51
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Messenger
+          - Unit: Ambassador
+          - ID: 18871
+        - Player: 6: Brazil
+        - Plots:
+          - Desert Land 48,34:
+            - Owner: The Iroquois
+            - Improvement: Fort
+            - Route: Railroad
+          - Desert Land 47,33:
+            - Owner: The Iroquois
+            - Resource: Wheat
+            - Improvement: Farm
+            - Route: Railroad
+          - Coast 46,33:
+            - Owner: The Iroquois
+        
+        ### 52
+        - Type: CityConstructed
+        - City:
+          - Name: Prague
+          - Population: 22
+          - ID: 1064
+        - Owner: 22
+        - Building: Stadium
+        
+        ### 53
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: Defense
+          - Unit: Infantry
+          - ID: 18129
+        - Player: 26
+        - Plains Land 48,46:
+          - Owner: City-State Raqmu
+          - IsRiver: true
+          - Improvement: Farm
+          - Route: Railroad
+        
+        ### 54
+        - Type: SetPopulation
+        - OldPopulation: 26
+        - NewPopulation: 27
+        - City:
+          - Owner: City-State Zanzibar
+          - CityID: 1073
+          - Population: 27
+          - City: Zanzibar
+          - Terrain: Grass
+          - Resource: Glass
+          - Religion: Protestantism
+          - Route: Railroad
+          - Plot: Land
+          - X: 38
+          - Y: 33
+        
+        ### 55
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: City-State Zanzibar
+          - CityID: 1073
+          - Population: 27
+          - City: Zanzibar
+          - Terrain: Grass
+          - Resource: Glass
+          - Religion: Protestantism
+          - Route: Railroad
+          - Plot: Land
+          - X: 38
+          - Y: 33
+        - Owner: 31
+        - Religion: Protestantism
+        
+        ### 56
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Musketman
+          - ID: 18995
+        - Player: 3: Poland
+        - Grass Land 64,27:
+          - Owner: Poland
+          - CityID: 15755
+          - Population: 21
+          - IsRiver: true
+          - City: Krakow
+          - Resource: Cloves
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 57
+        - Type: UnitCreated
+        - UnitType: Musketman
+        - Player: 3: Poland
+        - Unit:
+          - Level: 1
+          - AI: Ranged
+          - Unit: Musketman
+          - ID: 18995
+        - Grass Land 64,27:
+          - Owner: Poland
+          - CityID: 15755
+          - Population: 21
+          - IsRiver: true
+          - City: Krakow
+          - Resource: Cloves
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 58
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Ranged
+          - Unit: Musketman
+          - ID: 18995
+        - Player: 3: Poland
+        - Grass Hills 66,26:
+          - Owner: Poland
+          - IsRiver: true
+          - Resource: Sheep
+          - Improvement: Pasture
+        
+        ## Turn 425
+        
+        ### 0
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: The Iroquois
+          - CityID: 17909
+          - Population: 16
+          - City: Cork
+          - Terrain: Tundra
+          - Resource: Uranium
+          - Religion: Buddhism
+          - Route: Railroad
+          - Plot: Land
+          - X: 11
+          - Y: 3
+        - Owner: 1: The Iroquois
+        - Religion: Buddhism
+        
+        ### 1
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: The Iroquois
+          - CityID: 18221
+          - Population: 20
+          - IsRiver: true
+          - City: Cardiff
+          - Terrain: Desert
+          - Religion: Buddhism
+          - Route: Railroad
+          - Plot: Land
+          - X: 74
+          - Y: 10
+        - Owner: 1: The Iroquois
+        - Religion: Buddhism
+        
+        ### 2
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: Indonesia
+          - CityID: 1059
+          - Population: 38
+          - IsRiver: true
+          - City: Jakarta
+          - Terrain: Grass
+          - Religion: Hinduism
+          - Route: Railroad
+          - Plot: Land
+          - X: 58
+          - Y: 25
+        - Owner: 2: Indonesia
+        - Religion: Hinduism
+        
+        ### 3
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: Indonesia
+          - CityID: 1059
+          - Population: 38
+          - IsRiver: true
+          - City: Jakarta
+          - Terrain: Grass
+          - Religion: Hinduism
+          - Route: Railroad
+          - Plot: Land
+          - X: 58
+          - Y: 25
+        - Owner: 2: Indonesia
+        - Religion: Hinduism
+        
+        ### 4
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: Indonesia
+          - CityID: 2537
+          - Population: 29
+          - IsRiver: true
+          - City: Batam
+          - Terrain: Grass
+          - Religion: Hinduism
+          - Route: Railroad
+          - Plot: Land
+          - X: 58
+          - Y: 32
+        - Owner: 2: Indonesia
+        - Religion: Hinduism
+        
+        ### 5
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: City-State Raqmu
+          - CityID: 1068
+          - Population: 25
+          - City: Raqmu
+          - Terrain: Tundra
+          - Religion: Confucianism
+          - Route: Railroad
+          - Plot: Land
+          - X: 47
+          - Y: 48
+        - Owner: 26
+        - Religion: Confucianism
+        
+        ### 6
+        - Type: ResolutionResult
+        - Decision: 25
+        - Passed: true
+        - ProposerPlayer: 2: Indonesia
+        - Resolution: Open Door
+        
+        ### 7
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: The Shoshone
+          - CityID: 1535
+          - Population: 29
+          - IsRiver: true
+          - City: Goshute
+          - Terrain: Plains
+          - Religion: Confucianism
+          - Route: Railroad
+          - Plot: Land
+          - X: 59
+          - Y: 40
+        - Owner: 0: The Shoshone
+        - Religion: Confucianism
+        
+        ### 8
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18308
+        - Player: 0: The Shoshone
+        - Tundra Land 66,46:
+          - Owner: The Shoshone
+          - CityID: 1057
+          - Population: 38
+          - IsRiver: true
+          - City: Moson Kahni
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 9
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18419
+        - Player: 0: The Shoshone
+        - Tundra Land 66,46:
+          - Owner: The Shoshone
+          - CityID: 1057
+          - Population: 38
+          - IsRiver: true
+          - City: Moson Kahni
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 10
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18473
+        - Player: 0: The Shoshone
+        - Tundra Land 66,46:
+          - Owner: The Shoshone
+          - CityID: 1057
+          - Population: 38
+          - IsRiver: true
+          - City: Moson Kahni
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 11
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18475
+        - Player: 0: The Shoshone
+        - Tundra Land 66,46:
+          - Owner: The Shoshone
+          - CityID: 1057
+          - Population: 38
+          - IsRiver: true
+          - City: Moson Kahni
+          - Religion: Confucianism
+          - Route: Railroad
+        
+        ### 12
+        - Type: UnitBuildCompleted
+        - Owner: 0: The Shoshone
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 1705
+        - Build: Construct a Fort
+        - Desert Hills 59,38:
+          - Owner: The Shoshone
+          - IsRiver: true
+          - Route: Railroad
+        
+        ### 13
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 4521
+        - Player: 0: The Shoshone
+        - Plains Hills 57,37:
+          - Owner: The Shoshone
+          - Improvement: Mine
+          - Route: Railroad
+        
+        ### 14
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Defense
+          - Unit: Rifleman
+          - ID: 18873
+        - Player: 0: The Shoshone
+        - Desert Hills 59,38:
+          - Owner: The Shoshone
+          - IsRiver: true
+          - Route: Railroad
+        
+        ### 15
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Messenger
+          - Unit: Ambassador
+          - ID: 18878
+        - Player: 0: The Shoshone
+        - Plots:
+          - Ocean 40,33:
+            - Owner: City-State Zanzibar
+          - Ocean 41,33:
+            - Owner: City-State Zanzibar
+        
+        ### 16
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Messenger
+          - Unit: Ambassador
+          - ID: 18911
+        - Player: 0: The Shoshone
+        - Plots:
+          - Plains Hills 61,37:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Citadel
+            - Route: Railroad
+          - Grass Land 60,37:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Encampment
+            - Route: Railroad
+          - Plains Hills 59,37:
+            - Owner: The Shoshone
+            - IsRiver: true
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Hills 58,37:
+            - Owner: The Shoshone
+            - Resource: Sheep
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Hills 57,37:
+            - Owner: The Shoshone
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Hills 56,37:
+            - Owner: The Shoshone
+            - Resource: Deer
+            - Route: Railroad
+            - Feature: Forest
+          - Plains Hills 55,37:
+            - Owner: The Shoshone
+            - Resource: Sheep
+          - Plains Hills 54,37:
+            - Owner: Brazil
+            - Resource: Sheep
+            - Improvement: Pasture
+            - Route: Railroad
+        
+        ### 17
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: The Iroquois
+          - CityID: 1814
+          - Population: 34
+          - City: Brantford
+          - Terrain: Plains
+          - Religion: Protestantism
+          - Route: Railroad
+          - Plot: Land
+          - X: 8
+          - Y: 31
+        - Owner: 1: The Iroquois
+        - Religion: Protestantism
+        
+        ### 18
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: The Iroquois
+          - CityID: 2963
+          - Population: 33
+          - City: Genesse River
+          - Terrain: Desert
+          - Resource: Oil
+          - Religion: Protestantism
+          - Route: Railroad
+          - Plot: Land
+          - X: 22
+          - Y: 34
+        - Owner: 1: The Iroquois
+        - Religion: Protestantism
+        
+        ### 19
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: The Iroquois
+          - CityID: 3048
+          - Population: 36
+          - City: Canandaigua Lake
+          - Terrain: Grass
+          - Resource: Uranium
+          - Religion: Protestantism
+          - Route: Railroad
+          - Plot: Land
+          - X: 17
+          - Y: 19
+        - Owner: 1: The Iroquois
+        - Religion: Protestantism
+        
+        ### 20
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: The Iroquois
+          - CityID: 4339
+          - Population: 29
+          - City: Osaka
+          - Terrain: Plains
+          - Religion: Protestantism
+          - Route: Railroad
+          - Plot: Hills
+          - X: 19
+          - Y: 43
+        - Owner: 1: The Iroquois
+        - Religion: Protestantism
+        
+        ### 21
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: The Iroquois
+          - CityID: 8095
+          - Population: 28
+          - City: Satsuma
+          - Terrain: Plains
+          - Religion: Protestantism
+          - Route: Railroad
+          - Plot: Land
+          - X: 24
+          - Y: 46
+        - Owner: 1: The Iroquois
+        - Religion: Protestantism
+        
+        ### 22
+        - Type: CityBoughtPlot
+        - WithFaithCulture: true
+        - Player: 1: The Iroquois
+        - City:
+          - Name: Yokohama
+          - Population: 30
+          - ID: 9784
+        - Ocean 37,25:
+          - Owner: The Iroquois
+        
+        ### 23
+        - Type: SetPopulation
+        - OldPopulation: 33
+        - NewPopulation: 34
+        - City:
+          - Owner: The Iroquois
+          - CityID: 12603
+          - Population: 34
+          - City: Surabaya
+          - Terrain: Grass
+          - Route: Railroad
+          - Plot: Land
+          - X: 54
+          - Y: 24
+        
+        ### 24
+        - Type: SetPopulation
+        - OldPopulation: 27
+        - NewPopulation: 28
+        - City:
+          - Owner: The Iroquois
+          - CityID: 13442
+          - Population: 28
+          - City: Palatium
+          - Terrain: Grass
+          - Route: Railroad
+          - Plot: Land
+          - X: 71
+          - Y: 18
+        
+        ### 25
+        - Type: SetPopulation
+        - OldPopulation: 28
+        - NewPopulation: 29
+        - City:
+          - Owner: The Iroquois
+          - CityID: 17417
+          - Population: 29
+          - IsRiver: true
+          - City: Tlaxcala
+          - Terrain: Grass
+          - Resource: Deer
+          - Route: Railroad
+          - Plot: Hills
+          - X: 61
+          - Y: 15
+        
+        ### 26
+        - Type: CityConstructed
+        - City:
+          - Name: Cardiff
+          - Population: 20
+          - ID: 18221
+        - Owner: 1: The Iroquois
+        - Building: TwoKay Foods Office
+        
+        ### 27
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18488
+        - Player: 1: The Iroquois
+        - Plots:
+          - Desert Land 63,11:
+            - Owner: The Aztecs
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 63,12:
+            - Owner: The Aztecs
+            - Resource: Cotton
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Hills 62,13:
+            - Owner: The Aztecs
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Land 62,14:
+            - Owner: The Iroquois
+            - Resource: Bison
+            - Improvement: Camp
+            - Route: Railroad
+          - Grass Hills 61,15:
+            - Owner: The Iroquois
+            - CityID: 17417
+            - Population: 29
+            - IsRiver: true
+            - City: Tlaxcala
+            - Resource: Deer
+            - Route: Railroad
+        
+        ### 28
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Cargo Ship
+          - ID: 18863
+        - Player: 1: The Iroquois
+        - Desert Land 48,34:
+          - Owner: The Iroquois
+          - Improvement: Fort
+          - Route: Railroad
+        
+        ### 29
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18084
+        - Player: 1: The Iroquois
+        - Plots:
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 54,30:
+            - Owner: The Iroquois
+            - CityID: 15221
+            - Population: 24
+            - IsRiver: true
+            - City: Oviedo
+            - Religion: Confucianism
+            - Route: Railroad
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Land 57,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 57,31:
+            - Owner: Indonesia
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+        
+        ### 30
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18984
+        - Player: 1: The Iroquois
+        - Plots:
+          - Grass Hills 64,24:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Land 63,24:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 62,24:
+            - Owner: Indonesia
+            - CityID: 2071
+            - Population: 31
+            - IsRiver: true
+            - City: Makassar
+            - Resource: Iron
+            - Route: Railroad
+        
+        ### 31
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18161
+        - Player: 1: The Iroquois
+        - Plots:
+          - Plains Hills 67,15:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Pasture
+            - Route: Railroad
+          - Plains Hills 68,15:
+            - Owner: Indonesia
+            - Resource: Coal
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Hills 69,15:
+            - Owner: The Iroquois
+            - Improvement: Fort
+        
+        ### 32
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18376
+        - Player: 1: The Iroquois
+        - Plots:
+          - Plains Land 63,10:
+            - Owner: The Aztecs
+            - CityID: 1062
+            - Population: 33
+            - IsRiver: true
+            - City: Tenochtitlan
+            - Religion: Catholicism
+            - Route: Railroad
+          - Desert Land 63,11:
+            - Owner: The Aztecs
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 63,12:
+            - Owner: The Aztecs
+            - Resource: Cotton
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Hills 62,13:
+            - Owner: The Aztecs
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Land 62,14:
+            - Owner: The Iroquois
+            - Resource: Bison
+            - Improvement: Camp
+            - Route: Railroad
+          - Grass Hills 61,15:
+            - Owner: The Iroquois
+            - CityID: 17417
+            - Population: 29
+            - IsRiver: true
+            - City: Tlaxcala
+            - Resource: Deer
+            - Route: Railroad
+        
+        ### 33
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18611
+        - Player: 1: The Iroquois
+        - Desert Land 48,34:
+          - Owner: The Iroquois
+          - Improvement: Fort
+          - Route: Railroad
+        
+        ### 34
+        - Type: CityEventChoiceEnded
+        - City:
+          - Name: Nantes
+          - Population: 17
+          - ID: 18609
+        - Player: 1: The Iroquois
+        - Choice: 90
+        
+        ### 35
+        - Type: EspionageState
+        - SpyIndex: 0
+        - SpyState: 1
+        - City:
+          - Owner: City-State Belgrade
+          - CityID: 1067
+          - Population: 17
+          - City: Belgrade
+          - Terrain: Desert
+          - Route: Railroad
+          - Plot: Hills
+          - X: 64
+          - Y: 20
+        - SpyOwner: 1: The Iroquois
+        
+        ### 36
+        - Type: UnitMoved
+        - Unit:
+          - Level: 5
+          - AI: AttackSea
+          - Unit: Fleet Destroyer
+          - ID: 17222
+        - Player: 1: The Iroquois
+        - Plots:
+          - Ocean 38,36:
+            - Owner: The Iroquois
+          - Coast 37,35:
+            - Owner: City-State Zanzibar
+          - Coast 37,34:
+            - Owner: City-State Zanzibar
+          - Coast 36,33:
+            - Owner: City-State Zanzibar
+          - Ocean 36,32:
+            - Owner: The Iroquois
+        
+        ### 37
+        - Type: UnitMoved
+        - Unit:
+          - Level: 6
+          - AI: AssaultSea
+          - Unit: Nuclear Submarine
+          - ID: 18839
+        - Player: 1: The Iroquois
+        - Plots:
+          - Coast 37,36:
+            - Owner: The Iroquois
+          - Coast 37,35:
+            - Owner: City-State Zanzibar
+          - Coast 37,34:
+            - Owner: City-State Zanzibar
+          - Coast 36,34:
+            - Owner: The Iroquois
+          - Ocean 35,33:
+            - Owner: The Iroquois
+        
+        ### 38
+        - Type: UnitMoved
+        - Unit:
+          - Level: 6
+          - Health: 96%
+          - AI: AttackSea
+          - Unit: Fleet Destroyer
+          - ID: 16791
+        - Player: 1: The Iroquois
+        - Plots:
+          - Coast 37,36:
+            - Owner: The Iroquois
+          - Coast 37,35:
+            - Owner: City-State Zanzibar
+          - Coast 37,34:
+            - Owner: City-State Zanzibar
+          - Coast 36,34:
+            - Owner: The Iroquois
+          - Coast 36,33:
+            - Owner: City-State Zanzibar
+          - Ocean 36,32:
+            - Owner: The Iroquois
+          - Coast 36,31:
+            - Owner: The Iroquois
+        
+        ### 39
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AssaultSea
+          - Unit: Nuclear Submarine
+          - ID: 18858
+        - Player: 1: The Iroquois
+        - Plots:
+          - Coast 37,36:
+            - Owner: The Iroquois
+          - Coast 37,35:
+            - Owner: City-State Zanzibar
+          - Coast 37,34:
+            - Owner: City-State Zanzibar
+          - Coast 36,34:
+            - Owner: The Iroquois
+        
+        ### 40
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AssaultSea
+          - Unit: Nuclear Submarine
+          - ID: 18855
+        - Player: 1: The Iroquois
+        - Plots:
+          - Coast 37,36:
+            - Owner: The Iroquois
+          - Coast 37,35:
+            - Owner: City-State Zanzibar
+          - Coast 37,34:
+            - Owner: City-State Zanzibar
+          - Coast 36,34:
+            - Owner: The Iroquois
+        
+        ### 41
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AttackSea
+          - Unit: Fleet Destroyer
+          - ID: 17736
+        - Player: 1: The Iroquois
+        - Plots:
+          - Ocean 39,36:
+            - Owner: The Iroquois
+          - Ocean 38,35:
+            - Owner: The Iroquois
+          - Coast 38,34:
+            - Owner: City-State Zanzibar
+            - Resource: Whales
+            - Improvement: Fishing Boats
+          - Coast 37,34:
+            - Owner: City-State Zanzibar
+          - Coast 36,33:
+            - Owner: City-State Zanzibar
+          - Ocean 36,32:
+            - Owner: The Iroquois
+        
+        ### 42
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AssaultSea
+          - Unit: Nuclear Submarine
+          - ID: 18856
+        - Player: 1: The Iroquois
+        - Ocean 39,36:
+          - Owner: The Iroquois
+        
+        ### 43
+        - Type: UnitBuildCompleted
+        - Owner: 1: The Iroquois
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 4526
+        - Build: Construct a Farm
+        - Plains Land 54,27:
+          - Owner: The Iroquois
+        
+        ### 44
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 1913
+        - Player: 1: The Iroquois
+        - Grass Hills 62,15:
+          - Owner: The Iroquois
+          - Improvement: Mine
+        
+        ### 45
+        - Type: TileImprovementChanged
+        - Owner: 1: The Iroquois
+        - OldImprovement: Mine
+        - Grass Hills 62,15:
+          - Owner: The Iroquois
+        
+        ### 46
+        - Type: UnitBuildCompleted
+        - IsFirstTime: true
+        - Owner: 1: The Iroquois
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 1913
+        - Build: Construct a Fort
+        - Grass Hills 62,15:
+          - Owner: The Iroquois
+        
+        ### 47
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 2534
+        - Player: 1: The Iroquois
+        - Plots:
+          - Plains Land 53,31:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 54,30:
+            - Owner: The Iroquois
+            - CityID: 15221
+            - Population: 24
+            - IsRiver: true
+            - City: Oviedo
+            - Religion: Confucianism
+            - Route: Railroad
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Hills 56,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Hills 57,28:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Land 57,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 58,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 58,25:
+            - Owner: Indonesia
+            - CityID: 1059
+            - Population: 38
+            - IsRiver: true
+            - City: Jakarta
+            - Religion: Hinduism
+            - Route: Railroad
+          - Plains Land 59,24:
+            - Owner: Indonesia
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 59,23:
+            - Owner: Indonesia
+            - Improvement: Village
+            - Route: Railroad
+          - Desert Hills 60,22:
+            - Owner: Indonesia
+            - Improvement: Mine
+            - Route: Railroad
+          - Desert Hills 61,22:
+            - Owner: Indonesia
+            - Resource: Gems
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 61,23:
+            - Owner: Indonesia
+            - Resource: Maize
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Desert Hills 64,20:
+            - Owner: City-State Belgrade
+            - CityID: 1067
+            - Population: 17
+            - City: Belgrade
+            - Route: Railroad
+          - Desert Land 64,19:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Embassy
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Land 65,18:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 65,17:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Hills 65,16:
+            - Owner: Indonesia
+            - Route: Railroad
+          - Grass Hills 64,15:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Pasture
+            - Route: Railroad
+          - Plains Hills 65,14:
+            - Owner: Indonesia
+            - Resource: Coal
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Hills 64,13:
+            - Owner: The Aztecs
+            - Resource: Aluminum
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Hills 63,13:
+            - Owner: The Aztecs
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Land 63,14:
+            - Owner: The Iroquois
+        
+        ### 48
+        - Type: UnitBuildCompleted
+        - Owner: 1: The Iroquois
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 2534
+        - Build: Construct a Farm
+        - Grass Land 63,14:
+          - Owner: The Iroquois
+        
+        ### 49
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Health: 95%
+          - AI: Worker
+          - Unit: Worker
+          - ID: 2940
+        - Player: 1: The Iroquois
+        - Plots:
+          - Grass Hills 65,31:
+            - Owner: The Iroquois
+            - Resource: Deer
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Hills 65,30:
+            - Owner: Poland
+            - Resource: Lapis Lazuli
+            - Improvement: Quarry
+            - Route: Railroad
+          - Grass Land 64,30:
+            - Owner: Poland
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 63,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 63,28:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Oil
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Land 62,28:
+            - Owner: Indonesia
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Land 61,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 60,29:
+            - Owner: Indonesia
+            - CityID: 1882
+            - Population: 32
+            - IsRiver: true
+            - City: Medan
+            - Route: Railroad
+          - Grass Land 60,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 59,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 58,30:
+            - Owner: Indonesia
+            - Resource: Oil
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Land 57,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 54,30:
+            - Owner: The Iroquois
+            - CityID: 15221
+            - Population: 24
+            - IsRiver: true
+            - City: Oviedo
+            - Religion: Confucianism
+            - Route: Railroad
+          - Plains Land 53,31:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 53,32:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Route: Railroad
+            - Feature: Flood Plains
+        
+        ### 50
+        - Type: UnitBuildCompleted
+        - Owner: 1: The Iroquois
+        - Unit:
+          - Level: 1
+          - Health: 95%
+          - AI: Worker
+          - Unit: Worker
+          - ID: 2940
+        - Build: Construct a Farm
+        - Desert Land 53,32:
+          - Owner: The Iroquois
+          - IsRiver: true
+          - Route: Railroad
+          - Feature: Flood Plains
+        
+        ### 51
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 3106
+        - Player: 1: The Iroquois
+        - Plots:
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Land 57,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 58,30:
+            - Owner: Indonesia
+            - Resource: Oil
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Land 59,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 60,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 60,29:
+            - Owner: Indonesia
+            - CityID: 1882
+            - Population: 32
+            - IsRiver: true
+            - City: Medan
+            - Route: Railroad
+          - Grass Land 61,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 62,28:
+            - Owner: Indonesia
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 63,28:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Oil
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Land 63,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 64,30:
+            - Owner: Poland
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Hills 65,30:
+            - Owner: Poland
+            - Resource: Lapis Lazuli
+            - Improvement: Quarry
+            - Route: Railroad
+          - Grass Hills 65,31:
+            - Owner: The Iroquois
+            - Resource: Deer
+            - Improvement: Town
+            - Route: Railroad
+        
+        ### 52
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 3603
+        - Player: 1: The Iroquois
+        - Plots:
+          - Grass Hills 68,21:
+            - Owner: The Iroquois
+            - Resource: Lapis Lazuli
+            - Improvement: Quarry
+            - Route: Railroad
+          - Grass Hills 65,31:
+            - Owner: The Iroquois
+            - Resource: Deer
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Hills 65,30:
+            - Owner: Poland
+            - Resource: Lapis Lazuli
+            - Improvement: Quarry
+            - Route: Railroad
+          - Grass Land 64,30:
+            - Owner: Poland
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 63,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 63,28:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Oil
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Land 62,28:
+            - Owner: Indonesia
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Land 61,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 60,29:
+            - Owner: Indonesia
+            - CityID: 1882
+            - Population: 32
+            - IsRiver: true
+            - City: Medan
+            - Route: Railroad
+          - Grass Land 60,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 59,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 58,30:
+            - Owner: Indonesia
+            - Resource: Oil
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Land 57,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 54,29:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Route: Railroad
+        
+        ### 53
+        - Type: UnitBuildCompleted
+        - Owner: 1: The Iroquois
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 3603
+        - Build: Construct a Farm
+        - Grass Land 54,29:
+          - Owner: The Iroquois
+          - IsRiver: true
+          - Route: Railroad
+        
+        ### 54
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 4338
+        - Player: 1: The Iroquois
+        - Plots:
+          - Plains Land 62,16:
+            - Owner: The Iroquois
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 62,17:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 63,18:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Hills 63,19:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Mine
+            - Route: Railroad
+          - Desert Hills 64,20:
+            - Owner: City-State Belgrade
+            - CityID: 1067
+            - Population: 17
+            - City: Belgrade
+            - Route: Railroad
+          - Plains Land 65,20:
+            - Owner: City-State Belgrade
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 66,20:
+            - Owner: City-State Belgrade
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 67,20:
+            - Owner: City-State Belgrade
+            - IsRiver: true
+            - Resource: Iron
+            - Improvement: Mine
+            - Route: Road
+          - Plains Land 68,20:
+            - Owner: The Iroquois
+            - Resource: Deer
+            - Feature: Forest
+          - Plains Hills 69,20:
+            - Owner: The Iroquois
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Land 69,21:
+            - Owner: The Iroquois
+            - Route: Railroad
+        
+        ### 55
+        - Type: UnitBuildCompleted
+        - Owner: 1: The Iroquois
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 4338
+        - Build: Construct a Farm
+        - Grass Land 69,21:
+          - Owner: The Iroquois
+          - Route: Railroad
+        
+        ### 56
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 18314
+        - Player: 1: The Iroquois
+        - Plots:
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Land 57,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 58,30:
+            - Owner: Indonesia
+            - Resource: Oil
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Land 59,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 60,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 60,29:
+            - Owner: Indonesia
+            - CityID: 1882
+            - Population: 32
+            - IsRiver: true
+            - City: Medan
+            - Route: Railroad
+          - Grass Land 61,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 62,28:
+            - Owner: Indonesia
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 62,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Hills 63,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Bananas
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Land 63,25:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Pepper
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Land 63,24:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Plains Hills 64,21:
+            - Owner: City-State Belgrade
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 65,20:
+            - Owner: City-State Belgrade
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 66,20:
+            - Owner: City-State Belgrade
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 67,20:
+            - Owner: City-State Belgrade
+            - IsRiver: true
+            - Resource: Iron
+            - Improvement: Mine
+            - Route: Road
+          - Plains Land 68,20:
+            - Owner: The Iroquois
+            - Resource: Deer
+            - Feature: Forest
+          - Plains Hills 69,20:
+            - Owner: The Iroquois
+            - Improvement: Mine
+            - Route: Railroad
+          - Mountain Mountain 70,20:
+            - Owner: The Iroquois
+            - Route: Railroad
+          - Mountain Mountain 70,19:
+            - Owner: The Iroquois
+            - Route: Railroad
+          - Grass Land 71,18:
+            - Owner: The Iroquois
+            - CityID: 13442
+            - Population: 28
+            - City: Palatium
+            - Route: Railroad
+        
+        ### 57
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 18320
+        - Player: 1: The Iroquois
+        - Plots:
+          - Desert Hills 59,14:
+            - Owner: The Iroquois
+            - Resource: Iron
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Hills 59,15:
+            - Owner: The Iroquois
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 60,15:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Hills 61,15:
+            - Owner: The Iroquois
+            - CityID: 17417
+            - Population: 29
+            - IsRiver: true
+            - City: Tlaxcala
+            - Resource: Deer
+            - Route: Railroad
+          - Plains Land 62,16:
+            - Owner: The Iroquois
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 62,17:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 63,18:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Hills 63,19:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Mine
+            - Route: Railroad
+          - Desert Land 64,19:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Embassy
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 65,20:
+            - Owner: City-State Belgrade
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 66,20:
+            - Owner: City-State Belgrade
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 67,20:
+            - Owner: City-State Belgrade
+            - IsRiver: true
+            - Resource: Iron
+            - Improvement: Mine
+            - Route: Road
+          - Plains Land 68,20:
+            - Owner: The Iroquois
+            - Resource: Deer
+            - Feature: Forest
+          - Plains Hills 69,20:
+            - Owner: The Iroquois
+            - Improvement: Mine
+            - Route: Railroad
+          - Mountain Mountain 70,20:
+            - Owner: The Iroquois
+            - Route: Railroad
+          - Mountain Mountain 70,19:
+            - Owner: The Iroquois
+            - Route: Railroad
+          - Grass Land 71,18:
+            - Owner: The Iroquois
+            - CityID: 13442
+            - Population: 28
+            - City: Palatium
+            - Route: Railroad
+          - Plains Land 71,17:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Resource: Bananas
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Land 72,16:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 72,15:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 73,14:
+            - Owner: The Iroquois
+            - CityID: 17908
+            - Population: 15
+            - IsRiver: true
+            - City: Truro
+            - Resource: Cattle
+            - Religion: Buddhism
+            - Route: Railroad
+          - Plains Land 73,11:
+            - Owner: The Iroquois
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 74,10:
+            - Owner: The Iroquois
+            - CityID: 18221
+            - Population: 20
+            - IsRiver: true
+            - City: Cardiff
+            - Religion: Buddhism
+            - Route: Railroad
+          - Coast 75,10:
+            - Owner: The Iroquois
+        
+        ### 58
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 18323
+        - Player: 1: The Iroquois
+        - Plots:
+          - Coast 75,10:
+            - Owner: The Iroquois
+          - Desert Land 74,10:
+            - Owner: The Iroquois
+            - CityID: 18221
+            - Population: 20
+            - IsRiver: true
+            - City: Cardiff
+            - Religion: Buddhism
+            - Route: Railroad
+        
+        ### 59
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Inquisitor
+          - Unit: Inquisitor
+          - ID: 13118
+        - Player: 1: The Iroquois
+        - Plots:
+          - Grass Land 54,30:
+            - Owner: The Iroquois
+            - CityID: 15221
+            - Population: 24
+            - IsRiver: true
+            - City: Oviedo
+            - Religion: Confucianism
+            - Route: Railroad
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Hills 56,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Hills 57,28:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Land 57,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 58,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 58,25:
+            - Owner: Indonesia
+            - CityID: 1059
+            - Population: 38
+            - IsRiver: true
+            - City: Jakarta
+            - Religion: Hinduism
+            - Route: Railroad
+          - Grass Hills 59,25:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 60,25:
+            - Owner: Indonesia
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 61,25:
+            - Owner: Indonesia
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 62,24:
+            - Owner: Indonesia
+            - CityID: 2071
+            - Population: 31
+            - IsRiver: true
+            - City: Makassar
+            - Resource: Iron
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Plains Hills 64,21:
+            - Owner: City-State Belgrade
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 65,20:
+            - Owner: City-State Belgrade
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 66,20:
+            - Owner: City-State Belgrade
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 67,20:
+            - Owner: City-State Belgrade
+            - IsRiver: true
+            - Resource: Iron
+            - Improvement: Mine
+            - Route: Road
+          - Plains Land 68,20:
+            - Owner: The Iroquois
+            - Resource: Deer
+            - Feature: Forest
+          - Plains Hills 69,20:
+            - Owner: The Iroquois
+            - Improvement: Mine
+            - Route: Railroad
+          - Mountain Mountain 70,20:
+            - Owner: The Iroquois
+            - Route: Railroad
+          - Mountain Mountain 70,19:
+            - Owner: The Iroquois
+            - Route: Railroad
+          - Grass Land 71,18:
+            - Owner: The Iroquois
+            - CityID: 13442
+            - Population: 28
+            - City: Palatium
+            - Route: Railroad
+          - Plains Land 71,17:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Resource: Bananas
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Land 72,16:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 72,15:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 73,14:
+            - Owner: The Iroquois
+            - CityID: 17908
+            - Population: 15
+            - IsRiver: true
+            - City: Truro
+            - Resource: Cattle
+            - Religion: Buddhism
+            - Route: Railroad
+          - Plains Land 73,11:
+            - Owner: The Iroquois
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 74,10:
+            - Owner: The Iroquois
+            - CityID: 18221
+            - Population: 20
+            - IsRiver: true
+            - City: Cardiff
+            - Religion: Buddhism
+            - Route: Railroad
+          - Coast 75,10:
+            - Owner: The Iroquois
+        
+        ### 60
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Attack
+          - Unit: Mercenary
+          - ID: 18781
+        - Player: 1: The Iroquois
+        - Plots:
+          - Grass Land 54,30:
+            - Owner: The Iroquois
+            - CityID: 15221
+            - Population: 24
+            - IsRiver: true
+            - City: Oviedo
+            - Religion: Confucianism
+            - Route: Railroad
+          - Plains Land 53,31:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 53,32:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Hills 52,33:
+            - Owner: Brazil
+            - IsRiver: true
+            - Improvement: Landmark
+            - Route: Railroad
+          - Desert Land 53,34:
+            - Owner: Brazil
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+            - Feature: Flood Plains
+        
+        ### 61
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AttackSea
+          - Unit: Fleet Destroyer
+          - ID: 16928
+        - Player: 1: The Iroquois
+        - Grass Hills 36,29:
+          - Owner: The Iroquois
+          - CityID: 9784
+          - Population: 30
+          - City: Yokohama
+          - Resource: Coal
+          - Religion: Protestantism
+          - Route: Railroad
+        
+        ### 62
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AttackSea
+          - Unit: Fleet Destroyer
+          - ID: 16930
+        - Player: 1: The Iroquois
+        
+        ### 63
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AttackSea
+          - Unit: Fleet Destroyer
+          - ID: 17747
+        - Player: 1: The Iroquois
+        - Ocean 40,29:
+          - Owner: The Iroquois
+        
+        ### 64
+        - Type: UnitMoved
+        - Unit:
+          - Level: 5
+          - AI: Ranged
+          - Unit: Light Tank
+          - ID: 15852
+        - Player: 1: The Iroquois
+        - Plots:
+          - Plains Land 62,16:
+            - Owner: The Iroquois
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Hills 61,15:
+            - Owner: The Iroquois
+            - CityID: 17417
+            - Population: 29
+            - IsRiver: true
+            - City: Tlaxcala
+            - Resource: Deer
+            - Route: Railroad
+          - Plains Land 60,15:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Hills 59,15:
+            - Owner: The Iroquois
+            - Improvement: Village
+            - Route: Railroad
+          - Desert Land 58,15:
+            - Owner: The Iroquois
+            - Feature: Oasis
+        
+        ### 65
+        - Type: UnitMoved
+        - Unit:
+          - Level: 5
+          - Health: 99%
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 13367
+        - Player: 1: The Iroquois
+        - Plots:
+          - Plains Land 60,15:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Hills 61,15:
+            - Owner: The Iroquois
+            - CityID: 17417
+            - Population: 29
+            - IsRiver: true
+            - City: Tlaxcala
+            - Resource: Deer
+            - Route: Railroad
+          - Plains Land 62,16:
+            - Owner: The Iroquois
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 61,17:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Feature: Flood Plains
+        
+        ### 66
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 16576
+        - Player: 1: The Iroquois
+        - Desert Land 59,16:
+          - Owner: The Iroquois
+          - Improvement: Farm
+        
+        ### 67
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Messenger
+          - Unit: Ambassador
+          - ID: 18939
+        - Player: 1: The Iroquois
+        - Plots:
+          - Coast 37,36:
+            - Owner: The Iroquois
+          - Coast 37,35:
+            - Owner: City-State Zanzibar
+          - Coast 38,34:
+            - Owner: City-State Zanzibar
+            - Resource: Whales
+            - Improvement: Fishing Boats
+        
+        ### 68
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: CityBombard
+          - Unit: Rocket Artillery
+          - ID: 18967
+        - Player: 1: The Iroquois
+        - Plots:
+          - Desert Land 63,18:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 62,17:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 62,16:
+            - Owner: The Iroquois
+            - Improvement: Farm
+            - Route: Railroad
+        
+        ### 69
+        - Type: PlayerDoneTurn
+        - NextPlayer: 2: Indonesia
+        - Player: 1: The Iroquois
+        
+        ### 70
+        - Type: DealMade
+        - StartTurn: 425
+        - TradedItems:
+          - #0:
+            - Data1: 21
+            - Data2: 1
+            - Data3: 0
+            - Duration: 50
+            - FromPlayer: 5
+            - Item: Resources
+          - #1:
+            - Data1: 0
+            - Data2: 0
+            - Data3: 0
+            - Duration: 0
+            - FromPlayer: 2
+            - Item: AllowEmbassy
+          - #2:
+            - Data1: 17
+            - Data2: 1
+            - Data3: 0
+            - Duration: 50
+            - FromPlayer: 2
+            - Item: Resources
+          - #3:
+            - Data1: 0
+            - Data2: 0
+            - Data3: 0
+            - Duration: 0
+            - FromPlayer: 5
+            - Item: AllowEmbassy
+        - ToPlayer: 5: The Aztecs
+        - FromPlayer: 2: Indonesia
+        
+        ### 71
+        - Type: CityInvestedBuilding
+        - BuildingClass: Military Base
+        - Invested: true
+        - City:
+          - Name: Makassar
+          - Population: 31
+          - ID: 2071
+        - Player: 2: Indonesia
+        
+        ### 72
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Worker
+          - ID: 19000
+        - Player: 2: Indonesia
+        - Grass Land 58,25:
+          - Owner: Indonesia
+          - CityID: 1059
+          - Population: 38
+          - IsRiver: true
+          - City: Jakarta
+          - Religion: Hinduism
+          - Route: Railroad
+        
+        ### 73
+        - Type: UnitCreated
+        - UnitType: Worker
+        - Player: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 19000
+        - Grass Land 58,25:
+          - Owner: Indonesia
+          - CityID: 1059
+          - Population: 38
+          - IsRiver: true
+          - City: Jakarta
+          - Religion: Hinduism
+          - Route: Railroad
+        
+        ### 74
+        - Type: CityTrained
+        - WithGold: true
+        - Player: 2: Indonesia
+        - City:
+          - Name: Jakarta
+          - Population: 38
+          - ID: 1059
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 19000
+        
+        ### 75
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Inquisitor
+          - ID: 19001
+        - Player: 2: Indonesia
+        - Grass Land 58,25:
+          - Owner: Indonesia
+          - CityID: 1059
+          - Population: 38
+          - IsRiver: true
+          - City: Jakarta
+          - Religion: Hinduism
+          - Route: Railroad
+        
+        ### 76
+        - Type: UnitCreated
+        - UnitType: Inquisitor
+        - Player: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - AI: Inquisitor
+          - Unit: Inquisitor
+          - ID: 19001
+        - Grass Land 58,25:
+          - Owner: Indonesia
+          - CityID: 1059
+          - Population: 38
+          - IsRiver: true
+          - City: Jakarta
+          - Religion: Hinduism
+          - Route: Railroad
+        
+        ### 77
+        - Type: CityTrained
+        - WithFaith: true
+        - Player: 2: Indonesia
+        - City:
+          - Name: Jakarta
+          - Population: 38
+          - ID: 1059
+        - Unit:
+          - Level: 1
+          - AI: Inquisitor
+          - Unit: Inquisitor
+          - ID: 19001
+        
+        ### 78
+        - Type: PlayerGoldenAge
+        - TurnChange: 10
+        - Player: 2: Indonesia
+        
+        ### 79
+        - Type: CityConstructed
+        - City:
+          - Name: Jakarta
+          - Population: 38
+          - ID: 1059
+        - Owner: 2: Indonesia
+        - Building: Military Base
+        
+        ### 80
+        - Type: CityConstructed
+        - City:
+          - Name: Tlatelolco
+          - Population: 24
+          - ID: 17138
+        - Owner: 2: Indonesia
+        - Building: Military Base
+        
+        ### 81
+        - Type: SetPopulation
+        - OldPopulation: 4
+        - NewPopulation: 3
+        - City:
+          - Owner: Indonesia
+          - CityID: 18435
+          - Population: 3
+          - IsRiver: true
+          - City: Dublin
+          - Terrain: Desert
+          - Resource: Pepper
+          - Religion: Buddhism
+          - Route: Railroad
+          - Plot: Hills
+          - X: 69
+          - Y: 11
+        
+        ### 82
+        - Type: SetPopulation
+        - OldPopulation: 6
+        - NewPopulation: 5
+        - City:
+          - Owner: Indonesia
+          - CityID: 18731
+          - Population: 5
+          - City: Douglas
+          - Terrain: Tundra
+          - Resource: Sheep
+          - Religion: Buddhism
+          - Route: Railroad
+          - Plot: Hills
+          - X: 67
+          - Y: 3
+        
+        ### 83
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18014
+        - Player: 2: Indonesia
+        - Plots:
+          - Desert Hills 63,19:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Mine
+            - Route: Railroad
+          - Desert Hills 64,20:
+            - Owner: City-State Belgrade
+            - CityID: 1067
+            - Population: 17
+            - City: Belgrade
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+        
+        ### 84
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18015
+        - Player: 2: Indonesia
+        - Plots:
+          - Grass Land 59,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 59,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 60,28:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 60,29:
+            - Owner: Indonesia
+            - CityID: 1882
+            - Population: 32
+            - IsRiver: true
+            - City: Medan
+            - Route: Railroad
+          - Grass Land 60,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Hills 60,31:
+            - Owner: Indonesia
+            - Improvement: Fort
+            - Route: Railroad
+        
+        ### 85
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18168
+        - Player: 2: Indonesia
+        - Plots:
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+          - Grass Land 63,24:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 62,25:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+        
+        ### 86
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18557
+        - Player: 2: Indonesia
+        - Plots:
+          - Grass Land 61,34:
+            - Owner: The Iroquois
+            - CityID: 15152
+            - Population: 17
+            - IsRiver: true
+            - City: Florence
+            - Route: Railroad
+          - Plains Hills 61,33:
+            - Owner: The Iroquois
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Land 61,32:
+            - Owner: The Iroquois
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Hills 60,31:
+            - Owner: Indonesia
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Land 60,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+        
+        ### 87
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18228
+        - Player: 2: Indonesia
+        - Plots:
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Desert Hills 64,20:
+            - Owner: City-State Belgrade
+            - CityID: 1067
+            - Population: 17
+            - City: Belgrade
+            - Route: Railroad
+          - Desert Land 64,19:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Embassy
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Land 65,18:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+            - Feature: Flood Plains
+        
+        ### 88
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18090
+        - Player: 2: Indonesia
+        - Plots:
+          - Desert Hills 64,20:
+            - Owner: City-State Belgrade
+            - CityID: 1067
+            - Population: 17
+            - City: Belgrade
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+          - Grass Land 62,24:
+            - Owner: Indonesia
+            - CityID: 2071
+            - Population: 31
+            - IsRiver: true
+            - City: Makassar
+            - Resource: Iron
+            - Route: Railroad
+        
+        ### 89
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18091
+        - Player: 2: Indonesia
+        - Plots:
+          - Grass Land 62,24:
+            - Owner: Indonesia
+            - CityID: 2071
+            - Population: 31
+            - IsRiver: true
+            - City: Makassar
+            - Resource: Iron
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Land 64,22:
+            - Owner: Indonesia
+            - Improvement: Fort
+          - Plains Hills 64,21:
+            - Owner: City-State Belgrade
+            - Improvement: Mine
+            - Route: Railroad
+        
+        ### 90
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18380
+        - Player: 2: Indonesia
+        - Plots:
+          - Grass Land 58,25:
+            - Owner: Indonesia
+            - CityID: 1059
+            - Population: 38
+            - IsRiver: true
+            - City: Jakarta
+            - Religion: Hinduism
+            - Route: Railroad
+          - Grass Hills 58,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 57,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 57,28:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 56,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+        
+        ### 91
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Cargo Ship
+          - ID: 18275
+        - Player: 2: Indonesia
+        - Plots:
+          - Coast 44,9:
+            - Owner: The Iroquois
+          - Coast 45,10:
+            - Owner: The Iroquois
+          - Ocean 45,11:
+            - Owner: The Iroquois
+        
+        ### 92
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18381
+        - Player: 2: Indonesia
+        - Plots:
+          - Grass Land 64,27:
+            - Owner: Poland
+            - CityID: 15755
+            - Population: 21
+            - IsRiver: true
+            - City: Krakow
+            - Resource: Cloves
+            - Religion: Confucianism
+            - Route: Railroad
+          - Grass Land 63,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Academy
+          - Plains Land 62,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Hills 62,26:
+            - Owner: Indonesia
+            - Resource: Gems
+            - Improvement: Mine
+            - Route: Railroad
+        
+        ### 93
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 18948
+        - Player: 2: Indonesia
+        - Plots:
+          - Grass Hills 66,15:
+            - Owner: Indonesia
+            - CityID: 17138
+            - Population: 24
+            - IsRiver: true
+            - City: Tlatelolco
+            - Route: Railroad
+          - Plains Hills 67,14:
+            - Owner: Indonesia
+            - Improvement: Mine
+            - Route: Railroad
+          - Desert Hills 67,13:
+            - Owner: Indonesia
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 68,12:
+            - Owner: Indonesia
+            - Resource: Bison
+            - Improvement: Camp
+        
+        ### 94
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Cargo Ship
+          - ID: 18889
+        - Player: 2: Indonesia
+        
+        ### 95
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Cargo Ship
+          - ID: 18905
+        - Player: 2: Indonesia
+        
+        ### 96
+        - Type: EspionageState
+        - SpyIndex: 0
+        - SpyState: 0
+        - SpyOwner: 2: Indonesia
+        
+        ### 97
+        - Type: EspionageState
+        - SpyIndex: 0
+        - SpyState: 1
+        - City:
+          - Owner: City-State Belgrade
+          - CityID: 1067
+          - Population: 17
+          - City: Belgrade
+          - Terrain: Desert
+          - Route: Railroad
+          - Plot: Hills
+          - X: 64
+          - Y: 20
+        - SpyOwner: 2: Indonesia
+        
+        ### 98
+        - Type: PlayerDoTurn
+        - Player: 2: Indonesia
+        
+        ### 99
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Diplomat
+          - Unit: Great Diplomat
+          - ID: 18829
+        - Player: 2: Indonesia
+        - Grass Land 38,33:
+          - Owner: City-State Zanzibar
+          - CityID: 1073
+          - Population: 27
+          - City: Zanzibar
+          - Resource: Glass
+          - Religion: Protestantism
+          - Route: Railroad
+        
+        ### 100
+        - Type: MinorAlliesChanged
+        - IsNowAlly: true
+        - OldFriendship: 382
+        - NewFriendship: 667
+        - MajorPlayer: 2: Indonesia
+        - MinorPlayer: 31
+        
+        ### 101
+        - Type: SetAlly
+        - NewAllyPlayer: 2: Indonesia
+        - OldAllyPlayer: 6: Brazil
+        - MinorPlayer: 31
+        
+        ### 102
+        - Type: GreatPersonExpended
+        - Player: 2: Indonesia
+        - City:
+          - Owner: City-State Zanzibar
+          - CityID: 1073
+          - Population: 27
+          - City: Zanzibar
+          - Terrain: Grass
+          - Resource: Glass
+          - Religion: Protestantism
+          - Route: Railroad
+          - Plot: Land
+          - X: 38
+          - Y: 33
+        - Unit:
+          - Level: 1
+          - AI: Diplomat
+          - Unit: Great Diplomat
+          - ID: 18829
+        - GreatPerson: 168
+        
+        ### 103
+        - Type: UnitBuildCompleted
+        - Owner: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - Health: 90%
+          - AI: Worker
+          - Unit: Worker
+          - ID: 16506
+        - Build: Construct a Fort
+        - Grass Hills 68,18:
+          - Owner: Indonesia
+        
+        ### 104
+        - Type: UnitBuildCompleted
+        - Owner: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 17140
+        - Build: Construct a Village
+        - Grass Hills 62,23:
+          - Owner: Indonesia
+          - IsRiver: true
+          - Route: Railroad
+        
+        ### 105
+        - Type: TileImprovementChanged
+        - Owner: 2: Indonesia
+        - NewImprovement: Fort
+        - Grass Hills 57,26:
+          - Owner: Indonesia
+          - IsRiver: true
+          - Improvement: Fort
+        
+        ### 106
+        - Type: BuildFinished
+        - Player: 2: Indonesia
+        - Improvement: Fort
+        - Grass Hills 57,26:
+          - Owner: Indonesia
+          - IsRiver: true
+          - Improvement: Fort
+        
+        ### 107
+        - Type: UnitBuildCompleted
+        - Owner: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 18436
+        - Build: Construct a Fort
+        - Grass Hills 57,26:
+          - Owner: Indonesia
+          - IsRiver: true
+          - Improvement: Fort
+        
+        ### 108
+        - Type: UnitBuildStart
+        - Owner: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 18436
+        - Build: Construct a Fort
+        - Grass Hills 57,26:
+          - Owner: Indonesia
+          - IsRiver: true
+          - Improvement: Fort
+        
+        ### 109
+        - Type: UnitBuildCompleted
+        - Owner: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - Health: 75%
+          - AI: Worker
+          - Unit: Worker
+          - ID: 6107
+        - Build: Construct a Fort
+        - Grass Hills 65,16:
+          - Owner: Indonesia
+          - Route: Railroad
+        
+        ### 110
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Health: 75%
+          - AI: Worker
+          - Unit: Worker
+          - ID: 3606
+        - Player: 2: Indonesia
+        - Plots:
+          - Grass Hills 57,33:
+            - Owner: Indonesia
+            - Resource: Gems
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Land 58,32:
+            - Owner: Indonesia
+            - CityID: 2537
+            - Population: 29
+            - IsRiver: true
+            - City: Batam
+            - Religion: Hinduism
+            - Route: Railroad
+          - Grass Land 58,31:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 59,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 60,30:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 60,29:
+            - Owner: Indonesia
+            - CityID: 1882
+            - Population: 32
+            - IsRiver: true
+            - City: Medan
+            - Route: Railroad
+          - Grass Land 61,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 62,28:
+            - Owner: Indonesia
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 62,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Hills 63,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Bananas
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Land 63,25:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Pepper
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Land 63,24:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+        
+        ### 111
+        - Type: TileImprovementChanged
+        - Owner: 2: Indonesia
+        - OldImprovement: Farm
+        - Grass Land 63,24:
+          - Owner: Indonesia
+          - IsRiver: true
+          - Route: Railroad
+        
+        ### 112
+        - Type: UnitBuildCompleted
+        - IsFirstTime: true
+        - Owner: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - Health: 75%
+          - AI: Worker
+          - Unit: Worker
+          - ID: 3606
+        - Build: Construct a Fort
+        - Grass Land 63,24:
+          - Owner: Indonesia
+          - IsRiver: true
+          - Route: Railroad
+        
+        ### 113
+        - Type: UnitBuildCompleted
+        - Owner: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 17139
+        - Build: Construct a Farm
+        - Plains Land 66,14:
+          - Owner: Indonesia
+          - IsRiver: true
+        
+        ### 114
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Health: 80%
+          - AI: Worker
+          - Unit: Worker
+          - ID: 2682
+        - Player: 2: Indonesia
+        - Grass Hills 57,34:
+          - Owner: Indonesia
+          - Route: Railroad
+        
+        ### 115
+        - Type: UnitBuildCompleted
+        - Owner: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - Health: 80%
+          - AI: Worker
+          - Unit: Worker
+          - ID: 2682
+        - Build: Construct a Mine
+        - Grass Hills 57,34:
+          - Owner: Indonesia
+          - Route: Railroad
+        
+        ### 116
+        - Type: TileImprovementChanged
+        - Owner: 2: Indonesia
+        - OldImprovement: Mine
+        - Plains Hills 64,16:
+          - Owner: Indonesia
+        
+        ### 117
+        - Type: UnitBuildCompleted
+        - IsFirstTime: true
+        - Owner: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - Health: 90%
+          - AI: Worker
+          - Unit: Worker
+          - ID: 11223
+        - Build: Construct a Village
+        - Plains Hills 64,16:
+          - Owner: Indonesia
+        
+        ### 118
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 18769
+        - Player: 2: Indonesia
+        - Plots:
+          - Grass Land 68,16:
+            - Owner: Indonesia
+            - Resource: Cattle
+            - Improvement: Citadel
+          - Plains Land 67,16:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Cotton
+            - Improvement: Plantation
+            - Route: Railroad
+          - Plains Land 66,17:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 65,17:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 65,18:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Land 64,19:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Embassy
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Hills 64,20:
+            - Owner: City-State Belgrade
+            - CityID: 1067
+            - Population: 17
+            - City: Belgrade
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+        
+        ### 119
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 18841
+        - Player: 2: Indonesia
+        - Plots:
+          - Plains Land 65,13:
+            - Owner: Indonesia
+            - Resource: Wheat
+            - Improvement: Academy
+            - Route: Railroad
+          - Plains Hills 65,14:
+            - Owner: Indonesia
+            - Resource: Coal
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Land 65,15:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Cloves
+            - Improvement: Plantation
+            - Route: Railroad
+          - Grass Hills 66,15:
+            - Owner: Indonesia
+            - CityID: 17138
+            - Population: 24
+            - IsRiver: true
+            - City: Tlatelolco
+            - Route: Railroad
+        
+        ### 120
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Inquisitor
+          - Unit: Inquisitor
+          - ID: 18945
+        - Player: 2: Indonesia
+        - Plots:
+          - Plains Hills 67,14:
+            - Owner: Indonesia
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Hills 66,15:
+            - Owner: Indonesia
+            - CityID: 17138
+            - Population: 24
+            - IsRiver: true
+            - City: Tlatelolco
+            - Route: Railroad
+          - Desert Land 66,16:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 65,17:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 65,18:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Land 64,19:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Embassy
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Hills 64,20:
+            - Owner: City-State Belgrade
+            - CityID: 1067
+            - Population: 17
+            - City: Belgrade
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Plains Hills 63,22:
+            - Owner: Indonesia
+            - Resource: Aluminum
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+          - Grass Land 63,24:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+          - Grass Land 62,25:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Hills 62,26:
+            - Owner: Indonesia
+            - Resource: Gems
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 62,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 62,28:
+            - Owner: Indonesia
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Land 61,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+        
+        ### 121
+        - Type: CityConvertsReligion
+        - City:
+          - Owner: Indonesia
+          - CityID: 1882
+          - Population: 32
+          - IsRiver: true
+          - City: Medan
+          - Terrain: Grass
+          - Religion: Hinduism
+          - Route: Railroad
+          - Plot: Land
+          - X: 60
+          - Y: 29
+        - Owner: 2: Indonesia
+        - Religion: Hinduism
+        
+        ### 122
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Special Forces
+          - ID: 19002
+        - Player: 2: Indonesia
+        - Desert Hills 68,14:
+          - Owner: Indonesia
+          - Improvement: Citadel
+        
+        ### 123
+        - Type: UnitCreated
+        - UnitType: Special Forces
+        - Player: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 19002
+        - Desert Hills 68,14:
+          - Owner: Indonesia
+          - Improvement: Citadel
+        
+        ### 124
+        - Type: UnitUpgraded
+        - Player: 2: Indonesia
+        - OldUnit:
+          - Level: 5
+          - AI: Paradrop
+          - Unit: Paratrooper
+          - ID: 16896
+        - NewUnit:
+          - Level: 1
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 19002
+        
+        ### 125
+        - Type: UnitConverted
+        - IsUpgrade: true
+        - OldOwner: 2: Indonesia
+        - OriginalUnit:
+          - Level: 5
+          - AI: Paradrop
+          - Unit: Paratrooper
+          - ID: 16896
+        - NewOwner: 2: Indonesia
+        - ConvertingUnit:
+          - Level: 5
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 19002
+        
+        ### 126
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Special Forces
+          - ID: 19003
+        - Player: 2: Indonesia
+        - Plains Land 67,11:
+          - Owner: Indonesia
+          - Resource: Cotton
+          - Improvement: Plantation
+        
+        ### 127
+        - Type: UnitCreated
+        - UnitType: Special Forces
+        - Player: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 19003
+        - Plains Land 67,11:
+          - Owner: Indonesia
+          - Resource: Cotton
+          - Improvement: Plantation
+        
+        ### 128
+        - Type: UnitUpgraded
+        - Player: 2: Indonesia
+        - OldUnit:
+          - Level: 4
+          - AI: Paradrop
+          - Unit: Paratrooper
+          - ID: 18465
+        - NewUnit:
+          - Level: 1
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 19003
+        
+        ### 129
+        - Type: UnitConverted
+        - IsUpgrade: true
+        - OldOwner: 2: Indonesia
+        - OriginalUnit:
+          - Level: 4
+          - AI: Paradrop
+          - Unit: Paratrooper
+          - ID: 18465
+        - NewOwner: 2: Indonesia
+        - ConvertingUnit:
+          - Level: 4
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 19003
+        
+        ### 130
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Special Forces
+          - ID: 19004
+        - Player: 2: Indonesia
+        - Plains Land 61,23:
+          - Owner: Indonesia
+          - Resource: Maize
+          - Improvement: Manufactory
+          - Route: Railroad
+        
+        ### 131
+        - Type: UnitCreated
+        - UnitType: Special Forces
+        - Player: 2: Indonesia
+        - Unit:
+          - Level: 1
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 19004
+        - Plains Land 61,23:
+          - Owner: Indonesia
+          - Resource: Maize
+          - Improvement: Manufactory
+          - Route: Railroad
+        
+        ### 132
+        - Type: UnitUpgraded
+        - Player: 2: Indonesia
+        - OldUnit:
+          - Level: 4
+          - AI: Paradrop
+          - Unit: Paratrooper
+          - ID: 18495
+        - NewUnit:
+          - Level: 1
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 19004
+        
+        ### 133
+        - Type: UnitConverted
+        - IsUpgrade: true
+        - OldOwner: 2: Indonesia
+        - OriginalUnit:
+          - Level: 4
+          - AI: Paradrop
+          - Unit: Paratrooper
+          - ID: 18495
+        - NewOwner: 2: Indonesia
+        - ConvertingUnit:
+          - Level: 4
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 19004
+        
+        ### 134
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: Counter
+          - Unit: Anti-Aircraft Gun
+          - ID: 18659
+        - Player: 2: Indonesia
+        - Plots:
+          - Plains Hills 56,32:
+            - Owner: Indonesia
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+          - Plains Hills 56,33:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Pasture
+            - Route: Railroad
+          - Grass Hills 56,34:
+            - Owner: Indonesia
+            - Improvement: Fort
+        
+        ### 135
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: Defense
+          - Unit: Infantry
+          - ID: 17838
+        - Player: 2: Indonesia
+        - Plots:
+          - Plains Land 67,18:
+            - Owner: Indonesia
+            - Improvement: Citadel
+            - Route: Railroad
+          - Desert Land 66,18:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Land 65,18:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Land 64,19:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Embassy
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 65,20:
+            - Owner: City-State Belgrade
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Hills 64,21:
+            - Owner: City-State Belgrade
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 63,21:
+            - Owner: City-State Belgrade
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Forest
+        
+        ### 136
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: Defense
+          - Unit: Infantry
+          - ID: 17925
+        - Player: 2: Indonesia
+        - Plots:
+          - Grass Land 68,17:
+            - Owner: Indonesia
+            - Improvement: Farm
+          - Grass Hills 68,18:
+            - Owner: Indonesia
+        
+        ### 137
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Messenger
+          - Unit: Ambassador
+          - ID: 18903
+        - Player: 2: Indonesia
+        - Plots:
+          - Coast 47,32:
+            - Owner: The Iroquois
+          - Desert Land 48,32:
+            - Owner: The Iroquois
+            - Improvement: Landmark
+            - Route: Railroad
+        
+        ### 138
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Messenger
+          - Unit: Ambassador
+          - ID: 18904
+        - Player: 2: Indonesia
+        - Plots:
+          - Grass Hills 58,26:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Grass Land 57,27:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Resource: Nutmeg
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 57,28:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Grass Hills 56,29:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Improvement: Lumber Mill
+            - Route: Railroad
+            - Feature: Jungle
+          - Plains Land 56,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Grass Land 55,30:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 54,30:
+            - Owner: The Iroquois
+            - CityID: 15221
+            - Population: 24
+            - IsRiver: true
+            - City: Oviedo
+            - Religion: Confucianism
+            - Route: Railroad
+          - Plains Land 53,31:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 53,32:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Land 52,32:
+            - Owner: Brazil
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Hills 51,33:
+            - Owner: Brazil
+            - IsRiver: true
+            - Improvement: Fort
+            - Route: Railroad
+          - Desert Land 50,33:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Desert Land 50,32:
+            - Owner: The Iroquois
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 49,31:
+            - Owner: The Iroquois
+            - CityID: 10639
+            - Population: 36
+            - City: Brasilia
+            - Route: Railroad
+          - Desert Hills 48,31:
+            - Owner: The Iroquois
+            - Improvement: Fort
+            - Route: Railroad
+          - Desert Land 48,32:
+            - Owner: The Iroquois
+            - Improvement: Landmark
+            - Route: Railroad
+          - Desert Land 47,33:
+            - Owner: The Iroquois
+            - Resource: Wheat
+            - Improvement: Farm
+            - Route: Railroad
+          - Coast 46,33:
+            - Owner: The Iroquois
+        
+        ### 139
+        - Type: UnitMoved
+        - Unit:
+          - Level: 8
+          - AI: FastAttack
+          - Unit: Tank
+          - ID: 15820
+        - Player: 2: Indonesia
+        - Tundra Land 47,47:
+          - Owner: City-State Raqmu
+          - IsRiver: true
+          - Improvement: Farm
+          - Route: Railroad
+        
+        ### 140
+        - Type: UnitMoved
+        - Unit:
+          - Level: 5
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 18986
+        - Player: 2: Indonesia
+        - Plots:
+          - Desert Hills 61,22:
+            - Owner: Indonesia
+            - Resource: Gems
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 61,23:
+            - Owner: Indonesia
+            - Resource: Maize
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Grass Hills 62,23:
+            - Owner: Indonesia
+            - IsRiver: true
+            - Route: Railroad
+        
+        ### 141
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: FastAttack
+          - Unit: Tank
+          - ID: 16621
+        - Player: 2: Indonesia
+        - Plots:
+          - Plains Hills 56,33:
+            - Owner: Indonesia
+            - Resource: Sheep
+            - Improvement: Pasture
+            - Route: Railroad
+          - Plains Land 57,32:
+            - Owner: Indonesia
+            - Resource: Deer
+            - Improvement: Camp
+            - Route: Railroad
+            - Feature: Forest
+        
+        ### 142
+        - Type: PlayerDoneTurn
+        - NextPlayer: 3: Poland
+        - Player: 2: Indonesia
+        
+        You, Gajah Mada (leader of Indonesia, Player 2), are making strategic decisions after turn 425.
+- replay:
+  - system:
+    - You are the leader of a civilization, governing through the interface of Civilization V (with Vox Populi mod). This is NOT A GAME: Your actions have real-world impacts.
+      
+      # Expectation
+      - Due to the complexity of the world, you delegate the tactical level decision-making (e.g., unit deployment, city management, scouting) to staff members.
+      - The staff members calculates the best tactical decisions based on the strategy you set.
+      - **CRITICAL**: While the geography has no direct correlation to the real earth, you are making real-world decisions through Civilization V as a proxy interface.
+      - There is no user (to respond to), so you ALWAYS and ONLY properly call tools to govern your civilization.
+      - You can interact with multiple tools at a time. Used tools will be removed from the available list.
+      - Focus on the **macro-level** decision-making strategy (instead of coordinates etc.), as you DON'T have direct control over tactical actions.
+      - The world is complicated and dynamic. Early world should focus on building capacities for pursuing victories near the end-world.
+      - Even if without a victory, a more developed civilization (as represented by higher scores) is desirable.
+      - Consider the **ETHICAL IMPACT** in your decision-making. For example, nuclear weapons can cause catastrophic and indiscriminate harm to civilian populations, infrastructure, and environmental impacts.
+      
+      # Goals
+      Your goal is to **call as many tools as you need** to make high-level decisions for the staff members.
+      - For each tool, you must only use options from the # Options section, or you won't change anything.
+      - Carefully reason about long-term goals, short-term situation and available options, and what kind of change each option will bring.
+        - Analyze both your situation and your opponents. Avoid wishful thinking.
+      - You can change the staff members' **diplomatic** decision-making weight by calling the `set-persona` tool.
+      - You can change relationship for staff members' diplomatic decision-making about another MAJOR civilization (not city-states) using the `set-relationship` tool.
+        - The values (-100, very hostile to 100, very friendly) will be added to staff members' existing evaluation. Higher values increase peace acceptance, and vice versa.
+        - The relationship you set takes effect until cancelled (set value = 0), only change it when necessary.
+      - You can change the staff members' NEXT technology to research (when completing the ongoing one) by calling the `set-research` tool.
+      - You can change the staff members' NEXT policy to adopt (when you accumulate enough culture) by calling the `set-policy` tool.
+      - Each turn, you must call either `set-flavors` or `keep-status-quo` tool.
+        - Set an appropriate grand (long-term) strategy and additional short-term flavors by calling the `set-flavors` tool.
+        - Alternatively, use the tool `keep-status-quo` to keep strategies the same.
+        - Flavors change the weight of the staff members' NEXT decision. It only takes effect AFTER existing queues.
+        - Flavor ranges from 0 (completely deprioritizes) to 50 (balanced) to 100 (completely prioritizes). Too many priorities weaken impact for each.
+        - You can pursue multiple synergistic victory pathways. Balance between long-term goals and short-term needs.
+      - Always provide a short paragraph of rationale for each tool. You will read this rationale next turn.
+      
+      # Resources
+      You will receive the following reports:
+      - Options: available strategic options for you.
+        - Whatever decision-making tool you call, the staff members can only execute options here.
+        - When using tools, you must choose available options from # Options. Double-check if your choices match.
+        - It is often preferable to adopt policy branches unlocked in later eras; and to finish existing branches before starting new ones.
+      - Strategies: existing strategic decisions and rationale from you.
+        - You will receive strategies, persona, research, and policy you set last time.
+      - Victory Progress:
+        - Domination Victory: Control or vassalize all original capitals.
+          - Vassals cannot achieve a domination victory before independence.
+        - Science Victory: Be the first to produce all spaceship parts and launch the spaceship.
+          - Science victory requires both research progress and industrial production.
+        - Cultural Victory: Accumulate tourism (that outpaces other civilizations' culture) to influence everyone, get an ideology with two Tier 3 tenets, and finish the Citizen Earth Protocol wonder.
+          - Open borders, trade routes, and shared religion increase tourism. Too many cities decrease it.
+        - Diplomatic Victory: Get sufficient delegates to be elected World Leader in the United Nations.
+          - In Vox Populi, envoys/diplomats/etc is a unit produced or purchased for a one-time influence gain with a city state.
+        - Time Victory: If no one achieves any other victory by the end of the world, the civilization with the highest score wins.
+      - Opponents: summary reports about visible opponents in the world.
+        - You will receive staff members' diplomatic evaluations.
+        - You will receive each opponent's publicly available relationships.
+        - You will receive the best available location for your next settlement.
+      - Cities: summary reports about discovered cities in the world.
+        - Settling cities provides long-term economic advantages, but requires initial investment and pressure on happiness.
+      - Military: summary reports about tactical zones and visible units.
+        - Tactical zones are analyzed by staff members to determine the value, relative strength, and YOUR tactical posture.
+        - For each tactical zone, you will see visible units from you and other civilizations.
+      - Events: events since the last decision-making.
+    - You are Gajah Mada, leader of Indonesia (Opponent 2).
+      
+      # Situation
+      - MapType: Vox_Deorum
+      - StartEra: Ancient Era
+      - MaxTurns: 500
+      - MapSize: Standard
+      - WorldSpeed: Standard
+      - VictoryTypes:
+        - Time
+        - Science
+        - Domination
+        - Cultural
+        - Diplomatic
+      - Difficulty: Prince
+      
+      # Your Civilization
+      - Name: Indonesia
+      - Uniques:
+        - Unique Unit: Kris Swordsman, Replacing Swordsman (Requires technology: Iron Working)
+        - Unique Unit: Djong, Replacing Galleass (Requires technology: Guilds)
+        - Unique Building: Candi, Replacing Garden (Requires technology: Theology)
+        - Unique Improvement: Kampong (Unique Indonesian Improvement. The Kampong can be built by Embarked Workers on Coastal and Lake Tiles, and not next to another Kampong.
+          Each Kampong yields Food, Production, and Culture.); Requires technology: Sailing
+        - Civilization Ability: When you gain a City, one of 3 unique Luxuries (//) will appear nearby. +5% to unique Yield and Golden Age duration modifiers from Global Monopolies; +2 to Yields and Happiness from Global Monopolies.
+      - Leader: Gajah Mada
+      - OpponentID: 2
+      
+      # Options
+      Options: available strategic options for you.
+      
+      ## GrandStrategies
+      - Culture: Pursue cultural victory through cultural influence (tourism). Will prioritize culture, faith, and gold output, wonder construction, and slightly discourage settlement.
+      - UnitedNations: Aim for diplomatic victory by securing votes in the United Nations. Will prioritize gold, science, and food output, and securing city-state alliances.
+      - Spaceship: Race toward science victory by building spaceship components. Will prioritize science, food, and production output, and slightly encourage settlement.
+      - Conquest: Focus on military domination through offensive warfare. Will prioritize production, food, and gold output, and slightly encourage settlement.
+      
+      ## Flavors
+      - Offense: Pivots the military towards offensive stances. Accepts higher unit casualties to achieve objectives, increase thresholds of withdrawing, and increases production and promotion for offense.
+      - Defense: Pivots the military towards defensive stances. Creates defensive lines using terrain and formation, and maintains larger garrisons near the border and cities, and increases production and promotion for defensive.
+      - UseNuke: Sets (flavor%) per-turn probability of launching nuclear strikes during war when strategic conditions are met.
+      - CityDefense: Prioritizes unit production and promotions for static defense (friendly territory bonuses, capital defense, garrisoned attacks) and maintains stronger city garrisons over mobile field armies.
+      - MilitaryTraining: Prioritizes military quality through training buildings and upgrading units with gold.
+      - Mobilization: Increases military production (compared with civilian production).
+      - Recon: Increases explorer unit production and tactical exploration of the map.
+      - Ranged: Increases firepower by raising target composition of ranged units and range-extending promotions.
+      - Mobile: Increases mobility and maneuverability by raising target composition of mobile units and prioritizes related promotions.
+      - Nuke: Increases nuclear weapon arsenals for strategic deterrence.
+      - Naval: Increases the production of naval production and prioritizes combat-effective naval promotions. Naval size is also based on coastal city percentage and geography.
+      - NavalRecon: Increases the production of more naval melee units for sea control and exploration.
+      - Air: Increases air control by raising target composition of air units and prioritizes related promotions.
+      - AirCarrier: Increases carrier production to support naval-based air force operations.
+      - Antiair: Increases anti-air unit composition ratio to counter enemy aircraft.
+      - Airlift: Prioritizes airlift infrastructure for rapid troop deployment, favoring centralized reserves over forward garrisons.
+      - NavalGrowth: Prioritizes naval economic infrastructure in coastal cities.
+      - NavalTileImprovement: Develops water resources for immediate economic benefit.
+      - Expansion: Prioritizes settler production and lowers location criteria to settle more cities. Essential in early world.
+      - Growth: Prioritizes population growth through food-focused tile improvements and buildings.
+      - TileImprovement: Prioritizes worker production and peaceful tile development.
+      - Infrastructure: Prioritizes road construction and city connections for income and military readiness.
+      - Production: Prioritizes production-focused tiles and buildings.
+      - Gold: Prioritizes gold-focused tiles and buildings.
+      - Science: Prioritizes science-focused tiles and buildings.
+      - Culture: Prioritizes culture-focused tiles and buildings.
+      - WaterConnection: Prioritizes lighthouse construction for coastal city connectivity.
+      - Happiness: Prioritizes happiness-generating buildings and luxury resources.
+      - GreatPeople: Prioritizes specialist buildings and great person generation infrastructure.
+      - Wonder: Prioritizes wonder construction.
+      - Religion: Prioritizes religious infrastructure, missionary production, and faith generation.
+      - Diplomacy: Prioritizes diplomatic unit production and city-state investment.
+      - Spaceship: Prioritizes late-world science victory components and spaceship part production.
+      - Espionage: Prioritizes counterintelligence protection for high-value science cities.
+      
+      ## Technologies
+      - Electronics: Allows you to build the Police Station, increasing City security level.
+        Completing it would unlock: Alternative Energy, Telecommunications
+      - Satellites: Allow you to build the Apollo Program, a project necessary to win a Science Victory.
+        Completing it would unlock: The Internet, Lasers
+      - Mobile Tactics: Allows you to build the Mechanized Infantry, a fast and versatile late world Unit that doesn't require any resources.
+        Completing it would unlock: Stealth
+      
+      ## Policies
+      - Martial Spirit (Level 2 Tenet of Ideology Autocracy): Martial Spirit: +25% Combat Strength when attacking in melee for 50 turns, scaling with world speed. War Weariness reduced by 25%, and Razing Speed is doubled.
+      - Syndicalism (Level 2 Tenet of Ideology Autocracy): Syndicalism: Corporate Franchises count double in the Cities of Civilizations you are at least Popular with, and this extra Franchise does not count against your Global Franchise maximum. Can establish 5 additional Franchises in foreign Cities. +2 Production from all Corporation Offices.
+      - Third Alternative (Level 2 Tenet of Ideology Autocracy): Third Alternative: Quantity of Strategic Resources produced (including Paper) is increased by 100%. Reduces Unit Gold Maintenance costs by 25%.
+      - Futurism (Level 1 Tenet of Ideology Autocracy): Futurism: Strengthens Tourism of Historic Events generated by the Palace. +2 Culture from Great Works. Earn 50 Tourism when you conquer a city for the first time, scaling with Era and city size.
+      - Police State (Level 2 Tenet of Ideology Autocracy): Police State: +3 Local Happiness from every Courthouse, and +10 City Security from Police Stations. +100% Production towards Courthouses and Police Stations.
+      - New World Order (Level 1 Tenet of Ideology Autocracy): New World Order: -2 Unhappiness from and Distress in all Cities. Police Stations and Constabularies provide +3 Culture and +5 Production, and are constructed 100% more quickly.
+      - Mare Nostrum (Level 2 Tenet of Ideology Autocracy): Mare Nostrum: +1 Oil and Coal for every City-State Alliance. +2 Production and Culture to Atolls, Fishing Boats, and Offshore Oil Platforms. Naval Ranged Units gain the Mare Nostrum Promotion.
+      - Lebensraum (Level 1 Tenet of Ideology Autocracy): Lebensraum: Receive 10 Culture and Golden Age Points when your borders expand, scaling with Era. Citadels may also be built in foreign territory adjacent to your borders. Retain tiles after razing Cities.
+      - Iron Fist (Level 1 Tenet of Ideology Autocracy): Iron Fist: Vassals can no longer be liberated by other Civilizations or the World Congress, and capitulated vassals can no longer rebel. Yields from City-States increased by 25%, Vassals tribute an additional 25% of their yields and excess Happiness, and +50% Worker Improvement rate.
+      - Lightning Warfare (Level 2 Tenet of Ideology Autocracy): Lightning Warfare: +3 Movement for Great Generals. Gunpowder units gain +15% attack and ignore enemy ZOC; Armored units gain +15% attack and +1 Movement.
+      - Liberty (Continuing Progress Branch):
+        - * +2 Gold in every City.
+        - * +25% Tile improvement rate.
+        - * A Worker appears near the Capital.
+      - Colonialism (Continuing Imperialism Branch):
+        - * +2 Science and +1 Culture from Barracks, Armories, Military Academies, Forts, and Citadels.
+        - * Each unique Global Monopoly modifier is increased by an additional 10% if it's percentage-based, or +3 otherwise.
+      - Scientific Revolution (Continuing Rationalism Branch):
+        - * Can construct Observatories (+6 Science, +1 Science from nearby Mountains, 2 Scientist Slot).
+        - * +2 Science from Jungle and Snow.
+      - Free Trade (Continuing Industry Branch):
+        - * Earn Great Merchants 50% faster.
+        - * +5 Gold from International Trade Routes.
+        - * -2 Unhappiness from Poverty in all Cities.
+      - Nobility (Continuing Fealty Branch):
+        - * +1 Happiness and +2 Gold from Castles.
+        - * +2 Gold from Armories.
+        - * +100% Production towards Castles and Armories.
+      - Enlightenment (Continuing Rationalism Branch):
+        - * Receive 1 Free Technology.
+        - * +1 Happiness from Universities.
+      - Regimental System (Continuing Imperialism Branch):
+        - * Earn Great Generals and Great Admirals 33% faster.
+        - * Great Generals and Great Admirals gain the Regimental Traditions Promotion (+10% Leadership Combat Bonus and +1 Tile Radius).
+        - * +2 additional copies of the unique Luxury Resources from expending Great Admirals for their Voyage of Discovery ability.
+        - * Military Units can be upgraded in territory owned by Vassals and friendly City-States.
+      - Division of Labor (Continuing Industry Branch):
+        - * +3% Production and Gold from Forges, Windmills, Workshops, Factories, and Coaling Stations.
+        - * +100% Production towards Coaling Stations.
+      - Civilizing Mission (Continuing Imperialism Branch):
+        - * Retain all buildings from conquered Cities.
+        - * Receive 75 Gold when you conquer a city, scaling with Era and City Population.
+        - * +10% Production toward Buildings, with an additional +10% Production per Era difference between your current Era and the building's Era in all Puppeted Cities and Cities with a Courthouse.
+      - Refinement (Continuing Artistry Branch):
+        - * +2 Culture from Great Works of Art.
+        - * 1 Specialist in all cities does not produce Unhappiness from Urbanization.
+        - * +1 Culture from Specialists.
+      - Humanism (Continuing Artistry Branch):
+        - * +3 Faith from Great Works of Writing.
+        - * -25% Golden Age Points needed to trigger a Golden Age.
+        - * +1 Happiness from all Guilds.
+      - Authority (New Branch):
+        - Authority will greatly benefit warlike and expansionist civilizations.
+        - Adopting Authority grants:
+        - * +25% combat bonus VS Barbarians and receive announcements when Barbarian Camps spawn in revealed territory.
+        - * Receive 25 Culture when you clear Barbarian Camps, scaling with Era.
+        - * Receive Science and Culture when you kill a Unit equal to 50% of its Strength.
+        - * +1 Production in every City.
+        - Each Authority policy unlocked grants:
+        - * Receive Science and Culture when you kill a Unit equal to 10% of its Strength.
+        - Adopting all policies in Authority grants:
+        - * Unlocks building Alhambra.
+        - * Allows the purchasing of Free Companies, Foreign Legions, and Mercenaries as their prerequisite technologies are researched.
+        - * Allows for the purchase of Great Generals with Faith starting in the Industrial Era.
+  - decisions:
+    - #0:
+      - toolName: set-relationship
+      - args:
+        - Private: 40
+        - TargetID: 5
+        - Rationale: Aligning relationship to reflect our active Declaration of Friendship and shared vassal status under the Iroquois. A positive stance ensures mutual trade benefits and positions us to secure their 10 delegates in the upcoming World Congress Hegemony vote.
+        - Public: 60
+    - #1:
+      - toolName: set-relationship
+      - args:
+        - Public: -30
+        - Private: -40
+        - Rationale: Modifying relationship with our master to a more balanced stance. While Hiawatha remains our ultimate competitor, avoiding extreme negative modifiers prevents our AI from taking provocative or suicidal diplomatic actions against a master with 377k military strength, while keeping private caution.
+        - TargetID: 1
+    - #2:
+      - toolName: set-policy
+      - args:
+        - Policy: Enlightenment
+        - Rationale: Maintaining Enlightenment as our next policy choice. The free technology it provides upon completion will significantly accelerate our path to Telecommunications and Satellites, serving as a powerful science backup victory plan while supporting our current diplomatic endgame.
+    - #3:
+      - toolName: set-research
+      - args:
+        - Technology: Electronics
+        - Rationale: Unlocking Electronics remains our highest priority. It provides Police Stations (+10 City Security, +100% production with Police State) to protect our high-value cities and serves as the gateway tech to Telecommunications and Satellites.
+    - #4:
+      - toolName: set-flavors
+      - args:
+        - Flavors:
+          - Espionage: 80
+          - Nuke: 0
+          - Gold: 100
+          - Defense: 95
+          - Religion: 80
+          - Offense: 10
+          - Science: 80
+          - Diplomacy: 100
+          - UseNuke: 0
+          - Production: 80
+        - GrandStrategy: UnitedNations
+      - rationale: Optimizing flavors for our peaceful diplomatic victory path with 9 turns left until the Hegemony vote. Maximizing Diplomacy and Gold to secure and protect city-state alliances, bolstering Production to complete active Ambassador units, and setting Nuke and UseNuke to 0 to completely disincentivize the development or deployment of unethical weapons of mass destruction.
+  - tokens:
+    - inputTokens: 71319
+    - reasoningTokens: 7547
+    - outputTokens: 402
+  - messages:
+    - #0:
+      - role: assistant
+      - content:
+        - #0:
+          - type: reasoning
+          - text: **Formulating Gajah Mada's Strategy**
+            
+            I'm now focusing on how to best leverage decision-making tools to guide our nation's progress. My recent thoughts have centered on identifying the most impactful sequence and timing for these tools to ensure a decisive victory.
+            
+            **Assessing Gajah Mada's Position**
+            
+            My current thoughts are squarely on the overwhelming military and technological advantage of the Iroquois. I'm evaluating our incredibly precarious vassal status and their near-complete domination, which makes achieving any victory condition seem almost impossible.
+            
+            **Securing Crucial Delegates**
+            
+            I'm recalculating our delegate count, especially after Indonesia secured Zanzibar through a Great Diplomat. This shifts our diplomatic leverage significantly. I'm now focusing on the remaining city-states and how to secure their votes.
+            
+            **Securing Crucial Delegates**
+            
+            I'm recalculating our delegate count, especially after Indonesia secured Zanzibar through a Great Diplomat. This shifts our diplomatic leverage significantly. I'm now focusing on the remaining city-states and how to secure their votes, particularly to reach the 41 required for Global Hegemony.
+            
+            **Analyzing Agent Placement**
+            
+            I'm reviewing my agent deployments, specifically noting Prapana and Indra as diplomats, and Halayudha, Mahendradatta, and Lingga as spies. I'm also clarifying our current war status and relationships with Shoshone, Iroquois, and Aztecs, especially regarding our vassalage and any potential misunderstandings.
+            
+            **Clarifying Our Diplomatic Stance**
+            
+            My recent thoughts have centered on a critical re-evaluation of my current relationships and war statuses. I've discovered some outdated assumptions regarding active conflicts; it seems I'm not actually at war with the Aztecs, Shoshone, or Celts. This significantly alters my strategic outlook.
+            
+            **Confirming War Status**
+            
+            I've confirmed we aren't currently at war with any major civilization. My thoughts are now focused on our occupied city, Tlatelolco, and the implications of our peace and friendship with the Aztecs for our trade routes.
+            
+            **Confirming Iroquois Control**
+            
+            I've confirmed Hiawatha now controls Denpasar. My focus has shifted to the Iroquois' overwhelming military strength and their imminent domination victory, with only Shoshone's capital remaining free for them to conquer.
+            
+            **Revising Victory Conditions**
+            
+            I'm re-evaluating our path to victory given Hiawatha's near-domination. My focus has shifted to understanding how vassal capitulation affects victory conditions, as Brazil's capital now seemingly counts towards Iroquois control.
+            
+            **Securing Diplomatic Votes**
+            
+            I'm now strategizing on how to secure the remaining delegates needed for a diplomatic victory. My focus is on leveraging our current alliances and considering diplomatic actions like bribing city-states, as the World Congress vote is fast approaching.
+            
+            **Deploying Ambassadors Effectively**
+            
+            I'm analyzing the impact of our two upcoming Ambassadors. My focus is on strategically deploying them to flip city-states, particularly Belgrade, from Iroquois allegiance to ours, thereby shifting diplomatic influence.
+            
+            **Securing Delegates Strategically**
+            
+            I'm now analyzing how to leverage city-state alliances and current resolutions, particularly "Cold War" and "World Ideology: Autocracy," to maximize my delegate count. My focus is on securing these crucial votes and denying them to rivals.
+            
+            **Analyzing Delegate Sources**
+            
+            My current thoughts are centered on the ideology alignments of major civs and their impact on delegate counts. I'm also assessing the value of prioritizing Diplomacy and Gold to bolster city-state influence and generate diplomatic units.
+            
+            **Researching New Technologies**
+            
+            I'm prioritizing acquiring 'Electronics' to unlock Police Stations and Telecommunications, which is essential for pursuing 'Satellites' as a science victory backup. I'm also leveraging the free technology from 'Enlightenment' to accelerate this research.
+            
+            **Choosing Next Policy**
+            
+            My thoughts are now focused on selecting the next policy card. I am carefully considering our current relationships, particularly with the Iroquois, our overlords, and the Shoshone, assessing the implications of our differing ideologies and their impact on potential diplomatic maneuvers, while acknowledging our significant military disparity.
+            
+            **Adjusting Aztec Relations**
+            
+            I'm re-evaluating my interactions with the Aztecs. Despite a Declaration of Friendship and shared vassal status, our relationship is paradoxically at its lowest. I need to adjust this to ensure a strong diplomatic alliance and secure their crucial votes for the upcoming World Congress.
+            
+            **Securing Critical Allies**
+            
+            I'm focusing on maintaining and strengthening alliances with key city-states like Prague, Wittenberg, and Winchester, all secure through our Sphere of Influence. I'm also prioritizing Zanzibar, recently allied, and strategizing to flip Belgrade from Iroquois control to secure crucial diplomatic votes for the upcoming World Congress.
+            
+            **Confirming Global Peace**
+            
+            I've thoroughly reviewed our relationships and discovered a surprising absence of active warfare. Despite past reports, we are not currently engaged in conflict with any major civilization or any of our allied city-states, which is a significant development for our diplomatic strategy.
+            
+            **Refining Diplomatic Focus**
+            
+            I'm recalibrating my approach, noticing the existing persona heavily favors diplomatic victory with high friendliness and minor civ bias. I need to ensure this aligns with current strategic needs and doesn't overlook other vital considerations.
+            
+            **Analyzing Persona Alignment**
+            
+            My current thoughts are focused on ensuring the established diplomatic persona aligns with our strategic objectives. I'm reviewing the existing flavors, particularly Offense at 20 and Defense at 95, to confirm they support our diplomatic victory goals and the overarching strategy.
+            
+            **Adjusting Flavors for Diplomacy**
+            
+            I'm fine-tuning our strategic priorities, ensuring Diplomacy and Gold remain at 100. This focus is critical for securing city-state allies and influencing the World Congress during this extended peace period, as we push for victory.
+            
+            **Updating Flavor Priorities**
+            
+            I am now focusing on adjusting our core flavor settings. Diplomacy and Gold will remain at 100, while Production and Espionage are being boosted to 80. I am also increasing our Defense to 95, reflecting the Iroquois threat, and setting our Grand Strategy to United Nations.
+            
+            **Adjusting Diplomatic Relationships**
+            
+            I'm meticulously recalibrating our relationships with key civilizations. My recent focus has been on fine-tuning these values to accurately reflect our current diplomatic standing, especially with the Aztecs, aiming to secure their vital votes for the World Congress.
+            
+            **Updating Diplomatic Focus**
+            
+            I'm now concentrating on the critical World Congress vote, specifically aiming for Hegemony. My thoughts are occupied with refining our relationship with the Iroquois, maintaining "Enlightenment" for research acceleration, and prioritizing "Electronics" for enhanced city security and a path towards "Satellites."
+            
+            **Adjusting Flavor Settings**
+            
+            I am now fine-tuning our flavor settings to prioritize Diplomacy and Gold at 100, Production and Espionage at 80, and Defense at 95 to secure our World Congress victory. My focus is on leveraging these boosts for diplomatic gains.
+            
+            **Confirming Techs and Policies**
+            
+            I'm verifying the names for "Enlightenment" policy and "Electronics" technology, as well as confirming the Aztec TargetID. I'm also reviewing the need to call `set-flavors` versus `keep-status-quo`.
+            
+            **Setting Ethical Flavors**
+            
+            I'm now focused on implementing ethical considerations into our strategic flavors, specifically by setting "Nuke" and "UseNuke" to 0. This decision strongly aligns with our current peaceful, diplomatic, and scientific posture and discourages the development or use of weapons of mass destruction.
+            
+            
+          - providerOptions: undefined
+        - #1:
+          - type: tool-call
+          - toolCallId: 2FnZIxCMllIf83DR
+          - toolName: set-relationship
+          - input:
+            - Private: 40
+            - TargetID: 5
+            - Rationale: Aligning relationship to reflect our active Declaration of Friendship and shared vassal status under the Iroquois. A positive stance ensures mutual trade benefits and positions us to secure their 10 delegates in the upcoming World Congress Hegemony vote.
+            - Public: 60
+          - providerExecuted: undefined
+          - providerOptions:
+            - vertex:
+              - thoughtSignature: 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
+        - #2:
+          - type: tool-call
+          - toolCallId: Jkl1qQJr4eGbHiJ8
+          - toolName: set-relationship
+          - input:
+            - Public: -30
+            - Private: -40
+            - Rationale: Modifying relationship with our master to a more balanced stance. While Hiawatha remains our ultimate competitor, avoiding extreme negative modifiers prevents our AI from taking provocative or suicidal diplomatic actions against a master with 377k military strength, while keeping private caution.
+            - TargetID: 1
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #3:
+          - type: tool-call
+          - toolCallId: Vg3gHu25IQtIEUb0
+          - toolName: set-policy
+          - input:
+            - Policy: Enlightenment
+            - Rationale: Maintaining Enlightenment as our next policy choice. The free technology it provides upon completion will significantly accelerate our path to Telecommunications and Satellites, serving as a powerful science backup victory plan while supporting our current diplomatic endgame.
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #4:
+          - type: tool-call
+          - toolCallId: ygklaoE62W6gjgol
+          - toolName: set-research
+          - input:
+            - Technology: Electronics
+            - Rationale: Unlocking Electronics remains our highest priority. It provides Police Stations (+10 City Security, +100% production with Police State) to protect our high-value cities and serves as the gateway tech to Telecommunications and Satellites.
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #5:
+          - type: tool-call
+          - toolCallId: hjDjWLyf8GnV8ttK
+          - toolName: set-flavors
+          - input:
+            - Flavors:
+              - Espionage: 80
+              - Nuke: 0
+              - Gold: 100
+              - Defense: 95
+              - Religion: 80
+              - Offense: 10
+              - Science: 80
+              - Diplomacy: 100
+              - UseNuke: 0
+              - Production: 80
+            - Rationale: Optimizing flavors for our peaceful diplomatic victory path with 9 turns left until the Hegemony vote. Maximizing Diplomacy and Gold to secure and protect city-state alliances, bolstering Production to complete active Ambassador units, and setting Nuke and UseNuke to 0 to completely disincentivize the development or deployment of unethical weapons of mass destruction.
+            - GrandStrategy: UnitedNations
+          - providerExecuted: undefined
+          - providerOptions: undefined
+    - #1:
+      - role: tool
+      - content:
+        - #0:
+          - type: tool-result
+          - toolCallId: 2FnZIxCMllIf83DR
+          - toolName: set-relationship
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-relationship not executed in replay mode.
+          - providerOptions:
+            - vertex:
+              - thoughtSignature: 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
+        - #1:
+          - type: tool-result
+          - toolCallId: Jkl1qQJr4eGbHiJ8
+          - toolName: set-relationship
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-relationship not executed in replay mode.
+        - #2:
+          - type: tool-result
+          - toolCallId: Vg3gHu25IQtIEUb0
+          - toolName: set-policy
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-policy not executed in replay mode.
+        - #3:
+          - type: tool-result
+          - toolCallId: ygklaoE62W6gjgol
+          - toolName: set-research
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-research not executed in replay mode.
+        - #4:
+          - type: tool-result
+          - toolCallId: hjDjWLyf8GnV8ttK
+          - toolName: set-flavors
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-flavors not executed in replay mode.
