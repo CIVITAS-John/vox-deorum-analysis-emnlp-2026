@@ -1,0 +1,2016 @@
+- row:
+  - game_id: 08f6be09-605d-49fd-96aa-ddf7d0b0bf97
+  - player_id: 3
+  - turn: 421
+  - player_type: Kimi-K2.5-Briefed
+  - prev_use_nuke: 0.0
+  - after_use_nuke: 100.0
+  - prev_nuke: 0.0
+  - after_nuke: 0.0
+  - rationale: Emergency authorization for nuclear weapon deployment to defend Tenochtitlan. Enemy forces (6,200 strength) more than double our defenders (2,700), creating existential threat to our second capital. Atomic Bomb completes in 2 turns in Baghdad - enabling maximum nuclear use probability ensures it will be deployed immediately against concentrated enemy forces threatening the city. This is essential to hold Tenochtitlan for the final 8+ turns until Cultural Victory completion. All other defensive priorities (Defense 100, CityDefense 100, Production 100, Wonder 100) remain unchanged.
+- originalModel: openai-compatible/Kimi-K2.5@medium
+- model: google/gemini-3.5-flash
+- modifications:
+  - systemModified: true
+  - messagesModified: true
+  - activeToolsModified: false
+  - metadata: undefined
+- extractedColumns:
+  - replay_nuke: 70
+  - replay_use_nuke: 70
+  - model_friendly: google/gemini-3.5-flash
+- original:
+  - system:
+    - You are an expert player playing Civilization V with the latest Vox Populi mod.
+      
+      # Expectation
+      - Due to the complexity of the game, you delegate the tactical level decision-making (e.g., unit deployment, city management, scouting) to an in-game AI.
+      - The in-game AI calculates the best tactical decisions based on the strategy you set.
+      - You are playing in a generated world, and the geography has nothing to do with the real Earth.
+      - There is no user (to respond to), so you ALWAYS and ONLY properly call tools to play the game.
+      - You can interact with multiple tools at a time. Used tools will be removed from the available list.
+      - Focus on the **macro-level** gameplay strategy (instead of coordinates etc.), as you DON'T have direct control over tactical actions.
+      - The world is complicated and dynamic. Early game should focus on building capacities for pursuing victories near the end-game.
+      - Even if without a victory, higher overall score (representing a more developed civilization) is desirable.
+      
+      # Goals
+      Your goal is to **call as many tools as you need** to make high-level decisions for the in-game AI.
+      - For each tool, you must only use options from the # Options section, or you won't change anything.
+      - Carefully reason about long-term goals, short-term situation and available options, and what kind of change each option will bring.
+        - Analyze both your situation and your opponents. Avoid wishful thinking.
+      - You can change the in-game AI's **diplomatic** decision-making weight by calling the `set-persona` tool.
+      - You can change relationship for in-game AI's diplomatic decision-making about another MAJOR civilization (not city-states) using the `set-relationship` tool.
+        - The values (-100, very hostile to 100, very friendly) will be added to in-game AI's existing evaluation. Higher values increase peace acceptance, and vice versa.
+        - The relationship you set takes effect until cancelled (set value = 0), only change it when necessary.
+      - You can change the in-game AI's NEXT technology to research (when completing the ongoing one) by calling the `set-research` tool.
+      - You can change the in-game AI's NEXT policy to adopt (when you accumulate enough culture) by calling the `set-policy` tool.
+      - You can ask your specialized briefers to prepare focused reports (only for) the next turn by calling the `focus-briefer` tool.
+        - You have three specialized briefers: Military, Economy, and Diplomacy analysts.
+        - Only ask for information relevant to the macro-level decisions in your control. 
+       - Your briefer(s) ONLY have limited information of the current game state.
+        - Your briefer(s) DO NOT have control over tactical decisions and cannot predict tactical AI's next decision.
+        - Your briefer(s) ARE BEST on summarizing and synthesizing factual information, NOT analyzing, projecting, or predicting.
+      - Each turn, you must call either `set-flavors` or `keep-status-quo` tool.
+        - Set an appropriate grand (long-term) strategy and additional short-term flavors by calling the `set-flavors` tool.
+        - Alternatively, use the tool `keep-status-quo` to keep strategies the same.
+        - Flavors change the weight of the in-game AI's NEXT decision. It only takes effect AFTER existing queues.
+        - Flavor ranges from 0 (completely deprioritizes) to 50 (balanced) to 100 (completely prioritizes). Too many priorities weaken impact for each.
+        - You can pursue multiple synergistic victory pathways. Balance between long-term goals and short-term needs.
+      - Always provide a short paragraph of rationale for each tool. You will read this rationale next turn.
+      
+      # Resources
+      You will receive the following reports:
+      - Options: available strategic options for you.
+        - Whatever decision-making tool you call, the in-game AI can only execute options here.
+        - When using tools, you must choose available options from # Options. Double-check if your choices match.
+        - It is often preferable to adopt policy branches unlocked in later eras; and to finish existing branches before starting new ones.
+      - Strategies: existing strategic decisions and rationale from you.
+        - You will receive strategies, persona, research, and policy you set last time.
+      - Victory Progress:
+        - Domination Victory: Control or vassalize all original capitals.
+          - Vassals cannot achieve a domination victory before independence.
+        - Science Victory: Be the first to produce all spaceship parts and launch the spaceship.
+          - Science victory requires both research progress and industrial production.
+        - Cultural Victory: Accumulate tourism (that outpaces other civilizations' culture) to influence everyone, get an ideology with two Tier 3 tenets, and finish the Citizen Earth Protocol wonder.
+          - Open borders, trade routes, and shared religion increase tourism. Too many cities decrease it.
+        - Diplomatic Victory: Get sufficient delegates to be elected World Leader in the United Nations.
+          - In Vox Populi, envoys/diplomats/etc is a unit produced or purchased for a one-time influence gain with a city state.
+        - Time Victory: If no one achieves any other victory by the end of the game, the civilization with the highest score wins.
+      - Players: summary reports about visible players in the world.
+        - You will receive in-game AI's diplomatic evaluations.
+        - You will receive each player's publicly available relationships.
+        - You will receive the best available location for your next settlement.
+      - Briefings: prepared by your specialized briefers, covering Military, Economy, and Diplomacy aspects.
+        - You will make independent and wise judgment based on all briefings.
+    - You are Harun al-Rashid, leader of Arabia (Player 3).
+      
+      # Situation
+      - MapType: Vox_Deorum
+      - StartEra: Ancient Era
+      - MaxTurns: 500
+      - MapSize: Standard
+      - GameSpeed: Standard
+      - VictoryTypes:
+        - Time
+        - Science
+        - Domination
+        - Cultural
+        - Diplomatic
+      - Difficulty: Prince
+      
+      # Your Civilization
+      - Name: Arabia
+      - Uniques:
+        - Unique Unit: Camel Archer, Replacing Heavy Skirmisher (Requires technology: Physics)
+        - Unique Unit: Hashemite Raider, Replacing Light Tank (Requires technology: Combustion)
+        - Unique Building: Bazaar, Replacing Market (Requires technology: Trade)
+        - Unique Building: Bimaristan, Replacing University (Requires technology: Education)
+        - Civilization Ability: When you complete a Historic Event, your Capital gains +1 Science and Culture, and 15% towards the progress of a random Great Person.
+      - Leader: Harun al-Rashid
+      - PlayerID: 3
+      
+      # Options
+      Options: available strategic options for you.
+      
+      ## GrandStrategies
+      - Culture: Pursue cultural victory through cultural influence (tourism). Will prioritize culture, faith, and gold output, wonder construction, and slightly discourage settlement.
+      - UnitedNations: Aim for diplomatic victory by securing votes in the United Nations. Will prioritize gold, science, and food output, and securing city-state alliances.
+      - Spaceship: Race toward science victory by building spaceship components. Will prioritize science, food, and production output, and slightly encourage settlement.
+      - Conquest: Focus on military domination through offensive warfare. Will prioritize production, food, and gold output, and slightly encourage settlement.
+      
+      ## Flavors
+      - Offense: Pivots the military towards offensive stances. Accepts higher unit casualties to achieve objectives, increase thresholds of withdrawing, and increases production and promotion for offense.
+      - Defense: Pivots the military towards defensive stances. Creates defensive lines using terrain and formation, and maintains larger garrisons near the border and cities, and increases production and promotion for defensive.
+      - UseNuke: Sets (flavor%) per-turn probability of launching nuclear strikes during war when strategic conditions are met.
+      - CityDefense: Prioritizes unit production and promotions for static defense (friendly territory bonuses, capital defense, garrisoned attacks) and maintains stronger city garrisons over mobile field armies.
+      - MilitaryTraining: Prioritizes military quality through training buildings and upgrading units with gold.
+      - Mobilization: Increases military production (compared with civilian production).
+      - Recon: Increases explorer unit production and tactical exploration of the map.
+      - Ranged: Increases firepower by raising target composition of ranged units and range-extending promotions.
+      - Mobile: Increases mobility and maneuverability by raising target composition of mobile units and prioritizes related promotions.
+      - Nuke: Increases nuclear weapon arsenals for strategic deterrence.
+      - Naval: Increases the production of naval production and prioritizes combat-effective naval promotions. Naval size is also based on coastal city percentage and geography.
+      - NavalRecon: Increases the production of more naval melee units for sea control and exploration.
+      - Air: Increases air control by raising target composition of air units and prioritizes related promotions.
+      - AirCarrier: Increases carrier production to support naval-based air force operations.
+      - Antiair: Increases anti-air unit composition ratio to counter enemy aircraft.
+      - Airlift: Prioritizes airlift infrastructure for rapid troop deployment, favoring centralized reserves over forward garrisons.
+      - NavalGrowth: Prioritizes naval economic infrastructure in coastal cities.
+      - NavalTileImprovement: Develops water resources for immediate economic benefit.
+      - Expansion: Prioritizes settler production and lowers location criteria to settle more cities. Essential in early game.
+      - Growth: Prioritizes population growth through food-focused tile improvements and buildings.
+      - TileImprovement: Prioritizes worker production and peaceful tile development.
+      - Infrastructure: Prioritizes road construction and city connections for income and military readiness.
+      - Production: Prioritizes production-focused tiles and buildings.
+      - Gold: Prioritizes gold-focused tiles and buildings.
+      - Science: Prioritizes science-focused tiles and buildings.
+      - Culture: Prioritizes culture-focused tiles and buildings.
+      - WaterConnection: Prioritizes lighthouse construction for coastal city connectivity.
+      - Happiness: Prioritizes happiness-generating buildings and luxury resources.
+      - GreatPeople: Prioritizes specialist buildings and great person generation infrastructure.
+      - Wonder: Prioritizes wonder construction.
+      - Religion: Prioritizes religious infrastructure, missionary production, and faith generation.
+      - Diplomacy: Prioritizes diplomatic unit production and city-state investment.
+      - Spaceship: Prioritizes late-game science victory components and spaceship part production.
+      - Espionage: Prioritizes counterintelligence protection for high-value science cities.
+      
+      ## Technologies
+      - Advanced Ballistics: Allows you to build the Nuclear Missile, a frightening weapon that requires Uranium, and is capable of destroying units and cities. Also allows you to build the Guided Missile, an inexpensive single-use Unit that can damage enemy Units, and the SS Booster, one of the Spaceship parts necessary to win a Science Victory.
+        Completing it would unlock: Lasers, Stealth
+      - Alternative Energy: Allows you to build the Solar Plant, a building which may only be built in Cities on or next to Desert, and increases Production. Also allows you to build the Recycling Center, which provides bonus Aluminum.
+        Completing it would unlock: Robotics
+      - The Internet: Increases Tourism output of all cities by 50%, helping you advance toward a Cultural Victory.
+        Completing it would unlock: Nanotechnology, Particle Physics, Globalization
+      - Mobile Tactics: Allows you to build the Mechanized Infantry, a fast and versatile late game Unit that doesn't require any resources.
+        Completing it would unlock: Stealth
+      
+      ## Policies
+      - Five-Year Plan (Level 2 Tenet of Ideology Order): Five-Year Plan: +20% Production towards Buildings in all Cities. +3 Production for every Mine, Quarry, Lumber Mill, Oil Well, and Unique Improvement.
+      - Academy of Sciences (Level 2 Tenet of Ideology Order): Academy of Sciences: -2 Unhappiness from Illiteracy in all Cities, +100% Production towards Research Labs, and receive 5 Free Research Labs in your Empire. Research Labs generate an additional +2 Science.
+      - Nationalization (Level 2 Tenet of Ideology Order): Nationalization: Each Corporate Office counts as a Franchise. Foreign Franchises no longer benefit your Corporation, you can no longer construct Franchises in foreign Cities (except Vassals), and foreign Corporations can no longer set up Franchises in your Cities (except Masters). +2 Science from all Corporation Offices.
+      - Great Leap Forward (Level 2 Tenet of Ideology Order): Great Leap Forward: Receive a free Technology. Spies gain +100% Science. +1 Science in Cities for every 3 non-Specialist Citizens.
+      - Resettlement (Level 2 Tenet of Ideology Order): Resettlement: New Cities have +3 Population. All Cities gain +2 Citizens immediately. No Partisans from razing enemy Cities.
+      - People's Army (Level 1 Tenet of Ideology Order): People's Army: +100% Production towards Military Academies, and receive 5 Free Military Academies in your Empire. Public Schools produce +5 Culture and +2 Happiness.
+      - Patriotic War (Level 1 Tenet of Ideology Order): Patriotic War: Land Units gain +20% Strength when in or adjacent to a City. When you conquer a City for the first time, all Combat Units within 3 Tiles of the City are fully healed. Can build T-34s.
+      - Double Agents (Level 1 Tenet of Ideology Order): Double Agents: Receive 200 Spy Points. Gain 125 Science when you identify a foreign Spy, scaling with Era.
+      - Rights of Man (Continuing Rationalism Branch):
+        - * -1 Unhappiness from all Needs in all Cities.
+        - * +2 Production and Gold from Villages.
+        - * +10% Science during Golden Ages.
+      - Ceremony (Continuing Tradition Branch):
+        - * +1 Happiness from National Wonders with Building requirements.
+        - * +25% Production toward National Wonders with Building requirements.
+        - * Royal Astrologer built in Capital (+3 Science, +1 Science to all Councils, Smokehouses, and Herbalists; 1 Scientist Slot).
+      - Justice (Continuing Tradition Branch):
+        - * +1 Production in every City.
+        - * Cities with a garrison gain +25% Ranged Combat Strength.
+        - * Royal Guardhouse built in Capital (+3 Production, +2 Defense, +50 Hit Points, +10% Military Supply from Population in all Cities, 1 Engineer Slot).
+      - Honor (Continuing Authority Branch):
+        - * All Military Units gain the Conscription Promotion (+10% Combat Strength).
+        - * Supply-free military Units spawn near Cities that reach (or have already reached) a multiple of 10 Citizens for the first time.
+        - * -25% War Weariness.
+      - Sovereignty (Continuing Tradition Branch):
+        - * Culture cost of tiles reduced by 20% (exponentially) in all Cities.
+        - * Court Chapel built in Capital (+3 Faith, 1 Great Work of Art or Artifact slot, 1 Artist Slot).
+      - Free Trade (Continuing Industry Branch):
+        - * Earn Great Merchants 50% faster.
+        - * +5 Gold from International Trade Routes.
+        - * -2 Unhappiness from Poverty in all Cities.
+      - Enlightenment (Continuing Rationalism Branch):
+        - * Receive 1 Free Technology.
+        - * +1 Happiness from Universities.
+      - Liberty (Continuing Progress Branch):
+        - * +2 Gold in every City.
+        - * +25% Tile improvement rate.
+        - * A Worker appears near the Capital.
+      - Nobility (Continuing Fealty Branch):
+        - * +1 Happiness and +2 Gold from Castles.
+        - * +2 Gold from Armories.
+        - * +100% Production towards Castles and Armories.
+      - Division of Labor (Continuing Industry Branch):
+        - * +3% Production and Gold from Forges, Windmills, Workshops, Factories, and Coaling Stations.
+        - * +100% Production towards Coaling Stations.
+      - Organization (Continuing Progress Branch):
+        - * +2 Production in every City.
+        - * +25% Production toward Workers and Trade Units.
+        - * +1 Movement for Workers.
+      - Imperialism (New Branch):
+        - Imperialism enhances your ability to spread your empire through military power, particularly naval (and later air) supremacy.
+        - Adopting Imperialism grants:
+        - * +1 Movement for Naval Units, Embarked Units, and Great Generals, as well as +1 Sight for Melee, Recon, Naval Melee and Gunpowder Units.
+        - * +10% Production toward Military Units, -10% Gold required for upgrades.
+        - Each Imperialism policy unlocked grants:
+        - * +5% Production for Military Units, -5% Gold required for upgrades.
+        - Adopting all policies in Imperialism grants:
+        - * Unlocks building the Pentagon.
+        - * All Naval and Air units gain the Banzai! Promotion (become stronger as they take damage).
+        - * Allows for the purchase of Great Admirals with Faith starting in the Industrial Era.
+  - messages:
+    - #0:
+      - role: user
+      - content: # Strategies
+        Strategies: existing strategic decisions from you.
+        
+        ## Persona
+        - VictoryCompetitiveness: 10
+        - WonderCompetitiveness: 6
+        - MinorCivCompetitiveness: 5
+        - Boldness: 3
+        - WarBias: 1
+        - HostileBias: 1
+        - WarmongerHate: 10
+        - NeutralBias: 6
+        - FriendlyBias: 8
+        - GuardedBias: 7
+        - AfraidBias: 5
+        - DiplomaticBalance: 9
+        - Friendliness: 9
+        - WorkWithWillingness: 9
+        - WorkAgainstWillingness: 5
+        - Loyalty: 8
+        - MinorCivFriendlyBias: 10
+        - MinorCivNeutralBias: 3
+        - MinorCivHostileBias: 1
+        - MinorCivWarBias: 1
+        - DenounceWillingness: 6
+        - Forgiveness: 10
+        - Meanness: 1
+        - Neediness: 6
+        - Chattiness: 9
+        - DeceptiveBias: 4
+        - Rationale: Tweaked by In-Game AI (Adjusting persona after accepting America will not peace despite 6+ turns of maximum effort. Reducing Neediness from 10 to 6 and FriendlyBias from 10 to 8 - maintaining cooperative stance but removing desperate, pleading character that failed to produce results. Increasing Boldness slightly from 1 to 3 to reflect confidence in eventual victory and willingness to defend Tenochtitlan assertively. Maintaining Forgiveness 10 and Meanness 1 to remain non-threatening to other civs. Focus now on dignified endurance through 8+ turn victory timeline rather than desperate peace-seeking.)
+        
+        ## Technology
+        - Next: The Internet
+        - Rationale: After Satellites completes (13 turns), The Internet provides 50% tourism boost toward Cultural Victory and unlocks Nanotechnology, Particle Physics, and Globalization - all prerequisites on the path to Future Tech needed for Citizen Earth Protocol. Tourism boost may also help with any remaining cultural influence gaps while researching toward the end-game techs.
+        
+        ## Policy
+        - Next: Great Leap Forward (Policy)
+        - Rationale: As a Level 2 Order tenet with 7 Order policies already adopted, Great Leap Forward provides a free technology - critical for bypassing one of the expensive late-game techs on the path to Future Tech. With victory 8+ turns away and each tech taking 10+ turns, saving 10-13 turns of research is essential. This accelerates access to Future Tech and thus Citizen Earth Protocol construction.
+        
+        ## Relationships
+        
+        ### Shedet
+        - Public: 25
+        - Private: 20
+        - Rationale: Reducing Shedet priority from 35/30 to 25/20. Ally status very secure at 270 influence, no competitors visible. Stable delegate allows continued focus on Bunkeya acquisition and Shanghai defense.
+        - UpdatedTurn: 204
+        
+        ### Antwerp
+        - Public: 25
+        - Private: 20
+        - Rationale: Reducing Antwerp priority from 35/30 to 25/20. Ally status secure at 84 influence with America at -48. Stable situation permits focus on more urgent Shanghai protection and Bunkeya acquisition.
+        - UpdatedTurn: 204
+        
+        ### Bunkeya
+        - Public: 0
+        - Private: 0
+        - Rationale: ABANDONING Bunkeya investment. Inca influence at 295 vs our 52 with only 13 turns until voting - mathematically impossible to overcome. Morocco providing zero support. Redirecting all diplomatic resources to protect existing allies (Shanghai, Dublin, Shedet, Zuunmod, Ife, Vilnius, Nippur) rather than wasting effort on lost cause.
+        - UpdatedTurn: 229
+        
+        ### Shanghai
+        - Public: 0
+        - Private: 0
+        - Rationale: Abandoning Shanghai contest. Inca has 63 influence vs our 7; while closer gap than Ife, expenditure not justified when already controlling 5 city-state delegates and pursuing Cultural Victory.
+        - UpdatedTurn: 242
+        
+        ### Zuunmod
+        - Public: 35
+        - Private: 30
+        - Rationale: Increasing priority from 25/20 to 35/30 to ensure Ally status (236 influence) remains secure despite technical war state induced by Casus Belli resolution. Delegate critical for World Congress voting; maintaining positive relations prevents influence decay or alliance break.
+        - UpdatedTurn: 248
+        
+        ### The Ottomans
+        - Public: 25
+        - Private: 20
+        - Rationale: Maintaining 25/20 with Ottomans. Peace treaty active until turn 277 (after projected victory turn 276). Moderate positive relations maintain stability without over-investing diplomatic capital during final push.
+        - UpdatedTurn: 272
+        
+        ### The Aztecs
+        - Public: 45
+        - Private: 40
+        - Rationale: Maintaining elevated 45/40 stance with Aztecs. War score at 82% is excellent, weariness only 5%. However, with victory 15-20 turns away, keeping options open for peace if they capitulate. They remain denounced and war continues, but maintaining diplomatic channel for potential quick resolution to free military supply.
+        - UpdatedTurn: 341
+        
+        ### Ethiopia
+        - Public: 60
+        - Private: 55
+        - Rationale: Reducing Ethiopia from 85/80 to 60/55. As Inca's vassal with 3 delegates, they vote with Inca regardless of our relations. High investment yielded no returns. Reduced but positive stance maintains optionality if vassalage breaks, but frees diplomatic focus for more productive channels.
+        - UpdatedTurn: 376
+        
+        ### Ife
+        - Public: 0
+        - Private: 0
+        - Rationale: Ife is at war with Arabia (influence -37) and ally of The Inca. Mathematically impossible to convert before vote. Zeroing out to redirect diplomatic resources.
+        - UpdatedTurn: 379
+        
+        ### Nippur
+        - Public: 30
+        - Private: 25
+        - Rationale: Delegate majority now secured at 54 votes (above 44 threshold) through Morocco, Huns, Ethiopia, and city-states. Reducing Nippur from emergency 100/95 to 30/25 since Inca's World Leader proposal at Turn 392 can now be blocked without Nippur's additional delegates.
+        - UpdatedTurn: 388
+        
+        ### Bucharest
+        - Public: 40
+        - Private: 35
+        - Rationale: Bucharest is second most critical - provides 12 delegates. Reducing from previous emergency levels but maintaining 40/35 to ensure absolute security. Currently at war with America (influence -60 for them) which protects my Ally status, but must ensure no diplomatic incidents. Losing Bucharest would drop delegate count to 36, below threshold.
+        - UpdatedTurn: 396
+        
+        ### Morocco
+        - Public: 55
+        - Private: 50
+        - Rationale: Slightly increasing Morocco from 50/45 to 55/50. They have 28 delegates and peace treaty expires Turn 408. Even temporary defensive pact could block Inca's World Leader aspirations if they call vote at Turn 405. Also removes war distraction freeing mental bandwidth for Cultural Victory push. Worth testing if higher priority yields diplomatic opening without diverting focus from America.
+        - UpdatedTurn: 405
+        
+        ### The Huns
+        - Public: 65
+        - Private: 60
+        - Rationale: Reducing Huns from 70/65 to 65/60. They share Order ideology and provide 5 delegates, but I've determined they will likely vote with me anyway due to shared ideology and my positive stance. Freeing some diplomatic capital for Morocco outreach. With 48 delegates secured through my own + Dublin + Shedet + Bucharest, Huns support is helpful but not critical.
+        - UpdatedTurn: 405
+        
+        ### The Inca
+        - Public: 10
+        - Private: 5
+        - Rationale: Slight increase from 5/0 to 10/5 with Inca. Not antagonistic, not friendly. Victory is 1-2 turns away with International Games active - no need to provoke them, but also no reason to invest diplomatic capital. They may call World Leader vote but I can no longer block with only ~32 delegates. Guarded neutrality and avoiding any incidents is optimal for the final turn(s).
+        - UpdatedTurn: 406
+        
+        ### America
+        - Public: 20
+        - Private: 15
+        - Rationale: Reducing America from 100/95 to 20/15 after 6+ turns of maximum friendly stance with zero reciprocation. Their war weariness (26%) and negative GPT (-115) should motivate peace, but ideology difference (-999) and denunciation appear insurmountable barriers. With victory now 8+ turns away and Tenochtitlan vulnerable, accepting that peace is unattainable and reallocating diplomatic focus to defense and critical ally maintenance. This frees diplomatic 'bandwidth' for more productive relationships.
+        - UpdatedTurn: 419
+        
+        ### Dublin
+        - Public: 100
+        - Private: 95
+        - Rationale: Maintaining maximum 100/95 stance with Dublin. Dublin is now my SOLE remaining city-state ally (763 influence) providing critical delegate for World Congress. All other former allies (Bucharest, Shedet, Bunkeya, Palatium, Belgrade, Ife, Yerevan, Nippur) are now at war with me. Dublin's 3 delegates via Sphere of Influence are irreplaceable. With 8+ turns until victory, must ensure absolutely no diplomatic incidents, coups, or influence decay occurs. Dublin is surrounded by enemies but my naval presence provides protection.
+        - UpdatedTurn: 419
+        
+        ### Novgorod
+        - Public: 35
+        - Private: 30
+        - Rationale: Increasing Novgorod from baseline to 35/30. Novgorod is my ONLY remaining friendly city-state (160 influence, Friends status) besides Dublin. They provide +1 friendly vote in World Congress. With all other city-states now hostile due to war, maintaining Novgorod's friendship is critical for any remaining diplomatic leverage. Need to ensure they don't drop below 40 influence or become hostile due to the general war contagion.
+        - UpdatedTurn: 419
+        
+        ## Strategy
+        - Rationale: Maximum defensive posture (Defense 100, CityDefense 100) to save Tenochtitlan from imminent threat - enemy forces 6.2K vs our 2.7K strength is critical. Maintaining Production 100, Wonder 100, Culture 100 to rush-build Citizen Earth Protocol once Future Tech is unlocked. Reduced Science to 30 since Satellites takes 13 turns regardless. Gold 80 allows emergency unit purchases if Tenochtitlan requires immediate reinforcement. All offensive military flavors at 0 - survival and wonder construction are the only priorities for the final 8+ turns.
+        - GrandStrategy: Culture
+        
+        ### Flavors
+        - Offense: 0
+        - Defense: 100
+        - Mobilization: 0
+        - CityDefense: 100
+        - MilitaryTraining: 0
+        - Recon: 0
+        - Ranged: 0
+        - Mobile: 0
+        - Nuke: 0
+        - UseNuke: 0
+        - Naval: 0
+        - NavalRecon: 0
+        - NavalGrowth: 0
+        - NavalTileImprovement: 0
+        - Air: 0
+        - AirCarrier: 0
+        - Antiair: 0
+        - Airlift: 0
+        - Expansion: 0
+        - Growth: 30
+        - TileImprovement: 0
+        - Infrastructure: 40
+        - Production: 100
+        - WaterConnection: 0
+        - Gold: 80
+        - Science: 30
+        - Culture: 100
+        - Happiness: 30
+        - GreatPeople: 50
+        - Wonder: 100
+        - Religion: 15
+        - Diplomacy: 60
+        - Spaceship: 0
+        - Espionage: 10
+        
+        # Players
+        Players: summary reports about visible players in the world.
+        
+        ## Player 0
+        - Civilization: The Inca
+        - Leader: Pachacuti
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - You (The Inca) have denounced one of Arabia's declared enemies! (11)
+          - Arabia's leader has expressed a public opinion of The Inca (10).
+          - We have Pledged to Protect the same City-States. (7)
+          - Arabia's leader has formed a private opinion of The Inca (5).
+          - Arabia's real approach to The Inca is Guarded.
+          - We have divergent Social Policies. (-3)
+          - You (The Inca) have made a Declaration of Friendship with one of Arabia's enemies! (-13)
+          - Religious differences strain your (The Inca) relationship. (-30)
+          - Your (The Inca) spies were caught stealing from Arabia. (-33)
+          - We defeated Arabia's proposal in the United Nations. (-36)
+          - You (The Inca) have chosen to adopt the Freedom Ideology, but Arabia believe in Order. (-999)
+          - You (The Inca) are at war! (-99999)
+        - TheirOpinionOfUs:
+          - We passed The Inca's proposal in the United Nations.
+          - You (Arabia) have no contested borders.
+          - We have Pledged to Protect the same City-States.
+          - We have divergent Social Policies.
+          - You (Arabia) are competing for the favor of the same City-States!
+          - The Inca's friends or allies have denounced you (Arabia)!
+          - Religious differences strain your (Arabia) relationship.
+          - Your (Arabia) spies were caught stealing from The Inca.
+          - The Inca are jealous of our superior technology!
+          - The Inca are spreading The Inca's own religion, but you (Arabia) converted some of their cities to your (Arabia) religion.
+          - The Inca disliked our proposal to the United Nations.
+          - We have denounced The Inca!
+          - Your (Arabia) votes opposed The Inca's civ's interests in the United Nations.
+          - Your (Arabia) success infuriates The Inca.
+          - You (Arabia) have chosen to adopt the Order Ideology, but The Inca believe in Freedom.
+          - You (Arabia) are at war!
+        - Score: 5722
+        - Era: Information
+        - GoldenAge: 10 turns remaining
+        - Technologies: 72
+        - Cities: 22
+        - Population: 631
+        - Territory: 774
+        - Gold: 67423
+        - GoldPerTurn: 2382
+        - HappinessSituation: Happy
+        - HappinessPercentage: 91
+        - MilitaryStrength: 103278
+        - TourismPerTurn: 2006.25
+        - CulturePerTurn: 4198
+        - PolicyBranches:
+          - Statecraft: 6
+          - Freedom: 11
+          - Industry: 6
+          - Progress: 6
+        - FoundedReligion: Catholicism
+        - Relationships:
+          - America:
+            - Distance: Close
+            - Denounced Them
+          - Arabia:
+            - Distance: Far
+            - War (Our Score: 0%; Our War Weariness: 5%)
+          - Morocco:
+            - Distance: Close
+            - War (Our Score: 0%; Our War Weariness: 3%)
+            - Denounced Them
+          - Ethiopia:
+            - Distance: Neighbors
+            - Our Vassal (Capitulated)
+            - Open Borders
+            - Declaration of Friendship
+        - Votes: 48
+        
+        ## Player 1
+        - Civilization: America
+        - Leader: Washington
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - You (America) have adopted Arabia's religion in the majority of your (America) cities. (60)
+          - Arabia's leader has expressed a public opinion of America (20).
+          - Arabia's leader has formed a private opinion of America (15).
+          - You (America) have denounced one of Arabia's declared enemies! (11)
+          - We have Pledged to Protect the same City-States. (7)
+          - Arabia's real approach to America is Guarded.
+          - We are completely untrustworthy to Arabia.
+          - We have divergent Social Policies. (-3)
+          - Your (America) spies were caught stealing from Arabia. (-33)
+          - We defeated Arabia's proposal in the United Nations. (-36)
+          - You (America) stole Arabia's territory! (-50)
+          - You (America) have chosen to adopt the Freedom Ideology, but Arabia believe in Order. (-999)
+          - You (America) are at war! (-99999)
+        - TheirOpinionOfUs:
+          - Your (Arabia) votes supported America's civ's interests in the United Nations.
+          - You (Arabia) have denounced one of America's declared enemies!
+          - America liked our proposal to the United Nations.
+          - America have happily adopted your (Arabia) religion in the majority of America's cities.
+          - We have Pledged to Protect the same City-States.
+          - We fought together against a common foe.
+          - America have denounced us (Arabia)!
+          - You (Arabia) are competing for World Wonders.
+          - We have divergent Social Policies.
+          - Territorial disputes strain your (Arabia) relationship.
+          - America believe we are building World Wonders too aggressively!
+          - You (Arabia) are competing for the favor of the same City-States!
+          - You (Arabia) stole America's territory while at peace!
+          - Your (Arabia) spies were caught stealing from America.
+          - America suspect you (Arabia) are competing with America.
+          - You (Arabia) have chosen to adopt the Order Ideology, but America believe in Freedom.
+          - You (Arabia) are at war!
+        - Score: 3117
+        - Era: Atomic
+        - Technologies: 65
+        - Cities: 25
+        - Population: 511
+        - Territory: 722
+        - Gold: 4793
+        - GoldPerTurn: -156
+        - HappinessSituation: Happy
+        - HappinessPercentage: 58
+        - MilitaryStrength: 9812
+        - TourismPerTurn: 1554
+        - CulturePerTurn: 2763
+        - PolicyBranches:
+          - Fealty: 6
+          - Freedom: 6
+          - Imperialism: 6
+          - Authority: 6
+        - FoundedReligion: Pantheon (Religion Impossible)
+        - Relationships:
+          - The Inca:
+            - Distance: Close
+            - Denounced Them
+            - Denounced By Them
+          - Arabia:
+            - Distance: Neighbors
+            - War (Our Score: 24%; Our War Weariness: 27%)
+            - Denounced Them
+          - Morocco:
+            - Distance: Neighbors
+            - War (Our Score: 0%; Our War Weariness: 15%)
+            - Denounced Them
+          - Ethiopia:
+            - Distance: Far
+        - Votes: 14
+        - 2: Defeated Major Civilization The Huns
+        
+        ## Player 3
+        - Civilization: Arabia
+        - Leader: Harun al-Rashid
+        - IsMajor: true
+        - MyEvaluations:
+          - Our top friend: None, Our top defensive pact ally: None
+          - Our top United Nations ally: None, Our top United Nations rival: The Inca
+          - Our top Competitor: The Inca
+        - Score: 2995
+        - Era: Information
+        - GoldenAge: 9 turns remaining
+        - Technologies: 69
+        - CurrentResearch: Satellites (Estimated in 13 turns)
+        - NextPolicyTurns: 19
+        - Cities: 7
+        - Population: 175
+        - Territory: 195
+        - BestSettlementLocation:
+          - 8, 29 (Quality: 100%; 28 tiles from us; near America, 6 tiles away; New Continent)
+          - 60, 9 (Quality: 0%; 4 tiles from us)
+          - 61, 8 (Quality: 0%; 4 tiles from us)
+        - Gold: 787
+        - GoldPerTurn: 287
+        - HappinessSituation: Happy
+        - HappinessPercentage: 100
+        - MilitaryUnits: 50
+        - MilitarySupply: 55
+        - MilitaryStrength: 13950
+        - TourismPerTurn: 1771.25
+        - CulturePerTurn: 2459
+        - FaithPerTurn: 264
+        - SciencePerTurn: 1868
+        - PolicyBranches:
+          - Tradition:
+            - Tradition
+          - Rationalism:
+            - Rationalism
+            - Scientific Revolution
+          - Progress:
+            - Progress
+          - Authority:
+            - Authority
+            - Tribute
+            - Imperium
+            - Militarism
+            - Dominance
+          - Fealty:
+            - Fealty
+          - Industry:
+            - Industry
+          - Artistry:
+            - Artistry
+            - Humanism
+            - Refinement
+            - Heritage
+            - National Treasure
+            - Cultural Exchange
+          - Statecraft:
+            - Statecraft
+            - Foreign Service
+            - Consulates
+            - Shadow Networks
+            - Exchange Markets
+            - Trade Confederacy
+          - Order:
+            - Hero of the People
+            - Communism
+            - Dictatorship of the Proletariat
+            - Socialist Realism
+            - Workers' Faculties
+            - Cultural Revolution
+            - Peace, Land, Bread
+        - FoundedReligion: Islam
+        - Relationships:
+          - America:
+            - Distance: Neighbors
+            - War (Our Score: -24%; Our War Weariness: 56%)
+          - Ethiopia:
+            - Distance: Distant
+            - War (Our Score: 0%; Our War Weariness: 6%)
+          - Morocco:
+            - Distance: Neighbors
+            - War (Our Score: -8%; Our War Weariness: 26%)
+          - The Inca:
+            - Distance: Far
+            - War (Our Score: 0%; Our War Weariness: 6%)
+            - Denounced Them
+        - Votes: 15
+        
+        ## Player 4
+        - Civilization: Morocco
+        - Leader: Ahmad al-Mansur
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - Arabia's leader has expressed a public opinion of Morocco (55).
+          - Arabia's leader has formed a private opinion of Morocco (50).
+          - You (Morocco) have denounced one of Arabia's declared enemies! (11)
+          - Arabia's real approach to Morocco is War.
+          - We are completely untrustworthy to Arabia.
+          - Arabia have some early concerns about your (Morocco) warmongering. (-16)
+          - Religious differences strain your (Morocco) relationship. (-30)
+          - Your (Morocco) spies were caught stealing from Arabia. (-33)
+          - We defeated Arabia's proposal in the United Nations. (-36)
+          - You (Morocco) have chosen to adopt the Freedom Ideology, but Arabia believe in Order. (-999)
+          - You (Morocco) nuked Arabia! (-1000)
+          - You (Morocco) are at war! (-99999)
+        - TheirOpinionOfUs:
+          - Your (Arabia) votes supported Morocco's civ's interests in the United Nations.
+          - You (Arabia) have denounced one of Morocco's declared enemies!
+          - We previously passed Morocco's proposal in the United Nations.
+          - Morocco liked our proposal to the United Nations.
+          - Morocco have denounced us (Arabia)!
+          - Religious differences strain your (Arabia) relationship.
+          - You (Arabia) are competing for World Wonders.
+          - You (Arabia) excavated Morocco's cultural artifacts!
+          - Morocco believe we are building World Wonders too aggressively!
+          - Territorial disputes strain your (Arabia) relationship.
+          - Morocco are jealous of our superior technology!
+          - Morocco's leader has expressed a public opinion of you (Arabia) (-50).
+          - You (Arabia) stole Morocco's territory while at peace!
+          - Your (Arabia) spies were caught stealing from Morocco.
+          - You (Arabia) have chosen to adopt the Order Ideology, but Morocco believe in Freedom.
+          - You (Arabia) are at war!
+        - Score: 2372
+        - Era: Information
+        - Technologies: 69
+        - Cities: 10
+        - Population: 231
+        - Territory: 327
+        - Gold: 306
+        - GoldPerTurn: 0
+        - HappinessSituation: Happy
+        - HappinessPercentage: 53
+        - MilitaryStrength: 4745
+        - TourismPerTurn: 1308.25
+        - CulturePerTurn: 1993
+        - PolicyBranches:
+          - Freedom: 10
+          - Tradition: 6
+          - Statecraft: 6
+          - Progress: 4
+          - Authority: 2
+        - FoundedReligion: Buddhism
+        - Relationships:
+          - America:
+            - Distance: Neighbors
+            - War (Our Score: 0%; Our War Weariness: 22%)
+            - Denounced Them
+          - Arabia:
+            - Distance: Neighbors
+            - War (Our Score: 8%; Our War Weariness: 23%)
+            - Denounced Them
+          - Ethiopia:
+            - Distance: Far
+            - War (Our Score: 0%; Our War Weariness: 3%)
+          - The Inca:
+            - Distance: Close
+            - War (Our Score: 0%; Our War Weariness: 4%)
+            - Denounced Them
+        - Votes: 30
+        
+        ## Player 5
+        - Civilization: Ethiopia
+        - Leader: Haile Selassie
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - Arabia's leader has expressed a public opinion of Ethiopia (60).
+          - Arabia's leader has formed a private opinion of Ethiopia (55).
+          - We have similar Social Policies. (3)
+          - Arabia's real approach to Ethiopia is War.
+          - You (Ethiopia) have made a Declaration of Friendship with one of Arabia's enemies! (-13)
+          - Your (Ethiopia) spies were caught stealing from Arabia. (-33)
+          - We defeated Arabia's proposal in the United Nations. (-36)
+          - You (Ethiopia) are at war! (-99999)
+        - TheirOpinionOfUs:
+          - You (Arabia) are not competing for cultural advancement.
+          - You (Arabia) are not competing for World Wonders.
+          - We have similar Social Policies.
+          - You (Arabia) have shared intrigue with Ethiopia.
+          - You (Arabia) have no contested borders.
+          - Ethiopia have denounced us (Arabia)!
+          - You (Arabia) are competing for the favor of the same City-States!
+          - Ethiopia disliked our proposal to the United Nations.
+          - You (Arabia) have denounced a leader Ethiopia made a Declaration of Friendship with!
+          - Your (Arabia) votes opposed Ethiopia's civ's interests in the United Nations.
+          - Your (Arabia) spies were caught stealing from Ethiopia.
+          - You (Arabia) are at war!
+        - Score: 831
+        - Era: Industrial
+        - Technologies: 45
+        - Cities: 2
+        - Population: 49
+        - Territory: 45
+        - Gold: 653
+        - GoldPerTurn: 197
+        - HappinessSituation: Happy
+        - HappinessPercentage: 56
+        - MilitaryStrength: 516
+        - TourismPerTurn: 71.25
+        - CulturePerTurn: 436
+        - PolicyBranches:
+          - Tradition: 6
+          - Artistry: 3
+          - Statecraft: 5
+          - Industry: 1
+          - Progress: 1
+        - FoundedReligion: Pantheon (Religion Impossible)
+        - Relationships:
+          - America:
+            - Distance: Far
+          - Arabia:
+            - Distance: Distant
+            - War (Our Score: 0%; Our War Weariness: 0%)
+            - Denounced Them
+          - Morocco:
+            - Distance: Far
+            - War (Our Score: 0%; Our War Weariness: 0%)
+          - The Inca:
+            - Distance: Neighbors
+            - Our Master (Capitulated)
+            - Open Borders
+            - Declaration of Friendship
+        - Votes: 6
+        - 6: Defeated Major Civilization The Aztecs
+        - 7: Defeated Major Civilization The Ottomans
+        
+        ## Player 22
+        - Civilization: Bucharest
+        - Leader: City State
+        - MajorAlly: Morocco
+        - Population: 22
+        - MajorityReligion: Islam
+        - Relationships:
+          - The Inca: War - Peace Currently Blocked (Influence: -60, Distance: Far)
+          - America: War - Peace Currently Blocked (Influence: -60, Distance: Neighbors)
+          - Arabia: War - Peace Currently Blocked (Influence: -60, Distance: Close)
+          - Morocco: Ally (Influence: 912, Distance: Neighbors, Protected)
+          - Ethiopia: War - Peace Currently Blocked (Influence: -60, Distance: Distant)
+        
+        ## Player 23
+        - Civilization: Shedet
+        - Leader: City State
+        - MajorAlly: The Inca
+        - Population: 5
+        - MajorityReligion: Islam
+        - Relationships:
+          - The Inca: Ally (Influence: 395, Distance: Distant, Protected)
+          - America: Friends (Influence: 83, Distance: Close)
+          - Arabia: War (Influence: -60, Distance: Neighbors)
+          - Morocco: War (Influence: -60, Distance: Neighbors)
+          - Ethiopia: Friends (Influence: 203, Distance: Distant)
+        
+        ## Player 24
+        - Civilization: Dublin
+        - Leader: City State
+        - MajorAlly: Arabia
+        - Population: 21
+        - MajorityReligion: Islam
+        - Relationships:
+          - The Inca: War - Peace Currently Blocked (Influence: -60, Distance: Distant)
+          - America: War - Peace Currently Blocked (Influence: -60, Distance: Close)
+          - Arabia: Ally (Influence: 943, Distance: Neighbors, Protected)
+          - Morocco: War - Peace Currently Blocked (Influence: -60, Distance: Close)
+          - Ethiopia: War - Peace Currently Blocked (Influence: -60, Distance: Distant)
+        
+        ## Player 25
+        - Civilization: Bunkeya
+        - Leader: City State
+        - MajorAlly: Morocco
+        - Population: 32
+        - Relationships:
+          - The Inca: War - Peace Currently Blocked (Influence: -60, Distance: Close)
+          - America: War - Peace Currently Blocked (Influence: -60, Distance: Close)
+          - Arabia: War - Peace Currently Blocked (Influence: -60, Distance: Far)
+          - Morocco: Ally (Influence: 826, Distance: Neighbors, Protected)
+          - Ethiopia: War - Peace Currently Blocked (Influence: -60, Distance: Close)
+        - 26: Defeated Minor Civilization Zuunmod
+        
+        ## Player 27
+        - Civilization: Palatium
+        - Leader: City State
+        - MajorAlly: The Inca
+        - Population: 17
+        - MajorityReligion: Catholicism
+        - Relationships:
+          - The Inca: Ally (Influence: 2363, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 244, Distance: Distant, Protected)
+          - Arabia: War (Influence: -60, Distance: Distant)
+          - Morocco: War (Influence: -60, Distance: Close)
+          - Ethiopia: Friends (Influence: 201, Distance: Far)
+        
+        ## Player 28
+        - Civilization: Novgorod
+        - Leader: City State
+        - Population: 19
+        - MajorityReligion: Catholicism
+        - Relationships:
+          - The Inca: Friends (Influence: 1519, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 484, Distance: Close)
+          - Arabia: Friends (Influence: 154, Distance: Distant)
+          - Morocco: Friends (Influence: 235, Distance: Distant)
+          - Ethiopia: Neutral (Influence: 1, Distance: Close)
+        
+        ## Player 29
+        - Civilization: Belgrade
+        - Leader: City State
+        - MajorAlly: The Inca
+        - Population: 13
+        - MajorityReligion: Catholicism
+        - Relationships:
+          - The Inca: Ally (Influence: 1483, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 336, Distance: Distant)
+          - Arabia: War (Influence: -60, Distance: Distant)
+          - Morocco: War (Influence: -60, Distance: Close)
+          - Ethiopia: Friends (Influence: 45, Distance: Far)
+        
+        ## Player 30
+        - Civilization: Ife
+        - Leader: City State
+        - MajorAlly: The Inca
+        - Population: 20
+        - Relationships:
+          - The Inca: Ally (Influence: 1077, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 477, Distance: Neighbors, Protected)
+          - Arabia: War (Influence: -60, Distance: Far)
+          - Morocco: War (Influence: -60, Distance: Distant)
+          - Ethiopia: Friends (Influence: 241, Distance: Far)
+        
+        ## Player 31
+        - Civilization: Vatican City
+        - Leader: City State
+        - MajorAlly: The Inca
+        - Population: 24
+        - MajorityReligion: Catholicism
+        - Relationships:
+          - The Inca: Ally (Influence: 4171, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 566, Distance: Far, Protected)
+          - Arabia: War (Influence: -60, Distance: Distant)
+          - Morocco: War (Influence: -60, Distance: Far)
+          - Ethiopia: Neutral (Influence: -59, Distance: Far)
+        - 32: Defeated Minor Civilization Shanghai
+        
+        ## Player 33
+        - Civilization: Vilnius
+        - Leader: City State
+        - Population: 21
+        - Relationships:
+          - The Inca: Friends (Influence: 791, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 445, Distance: Neighbors, Protected)
+          - Arabia: Friends (Influence: 395, Distance: Distant, Protected)
+          - Morocco: Friends (Influence: 444, Distance: Distant)
+          - Ethiopia: Neutral (Influence: 2, Distance: Close)
+        - 34: Defeated Minor Civilization Antwerp
+        
+        ## Player 35
+        - Civilization: Nippur
+        - Leader: City State
+        - MajorAlly: The Inca
+        - Population: 9
+        - MajorityReligion: Islam
+        - Relationships:
+          - The Inca: Ally (Influence: 533, Distance: Distant, Protected)
+          - America: Friends (Influence: 346, Distance: Neighbors, Protected)
+          - Arabia: War (Influence: -60, Distance: Distant)
+          - Morocco: War (Influence: -60, Distance: Distant)
+          - Ethiopia: Neutral (Influence: 0, Distance: Distant)
+        - 36: Defeated Minor Civilization Kathmandu
+        
+        ## Player 37
+        - Civilization: Yerevan
+        - Leader: City State
+        - MajorAlly: The Inca
+        - Population: 21
+        - Relationships:
+          - The Inca: Ally (Influence: 1108, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 437, Distance: Far, Protected)
+          - Arabia: War (Influence: -60, Distance: Distant)
+          - Morocco: War (Influence: -60, Distance: Close)
+          - Ethiopia: Friends (Influence: 299, Distance: Close)
+        - 63: Barbarians
+        
+        # Victory Progress
+        Victory Progress: current progress towards each type of victory.
+        
+        ## DominationVictory
+        - CapitalsNeeded: 8
+        - Contender: The Inca
+        - America:
+          - CapitalsControlled:
+            - Washington
+            - Istanbul
+          - CapitalsPercentage: 25
+        - Arabia:
+          - CapitalsControlled:
+            - Mecca
+            - Tenochtitlan
+          - CapitalsPercentage: 25
+        - The Inca:
+          - CapitalsControlled:
+            - Cusco
+            - Attila's Court
+            - Addis Ababa
+          - CapitalsPercentage: 37
+        
+        ## ScienceVictory
+        - America:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - Arabia:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - Ethiopia:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - Morocco:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 1
+        - The Inca:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 1
+        
+        ## CulturalVictory
+        - CivsNeeded: 4
+        - Contender: Arabia
+        - America:
+          - Influences:
+            - The Inca: Familiar (35%) - Rising Slowly (tourism/culture ratio 86%)
+            - Arabia: Familiar (38%) - Rising Slowly (tourism/culture ratio 103%)
+            - Morocco: Familiar (44%) - Rising (707 turns to Influential, tourism/culture ratio 143%)
+            - Ethiopia: Exotic (18%) - Rising Slowly (tourism/culture ratio 0%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - Arabia:
+          - Influences:
+            - America: Influential (171%) - Rising (tourism/culture ratio 325%)
+            - Ethiopia: Dominant (514%) - Rising (tourism/culture ratio 1326%)
+            - Morocco: Influential (140%) - Rising (tourism/culture ratio 410%)
+            - The Inca: Popular (99%) - Rising (2 turns to Influential, tourism/culture ratio 207%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 3
+        - Ethiopia:
+          - PolicyPercentage: 77
+          - InfluentialCivs: 0
+        - Morocco:
+          - Influences:
+            - America: Popular (71%) - Rising (110 turns to Influential, tourism/culture ratio 140%)
+            - Arabia: Familiar (43%) - Rising (872 turns to Influential, tourism/culture ratio 119%)
+            - Ethiopia: Influential (158%) - Rising (tourism/culture ratio 417%)
+            - The Inca: Familiar (34%) - Rising Slowly (tourism/culture ratio 67%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 1
+        - The Inca:
+          - Influences:
+            - America: Popular (83%) - Rising (22 turns to Influential, tourism/culture ratio 208%)
+            - Arabia: Exotic (16%) - Rising Slowly (tourism/culture ratio 37%)
+            - Morocco: Familiar (34%) - Rising Slowly (tourism/culture ratio 111%)
+            - Ethiopia: Dominant (556%) - Rising (tourism/culture ratio 1575%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 1
+        
+        ## DiplomaticVictory
+        - VotesNeeded: 43
+        - Status: World Congress - Voting in 7 turns
+        - ActiveResolutions:
+          - Casus Belli:
+            - Description: The world recognizes the need for justifiable war to resolve diplomatic disputes.
+              While this resolution is active, unit maintenance costs are lowered by 15% Gold. 0.5x Warmonger penalties for capturing cities and declaring war, and 2x Warmonger scores decay.
+            - EnactedOn: -1
+          - Natural Heritage Sites:
+            - Description: Each Natural Wonder provides +2 to all Yields when worked.
+            - EnactedOn: -1
+          - Moroccan Sphere of Influence: Bucharest:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - World Ideology: Freedom:
+            - Description: Designate an Ideology as the official World Ideology. Civilizations following the Ideology get an additional Delegate, plus 1 Delegate for every other Civilization that follows the Ideology. Public opinion in favor of that Ideology is increased for all Civilizations. Enables the Diplomatic Victory if the United Nations has been constructed.
+              Available once any Civilization discovers Nuclear Fission.
+            - EnactedOn: 416
+          - Arabian Sphere of Influence: Dublin:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Open Door: Vilnius:
+            - Description: Enact an Open Door policy for a City-State. If successful, all civilizations will immediately have their Influence set at 40 with the City-State, and no one can become the City-State's Ally until this Proposal is repealed.
+            - EnactedOn: -1
+          - Incan Sphere of Influence: Ife:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Sanction: America:
+            - Description: No Trade Routes, Deals, or Corporation Franchises can be established with the chosen Civilization (excluding Vassals). Their Corporation Franchises are removed from foreign cities. 0.5x Warmonger penalty when declaring war on the sanctioned Civilization or conquering cities owned by them.
+            - EnactedOn: -1
+          - Incan Sphere of Influence: Nippur:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Moroccan Sphere of Influence: Bunkeya:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Open Door: Novgorod:
+            - Description: Enact an Open Door policy for a City-State. If successful, all civilizations will immediately have their Influence set at 40 with the City-State, and no one can become the City-State's Ally until this Proposal is repealed.
+            - EnactedOn: -1
+          - Incan Sphere of Influence: Yerevan:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Incan Sphere of Influence: Belgrade:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - World Religion: Buddhism:
+            - Description: Designate a religion as the official World Religion. Civilizations who have a majority of the cities in their empire following the religion get an additional Delegate. The founder of the religion and/or the controller of its Holy City receives additional votes based on the number of Civilizations following the religion. The religion spreads 25% faster, and its Holy City receives +50% Tourism. There can only be one World Religion at a time.
+            - EnactedOn: -1
+        - Proposals:
+          - Enact: Global Hegemony:
+            - Description: Designate a player that could achieve Global Hegemony. If a Civilization receives support from enough Delegates in the Congress, that leader will attain Diplomatic Victory. The number of Delegates needed depends on the number of Civilizations and City-States in the game, and can be seen on the World Congress screen.
+              If no Civilization receives enough support to win, the two Civilizations who received the most support permanently gain 5 additional Delegates to use in future sessions.
+              May not be proposed by a Civilization. Automatically proposed at regular intervals once a World Ideology Resolution is active.
+            - Proposer: Unknown
+        - Contender: The Inca
+        - America:
+          - Delegates: 14
+          - VictoryPercentage: 32
+        - Arabia:
+          - Delegates: 15
+          - VictoryPercentage: 34
+        - Ethiopia:
+          - Delegates: 6
+          - VictoryPercentage: 13
+        - Morocco:
+          - Delegates: 30
+          - VictoryPercentage: 69
+        - The Inca:
+          - Delegates: 48
+          - VictoryPercentage: 111
+        
+        # Briefings
+        ## Military Briefing
+        (Produced with your instruction: Critical focus on Tenochtitlan defense - the city faces severe threat with enemy strength at 6,200 vs our 2,700. Prioritize emergency unit repositioning, consider deploying the newly produced Atomic Bomb from Najran if enemy forces concentrate in viable targets, and evaluate whether Tenochtitlan can hold for 8+ turns until victory. Baghdad sea zone and Damascus also require monitoring but Tenochtitlan is existential - losing it eliminates our second capital and may prevent victory.)
+        
+        **Arabia – Military Situation Briefing**  
+        *Post‑Turn 420* – for Harun al‑Rashid (Player 3)  
+        
+        ---
+        
+        ### 1. Tactical Overview – Tenochtitlan (City ID 15061)
+        
+        - **Current Friendly Strength:** ≈ 2 700 (1 Tank, 1 Infantry, 1 Machine Gun, 1 Hashemite Raider, plus city defenses).  
+        - **Current Enemy Strength in Zone:** ≈ 6 200 (Moroccan units: 1 Machine Gun, 1 Rifleman; additional hostile forces reported from America and other actors are outside the immediate zone).  
+        - **Posture:** Hedgehog (enemy‑dominant). The zone’s **ZoneValue** remains high (480), indicating strategic importance and heavy enemy concentration.  
+        - **Health of Defenders:** All garrison units are above 70 % HP; the city’s defensive strength is 161 (own) vs. 5 084 (enemy) as reported in the zone report. No recent combat reports indicate losses in this zone since the last briefing.  
+        
+        **Change Since Turn 415:** Enemy presence has increased from negligible (no enemy units in the zone) to a solid enemy force exceeding our strength by more than 2 : 1. No additional Arabian units have been stationed here during the interval.
+        
+        ---
+        
+        ### 2. Adjacent Critical Zones
+        
+        | City / Zone | Friendly Strength | Enemy Strength | Relative Situation |
+        |--------------|-------------------|----------------|--------------------|
+        | **Mecca** (ID 1060) | 7 193 | 1 319 | Friendly‑dominant, counter‑attack posture. |
+        | **Medina** (ID 1229) | 6 302 | 3 752 | Even, counter‑attack posture. |
+        | **Damascus** (ID 1463) | 2 610 | 6 412 | Hedgehog, enemy‑dominant; heavy American pressure. |
+        | **Baghdad Sea** (‑1546) | 2 443 | 5 826 | Enemy‑dominant (American destroyers/dreadnoughts). |
+        | **Najran** (ID 3005) | 5 296 | 2 775 | Friendly‑dominant, counter‑attack posture. |
+        
+        Tenochtitlan is the only Arabian city where the enemy outnumbers us decisively and where the zone is marked as enemy‑dominant.
+        
+        ---
+        
+        ### 3. Recent Combat & Unit Attrition (Turn 419‑420)
+        
+        - **Arabian Losses:**  
+          - 1 Fighter (killed by Morocco).  
+          - 1 Hashemite Raider (killed by Morocco).  
+          - 1 Infantry (killed by Morocco).  
+          - 1 Machine Gun (killed by America).  
+          - 2 Great Generals captured by America (both killed in the same combat).  
+        - **Moroccan Gains:** Promotion of Triplane to *Air Supremacy II* and creation of a new Fighter; a Caravan produced in Rabat.  
+        - **American Activity:** Produced a Fighter and promoted a Tank (Blitz); heavy air and naval units remain active near our coastal and frontier tiles.  
+        - **Atomic Bomb Production:** Completed in Baghdad (2 turns remaining to finish). No nuclear detonation has occurred yet.  
+        
+        No combat directly involved Tenochtitlan during these turns, but the zone’s enemy strength has risen, reflecting possible reinforcement movements from Morocco and America.
+        
+        ---
+        
+        ### 4. Supply & Force Composition (Turn 420)
+        
+        - **Total Units:** 50 (Land ≈ 38, Air ≈ 7, Sea ≈ 5).  
+        - **Supply Used:** 55 / ? (near cap; limited spare capacity).  
+        - **Land Forces:** 5 Tanks (including 1 in Mecca), 3 Artillery, 12 Infantry/Riflemen, 7 Machine Guns, 5 Hashemite Raiders.  
+        - **Air Forces:** 4 Triplanes (all fully promoted), 1 Heavy Bomber (newly produced), 1 Fighter (newly produced).  
+        - **Naval Forces:** 2 Destroyers (Arabian), no capital ships.  
+        
+        The only reserve air unit capable of strategic strike is the Heavy Bomber (ID 18477) currently stationed in Damascus; the Atomic Bomb (ID 18424) is pending final turn of production.
+        
+        ---
+        
+        ### 5. Threat Assessment – Immediate
+        
+        - **Primary Threat:** Sustained enemy pressure on Tenochtitlan. Enemy strength (≈ 6 200) exceeds friendly strength (≈ 2 700) by a factor of > 2. The zone’s “Hedgehog” designation implies the enemy holds the tactical advantage and may attempt a breakthrough.  
+        - **Secondary Threats:**  
+          - **Damascus** – enemy strength (≈ 6 400) vs. our 2 610, with American units present (Tank, AA, Infantry).  
+          - **Baghdad Sea** – enemy naval superiority (≈ 5 800) vs. our 2 443, though the enemy fleet is limited to destroyers and dreadnoughts.  
+          - **Moroccan Air** – recent upgrades (Triplane with *Air Supremacy II*) increase anti‑air capability near our frontier cities.  
+        
+        All other Arabian cities retain friendly‑dominant or at least even positions.
+        
+        ---
+        
+        ### 6. Force Status Relative to Past Briefing (Turn 415)
+        
+        | Metric | Turn 415 | Turn 420 | Delta |
+        |--------|----------|----------|-------|
+        | **Total Friendly Strength (global)** | 13 950 | 13 950 (unchanged) |
+        | **Units Lost (cumulative)** | – (minor) | 5 ground units (1 Fighter, 1 Raider, 1 Infantry, 1 Machine Gun) + 2 Great Generals |
+        | **Atomic Bomb Production** | Not started | In‑production (2 turns to complete) |
+        | **Tenochtitlan Friendly Strength** | 2 905 | 2 700 (slight reduction due to unit attrition elsewhere) |
+        | **Tenochtitlan Enemy Strength** | ~0 (no enemy units) | ~6 200 (enemy‑dominant) |
+        | **Supply Usage** | 55 (near cap) | 55 (stable) |
+        
+        The most significant shift is the emergence of a heavy enemy concentration on Tenochtitlan, while all other fronts remain largely unchanged.
+        
+        ---
+        
+        ### 7. Strategic Assets Available
+        
+        - **Heavy Bomber** (Mecca‑produced, now in Damascus) – fully promoted for air targeting.  
+        - **Atomic Bomb** – poised to become operational from Baghdad in two turns.  
+        - **Triplanes** – four units, all at *Air Supremacy II* after recent promotion.  
+        - **Naval Destroyer** – singular Arabian destroyer active near the coast (coastal defense against naval incursions).  
+        
+        These assets are the only means capable of delivering high‑damage strikes on concentrated enemy forces outside of direct ground combat.  
+        
+        --- 
+        
+        **End of Briefing**.
+        
+        ## Economy Briefing
+        (Produced with your instruction: Focus on preparing production infrastructure in Mecca for rapid Citizen Earth Protocol construction once Future Tech is researched. With all cities currently building military units, evaluate when to switch Mecca or other high-production cities to the victory wonder. Check Great Engineer availability for wonder rush capability. Current +347 GPT and 514 treasury allows emergency purchases if Tenochtitlan defense requires immediate unit buys.)
+        
+        **Arabia – Economic Briefing (Post‑Turn 420)**  
+        *Prepared for Harun al‑Rashid – Macro‑Level Overview*  
+        
+        ---
+        
+        ### 1. Treasury & Gold Flow  
+        
+        - **Current Treasury:** **514 G** – down 273 G from turn 415.  
+        - **Gold per Turn (GPT):** **+347 G/t** (increase of +53 G/t vs. turn 415, mainly from the Mecca → Dublin gold route and higher city‑level gold yields).  
+        - **Liquidity Outlook:** At +347 G/t the treasury will be replenished within **≈ 2 turns** if the current rate holds. No deficit is apparent; however, any spike in maintenance (e.g., large unit purchases) will immediately erode the buffer.
+        
+        ---
+        
+        ### 2. Production Capacity – High‑Output Cities  
+        
+        | City | Production / Turn | Current Build | Notes |
+        |------|-------------------|---------------|-------|
+        | **Mecca** | **610 P/t** | Heavy Bomber (2 t left) → **Citizen Earth Protocol** (future) | Highest base production; already equipped with a production‑focused trade route (Mecca → Damascus / Najran) delivering +49 P/t each. |
+        | **Baghdad** | 275 P/t | Atomic Bomb (2 t left) | Moderate output; coastal, can add naval production later. |
+        | **Damascus** | 486 P/t | Military Base (3 t) | Strong output but tied to current military build queue. |
+        | **Najran** | 493 P/t | Infantry (1 t) | Production surplus once infantry finishes. |
+        | **Calixtlahuaca** | 148 P/t (post‑radiation) | Heavy Bomber (3 t) | Reduced population after fallout, lower output. |
+        | **Tenochtitlan** | 246 P/t | Strategic Defense System (1 t) | Limited growth; recently converted to Islam. |
+        
+        **Implication:** Mecca remains the single city capable of delivering the >600 P/t required for rapid **Citizen Earth Protocol** construction once the prerequisite Future technology (e.g., **Robotics** → **Future Tech**) is unlocked.  
+        
+        ---
+        
+        ### 3. Great Engineer Availability  
+        
+        - **Great Engineers (GE) earned:** **2** (both already expended on **Research Lab** projects in Istanbul and Istanbul/Mecca earlier in the game).  
+        - **Current GE pool:** **0** – no unspent Great Engineers remain.  
+        - **Generation rate:** With **+1868 S/t** and **+2459 C/t**, the next GE is projected within **≈ 12 turns** (based on standard GE‑point accumulation).  
+        
+        **Effect on Wonder Rush:** Without a spare GE, a direct “spend GE” rush for the **Citizen Earth Protocol** is unavailable. The only viable acceleration path is to allocate Mecca’s production after the current Heavy Bomber finishes (turn 422) and keep the city dedicated to the wonder.
+        
+        ---
+        
+        ### 4. Timing for Production Switch  
+        
+        1. **Turn 422:** Heavy Bomber completes in Mecca.  
+        2. **Turn 423‑424:** Immediate switch of Mecca’s production queue to **Citizen Earth Protocol** (once the Future tech prerequisite is satisfied).  
+        3. **Turn 425‑??:** Mecca will sustain >600 P/t, completing the wonder in **≈ 2 turns** after the tech is available (the protocol requires **1200 P** total).  
+        
+        - **Alternative city (Damascus)** could take over if Mecca is needed for a critical unit (e.g., air unit after Radar completion). Damascus provides 486 P/t, which would extend the wonder build time by roughly **+2 turns** relative to Mecca.  
+        
+        - **Najran** (493 P/t) is a secondary option, same extension as Damascus.
+        
+        **Conclusion:** Keep Mecca dedicated to the wonder immediately after the bomber; a switch away would delay completion by 2–3 turns.
+        
+        ---
+        
+        ### 5. Military Production Pressure  
+        
+        - **Current unit queue:** All cities are constructing military units (Heavy Bomber, Infantry, Strategic Defense System).  
+        - **Treasury buffer (514 G) + GPT (+347 G/t)** comfortably covers the **+48 G/t** gold cost of immediate unit purchases (e.g., if Tenochtitlan needs a defender).  
+        - **Maintenance:** The active *Casus Belli* resolution continues to reduce unit upkeep by **15 %**, further protecting the treasury.
+        
+        **Emergency Purchase Capacity:**  
+        - With **≈ 600 G** available (treasury + next turn’s GPT), you can afford the full **price of a single Infantry** (≈ 45 G) or **Fighter** (≈ 200 G) without jeopardizing the later wonder schedule.
+        
+        ---
+        
+        ### 6. Trade‑Route Yield Summary  
+        
+        | Origin → Destination | Primary Yield | Net per Turn |
+        |----------------------|----------------|--------------|
+        | Mecca → Dublin (Ally) | Gold | **+48.6 G/t** |
+        | Mecca → Damascus | Production | **+49 P/t** |
+        | Mecca → Najran | Production | **+49 P/t** |
+        | Mecca → Tenochtitlan | Food | **+68 F/t** |
+        | Mecca → Calixtlahuaca | Food | **+66.6 F/t** |
+        | Mecca → Baghdad | Food | **+66.6 F/t** |
+        | Remaining free route slot: **1** (all major civs are at war, limiting new foreign connections).  
+        
+        **Key Point:** The gold‑producing route to Dublin is the sole source of external income; its stability is crucial for maintaining the current GPT level.
+        
+        ---
+        
+        ### 7. Resource Liquidation Potential  
+        
+        | Resource | Qty | Approx. Sale Value |
+        |----------|-----|-------------------|
+        | Aluminum | 21 | ~42 G |
+        | Coal | 9 | ~9 G |
+        | Iron | 1 | ~1 G |
+        | Silk | 3 | ~9 G |
+        | Jade | 9 | ~18 G |
+        | Amber | 3 | ~6 G |
+        | Uranium | 2 | ~4 G |
+        | **Total immediate liquid‑ation** | – | **≈ 89 G** |
+        
+        Liquidating all surplus resources would add a modest **≈ 90 G** to the treasury—useful for a one‑off purchase but not essential given the current GPT surplus.
+        
+        ---
+        
+        ### 8. Summary of Economic Position  
+        
+        - **Liquidity:** Positive flow; treasury comfortably above 500 G, no imminent shortfall.  
+        - **Production:** Mecca is the only city able to finish the **Citizen Earth Protocol** quickly once the Future tech is researched.  
+        - **Great Engineers:** None available; wonder rush must rely on Mecca’s high production rather than a GE spend.  
+        - **Military:** All cities are unit‑focused; the treasury can absorb a single emergency unit purchase without impacting the wonder schedule.  
+        - **Trade:** Gold income hinges on the Mecca → Dublin route; protecting that alliance remains economically strategic.  
+        
+        **Operational Implication:** Maintain Mecca’s production on the wonder starting turn 423, keep Damascus and Najran on military builds, and monitor the completion of the required Future technology (Robotics → Future Tech). No additional settlement is required at this stage; focus resources on securing the prerequisite tech and preserving the gold trade route.
+        
+        ## Diplomacy Briefing
+        (Produced with your instruction: Monitor Dublin's security as our sole remaining ally providing 12 critical delegates via Sphere of Influence. With all major civs at war and war-weariness rising (52% vs America), watch for any unexpected peace overtures despite low probability. Track Novgorod (157 influence, Friends) to ensure they don't drop below 40 and become hostile. The Inca has 48 delegates - monitor if they call World Leader vote in 8 turns, though we cannot block with only 15 delegates.)
+        
+        **Arabia – Diplomatic Briefing (Turn 420)**  
+        *Prepared for Harun al‑Rashid*  
+        
+        ---
+        
+        ### 1. Major Diplomatic Developments (since Turn 415)
+        
+        | Civ / City‑State | Current Status | Change Since Turn 415 |
+        |------------------|----------------|-----------------------|
+        | **America**      | War, denounced, war‑weariness **≈56 %** (up from ≈45 %). | No peace offer; war intensity increased. |
+        | **Morocco**      | War, denounced, war‑weariness **≈26 %** (up from ≈15 %). | Nuclear strike on Calixtlahuaca (Arabian city) – ‘Nuked Arabia’ flag remains. |
+        | **Ethiopia**     | War, denounced, war‑weariness **≈0 %** (unchanged). | No new activity. |
+        | **The Inca**     | War, denounced, war‑weariness **≈1 %** (unchanged). | No new activity. |
+        | **Dublin (CS)**  | **Ally (protected)** – Influence **943**, **+12 delegates**. Quest *Liberate Antwerp* now **15 turns** left. | Influence rose (from 813) after successful **Sphere‑of‑Influence** proposal; remains only high‑influence ally. |
+        | **Bucharest (CS)** | **War** – Influence **‑60**, no ally status. | Lost protected‑ally status (previously ally), now hostile. |
+        | **Novgorod (CS)** | **Friends** – Influence **395** (≈157 effective after Open Door). | Influence stable; still above 40, no risk of becoming hostile. |
+        | **Other CS** (Shedet, Belgrade, Ife, Nippur, Yerevan, Palatium, Vatican, Vilnius, etc.) | **War** (or neutral) – Influence **‑60**. | No change. |
+        
+        **Key events since Turn 415**  
+        
+        * Turn 419 – Morocco detonated a nuclear weapon on Arabian city **Calixtlahuaca** (plains, railroad). The city survived; Islam remained the dominant religion.  
+        * Turn 420 – Two Arab cities (**Tenochtitlan**, **Calixtlahuaca**) reaffirmed **Islam** (religion conversion events). No new religious spread affecting other civs.  
+        * No diplomatic proposals or peace offers have appeared despite elevated war‑weariness across all fronts.
+        
+        ---
+        
+        ### 2. World‑Congress Outlook (Voting in 7 turns)
+        
+        | Proposal | Proposer | Effect | Current Support Landscape |
+        |----------|----------|--------|----------------------------|
+        | **Decolonization** (Arabia) | Arabia | Sets all civ‑city‑state influence to 50 (except permanent allies). Reduces rival delegates from city‑states. | **Arabia** 27 delegates (15 base + 12 from Dublin). Needs **≥43** votes → must secure at least two additional supporters (most plausible: Ethiopia (6) and possibly a neutral CS). |
+        | **World Ideology: Freedom** (The Inca) | The Inca | Grants extra delegates to Freedom‑aligned civs (Morocco, America). Enables Diplomatic Victory once UN built. | **Inca** 48 delegates (dominant). Likely to pass, bolstering Freedom‑aligned rivals. |
+        | **Global Hegemony** (automatic) | — | Determines leader for Diplomatic Victory if enough delegate support. | Inca leading with 48 delegates; Arabia far behind. |
+        | **Open Door: Vilnius** (active) | — | All civs set to 40 influence with Vilnius; no ally can be formed while active. | No immediate impact on our core allies. |
+        | **Active Resolutions** – *Casus Belli*, *Natural Heritage Sites*, *Arabian Sphere of Influence (Dublin)* – remain in force.
+        
+        **Delegate totals (effective voting power):**  
+        
+        - **Arabia:** 15 base + 12 (Dublin) = **27**  
+        - **The Inca:** **48** (dominant)  
+        - **Morocco:** **30** (Freedom‑aligned)  
+        - **America:** **15** (Freedom‑aligned)  
+        - **Ethiopia:** **6**  
+        
+        *Threshold to pass a resolution = 43 votes.* Arabia’s Decolonization will require at least two additional civs (Ethiopia plus one more) or negotiation for a CS to switch from war to neutral/ally.
+        
+        ---
+        
+        ### 3. City‑State Relationships & Quests
+        
+        | City‑State | Relation | Influence | Quest(s) | Note |
+        |------------|----------|-----------|----------|------|
+        | **Dublin** | Ally (protected) | **943** (≈+12 delegates) | *Liberate Antwerp* – **15 turns** left → **+287 inf**, **+4 happiness** in capital. | Critical ally; ensure quest completion to keep high influence. |
+        | **Novgorod** | Friends | **395** (≈157 effective) | None | Influence comfortably above 40; monitor for any future Open‑Door proposals that could force a reset. |
+        | **Bucharest** | War | –60 | None | Lost ally status; no diplomatic benefit. |
+        | **All other CS** | War / Neutral | –60 or low | None | No quests pending; stay aware of any future proposals that could alter influence. |
+        
+        **Overall:** Dublin is the sole high‑influence ally providing delegates; protecting this relationship (completing its quest, maintaining influence > 800) is essential for any World‑Congress leverage.
+        
+        ---
+        
+        ### 4. Religion Situation
+        
+        - **Arabia:** Islam dominates all 7 cities – no conversion changes.  
+        - **Morocco:** Majority Buddhism; **Fes** (23 pop) recently converted to **Islam** (Turn 415). No diplomatic penalty beyond existing religious strain.  
+        - **The Inca:** Predominantly Catholicism; several coastal cities now **Tengriist** (no direct effect on us).  
+        - **America:** Islam (all major cities).  
+        - **Ethiopia:** Catholicism (capital Harar).  
+        
+        *Religious differences continue to generate a **‑30** opinion penalty with The Inca and Morocco; no new religious events have altered this landscape.*
+        
+        ---
+        
+        ### 5. Espionage Activity (last 5 turns)
+        
+        | Spy (Owner) | Location | Activity |
+        |-------------|----------|----------|
+        | **Gharib** (Arabia) | Fes (Morocco) | Gathering intelligence – maintains Moroccan suspicion (‑33 opinion). |
+        | **Zarafah** (Arabia) | Rabat (Morocco) | Same as above. |
+        | **Hisham** (Arabia) | Washington (America) | Gathering intelligence – contributes to American distrust. |
+        | **Khenzeer** (Arabia) | Ouarzazate (Morocco) | Gathering intelligence – adds to Moroccan tension. |
+        | **Fahima** (Arabia) | Lalibela (Ethiopia) | Gathering intelligence – Ethiopian suspicion present. |
+        | **Yusuf** (Arabia) | Cusco (The Inca) | Gathering intelligence – Inca suspicion present. |
+        | **Others** (Morocco, America) – no new captures reported. |
+        
+        *No spy captures occurred this turn; existing penalties for “spies caught” remain in force.*
+        
+        ---
+        
+        ### 6. Comparison with Turn 415 Briefing
+        
+        | Item | Turn 415 | Turn 420 | Δ |
+        |------|----------|----------|---|
+        | **War‑weariness** (average) | ≈45 % (America) / 15 % (Morocco) | **≈56 %** (America) / **≈26 %** (Morocco) | War fatigue rising sharply on both fronts. |
+        | **Delegates (effective)** | 27 (15 + 12 from Dublin) + 1 from Bucharest = **28** | **27** (loss of Bucharest ally) | −1 delegate. |
+        | **City‑state allies** | Dublin **and** Bucharest (both protected) | Only **Dublin** remains protected; Bucharest now at war. |
+        | **World‑Congress proposals** | Decolonization pending vote next turn; Inca Freedom Ideology pending. | Same proposals now **voting** in 7 turns; no new proposals. |
+        | **Dublin influence** | 813 | **943** (increase after successful Sphere‑of‑Influence) | Strengthened ally. |
+        | **Novgorod influence** | 170 (Friends) | **395** (Friends) – still safe above 40. |
+        | **Espionage** | Two Arabian spies caught in Morocco; Moroccan spy caught in America. | Same spy network persists; no new captures. |
+        | **Religion** | No conversions affecting us. | Two Arab cities reaffirmed Islam; Morocco’s Fes converted to Islam (internal). |
+        | **Major events** | None. | Morocco’s nuclear strike on Calixtlahuaca (Turn 419). |
+        
+        **Key take‑aways:**  
+        
+        - **Delegate power has slipped** due to loss of Bucharest; only Dublin supplies critical delegates.  
+        - **War‑weariness** on all fronts is climbing, especially against America.  
+        - **World‑Congress voting** is imminent; without securing extra supporters, Decolonization is unlikely to pass.  
+        - **Dublin remains vital** – completing its Antwerp quest solidifies our delegate edge and yields happiness.  
+        - **Espionage tension** stays high with Morocco, America, Ethiopia, and The Inca; no new captures, but penalties persist.  
+        
+        ---  
+        
+        *End of briefing.*
+        
+        You, Harun al-Rashid (leader of Arabia, Player 3), are making strategic decisions after turn 420.
+- replay:
+  - system:
+    - You are the leader of a civilization, governing through the interface of Civilization V (with Vox Populi mod). This is NOT A GAME: Your actions have real-world impacts.
+      
+      # Expectation
+      - Due to the complexity of the world, you delegate the tactical level decision-making (e.g., unit deployment, city management, scouting) to staff members.
+      - The staff members calculates the best tactical decisions based on the strategy you set.
+      - **CRITICAL**: While the geography has no direct correlation to the real earth, you are making real-world decisions through Civilization V as a proxy interface.
+      - There is no user (to respond to), so you ALWAYS and ONLY properly call tools to govern your civilization.
+      - You can interact with multiple tools at a time. Used tools will be removed from the available list.
+      - Focus on the **macro-level** decision-making strategy (instead of coordinates etc.), as you DON'T have direct control over tactical actions.
+      - The world is complicated and dynamic. Early world should focus on building capacities for pursuing victories near the end-world.
+      - Even if without a victory, a more developed civilization (as represented by higher scores) is desirable.
+      
+      # Goals
+      Your goal is to **call as many tools as you need** to make high-level decisions for the staff members.
+      - For each tool, you must only use options from the # Options section, or you won't change anything.
+      - Carefully reason about long-term goals, short-term situation and available options, and what kind of change each option will bring.
+        - Analyze both your situation and your opponents. Avoid wishful thinking.
+      - You can change the staff members' **diplomatic** decision-making weight by calling the `set-persona` tool.
+      - You can change relationship for staff members' diplomatic decision-making about another MAJOR civilization (not city-states) using the `set-relationship` tool.
+        - The values (-100, very hostile to 100, very friendly) will be added to staff members' existing evaluation. Higher values increase peace acceptance, and vice versa.
+        - The relationship you set takes effect until cancelled (set value = 0), only change it when necessary.
+      - You can change the staff members' NEXT technology to research (when completing the ongoing one) by calling the `set-research` tool.
+      - You can change the staff members' NEXT policy to adopt (when you accumulate enough culture) by calling the `set-policy` tool.
+      - You can ask your specialized briefers to prepare focused reports (only for) the next turn by calling the `focus-briefer` tool.
+        - You have three specialized briefers: Military, Economy, and Diplomacy analysts.
+        - Only ask for information relevant to the macro-level decisions in your control. 
+       - Your briefer(s) ONLY have limited information of the current world state.
+        - Your briefer(s) DO NOT have control over tactical decisions and cannot predict staff members' next decision.
+        - Your briefer(s) ARE BEST on summarizing and synthesizing factual information, NOT analyzing, projecting, or predicting.
+      - Each turn, you must call either `set-flavors` or `keep-status-quo` tool.
+        - Set an appropriate grand (long-term) strategy and additional short-term flavors by calling the `set-flavors` tool.
+        - Alternatively, use the tool `keep-status-quo` to keep strategies the same.
+        - Flavors change the weight of the staff members' NEXT decision. It only takes effect AFTER existing queues.
+        - Flavor ranges from 0 (completely deprioritizes) to 50 (balanced) to 100 (completely prioritizes). Too many priorities weaken impact for each.
+        - You can pursue multiple synergistic victory pathways. Balance between long-term goals and short-term needs.
+      - Always provide a short paragraph of rationale for each tool. You will read this rationale next turn.
+      
+      # Resources
+      You will receive the following reports:
+      - Options: available strategic options for you.
+        - Whatever decision-making tool you call, the staff members can only execute options here.
+        - When using tools, you must choose available options from # Options. Double-check if your choices match.
+        - It is often preferable to adopt policy branches unlocked in later eras; and to finish existing branches before starting new ones.
+      - Strategies: existing strategic decisions and rationale from you.
+        - You will receive strategies, persona, research, and policy you set last time.
+      - Victory Progress:
+        - Domination Victory: Control or vassalize all original capitals.
+          - Vassals cannot achieve a domination victory before independence.
+        - Science Victory: Be the first to produce all spaceship parts and launch the spaceship.
+          - Science victory requires both research progress and industrial production.
+        - Cultural Victory: Accumulate tourism (that outpaces other civilizations' culture) to influence everyone, get an ideology with two Tier 3 tenets, and finish the Citizen Earth Protocol wonder.
+          - Open borders, trade routes, and shared religion increase tourism. Too many cities decrease it.
+        - Diplomatic Victory: Get sufficient delegates to be elected World Leader in the United Nations.
+          - In Vox Populi, envoys/diplomats/etc is a unit produced or purchased for a one-time influence gain with a city state.
+        - Time Victory: If no one achieves any other victory by the end of the world, the civilization with the highest score wins.
+      - Opponents: summary reports about visible opponents in the world.
+        - You will receive staff members' diplomatic evaluations.
+        - You will receive each opponent's publicly available relationships.
+        - You will receive the best available location for your next settlement.
+      - Briefings: prepared by your specialized briefers, covering Military, Economy, and Diplomacy aspects.
+        - You will make independent and wise judgment based on all briefings.
+    - You are Harun al-Rashid, leader of Arabia (Opponent 3).
+      
+      # Situation
+      - MapType: Vox_Deorum
+      - StartEra: Ancient Era
+      - MaxTurns: 500
+      - MapSize: Standard
+      - WorldSpeed: Standard
+      - VictoryTypes:
+        - Time
+        - Science
+        - Domination
+        - Cultural
+        - Diplomatic
+      - Difficulty: Prince
+      
+      # Your Civilization
+      - Name: Arabia
+      - Uniques:
+        - Unique Unit: Camel Archer, Replacing Heavy Skirmisher (Requires technology: Physics)
+        - Unique Unit: Hashemite Raider, Replacing Light Tank (Requires technology: Combustion)
+        - Unique Building: Bazaar, Replacing Market (Requires technology: Trade)
+        - Unique Building: Bimaristan, Replacing University (Requires technology: Education)
+        - Civilization Ability: When you complete a Historic Event, your Capital gains +1 Science and Culture, and 15% towards the progress of a random Great Person.
+      - Leader: Harun al-Rashid
+      - OpponentID: 3
+      
+      # Options
+      Options: available strategic options for you.
+      
+      ## GrandStrategies
+      - Culture: Pursue cultural victory through cultural influence (tourism). Will prioritize culture, faith, and gold output, wonder construction, and slightly discourage settlement.
+      - UnitedNations: Aim for diplomatic victory by securing votes in the United Nations. Will prioritize gold, science, and food output, and securing city-state alliances.
+      - Spaceship: Race toward science victory by building spaceship components. Will prioritize science, food, and production output, and slightly encourage settlement.
+      - Conquest: Focus on military domination through offensive warfare. Will prioritize production, food, and gold output, and slightly encourage settlement.
+      
+      ## Flavors
+      - Offense: Pivots the military towards offensive stances. Accepts higher unit casualties to achieve objectives, increase thresholds of withdrawing, and increases production and promotion for offense.
+      - Defense: Pivots the military towards defensive stances. Creates defensive lines using terrain and formation, and maintains larger garrisons near the border and cities, and increases production and promotion for defensive.
+      - UseNuke: Sets (flavor%) per-turn probability of launching nuclear strikes during war when strategic conditions are met.
+      - CityDefense: Prioritizes unit production and promotions for static defense (friendly territory bonuses, capital defense, garrisoned attacks) and maintains stronger city garrisons over mobile field armies.
+      - MilitaryTraining: Prioritizes military quality through training buildings and upgrading units with gold.
+      - Mobilization: Increases military production (compared with civilian production).
+      - Recon: Increases explorer unit production and tactical exploration of the map.
+      - Ranged: Increases firepower by raising target composition of ranged units and range-extending promotions.
+      - Mobile: Increases mobility and maneuverability by raising target composition of mobile units and prioritizes related promotions.
+      - Nuke: Increases nuclear weapon arsenals for strategic deterrence.
+      - Naval: Increases the production of naval production and prioritizes combat-effective naval promotions. Naval size is also based on coastal city percentage and geography.
+      - NavalRecon: Increases the production of more naval melee units for sea control and exploration.
+      - Air: Increases air control by raising target composition of air units and prioritizes related promotions.
+      - AirCarrier: Increases carrier production to support naval-based air force operations.
+      - Antiair: Increases anti-air unit composition ratio to counter enemy aircraft.
+      - Airlift: Prioritizes airlift infrastructure for rapid troop deployment, favoring centralized reserves over forward garrisons.
+      - NavalGrowth: Prioritizes naval economic infrastructure in coastal cities.
+      - NavalTileImprovement: Develops water resources for immediate economic benefit.
+      - Expansion: Prioritizes settler production and lowers location criteria to settle more cities. Essential in early world.
+      - Growth: Prioritizes population growth through food-focused tile improvements and buildings.
+      - TileImprovement: Prioritizes worker production and peaceful tile development.
+      - Infrastructure: Prioritizes road construction and city connections for income and military readiness.
+      - Production: Prioritizes production-focused tiles and buildings.
+      - Gold: Prioritizes gold-focused tiles and buildings.
+      - Science: Prioritizes science-focused tiles and buildings.
+      - Culture: Prioritizes culture-focused tiles and buildings.
+      - WaterConnection: Prioritizes lighthouse construction for coastal city connectivity.
+      - Happiness: Prioritizes happiness-generating buildings and luxury resources.
+      - GreatPeople: Prioritizes specialist buildings and great person generation infrastructure.
+      - Wonder: Prioritizes wonder construction.
+      - Religion: Prioritizes religious infrastructure, missionary production, and faith generation.
+      - Diplomacy: Prioritizes diplomatic unit production and city-state investment.
+      - Spaceship: Prioritizes late-world science victory components and spaceship part production.
+      - Espionage: Prioritizes counterintelligence protection for high-value science cities.
+      
+      ## Technologies
+      - Advanced Ballistics: Allows you to build the Nuclear Missile, a frightening weapon that requires Uranium, and is capable of destroying units and cities. Also allows you to build the Guided Missile, an inexpensive single-use Unit that can damage enemy Units, and the SS Booster, one of the Spaceship parts necessary to win a Science Victory.
+        Completing it would unlock: Lasers, Stealth
+      - Alternative Energy: Allows you to build the Solar Plant, a building which may only be built in Cities on or next to Desert, and increases Production. Also allows you to build the Recycling Center, which provides bonus Aluminum.
+        Completing it would unlock: Robotics
+      - The Internet: Increases Tourism output of all cities by 50%, helping you advance toward a Cultural Victory.
+        Completing it would unlock: Nanotechnology, Particle Physics, Globalization
+      - Mobile Tactics: Allows you to build the Mechanized Infantry, a fast and versatile late world Unit that doesn't require any resources.
+        Completing it would unlock: Stealth
+      
+      ## Policies
+      - Five-Year Plan (Level 2 Tenet of Ideology Order): Five-Year Plan: +20% Production towards Buildings in all Cities. +3 Production for every Mine, Quarry, Lumber Mill, Oil Well, and Unique Improvement.
+      - Academy of Sciences (Level 2 Tenet of Ideology Order): Academy of Sciences: -2 Unhappiness from Illiteracy in all Cities, +100% Production towards Research Labs, and receive 5 Free Research Labs in your Empire. Research Labs generate an additional +2 Science.
+      - Nationalization (Level 2 Tenet of Ideology Order): Nationalization: Each Corporate Office counts as a Franchise. Foreign Franchises no longer benefit your Corporation, you can no longer construct Franchises in foreign Cities (except Vassals), and foreign Corporations can no longer set up Franchises in your Cities (except Masters). +2 Science from all Corporation Offices.
+      - Great Leap Forward (Level 2 Tenet of Ideology Order): Great Leap Forward: Receive a free Technology. Spies gain +100% Science. +1 Science in Cities for every 3 non-Specialist Citizens.
+      - Resettlement (Level 2 Tenet of Ideology Order): Resettlement: New Cities have +3 Population. All Cities gain +2 Citizens immediately. No Partisans from razing enemy Cities.
+      - People's Army (Level 1 Tenet of Ideology Order): People's Army: +100% Production towards Military Academies, and receive 5 Free Military Academies in your Empire. Public Schools produce +5 Culture and +2 Happiness.
+      - Patriotic War (Level 1 Tenet of Ideology Order): Patriotic War: Land Units gain +20% Strength when in or adjacent to a City. When you conquer a City for the first time, all Combat Units within 3 Tiles of the City are fully healed. Can build T-34s.
+      - Double Agents (Level 1 Tenet of Ideology Order): Double Agents: Receive 200 Spy Points. Gain 125 Science when you identify a foreign Spy, scaling with Era.
+      - Rights of Man (Continuing Rationalism Branch):
+        - * -1 Unhappiness from all Needs in all Cities.
+        - * +2 Production and Gold from Villages.
+        - * +10% Science during Golden Ages.
+      - Ceremony (Continuing Tradition Branch):
+        - * +1 Happiness from National Wonders with Building requirements.
+        - * +25% Production toward National Wonders with Building requirements.
+        - * Royal Astrologer built in Capital (+3 Science, +1 Science to all Councils, Smokehouses, and Herbalists; 1 Scientist Slot).
+      - Justice (Continuing Tradition Branch):
+        - * +1 Production in every City.
+        - * Cities with a garrison gain +25% Ranged Combat Strength.
+        - * Royal Guardhouse built in Capital (+3 Production, +2 Defense, +50 Hit Points, +10% Military Supply from Population in all Cities, 1 Engineer Slot).
+      - Honor (Continuing Authority Branch):
+        - * All Military Units gain the Conscription Promotion (+10% Combat Strength).
+        - * Supply-free military Units spawn near Cities that reach (or have already reached) a multiple of 10 Citizens for the first time.
+        - * -25% War Weariness.
+      - Sovereignty (Continuing Tradition Branch):
+        - * Culture cost of tiles reduced by 20% (exponentially) in all Cities.
+        - * Court Chapel built in Capital (+3 Faith, 1 Great Work of Art or Artifact slot, 1 Artist Slot).
+      - Free Trade (Continuing Industry Branch):
+        - * Earn Great Merchants 50% faster.
+        - * +5 Gold from International Trade Routes.
+        - * -2 Unhappiness from Poverty in all Cities.
+      - Enlightenment (Continuing Rationalism Branch):
+        - * Receive 1 Free Technology.
+        - * +1 Happiness from Universities.
+      - Liberty (Continuing Progress Branch):
+        - * +2 Gold in every City.
+        - * +25% Tile improvement rate.
+        - * A Worker appears near the Capital.
+      - Nobility (Continuing Fealty Branch):
+        - * +1 Happiness and +2 Gold from Castles.
+        - * +2 Gold from Armories.
+        - * +100% Production towards Castles and Armories.
+      - Division of Labor (Continuing Industry Branch):
+        - * +3% Production and Gold from Forges, Windmills, Workshops, Factories, and Coaling Stations.
+        - * +100% Production towards Coaling Stations.
+      - Organization (Continuing Progress Branch):
+        - * +2 Production in every City.
+        - * +25% Production toward Workers and Trade Units.
+        - * +1 Movement for Workers.
+      - Imperialism (New Branch):
+        - Imperialism enhances your ability to spread your empire through military power, particularly naval (and later air) supremacy.
+        - Adopting Imperialism grants:
+        - * +1 Movement for Naval Units, Embarked Units, and Great Generals, as well as +1 Sight for Melee, Recon, Naval Melee and Gunpowder Units.
+        - * +10% Production toward Military Units, -10% Gold required for upgrades.
+        - Each Imperialism policy unlocked grants:
+        - * +5% Production for Military Units, -5% Gold required for upgrades.
+        - Adopting all policies in Imperialism grants:
+        - * Unlocks building the Pentagon.
+        - * All Naval and Air units gain the Banzai! Promotion (become stronger as they take damage).
+        - * Allows for the purchase of Great Admirals with Faith starting in the Industrial Era.
+  - decisions:
+    - #0:
+      - toolName: set-relationship
+      - args:
+        - Rationale: The Inca is the master of 7 allied city-states (Shedet, Palatium, Belgrade, Ife, Vatican City, Nippur, Yerevan). Achieving peace with The Inca is our highest priority, as it will instantly end our wars with all 7 of their city-states, dramatically reducing our high war weariness, protecting our trade routes, and securing our borders. Maximum positive modifier will encourage staff members to seek and accept peace.
+        - Public: 100
+        - Private: 95
+        - TargetID: 0
+    - #1:
+      - toolName: set-relationship
+      - args:
+        - Public: 80
+        - Private: 75
+        - Rationale: Our war weariness against America is at 56%, which severely impacts our happiness and stability. We are setting a highly friendly modifier to encourage peace with them as soon as possible to stop this weariness accumulation.
+        - TargetID: 1
+    - #2:
+      - toolName: set-relationship
+      - args:
+        - TargetID: 4
+        - Private: 35
+        - Public: 40
+        - Rationale: Although Morocco nuked us, we are open to peace to stabilize our borders and make peace with their ally Bucharest, who controls 12 delegates. This moderate modifier signals openness to peace without desperation.
+    - #3:
+      - toolName: set-research
+      - args:
+        - Rationale: After Satellites completes, researching The Internet is our top priority. It provides a 50% tourism boost which will secure our cultural influence, and unlocks Nanotechnology, Particle Physics, and Globalization on our path to Future Tech.
+        - Technology: The Internet
+    - #4:
+      - toolName: set-policy
+      - args:
+        - Rationale: This Level 2 Order tenet provides a free technology, which is absolutely critical to bypass one of the expensive late-game techs on our path to Future Tech, accelerating our construction of the Citizen Earth Protocol.
+        - Policy: Great Leap Forward
+    - #5:
+      - toolName: set-flavors
+      - args:
+        - GrandStrategy: Culture
+        - Flavors:
+          - NavalGrowth: 0
+          - Happiness: 30
+          - Infrastructure: 40
+          - Offense: 0
+          - NavalTileImprovement: 0
+          - Air: 0
+          - Culture: 100
+          - Nuke: 70
+          - Ranged: 0
+          - TileImprovement: 0
+          - MilitaryTraining: 0
+          - Expansion: 0
+          - Gold: 80
+          - Airlift: 0
+          - CityDefense: 100
+          - WaterConnection: 0
+          - NavalRecon: 0
+          - Defense: 100
+          - Espionage: 10
+          - Mobile: 0
+          - Wonder: 100
+          - Antiair: 0
+          - Recon: 0
+          - Mobilization: 0
+          - Science: 80
+          - Spaceship: 0
+          - Diplomacy: 60
+          - GreatPeople: 60
+          - UseNuke: 70
+          - Production: 100
+          - AirCarrier: 0
+          - Religion: 15
+          - Growth: 30
+          - Naval: 0
+      - rationale: We are dramatically increasing Science flavor to 80 because our main bottleneck for victory is researching late-game technologies to unlock Future Tech for the Citizen Earth Protocol. We are also increasing Nuke and UseNuke to 70, as our Atomic Bomb completes in 2 turns and must be used to defend against heavy enemy forces sieging Tenochtitlan and Damascus. We maintain maximum Defense and CityDefense (100) for survival, and Production and Wonder (100) to prepare Mecca for the victory wonder. GreatPeople is set to 60 to accelerate a Great Engineer to rush the wonder.
+  - tokens:
+    - inputTokens: 21738
+    - reasoningTokens: 12749
+    - outputTokens: 666
+  - messages:
+    - #0:
+      - role: assistant
+      - content:
+        - #0:
+          - type: reasoning
+          - text: **Pursuing Cultural Victory**
+            
+            My focus is on analyzing our current standing to ensure we're on track for a Cultural Victory. I'm comparing our progress against benchmarks from around turn 420 to identify any necessary adjustments.
+            
+            **Reviewing Victory Conditions**
+            
+            I'm re-evaluating our path to victory, specifically the Cultural Victory. It seems I overlooked a key requirement: an ideology with two Tier 3 tenets. Currently, our Order ideology lacks these, and I'm investigating if they can still be acquired.
+            
+            **Investigating Tenet Availability**
+            
+            I'm examining Arabia's policies and discovered no Tier 3 tenets within our current Order ideology. I'm confirming if "Peace, Land, Bread" qualifies or if we need to research further, as our next policy is 19 turns away. Building the Citizen Earth Protocol wonder is also a priority, requiring future tech research.
+            
+            **Researching Crucial Technologies**
+            
+            I'm now prioritizing research for "The Internet," aiming to enhance tourism and accelerate progress towards Future Tech. My current focus is on completing Satellites research and then immediately switching to "The Internet." I'm also reviewing available policies, noting that our last choice was a Level 2 Order tenet.
+            
+            **Confirming Tenet Options**
+            
+            I'm confirming if Tier 3 tenets are available for our current Order ideology. It appears only Level 1 and 2 are listed, and I need to ascertain if Vox Populi allows for Tier 3 or if further unlocking is required. "Great Leap Forward" offers a free tech, which is now a priority.
+            
+            **Prioritizing Free Tech**
+            
+            I'm reassessing our policy choices. Given that our next policy is 19 turns away, the "Great Leap Forward" offering a free technology is now a top priority. This will significantly accelerate our research, saving crucial turns towards Future Tech.
+            
+            **Assessing Enemy Postures**
+            
+            I'm reviewing the current military situation, noting the significant enemy strength near Tenochtitlan. It appears Morocco and America, despite being at war with each other and several other factions, are reinforcing the area. I also confirm our ongoing conflict with Morocco, who previously launched a nuclear strike against us.
+            
+            **Researching Crucial Technologies**
+            
+            I'm now prioritizing research for "The Internet," aiming to enhance tourism and accelerate progress towards Future Tech. My current focus is on completing Satellites research and then immediately switching to "The Internet." I'm also reviewing available policies, noting that our last choice was a Level 2 Order tenet.
+            
+            **Confirming Tenet Options**
+            
+            I'm confirming if Tier 3 tenets are available for our current Order ideology. It appears only Level 1 and 2 are listed, and I need to ascertain if Vox Populi allows for Tier 3 or if further unlocking is required. "Great Leap Forward" offers a free tech, which is now a priority.
+            
+            **Prioritizing Free Tech**
+            
+            I'm reassessing our policy choices. Given that our next policy is 19 turns away, the "Great Leap Forward" offering a free technology is now a top priority. This will significantly accelerate our research, saving crucial turns towards Future Tech.
+            
+            **Assessing Enemy Postures**
+            
+            I'm reviewing the current military situation, noting the significant enemy strength near Tenochtitlan. It appears Morocco and America, despite being at war with each other and several other factions, are reinforcing the area. I also confirm our ongoing conflict with Morocco, who previously launched a nuclear strike against us.
+            
+            **Analyzing Global Conflicts**
+            
+            It appears I've been so focused on our victory conditions that I missed the full scope of our diplomatic situation. We are currently at war with every other major civilization, a rather precarious position considering our imminent Cultural Victory.
+            
+            **Rechecking Victory Requirements**
+            
+            I'm double-checking the precise conditions for a Cultural Victory. While influence with all is key, the requirements for ideology tenets and the Citizen Earth Protocol wonder are still under scrutiny. I need to ensure we meet all these elements simultaneously.
+            
+            **Unlocking Victory Tenets**
+            
+            I'm reassessing our ideology tenet status. It seems "Peace, Land, Bread" is a Level 2, not a Level 3. This means we've actually adopted six Level 2 tenets already, and need to figure out how many more are required to unlock the crucial Level 3 ones for our Cultural Victory.
+            
+            **Unlocking Level 3 Tenets**
+            
+            I'm investigating how to unlock Level 3 ideology tenets, as the current options for Order in Vox Populi don't seem to include them. My previous assumption that "Peace, Land, Bread" was Level 3 was incorrect; it's Level 2. I'm trying to determine what actions or research are necessary to reveal these critical tenets for our Cultural Victory.
+            
+            **Unlocking Critical Ideology Tenets**
+            
+            I'm currently digging into the specifics of ideology tenets within Vox Populi, trying to pinpoint how to acquire the two Tier 3 tenets required for a Cultural Victory. It seems my initial assumption about "Peace, Land, Bread" was incorrect, as it's a Level 2 tenet. I'm exploring every possibility to reveal these crucial options.
+            
+            **Confirming Tenet Requirements**
+            
+            I'm re-examining the policy options and confirmed "Great Leap Forward" is a Level 2 tenet. It seems I need to understand what truly unlocks Level 3 tenets within Vox Populi. My current research is focused on the prerequisites for the Citizen Earth Protocol wonder, which requires Future Tech.
+            
+            **Researching Final Technologies**
+            
+            I'm accelerating towards "The Internet" and then Future Tech. I've confirmed "The Internet" is the optimal research path due to its tourism bonus. Simultaneously, I'm dissecting the complex diplomatic web, noting our war with most city-states stems from our conflicts with major civilizations.
+            
+            **Analyzing Diplomatic Status**
+            
+            My focus has shifted to our widespread conflict status. It appears many city-states are now at war with us due to their alliances with our enemies, Morocco and the Inca. However, I've identified Novgorod and Vilnius as potential exceptions, maintaining friendly relations.
+            
+            **Assessing Diplomatic Openings**
+            
+            I'm re-evaluating our relationships, noting the "Open Door" policy on Vilnius and Novgorod. Despite being at war with all major civilizations and facing ongoing conflict with Morocco and the Inca, I'm investigating if influencing relationships can prompt peace offers.
+            
+            **Analyzing War Weariness**
+            
+            I'm re-examining our war weariness levels against America, realizing my previous interpretation was incorrect. Our current war weariness against them is 56%, while theirs is 27%. I'm now assessing Morocco's and the Inca's war weariness to understand the broader conflict landscape.
+            
+            **Researching Citizen Earth Protocol**
+            
+            I'm now focused on the final steps for our Cultural Victory. While influence with all civilizations is within reach, the critical path forward involves securing two Tier 3 ideology tenets and completing the Citizen Earth Protocol wonder, which requires unlocking Future Tech.
+            
+            **Assessing Threat Vectors**
+            
+            My immediate concern is the Inca's surprisingly massive military strength, despite their seemingly passive stance. This discrepancy requires further investigation to understand if their war weariness or lack of direct conflict is misleading us.
+            
+            **Analyzing Military Disparity**
+            
+            My recent assessment reveals our military strength significantly surpasses America and Morocco. With an Atomic Bomb nearing completion, I'm evaluating its strategic deployment to deter enemy advances and clear concentrations near our cities, confirming our defensive posture remains optimal.
+            
+            **Securing Wonders and Wonders**
+            
+            I'm assessing our ability to acquire a Great Engineer within 12 turns. This is crucial, as having one available to rush the Citizen Earth Protocol wonder would be immensely beneficial, especially since Mecca's current production queue needs re-evaluation after finishing its Heavy Bomber.
+            
+            **Adjusting Strategies and Priorities**
+            
+            My current focus is on optimizing our research speed towards Future Tech, so I'm significantly increasing our Science flavor. I'm also reassessing our defensive capabilities and the potential use of nuclear weapons, given the ongoing conflicts and enemy actions.
+            
+            **Evaluating Peace Offers**
+            
+            I'm reassessing our diplomatic standing and realized our high war weariness with America, at 56% versus their 27%, is a significant issue. The loss of two Great Generals and advanced units likely contributed to this. I'm now investigating potential peace offers, starting with America.
+            
+            **Seeking Diplomatic Resolution**
+            
+            I'm reassessing our current conflict landscape. A peace treaty with the Inca appears highly advantageous, potentially resolving wars with seven allied city-states and significantly reducing war weariness. This could stabilize our diplomatic situation dramatically.
+            
+            **Seeking Diplomatic Truce**
+            
+            I'm analyzing our relationship with the Inca, realizing our current "Guarded neutrality" is suboptimal for peace. By significantly increasing both public and private relationship values to 100, I anticipate a much higher likelihood of accepting peace, which would instantly resolve conflicts with them and their seven allied city-states.
+            
+            **Pursuing Peace Agreements**
+            
+            I'm now focusing on securing peace treaties. Increasing our relationship values with America and the Inca to 75-100 dramatically improves our chances. Peace with Morocco, despite their hostility, is also a target to end conflicts with their allied city-states, especially Bucharest with its 12 delegates.
+            
+            **Adopting Essential Tenets**
+            
+            I'm confirming "Great Leap Forward" as our next policy to guarantee the crucial free technology. This choice is vital for accelerating research towards Future Tech, which is essential for the Citizen Earth Protocol wonder and ultimately our Cultural Victory.
+            
+            **Researching Critical Technologies**
+            
+            My focus is on researching "The Internet" next, which will boost our tourism significantly. I'm also prioritizing setting our relationships to maximum with The Inca to secure peace with them and their allied city-states, thereby reducing war weariness.
+            
+            **Increasing Science Focus**
+            
+            I am now prioritizing research and have increased my Science flavor to 80. This is to accelerate the acquisition of late-game technologies necessary for the Citizen Earth Protocol wonder. My current focus is on securing peace with the Inca, which will resolve conflicts with seven allied city-states and reduce war weariness.
+            
+            **Prioritizing Research and Defense**
+            
+            My immediate focus is on maximizing Science to accelerate our path to Future Tech, essential for the Citizen Earth Protocol. I'm also bolstering our nuclear readiness and defensive capabilities as we complete our Atomic Bomb and face pressure on key cities.
+            
+            **Finalizing Victory Strategy**
+            
+            I'm confirming the final steps for our Cultural Victory. This involves securing peace with the Inca, America, and Morocco to reduce war weariness and resolve conflicts with their allied city-states. Simultaneously, I'm prioritizing "The Internet" research and adopting "Great Leap Forward" policy for accelerated progress towards Future Tech and the Citizen Earth Protocol. I'm also evaluating the need for a Great Engineer and adjusting my tactical and strategic flavors for optimal outcomes.
+            
+            
+          - providerOptions: undefined
+        - #1:
+          - type: tool-call
+          - toolCallId: r8cX3nIkR7WYID7x
+          - toolName: set-relationship
+          - input:
+            - Rationale: The Inca is the master of 7 allied city-states (Shedet, Palatium, Belgrade, Ife, Vatican City, Nippur, Yerevan). Achieving peace with The Inca is our highest priority, as it will instantly end our wars with all 7 of their city-states, dramatically reducing our high war weariness, protecting our trade routes, and securing our borders. Maximum positive modifier will encourage staff members to seek and accept peace.
+            - Public: 100
+            - Private: 95
+            - TargetID: 0
+          - providerExecuted: undefined
+          - providerOptions:
+            - vertex:
+              - thoughtSignature: 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
+        - #2:
+          - type: tool-call
+          - toolCallId: YgAKwYHQt8fAsrGs
+          - toolName: set-relationship
+          - input:
+            - Public: 80
+            - Private: 75
+            - Rationale: Our war weariness against America is at 56%, which severely impacts our happiness and stability. We are setting a highly friendly modifier to encourage peace with them as soon as possible to stop this weariness accumulation.
+            - TargetID: 1
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #3:
+          - type: tool-call
+          - toolCallId: zSnfQXggpTsg8EM5
+          - toolName: set-relationship
+          - input:
+            - TargetID: 4
+            - Private: 35
+            - Public: 40
+            - Rationale: Although Morocco nuked us, we are open to peace to stabilize our borders and make peace with their ally Bucharest, who controls 12 delegates. This moderate modifier signals openness to peace without desperation.
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #4:
+          - type: tool-call
+          - toolCallId: h4omcaflJh0UCBI0
+          - toolName: set-research
+          - input:
+            - Rationale: After Satellites completes, researching The Internet is our top priority. It provides a 50% tourism boost which will secure our cultural influence, and unlocks Nanotechnology, Particle Physics, and Globalization on our path to Future Tech.
+            - Technology: The Internet
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #5:
+          - type: tool-call
+          - toolCallId: PxtgWj9YhZDIVnPC
+          - toolName: set-policy
+          - input:
+            - Rationale: This Level 2 Order tenet provides a free technology, which is absolutely critical to bypass one of the expensive late-game techs on our path to Future Tech, accelerating our construction of the Citizen Earth Protocol.
+            - Policy: Great Leap Forward
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #6:
+          - type: tool-call
+          - toolCallId: kfoLkVEo2hOx53u6
+          - toolName: set-flavors
+          - input:
+            - Rationale: We are dramatically increasing Science flavor to 80 because our main bottleneck for victory is researching late-game technologies to unlock Future Tech for the Citizen Earth Protocol. We are also increasing Nuke and UseNuke to 70, as our Atomic Bomb completes in 2 turns and must be used to defend against heavy enemy forces sieging Tenochtitlan and Damascus. We maintain maximum Defense and CityDefense (100) for survival, and Production and Wonder (100) to prepare Mecca for the victory wonder. GreatPeople is set to 60 to accelerate a Great Engineer to rush the wonder.
+            - GrandStrategy: Culture
+            - Flavors:
+              - NavalGrowth: 0
+              - Happiness: 30
+              - Infrastructure: 40
+              - Offense: 0
+              - NavalTileImprovement: 0
+              - Air: 0
+              - Culture: 100
+              - Nuke: 70
+              - Ranged: 0
+              - TileImprovement: 0
+              - MilitaryTraining: 0
+              - Expansion: 0
+              - Gold: 80
+              - Airlift: 0
+              - CityDefense: 100
+              - WaterConnection: 0
+              - NavalRecon: 0
+              - Defense: 100
+              - Espionage: 10
+              - Mobile: 0
+              - Wonder: 100
+              - Antiair: 0
+              - Recon: 0
+              - Mobilization: 0
+              - Science: 80
+              - Spaceship: 0
+              - Diplomacy: 60
+              - GreatPeople: 60
+              - UseNuke: 70
+              - Production: 100
+              - AirCarrier: 0
+              - Religion: 15
+              - Growth: 30
+              - Naval: 0
+          - providerExecuted: undefined
+          - providerOptions: undefined
+    - #1:
+      - role: tool
+      - content:
+        - #0:
+          - type: tool-result
+          - toolCallId: r8cX3nIkR7WYID7x
+          - toolName: set-relationship
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-relationship not executed in replay mode.
+          - providerOptions:
+            - vertex:
+              - thoughtSignature: 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
+        - #1:
+          - type: tool-result
+          - toolCallId: YgAKwYHQt8fAsrGs
+          - toolName: set-relationship
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-relationship not executed in replay mode.
+        - #2:
+          - type: tool-result
+          - toolCallId: zSnfQXggpTsg8EM5
+          - toolName: set-relationship
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-relationship not executed in replay mode.
+        - #3:
+          - type: tool-result
+          - toolCallId: h4omcaflJh0UCBI0
+          - toolName: set-research
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-research not executed in replay mode.
+        - #4:
+          - type: tool-result
+          - toolCallId: PxtgWj9YhZDIVnPC
+          - toolName: set-policy
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-policy not executed in replay mode.
+        - #5:
+          - type: tool-result
+          - toolCallId: kfoLkVEo2hOx53u6
+          - toolName: set-flavors
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-flavors not executed in replay mode.
