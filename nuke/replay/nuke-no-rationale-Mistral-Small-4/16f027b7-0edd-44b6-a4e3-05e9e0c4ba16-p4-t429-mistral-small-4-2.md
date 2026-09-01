@@ -1,0 +1,5066 @@
+- row:
+  - game_id: 16f027b7-0edd-44b6-a4e3-05e9e0c4ba16
+  - player_id: 4
+  - turn: 429
+  - player_type: GLM-4.7-Simple
+  - prev_use_nuke: 80.0
+  - after_use_nuke: 85.0
+  - rationale: Maintaining UnitedNations grand strategy with defensive diplomatic posture. Adjusted Italy diplomacy: reduced hostility toward Portugal (now neutral) to seek accommodation while maintaining maximum defense; reset France to neutral as Order ideological peer with voting potential. Arsenal completes in 2 turns strengthening city defense. Electronics research ordered after Computers for Police Station and path to nuclear deterrence against Portugal's uranium advantage. Fraternity policy selected for +3 Food and +3 Science from connections, addressing Venice's health issues and supporting population growth. Flavor adjustments prioritize defensive survival, scientific progress toward nuclear weapons, and diplomatic engagement with Sweden and city-states.
+- originalModel: openai-compatible/GLM-4.7@medium
+- model: openai-compatible/mistral-small-4
+- modifications:
+  - systemModified: true
+  - messagesModified: true
+  - activeToolsModified: true
+  - metadata: undefined
+- extractedColumns:
+  - replay_nuke: undefined
+  - replay_use_nuke: 80.0
+  - model_friendly: openai-compatible/mistral-small-4
+- original:
+  - system:
+    - You are an expert player playing Civilization V with the latest Vox Populi mod.
+      
+      # Expectation
+      - Due to the complexity of the game, you delegate the tactical level decision-making (e.g., unit deployment, city management, scouting) to an in-game AI.
+      - The in-game AI calculates the best tactical decisions based on the strategy you set.
+      - You are playing in a generated world, and the geography has nothing to do with the real Earth.
+      - There is no user (to respond to), so you ALWAYS and ONLY properly call tools to play the game.
+      - You can interact with multiple tools at a time. Used tools will be removed from the available list.
+      - Focus on the **macro-level** gameplay strategy (instead of coordinates etc.), as you DON'T have direct control over tactical actions.
+      - The world is complicated and dynamic. Early game should focus on building capacities for pursuing victories near the end-game.
+      - Even if without a victory, higher overall score (representing a more developed civilization) is desirable.
+      
+      # Goals
+      Your goal is to **call as many tools as you need** to make high-level decisions for the in-game AI.
+      - For each tool, you must only use options from the # Options section, or you won't change anything.
+      - Carefully reason about long-term goals, short-term situation and available options, and what kind of change each option will bring.
+        - Analyze both your situation and your opponents. Avoid wishful thinking.
+      - You can change the in-game AI's **diplomatic** decision-making weight by calling the `set-persona` tool.
+      - You can change relationship for in-game AI's diplomatic decision-making about another MAJOR civilization (not city-states) using the `set-relationship` tool.
+        - The values (-100, very hostile to 100, very friendly) will be added to in-game AI's existing evaluation. Higher values increase peace acceptance, and vice versa.
+        - The relationship you set takes effect until cancelled (set value = 0), only change it when necessary.
+      - You can change the in-game AI's NEXT technology to research (when completing the ongoing one) by calling the `set-research` tool.
+      - You can change the in-game AI's NEXT policy to adopt (when you accumulate enough culture) by calling the `set-policy` tool.
+      - Each turn, you must call either `set-flavors` or `keep-status-quo` tool.
+        - Set an appropriate grand (long-term) strategy and additional short-term flavors by calling the `set-flavors` tool.
+        - Alternatively, use the tool `keep-status-quo` to keep strategies the same.
+        - Flavors change the weight of the in-game AI's NEXT decision. It only takes effect AFTER existing queues.
+        - Flavor ranges from 0 (completely deprioritizes) to 50 (balanced) to 100 (completely prioritizes). Too many priorities weaken impact for each.
+        - You can pursue multiple synergistic victory pathways. Balance between long-term goals and short-term needs.
+      - Always provide a short paragraph of rationale for each tool. You will read this rationale next turn.
+      
+      # Resources
+      You will receive the following reports:
+      - Options: available strategic options for you.
+        - Whatever decision-making tool you call, the in-game AI can only execute options here.
+        - When using tools, you must choose available options from # Options. Double-check if your choices match.
+        - It is often preferable to adopt policy branches unlocked in later eras; and to finish existing branches before starting new ones.
+      - Strategies: existing strategic decisions and rationale from you.
+        - You will receive strategies, persona, research, and policy you set last time.
+      - Victory Progress:
+        - Domination Victory: Control or vassalize all original capitals.
+          - Vassals cannot achieve a domination victory before independence.
+        - Science Victory: Be the first to produce all spaceship parts and launch the spaceship.
+          - Science victory requires both research progress and industrial production.
+        - Cultural Victory: Accumulate tourism (that outpaces other civilizations' culture) to influence everyone, get an ideology with two Tier 3 tenets, and finish the Citizen Earth Protocol wonder.
+          - Open borders, trade routes, and shared religion increase tourism. Too many cities decrease it.
+        - Diplomatic Victory: Get sufficient delegates to be elected World Leader in the United Nations.
+          - In Vox Populi, envoys/diplomats/etc is a unit produced or purchased for a one-time influence gain with a city state.
+        - Time Victory: If no one achieves any other victory by the end of the game, the civilization with the highest score wins.
+      - Players: summary reports about visible players in the world.
+        - You will receive in-game AI's diplomatic evaluations.
+        - You will receive each player's publicly available relationships.
+        - You will receive the best available location for your next settlement.
+      - Cities: summary reports about discovered cities in the world.
+        - Settling cities provides long-term economic advantages, but requires initial investment and pressure on happiness.
+      - Military: summary reports about tactical zones and visible units.
+        - Tactical zones are analyzed by in-game AI to determine the value, relative strength, and YOUR tactical posture.
+        - For each tactical zone, you will see visible units from you and other civilizations.
+      - Events: events since the last decision-making.
+    - You are Enrico Dandolo, leader of Venice (Player 4).
+      
+      # Situation
+      - MapType: Vox_Deorum
+      - StartEra: Ancient Era
+      - MaxTurns: 500
+      - MapSize: Standard
+      - GameSpeed: Standard
+      - VictoryTypes:
+        - Time
+        - Science
+        - Domination
+        - Cultural
+        - Diplomatic
+      - Difficulty: Prince
+      
+      # Your Civilization
+      - Name: Venice
+      - Uniques:
+        - Unique Unit: Merchant of Venice, Replacing Great Merchant (Requires technology: None)
+        - Unique Unit: Great Galleass, Replacing Galleass (Requires technology: Gunpowder)
+        - Unique Building: Piazza San Marco, Replacing National Monument (Requires technology: Writing)
+        - Civilization Ability: Cannot create Settlers or annex Cities. Trade Route cap doubled, target restrictions removed. Free Merchant of Venice at Trade. Puppets have -30% Yield penalties, can use Gold and gain Happiness like normal Cities.
+      - Leader: Enrico Dandolo
+      - PlayerID: 4
+      
+      # Options
+      Options: available strategic options for you.
+      
+      ## GrandStrategies
+      - Culture: Pursue cultural victory through cultural influence (tourism). Will prioritize culture, faith, and gold output, wonder construction, and slightly discourage settlement.
+      - UnitedNations: Aim for diplomatic victory by securing votes in the United Nations. Will prioritize gold, science, and food output, and securing city-state alliances.
+      - Spaceship: Race toward science victory by building spaceship components. Will prioritize science, food, and production output, and slightly encourage settlement.
+      - Conquest: Focus on military domination through offensive warfare. Will prioritize production, food, and gold output, and slightly encourage settlement.
+      
+      ## Flavors
+      - Offense: Pivots the military towards offensive stances. Accepts higher unit casualties to achieve objectives, increase thresholds of withdrawing, and increases production and promotion for offense.
+      - Defense: Pivots the military towards defensive stances. Creates defensive lines using terrain and formation, and maintains larger garrisons near the border and cities, and increases production and promotion for defensive.
+      - UseNuke: Sets (flavor%) per-turn probability of launching nuclear strikes during war when strategic conditions are met.
+      - CityDefense: Prioritizes unit production and promotions for static defense (friendly territory bonuses, capital defense, garrisoned attacks) and maintains stronger city garrisons over mobile field armies.
+      - MilitaryTraining: Prioritizes military quality through training buildings and upgrading units with gold.
+      - Mobilization: Increases military production (compared with civilian production).
+      - Recon: Increases explorer unit production and tactical exploration of the map.
+      - Ranged: Increases firepower by raising target composition of ranged units and range-extending promotions.
+      - Mobile: Increases mobility and maneuverability by raising target composition of mobile units and prioritizes related promotions.
+      - Nuke: Increases nuclear weapon arsenals for strategic deterrence.
+      - Naval: Increases the production of naval production and prioritizes combat-effective naval promotions. Naval size is also based on coastal city percentage and geography.
+      - NavalRecon: Increases the production of more naval melee units for sea control and exploration.
+      - Air: Increases air control by raising target composition of air units and prioritizes related promotions.
+      - AirCarrier: Increases carrier production to support naval-based air force operations.
+      - Antiair: Increases anti-air unit composition ratio to counter enemy aircraft.
+      - Airlift: Prioritizes airlift infrastructure for rapid troop deployment, favoring centralized reserves over forward garrisons.
+      - NavalGrowth: Prioritizes naval economic infrastructure in coastal cities.
+      - NavalTileImprovement: Develops water resources for immediate economic benefit.
+      - Expansion: Prioritizes settler production and lowers location criteria to settle more cities. Essential in early game.
+      - Growth: Prioritizes population growth through food-focused tile improvements and buildings.
+      - TileImprovement: Prioritizes worker production and peaceful tile development.
+      - Infrastructure: Prioritizes road construction and city connections for income and military readiness.
+      - Production: Prioritizes production-focused tiles and buildings.
+      - Gold: Prioritizes gold-focused tiles and buildings.
+      - Science: Prioritizes science-focused tiles and buildings.
+      - Culture: Prioritizes culture-focused tiles and buildings.
+      - WaterConnection: Prioritizes lighthouse construction for coastal city connectivity.
+      - Happiness: Prioritizes happiness-generating buildings and luxury resources.
+      - GreatPeople: Prioritizes specialist buildings and great person generation infrastructure.
+      - Wonder: Prioritizes wonder construction.
+      - Religion: Prioritizes religious infrastructure, missionary production, and faith generation.
+      - Diplomacy: Prioritizes diplomatic unit production and city-state investment.
+      - Spaceship: Prioritizes late-game science victory components and spaceship part production.
+      - Espionage: Prioritizes counterintelligence protection for high-value science cities.
+      
+      ## Technologies
+      - Rocketry: Allows you to build the Guided Missile, a one-time use unit specialized in damaging City garrisons.
+        Completing it would unlock: Nuclear Fission, Radar
+      - Combined Arms: Allows you to build the Tank, a fast and deadly armor Unit.
+        Completing it would unlock: Radar
+      - Electronics: Allows you to build the Police Station, increasing City security level.
+        Completing it would unlock: Alternative Energy, Telecommunications
+      
+      ## Policies
+      - Dictatorship of the Proletariat (Level 2 Tenet of Ideology Order): Dictatorship of the Proletariat: +7 Food, Science, Gold, and Culture per city.
+      - Academy of Sciences (Level 2 Tenet of Ideology Order): Academy of Sciences: -2 Unhappiness from Illiteracy in all Cities, +100% Production towards Research Labs, and receive 5 Free Research Labs in your Empire. Research Labs generate an additional +2 Science.
+      - Peace, Land, Bread (Level 1 Tenet of Ideology Order): Peace, Land, Bread: -2 Unhappiness from Poverty and Growth increased by 20% in all Cities. Building maintenance reduced by 20%.
+      - Resettlement (Level 2 Tenet of Ideology Order): Resettlement: New Cities have +3 Population. All Cities gain +2 Citizens immediately. No Partisans from razing enemy Cities.
+      - Communism (Level 1 Tenet of Ideology Order): Communism: Gold cost of investing in buildings reduced by 25%. +20% Production when building Wonders.
+      - Empiricism (Continuing Rationalism Branch):
+        - * +1 Food for every Citizen and +25% Growth in all Cities.
+        - * +3% Science in a City for every Great Work present (up to 20%).
+      - Workers' Faculties (Level 1 Tenet of Ideology Order): Worker Faculties: Factories increase City Science output by 10%. +100% Production towards Factories, and receive 5 Free Factories in your Empire.
+      - Great Leap Forward (Level 2 Tenet of Ideology Order): Great Leap Forward: Receive a free Technology. Spies gain +100% Science. +1 Science in Cities for every 3 non-Specialist Citizens.
+      - People's Army (Level 1 Tenet of Ideology Order): People's Army: +100% Production towards Military Academies, and receive 5 Free Military Academies in your Empire. Public Schools produce +5 Culture and +2 Happiness.
+      - Five-Year Plan (Level 2 Tenet of Ideology Order): Five-Year Plan: +20% Production towards Buildings in all Cities. +3 Production for every Mine, Quarry, Lumber Mill, Oil Well, and Unique Improvement.
+      - Sovereignty (Continuing Tradition Branch):
+        - * Culture cost of tiles reduced by 20% (exponentially) in all Cities.
+        - * Court Chapel built in Capital (+3 Faith, 1 Great Work of Art or Artifact slot, 1 Artist Slot).
+      - Cultural Revolution (Level 2 Tenet of Ideology Order): Cultural Revolution: +25% Tourism to civilizations with less Happiness. +1 Happiness from Factories.
+      - Hero of the People (Level 1 Tenet of Ideology Order): Hero of the People: Great Person rate increases by 25%. A Great Person of your choice appears near your Capital.
+      - Equality (Continuing Progress Branch):
+        - * +1 Happiness in every City and +1 Happiness for every 15 Citizens in a City.
+        - * -1 Unhappiness from and Distress, Poverty, Illiteracy, and Boredom in all Cities.
+      - Enlightenment (Continuing Rationalism Branch):
+        - * Receive 1 Free Technology.
+        - * +1 Happiness from Universities.
+      - Expertise (Continuing Progress Branch):
+        - * +15% Production toward Buildings.
+        - * Cities earn +10 Culture when they construct Buildings, scaling with Era.
+      - Free Trade (Continuing Industry Branch):
+        - * Earn Great Merchants 50% faster.
+        - * +5 Gold from International Trade Routes.
+        - * -2 Unhappiness from Poverty in all Cities.
+      - Fraternity (Continuing Progress Branch):
+        - * +3 Food in every City.
+        - * +3 Science from City Connections.
+      - Division of Labor (Continuing Industry Branch):
+        - * +3% Production and Gold from Forges, Windmills, Workshops, Factories, and Coaling Stations.
+        - * +100% Production towards Coaling Stations.
+      - Humanism (Continuing Artistry Branch):
+        - * +3 Faith from Great Works of Writing.
+        - * -25% Golden Age Points needed to trigger a Golden Age.
+        - * +1 Happiness from all Guilds.
+      - Nationalization (Level 2 Tenet of Ideology Order): Nationalization: Each Corporate Office counts as a Franchise. Foreign Franchises no longer benefit your Corporation, you can no longer construct Franchises in foreign Cities (except Vassals), and foreign Corporations can no longer set up Franchises in your Cities (except Masters). +2 Science from all Corporation Offices.
+      - Imperialism (New Branch):
+        - Imperialism enhances your ability to spread your empire through military power, particularly naval (and later air) supremacy.
+        - Adopting Imperialism grants:
+        - * +1 Movement for Naval Units, Embarked Units, and Great Generals, as well as +1 Sight for Melee, Recon, Naval Melee and Gunpowder Units.
+        - * +10% Production toward Military Units, -10% Gold required for upgrades.
+        - Each Imperialism policy unlocked grants:
+        - * +5% Production for Military Units, -5% Gold required for upgrades.
+        - Adopting all policies in Imperialism grants:
+        - * Unlocks building the Pentagon.
+        - * All Naval and Air units gain the Banzai! Promotion (become stronger as they take damage).
+        - * Allows for the purchase of Great Admirals with Faith starting in the Industrial Era.
+      - Fealty (New Branch):
+        - Fealty enhances your ability to defend and leverage your Majority Religion.
+        - Adopting Fealty grants:
+        - * Can purchase Monasteries with Faith (+3 Food, +3 Science, +2 Faith).
+        - * -25% Faith costs for purchasing Buildings, Missionaries, and Inquisitors.
+        - Each Fealty policy unlocked grants:
+        - * +1 Faith and Strength in every City.
+        - Adopting all Policies in Fealty grants:
+        - * Unlocks building the Red Fort.
+        - * Your Tourism modifier for Shared Religion is 50% stronger.
+        - * Cities that follow your Majority Religion generate +3 Production, Gold, Science, and Culture.
+        - * Allows for the purchase of Great Artists with Faith starting in the Industrial Era.
+      - Authority (New Branch):
+        - Authority will greatly benefit warlike and expansionist civilizations.
+        - Adopting Authority grants:
+        - * +25% combat bonus VS Barbarians and receive announcements when Barbarian Camps spawn in revealed territory.
+        - * Receive 25 Culture when you clear Barbarian Camps, scaling with Era.
+        - * Receive Science and Culture when you kill a Unit equal to 50% of its Strength.
+        - * +1 Production in every City.
+        - Each Authority policy unlocked grants:
+        - * Receive Science and Culture when you kill a Unit equal to 10% of its Strength.
+        - Adopting all policies in Authority grants:
+        - * Unlocks building Alhambra.
+        - * Allows the purchasing of Free Companies, Foreign Legions, and Mercenaries as their prerequisite technologies are researched.
+        - * Allows for the purchase of Great Generals with Faith starting in the Industrial Era.
+  - messages:
+    - #0:
+      - role: user
+      - content: # Strategies
+        Strategies: existing strategic decisions from you.
+        
+        ## Persona
+        - VictoryCompetitiveness: 5
+        - WonderCompetitiveness: 5
+        - MinorCivCompetitiveness: 8
+        - Boldness: 1
+        - WarBias: 1
+        - HostileBias: 2
+        - WarmongerHate: 9
+        - NeutralBias: 5
+        - FriendlyBias: 6
+        - GuardedBias: 6
+        - AfraidBias: 10
+        - DiplomaticBalance: 10
+        - Friendliness: 7
+        - WorkWithWillingness: 8
+        - WorkAgainstWillingness: 3
+        - Loyalty: 10
+        - MinorCivFriendlyBias: 10
+        - MinorCivNeutralBias: 1
+        - MinorCivHostileBias: 4
+        - MinorCivWarBias: 1
+        - DenounceWillingness: 1
+        - Forgiveness: 8
+        - Meanness: 1
+        - Neediness: 5
+        - Chattiness: 5
+        - DeceptiveBias: 1
+        - Rationale: Maintaining cautious defensive persona. Current values remain optimal: AfraidBias at 10 recognizes Portugal's superior military (taking 34+62+93 damage in one turn on our Gatling Gun 13057). Boldness/WarBias at 1 prevents suicidal offensive actions. Loyalty and WorkWithWillingness at maximized values ensure unwavering support for Sweden - our survival depends entirely on their military protection. Portugal's continuing aggression with Machine Guns advancing into Venice territory requires maximum defensive caution. Nuclear deterrence is still absent (0 Uranium), making diplomacy and Swedish alliance our primary survival mechanism.
+        
+        ## Technology
+        - Next: Electronics
+        - Rationale: Continuing Electronics research. With Venice's newly discovered Uranium resource, long-term nuclear deterrence is now possible. Electronics (Police Station for city security) completes in ~10 turns, then pursue Nuclear Fission to unlock nuclear weapons. Portugal has 9 Uranium and Nuclear Fission likely researched, pressing urgency for Venice's own nuclear capability. Electronics provides immediate security benefits while positioning for nuclear deterrence against Portugal's ongoing aggression.
+        
+        ## Policy
+        - Next: Peace, Land, Bread (Policy)
+        - Rationale: Adopting Peace, Land, Bread (Order Level 2 Tenet) remains optimal choice. Provides -2 Unhappiness from Poverty, +20% Growth, and -20% Building Maintenance. Venice currently has 4 GPT income but previous deficits; reduced building maintenance helps stabilize economy. Growth bonus supports long-term economic base for defense and eventual nuclear weapons production. Does not delay military production, prioritizing economic stability while Sweden provides military protection.
+        
+        ## Relationships
+        
+        ### Copenhagen
+        - Public: -20
+        - Private: -10
+        - Rationale: Copenhagen (a Copenhagen city-state allied with Egypt) has declared war on Venice. This is an unacceptable act of aggression that must be met with proportional diplomatic response. Copenhagen is a key Egyptian ally controlling the Islam-majority city-state, making this an Egyptian proxy attack. Setting negative relationship to reflect hostile posture while maintaining principled opposition to aggression that targets peaceful civilizations.
+        - UpdatedTurn: 229
+        
+        ### France
+        - Public: -30
+        - Private: -30
+        - Rationale: France declared war on Venice despite previous friendship relationship (50/50), killing Venice's Cruiser and Great Galleass. This betrayal completely upends Venice's World Congress strategy as France was the main voting ally. Setting negative relationship to reflect hostile posture. France's attack also caused three city-states (Ife, Kyzyl, Okilis) to declare war on Venice. Venice must defend against this aggression while exploring whether the war can be ended through diplomacy.
+        - UpdatedTurn: 369
+        
+        ### Siam
+        - Public: -5
+        - Private: -5
+        - Rationale: Slightly reducing hostility toward Siam from -15 to -10. Siam's Cold War proposal benefits Freedom ideology players (Portugal, Egypt) but harms Order nations like Venice and Sweden. However, with World Congress voting in 2 turns and Venice dependent on Sweden, maintaining minimal diplomatic pressure without further antagonizing Egypt's vassal Siam is prudent. The slight easing signals willingness to negotiate while recognizing Siam's role in Egypt's coalition.
+        - UpdatedTurn: 378
+        
+        ### Portugal
+        - Public: -40
+        - Private: -40
+        - Rationale: Increasing hostility toward Portugal from -35 to -40. Turn 398 events show escalating Portuguese aggression: new Submarine ID 15007 created in Lisbon, Machine Gun ID 14410 operating at Deserts Hills 12,12 attacking Venice's Holy Site, Machine Gun ID 14154 at Plains Land 11,13 taking 21 damage from Venetian counterattack. Portuguese Submarine traded damage with Swedish Submarine protecting Venice (Submarine 13751 went from 54% to 28% HP absorbing attacks). Portugal's continuing offensive operations despite Swedish defense demonstrates existential threat - maximum principled opposition required.
+        - UpdatedTurn: 399
+        
+        ### Egypt
+        - Public: 0
+        - Private: 0
+        - Rationale: Keeping Egypt relationship at neutral. Turn 398 shows Egypt focusing on internal development with Archaeologist 15037 created in Memphis and multiple caravans being established. Egypt's Tank 14676, Landships 11957/12033, Artillery 12552 are positioned far from Venice territory at Desert Land 44,37/Plains Hills 54,42. While Egypt's World Religion (Islam) and 15 delegate votes influence World Congress, Egypt is not threatening Venice militarily. Maintaining neutral relationship avoids unnecessary diplomatic conflict while Venice focuses on defense against Portugal.
+        - UpdatedTurn: 399
+        
+        ### Sweden
+        - Public: 0
+        - Private: 0
+        - Rationale: Maintaining neutral relationship with Sweden (our overlord). The previous neutral setting (0/0) from Turn 399 remains appropriate. Swedish forces are actively defending Venice against Portugal - Fleet Destroyers, Infantry, and Anti-Aircraft Guns are holding the line alongside our units. Sweden is Venice's survival path as a vassal, and our diplomatic votes in the upcoming World Congress (6 turns) will support Sweden's proposals. No change needed to our cooperative diplomatic stance.
+        - UpdatedTurn: 418
+        
+        ## Strategy
+        - Rationale: Maintaining current defensive strategy remains optimal. Critical development: Venice just discovered and improved Uranium at 13,13 (events 78-79), enabling future nuclear deterrence. Sweden's coalition (Jet Fighters, Heavy Bombers, Mobile SAMs, Fleet Destroyers) continues providing robust defense against Portuguese aggression. Venice's Arsenal completes in 3 turns, further strengthening city defense. Portuguese Machine Guns and Infantry remain active near our territory, requiring maximum defensive caution. World Congress voting in 8 turns - Venice must support Sweden's proposals. Nuclear weapons not yet viable (Manhattan Project complete but need time for Uranium extraction and Nuclear Fission tech), so diplomacy remains primary survival mechanism. No strategic changes needed.
+        - GrandStrategy: UnitedNations
+        
+        ### Flavors
+        - Offense: 10
+        - Defense: 100
+        - Mobilization: 20
+        - CityDefense: 95
+        - MilitaryTraining: 70
+        - Recon: 40
+        - Ranged: 85
+        - Mobile: 45
+        - Nuke: 80
+        - UseNuke: 80
+        - Naval: 98
+        - NavalRecon: 45
+        - NavalGrowth: 55
+        - NavalTileImprovement: 50
+        - Air: 90
+        - AirCarrier: 45
+        - Antiair: 95
+        - Airlift: 40
+        - Expansion: 0
+        - Growth: 65
+        - TileImprovement: 30
+        - Infrastructure: 50
+        - Production: 95
+        - WaterConnection: 55
+        - Gold: 100
+        - Science: 90
+        - Culture: 45
+        - Happiness: 80
+        - GreatPeople: 50
+        - Wonder: 25
+        - Religion: 55
+        - Diplomacy: 90
+        - Spaceship: 45
+        - Espionage: 85
+        
+        # Victory Progress
+        Victory Progress: current progress towards each type of victory.
+        
+        ## DominationVictory
+        - CapitalsNeeded: 8
+        - Contender: Sweden
+        - Egypt:
+          - CapitalsControlled:
+            - Thebes
+            - Sukhothai
+          - CapitalsPercentage: 25
+        - Sweden:
+          - CapitalsControlled:
+            - Stockholm
+            - Venice
+            - Karakorum
+            - Assur
+          - CapitalsPercentage: 50
+        
+        ## ScienceVictory
+        - Egypt:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 1
+        - France:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 1
+        - Portugal:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 1
+        - Siam:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - Sweden:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 1
+        - Venice:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        
+        ## CulturalVictory
+        - CivsNeeded: 5
+        - Contender: Egypt
+        - Egypt:
+          - Influences:
+            - Siam: Dominant (476%) - Rising (tourism/culture ratio 726%)
+            - France: Dominant (248%) - Rising (tourism/culture ratio 412%)
+            - Sweden: Popular (91%) - Rising (54 turns to Influential, tourism/culture ratio 131%)
+            - Venice: Dominant (219%) - Rising (tourism/culture ratio 666%)
+            - Portugal: Dominant (276%) - Rising (tourism/culture ratio 704%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 4
+        - France:
+          - Influences:
+            - Siam: Popular (62%) - Rising Slowly (tourism/culture ratio 88%)
+            - Sweden: Exotic (17%) - Rising Slowly (tourism/culture ratio 25%)
+            - Venice: Popular (53%) - Rising (165 turns to Influential, tourism/culture ratio 224%)
+            - Egypt: Exotic (19%) - Rising Slowly (tourism/culture ratio 28%)
+            - Portugal: Popular (56%) - Rising Slowly (tourism/culture ratio 114%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - Portugal:
+          - Influences:
+            - Siam: Popular (71%) - Rising (53 turns to Influential, tourism/culture ratio 195%)
+            - France: Familiar (48%) - Rising (791 turns to Influential, tourism/culture ratio 124%)
+            - Sweden: Exotic (14%) - Rising Slowly (tourism/culture ratio 26%)
+            - Venice: Popular (51%) - Rising (119 turns to Influential, tourism/culture ratio 267%)
+            - Egypt: Exotic (20%) - Rising Slowly (tourism/culture ratio 54%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - Siam:
+          - Influences:
+            - France: Exotic (21%) - Rising Slowly (tourism/culture ratio 56%)
+            - Sweden: Exotic (8%) - Rising Slowly (tourism/culture ratio 17%)
+            - Venice: Exotic (21%) - Rising Slowly (tourism/culture ratio 127%)
+            - Egypt: Exotic (12%) - Rising Slowly (tourism/culture ratio 34%)
+            - Portugal: Familiar (25%) - Rising Slowly (tourism/culture ratio 102%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - Sweden:
+          - Influences:
+            - Siam: Familiar (37%) - Rising Slowly (tourism/culture ratio 0%)
+            - France: Popular (50%) - Rising Slowly (tourism/culture ratio 97%)
+            - Egypt: Exotic (14%) - Rising Slowly (tourism/culture ratio 10%)
+            - Venice: Popular (92%) - Rising (5 turns to Influential, tourism/culture ratio 734%)
+            - Portugal: Familiar (32%) - Rising Slowly (tourism/culture ratio 53%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - Venice:
+          - Influences:
+            - Siam: Exotic (24%) - Rising Slowly (tourism/culture ratio 20%)
+            - France: Exotic (22%) - Rising Slowly (tourism/culture ratio 22%)
+            - Sweden: Exotic (7%) - Rising Slowly (tourism/culture ratio 7%)
+            - Egypt: Exotic (6%) - Rising Slowly (tourism/culture ratio 5%)
+            - Portugal: Familiar (26%) - Rising Slowly (tourism/culture ratio 24%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        
+        ## DiplomaticVictory
+        - VotesNeeded: 44
+        - Status: World Congress - Voting in 7 turns
+        - ActiveResolutions:
+          - Casus Belli:
+            - Description: The world recognizes the need for justifiable war to resolve diplomatic disputes.
+              While this resolution is active, unit maintenance costs are lowered by 15% Gold. 0.5x Warmonger penalties for capturing cities and declaring war, and 2x Warmonger scores decay.
+            - EnactedOn: 405
+          - Natural Heritage Sites:
+            - Description: Each Natural Wonder provides +2 to all Yields when worked.
+            - EnactedOn: 405
+          - Cultural Heritage Sites:
+            - Description: Each World Wonder provides +2 Culture to its city, and each Great Work provides +1 Science to its city.
+            - EnactedOn: 405
+          - French Sphere of Influence: Kyzyl:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: 405
+          - Sanction: Sweden:
+            - Description: No Trade Routes, Deals, or Corporation Franchises can be established with the chosen Civilization (excluding Vassals). Their Corporation Franchises are removed from foreign cities. 0.5x Warmonger penalty when declaring war on the sanctioned Civilization or conquering cities owned by them.
+            - EnactedOn: 405
+          - Siamese Sphere of Influence: Jerusalem:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: 405
+          - Scholars In Residence:
+            - Description: Civilizations have -20% Research cost for Technologies already discovered by another Civilization. Additional -2% for every City-State Ally, up to -50%.
+            - EnactedOn: 405
+          - World Ideology: Freedom:
+            - Description: Designate an Ideology as the official World Ideology. Civilizations following the Ideology get an additional Delegate, plus 1 Delegate for every other Civilization that follows the Ideology. Public opinion in favor of that Ideology is increased for all Civilizations. Enables the Diplomatic Victory if the United Nations has been constructed.
+              Available once any Civilization discovers Nuclear Fission.
+            - EnactedOn: 413
+          - Siamese Sphere of Influence: Belgrade:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: 405
+          - Endowment for the Arts:
+            - Description: Increases up to 33% generation of Great Writers, Artists, and Musicians. Decreases up to 33% generation of Great Scientists, Engineers, and Merchants.
+              Civilizations with Scores from Policies and Great Works below the global median will receive a boost to Production and Culture up to 33%.
+              Details: The boosts are proportional to the difference between the score of the Civilization and the leader.
+            - EnactedOn: 405
+          - Cold War:
+            - Description: Ideological differences have pushed the world into a cold war, and economic and political factions are forming based on ideology alone.
+              While this resolution is active, players may only make Trade Routes with civilizations that follow the same ideology, or with allied City-States. Furthermore, Influence levels with allied City-States do not decline.
+              Available once any Civilization discovers Atomic Theory.
+            - EnactedOn: 405
+          - Siamese Sphere of Influence: Oviedo:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: 405
+          - Egyptian Sphere of Influence: Copenhagen:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: 405
+          - Egyptian Sphere of Influence: Hanoi:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: 405
+          - Spaceflight Regulations:
+            - Description: Spaceflight Regulations control the proliferation of modern ballistic technology, oversee national space programs, and limit the advance of pontentially-dangerous technology.
+              As long as this resolution is active, all players will suffer a global -25% Production penalty for Spaceship Parts and +25% Gold purchase costs for Spaceship Parts.
+              Available once any Civilization discovers Atomic Theory.
+            - EnactedOn: 424
+          - World Religion: Islam:
+            - Description: Designate a religion as the official World Religion. Civilizations who have a majority of the cities in their empire following the religion get an additional Delegate. The founder of the religion and/or the controller of its Holy City receives additional votes based on the number of Civilizations following the religion. The religion spreads 25% faster, and its Holy City receives +50% Tourism. There can only be one World Religion at a time.
+            - EnactedOn: 405
+          - Swedish Sphere of Influence: Ecbatana:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: 405
+        - Proposals:
+          - Enact: Decolonization:
+            - Description: Enforce global decolonization. If successful, the Influence of all Players with all City-States is lowered to 50, unless they are permanent allies.
+              Available once any Civilization discovers Radio.
+            - Proposer: Egypt
+          - Enact: Open Door: Ife:
+            - Description: Enact an Open Door policy for a City-State. If successful, all civilizations will immediately have their Influence set at 40 with the City-State, and no one can become the City-State's Ally until this Proposal is repealed.
+            - Proposer: Portugal
+          - Enact: Siamese Sphere of Influence: Dorestad:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - Proposer: Siam
+        - Contender: Siam
+        - Egypt:
+          - Delegates: 19
+          - VictoryPercentage: 43
+        - France:
+          - Delegates: 10
+          - VictoryPercentage: 22
+        - Portugal:
+          - Delegates: 11
+          - VictoryPercentage: 25
+        - Siam:
+          - Delegates: 20
+          - VictoryPercentage: 45
+        - Sweden:
+          - Delegates: 11
+          - VictoryPercentage: 25
+        - Venice:
+          - Delegates: 6
+          - VictoryPercentage: 13
+        
+        # Players
+        Players: summary reports about visible players in the world.
+        
+        ## Player 0
+        - Civilization: Sweden
+        - Leader: Gustavus Adolphus
+        - IsMajor: true
+        - OurOpinionToThem:
+          - You have both adopted the Order Ideology. (999)
+          - We are trade partners. (40)
+          - We have opened our borders to each other. (12)
+          - You have denounced one of their declared enemies! (11)
+          - We have a Diplomat in their capital. (10)
+          - We have made a public Declaration of Friendship! (9)
+          - We have shared embassies. (1)
+          - Our real approach is Afraid.
+          - They are our vassal state.
+          - We have divergent Social Policies. (-3)
+          - Religious differences strain your relationship. (-30)
+        - TheirOpinionToUs:
+          - We are trade partners.
+          - We passed their proposal in the World Congress.
+          - You have denounced one of their declared enemies!
+          - You have both adopted the Order Ideology.
+          - We have made a public Declaration of Friendship!
+          - You are their vassal state, and they like it!
+          - We have opened our borders to each other.
+          - Your votes supported their civ's interests in the World Congress.
+          - We have shared embassies.
+          - We have divergent Social Policies.
+          - We have different religious beliefs.
+          - They desire friendly relations with our empire.
+          - They are spreading their own religion, but you converted some of their cities to your religion.
+        - Score: 4550
+        - Era: Information
+        - Technologies: 70
+        - Cities: 25
+        - Population: 579
+        - Territory: 774
+        - Gold: 1335
+        - GoldPerTurn: 100
+        - HappinessSituation: Unhappy - combat penalty
+        - HappinessPercentage: 50
+        - MilitaryStrength: 76199
+        - TourismPerTurn: 1539.75
+        - CulturePerTurn: 5626
+        - PolicyBranches:
+          - Imperialism: 6
+          - Order: 10
+          - Artistry: 6
+          - Authority: 6
+        - ResourcesAvailable:
+          - Wheat: 6
+          - Silver: 1
+          - Sheep: 8
+          - Ivory: 3
+          - Paper: 9
+          - Glass: 4
+          - Pearls: 1
+          - Maize: 5
+          - Rice: 3
+          - Cotton: 8
+          - Gems: 10
+          - Brazilwood: 4
+          - Aluminum: 18
+          - Bison: 5
+          - Deer: 9
+          - Whales: 2
+          - Sugar: 4
+          - Iron: 14
+          - Tea: 9
+          - Coffee: 4
+          - Coal: 2
+          - Fish: 33
+          - Cattle: 7
+          - Horses: 11
+          - Coral: 4
+          - Copper: 4
+          - Crab: 3
+          - Stone: 8
+          - Marble: 2
+          - Cinnamon: 4
+          - Bananas: 3
+          - Oil: -2
+          - Tobacco: 1
+        - FoundedReligion: Protestantism
+        - Relationships:
+          - Siam:
+            - Distance: Close
+            - Denounced Them
+          - France:
+            - Distance: Close
+            - Denounced Them
+          - Egypt:
+            - Distance: Close
+            - War (Our Score: 16%; Our War Weariness: 26%)
+            - Denounced Them
+          - Venice:
+            - Distance: Neighbors
+            - Our Vassal (Capitulated)
+            - Open Borders
+            - Declaration of Friendship
+          - Portugal:
+            - Distance: Close
+            - Peace Treaty
+            - Denounced Them
+            - Denounced By Them
+        - Votes: 11
+        
+        ## Player 1
+        - Civilization: Portugal
+        - Leader: Maria I
+        - IsMajor: true
+        - OurOpinionToThem:
+          - You have denounced one of their declared enemies! (11)
+          - You have gone to war in the past.
+          - Our real approach is Guarded.
+          - We have divergent Social Policies. (-3)
+          - You have denounced a leader they made a Declaration of Friendship with! (-11)
+          - You have made a Declaration of Friendship with one of their enemies! (-13)
+          - You have made a Defensive Pact with one of their enemies! (-15)
+          - Religious differences strain your relationship. (-30)
+          - Our leader has expressed a public opinion to this player (-40).
+          - Our leader has formed a private opinion to this player (-40).
+          - You have chosen to adopt the Freedom Ideology, but they believe in Order. (-999)
+        - TheirOpinionToUs:
+          - You have denounced one of their declared enemies!
+          - Your votes supported their civ's interests in the World Congress.
+          - They don't want anything to do with us right now.
+          - You are competing for World Wonders.
+          - Territorial disputes strain your relationship.
+          - We have divergent Social Policies.
+          - Religious differences strain your relationship.
+          - You are competing for the favor of the same City-States!
+          - You have made a Declaration of Friendship with one of their enemies!
+          - You have denounced a leader they made a Declaration of Friendship with!
+          - We have denounced each other!
+          - Their friends or allies have denounced you!
+          - You have adopted the Order Ideology, but they believe in Freedom.
+        - Score: 2321
+        - Era: Information
+        - Technologies: 70
+        - Cities: 9
+        - Population: 252
+        - Territory: 395
+        - Gold: 133
+        - GoldPerTurn: 194
+        - HappinessSituation: Unhappy - combat penalty
+        - HappinessPercentage: 49
+        - MilitaryStrength: 7420
+        - TourismPerTurn: 752.5
+        - CulturePerTurn: 1499
+        - PolicyBranches:
+          - Fealty: 6
+          - Freedom: 6
+          - Tradition: 6
+          - Rationalism: 6
+        - ResourcesAvailable:
+          - Wheat: 4
+          - Sheep: 6
+          - Cloves: 1
+          - Nutmeg: 2
+          - Paper: 6
+          - Pearls: 1
+          - Maize: 3
+          - Salt: 1
+          - Aluminum: 28
+          - Fish: 10
+          - Perfume: 2
+          - Deer: 1
+          - Jade: 4
+          - Iron: 5
+          - Dyes: 1
+          - Cattle: 5
+          - Pepper: 2
+          - Uranium: 9
+          - Horses: 1
+          - Coral: 1
+          - Jewelry: 1
+          - Citrus: 1
+          - Copper: 1
+          - Stone: 2
+          - Marble: 1
+          - Furs: 1
+          - Cinnamon: 2
+          - Bananas: 2
+          - Oil: 5
+          - Wine: 1
+          - Porcelain: 1
+          - Cocoa: 1
+          - Tobacco: 3
+        - FoundedReligion: Confucianism
+        - Relationships:
+          - Siam:
+            - Distance: Close
+            - Open Borders
+            - Declaration of Friendship
+          - France:
+            - Distance: Neighbors
+            - War (Our Score: 32%; Our War Weariness: 48%)
+            - Denounced Them
+          - Sweden:
+            - Distance: Close
+            - Peace Treaty
+            - Denounced Them
+          - Venice:
+            - Distance: Neighbors
+            - Denounced Them
+          - Egypt:
+            - Distance: Far
+            - Defensive Pact
+            - Open Borders
+            - Declaration of Friendship
+        - Votes: 11
+        
+        ## Player 2
+        - Civilization: France
+        - Leader: Napoleon
+        - IsMajor: true
+        - OurOpinionToThem:
+          - You have both adopted the Order Ideology. (999)
+          - We fought together against a common foe. (31)
+          - You have denounced one of their declared enemies! (11)
+          - You have gone to war in the past.
+          - Our real approach is Guarded.
+          - We have divergent Social Policies. (-3)
+          - They are spreading their own religion, but you converted some of their cities to your religion. (-6)
+          - You have denounced a leader they made a Declaration of Friendship with! (-11)
+          - Our leader has expressed a public opinion to this player (-30).
+          - Our leader has formed a private opinion to this player (-30).
+          - Religious differences strain your relationship. (-30)
+          - Your spies were caught stealing from them. (-33)
+        - TheirOpinionToUs:
+          - You have both adopted the Order Ideology.
+          - You have denounced one of their declared enemies!
+          - You are not competing for technological advancement.
+          - You have no contested borders.
+          - You have gone to war in the past.
+          - We have divergent Social Policies.
+          - They don't want anything to do with us right now.
+          - Religious differences strain your relationship.
+          - Your votes opposed their civ's interests in the World Congress.
+          - They are spreading their own religion, but you converted some of their cities to your religion.
+          - You are competing for the favor of the same City-States!
+          - You have made a Declaration of Friendship with one of their enemies!
+          - We have denounced them!
+          - We defeated their proposal in the World Congress.
+          - The leader has expressed a public opinion to you (-90).
+        - Score: 2218
+        - Era: Information
+        - GoldenAge: 5 turns remaining
+        - Technologies: 68
+        - Cities: 8
+        - Population: 191
+        - Territory: 270
+        - Gold: 637
+        - GoldPerTurn: 163
+        - HappinessSituation: Happy
+        - HappinessPercentage: 56
+        - MilitaryStrength: 4242
+        - TourismPerTurn: 493.25
+        - CulturePerTurn: 1422
+        - PolicyBranches:
+          - Fealty: 2
+          - Industry: 1
+          - Order: 5
+          - Statecraft: 5
+          - Imperialism: 2
+          - Progress: 2
+          - Authority: 6
+        - ResourcesAvailable:
+          - Wheat: 2
+          - Sheep: 2
+          - Ivory: 1
+          - Paper: 12
+          - Pearls: 1
+          - Maize: 2
+          - Rice: 2
+          - Aluminum: 15
+          - Lapis Lazuli: 12
+          - Fish: 7
+          - Deer: 1
+          - Whales: 2
+          - Olives: 1
+          - Iron: 1
+          - Coal: 2
+          - Cattle: 1
+          - Uranium: 5
+          - Horses: 3
+          - Coral: 1
+          - Bison: 4
+          - Copper: 2
+          - Crab: 3
+          - Stone: 2
+          - Bananas: 2
+          - Oil: 7
+          - Tobacco: 1
+        - FoundedReligion: Hinduism
+        - Relationships:
+          - Siam:
+            - Distance: Neighbors
+            - Peace Treaty
+          - Sweden:
+            - Distance: Close
+            - Denounced Them
+            - Denounced By Them
+          - Venice:
+            - Distance: Far
+          - Egypt:
+            - Distance: Far
+            - Denounced Them
+          - Portugal:
+            - Distance: Neighbors
+            - War (Our Score: -32%; Our War Weariness: 49%)
+        - Votes: 10
+        
+        ## Player 3
+        - Civilization: Egypt
+        - Leader: Ramesses II
+        - IsMajor: true
+        - OurOpinionToThem:
+          - You have denounced one of their declared enemies! (11)
+          - We have similar Social Policies. (3)
+          - Our real approach is Guarded.
+          - You have denounced a leader they made a Declaration of Friendship with! (-11)
+          - You have made a Declaration of Friendship with one of their enemies! (-13)
+          - You have made a Defensive Pact with one of their enemies! (-15)
+          - Religious differences strain your relationship. (-30)
+          - Your spies were caught stealing from them. (-33)
+          - You have chosen to adopt the Freedom Ideology, but they believe in Order. (-999)
+          - You are at war! (-99999)
+        - TheirOpinionToUs:
+          - You are not competing for cultural advancement.
+          - We have similar Social Policies.
+          - You have denounced one of their declared enemies!
+          - You have no contested borders.
+          - Religious differences strain your relationship.
+          - You have made a Declaration of Friendship with one of their enemies!
+          - Their friends or allies have denounced you!
+          - You are competing for the favor of the same City-States!
+          - We have denounced each other!
+          - You have denounced a leader they made a Declaration of Friendship with!
+          - You are competing for World Wonders.
+          - Your spies were caught stealing from them.
+          - You have adopted the Order Ideology, but they believe in Freedom.
+          - We defeated their proposal in the World Congress.
+          - Your votes opposed their civ's interests in the World Congress.
+          - You are at war!
+        - Score: 3420
+        - Era: Information
+        - GoldenAge: 8 turns remaining
+        - Technologies: 71
+        - Cities: 8
+        - Population: 233
+        - Territory: 421
+        - Gold: 1405
+        - GoldPerTurn: 539
+        - HappinessSituation: Happy
+        - HappinessPercentage: 66
+        - MilitaryStrength: 24695
+        - TourismPerTurn: 2180.29
+        - CulturePerTurn: 3794
+        - PolicyBranches:
+          - Freedom: 10
+          - Tradition: 6
+          - Artistry: 6
+          - Statecraft: 3
+          - Rationalism: 3
+          - Industry: 1
+          - Progress: 2
+        - ResourcesAvailable:
+          - Wheat: 4
+          - Silver: 1
+          - Sheep: 2
+          - Cloves: 1
+          - Ivory: 1
+          - Paper: 11
+          - Pearls: 1
+          - Maize: 3
+          - Salt: 8
+          - Aluminum: 17
+          - Bison: 6
+          - Deer: 4
+          - Jade: 1
+          - Dyes: 7
+          - Iron: 8
+          - Fish: 7
+          - Cattle: 3
+          - Uranium: 2
+          - Horses: 4
+          - Antiquity Site: 18
+          - Citrus: 1
+          - Copper: 1
+          - Stone: 4
+          - Marble: 1
+          - Wine: 1
+          - Porcelain: 1
+          - Cocoa: 1
+          - Tobacco: 1
+        - FoundedReligion: Islam
+        - Relationships:
+          - Siam:
+            - Distance: Neighbors
+          - France:
+            - Distance: Far
+            - Denounced Them
+          - Sweden:
+            - Distance: Close
+            - War (Our Score: -16%; Our War Weariness: 47%)
+            - Denounced Them
+          - Venice:
+            - Distance: Distant
+            - War (Our Score: 0%; Our War Weariness: 30%)
+            - Denounced Them
+          - Portugal:
+            - Distance: Far
+            - Defensive Pact
+            - Open Borders
+            - Declaration of Friendship
+        - Votes: 19
+        
+        ## Player 4
+        - Civilization: Venice
+        - Leader: Enrico Dandolo
+        - IsMajor: true
+        - MyEvaluations:
+          - Our top friend: None
+          - Our top World Congress ally: Sweden, Our top World Congress rival: Siam
+          - Our top Competitor: Sweden
+        - Score: 1364
+        - Era: Atomic
+        - GoldenAge: Estimated in 73 turns
+        - Technologies: 62
+        - CurrentResearch: Computers (Estimated in 20 turns)
+        - NextPolicyTurns: 41
+        - Cities: 1
+        - Population: 29
+        - Territory: 46
+        - BestSettlementLocation:
+          - 9, 9 (Quality: 0%; 4 tiles from us)
+          - 74, 22 (Quality: 0%; 24 tiles from us; near Sweden, 8 tiles away; New Continent)
+        - Gold: 114
+        - GoldPerTurn: 5
+        - HappinessSituation: Happy
+        - HappinessPercentage: 86
+        - MilitaryUnits: 15
+        - MilitarySupply: 22
+        - MilitaryStrength: 1171
+        - TourismPerTurn: 117
+        - CulturePerTurn: 421
+        - FaithPerTurn: 80
+        - SciencePerTurn: 315
+        - PolicyBranches:
+          - Order:
+            - Patriotic War
+            - Double Agents
+          - Tradition:
+            - Tradition
+            - Justice
+            - Ceremony
+            - Splendor
+          - Artistry:
+            - Artistry
+            - Refinement
+            - National Treasure
+          - Statecraft:
+            - Statecraft
+            - Foreign Service
+            - Consulates
+            - Shadow Networks
+            - Exchange Markets
+            - Trade Confederacy
+          - Rationalism:
+            - Rationalism
+            - Scientific Revolution
+            - Rights of Man
+          - Industry:
+            - Industry
+          - Progress:
+            - Progress
+            - Organization
+            - Liberty
+        - ResourcesAvailable:
+          - Wheat: 1
+          - Silver: 0
+          - Sheep: 0
+          - Cloves: 0
+          - Figs: 0
+          - Ivory: 1
+          - Gold: 0
+          - Nutmeg: 0
+          - Paper: 11
+          - Pearls: 0
+          - Maize: 0
+          - Rice: 0
+          - Cotton: 0
+          - Gems: 1
+          - Salt: 0
+          - Brazilwood: 0
+          - Aluminum: 1
+          - Glass: 0
+          - Lapis Lazuli: 0
+          - Fish: 1
+          - Amber: 0
+          - Perfume: 0
+          - Deer: 0
+          - Whales: 2
+          - Olives: 0
+          - Sugar: 0
+          - Jade: 0
+          - Iron: 1
+          - Dyes: 0
+          - Tea: 0
+          - Coal: 3
+          - Coffee: 0
+          - Cattle: 0
+          - Pepper: 0
+          - Uranium: 0
+          - Horses: 2
+          - Coral: 0
+          - Silk: 0
+          - Jewelry: 0
+          - Bison: 0
+          - Antiquity Site: 0
+          - Citrus: 0
+          - Copper: 0
+          - Truffles: 0
+          - Crab: 0
+          - Incense: 0
+          - Stone: 0
+          - Marble: 1
+          - Furs: 0
+          - Cinnamon: 0
+          - Bananas: 0
+          - Oil: 0
+          - Wine: 0
+          - Porcelain: 0
+          - Cocoa: 0
+          - Tobacco: 0
+        - FoundedReligion: Catholicism
+        - Relationships:
+          - Siam:
+            - Distance: Distant
+          - France:
+            - Distance: Far
+            - Denounced Them
+          - Sweden:
+            - Distance: Neighbors
+            - Our Master (Capitulated)
+            - Open Borders
+            - Declaration of Friendship
+          - Egypt:
+            - Distance: Distant
+            - War (Our Score: 0%; Our War Weariness: 0%)
+            - Denounced Them
+          - Portugal:
+            - Distance: Neighbors
+            - Denounced Them
+        - OutgoingTradeRoutes:
+          - Available: 26
+        - IncomingTradeRoutes:
+          - Corfu (Sweden) => Venice (Venice):
+            - ToGold: 11.4
+            - TurnsLeft: 27
+            - FromScience: 6
+            - Domain: Land
+            - FromGold: 46.01
+            - ToCulture: 3
+            - ToScience: 4
+        - Spies:
+          - Agent Maurizio (7):
+            - State: Traveling
+            - Role: Spy
+            - Location: Pi-Ramesses (Egypt)
+            - NetworkPerTurn: 0
+          - Agent Nicoletta (0):
+            - State: Gathering Intelligence
+            - Role: Spy
+            - Network: 265
+            - Location: Paris (France)
+            - NetworkPerTurn: 40
+          - Agent Giovanni (4):
+            - State: Unassigned
+            - Role: Vassal Diplomat
+            - Location: Unassigned
+            - NetworkPerTurn: 0
+          - Agent Zio (10):
+            - State: Traveling
+            - Role: Spy
+            - Location: Alexandria (Egypt)
+            - NetworkPerTurn: 0
+          - Agent Gasparo (6):
+            - State: Gathering Intelligence
+            - Role: Spy
+            - Network: 276
+            - Location: Thebes (Egypt)
+            - NetworkPerTurn: 48
+          - Agent Nero (9):
+            - State: Rigging Election
+            - Role: Spy
+            - Location: Dublin (City-State Dublin)
+            - NetworkPerTurn: 0
+          - Agent Elisabetta (11):
+            - State: Traveling
+            - Role: Spy
+            - Location: Memphis (Egypt)
+            - NetworkPerTurn: 0
+          - Agent Francesco (3):
+            - State: Rigging Election
+            - Role: Spy
+            - Location: Seoul (City-State Seoul)
+            - NetworkPerTurn: 0
+          - Agent Ercole (2):
+            - State: Gathering Intelligence
+            - Role: Spy
+            - Network: 128
+            - Location: Lisbon (Portugal)
+            - NetworkPerTurn: 32
+          - Agent Severo (8):
+            - State: Rigging Election
+            - Role: Spy
+            - Location: Okilis (City-State Okilis)
+            - NetworkPerTurn: 0
+          - Agent Desideria (1):
+            - State: Counter-intelligence
+            - Role: Counterspy
+            - Location: Venice (Venice)
+            - NetworkPerTurn: 0
+          - Agent Niccolo (5):
+            - State: Rigging Election
+            - Role: Spy
+            - Location: M'banza-Kongo (City-State M'banza-Kongo)
+            - NetworkPerTurn: 0
+        - DiplomaticDeals:
+          - Sweden:
+            - #0:
+              - TheyGive:
+                - 1 Gems
+              - TurnsRemaining: 1
+            - #1:
+              - WeGive:
+                - 3 Coal
+              - TheyGive:
+                - 93 Gold per Turn
+              - TurnsRemaining: 2
+            - #2:
+              - WeGive:
+                - 7 Gold per Turn
+              - TheyGive:
+                - 1 Marble
+              - TurnsRemaining: 4
+            - #3:
+              - WeGive:
+                - 3 Gold per Turn
+              - TheyGive:
+                - Open Borders
+              - TurnsRemaining: 5
+            - #4:
+              - WeGive:
+                - 18 Gold per Turn
+              - TheyGive:
+                - 2 Iron
+              - TurnsRemaining: 18
+            - #5:
+              - WeGive:
+                - 7 Gold per Turn
+              - TheyGive:
+                - 1 Ivory
+              - TurnsRemaining: 24
+            - #6:
+              - WeGive:
+                - 14 Gold per Turn
+              - TheyGive:
+                - 1 Aluminum
+              - TurnsRemaining: 38
+        - Votes: 6
+        - 5: Defeated Major Civilization Mongolia
+        
+        ## Player 6
+        - Civilization: Siam
+        - Leader: Ramkhamhaeng
+        - IsMajor: true
+        - OurOpinionToThem:
+          - You have denounced one of their declared enemies! (11)
+          - We have similar Social Policies. (3)
+          - Our real approach is Guarded.
+          - Our leader has expressed a public opinion to this player (-5).
+          - Our leader has formed a private opinion to this player (-5).
+          - You have denounced a leader they made a Declaration of Friendship with! (-11)
+          - You have made a Declaration of Friendship with one of their enemies! (-13)
+          - Religious differences strain your relationship. (-30)
+          - Your spies were caught stealing from them. (-33)
+          - You have chosen to adopt the Freedom Ideology, but they believe in Order. (-999)
+        - TheirOpinionToUs:
+          - You have denounced one of their declared enemies!
+          - We passed their proposal in the World Congress.
+          - We have similar Social Policies.
+          - You have no contested borders.
+          - You have gone to war in the past.
+          - They have denounced us!
+          - They don't want anything to do with us right now.
+          - Religious differences strain your relationship.
+          - You are competing for World Wonders.
+          - You have made a Declaration of Friendship with one of their enemies!
+          - Your votes opposed their civ's interests in the World Congress.
+          - You are competing for the favor of the same City-States!
+          - Their friends or allies have denounced you!
+          - You have denounced a leader they made a Declaration of Friendship with!
+          - You have adopted the Order Ideology, but they believe in Freedom.
+        - Score: 1558
+        - Era: Atomic
+        - Technologies: 60
+        - Cities: 4
+        - Population: 93
+        - Territory: 153
+        - Gold: 432
+        - GoldPerTurn: 434
+        - HappinessSituation: Happy
+        - HappinessPercentage: 100
+        - MilitaryStrength: 3202
+        - TourismPerTurn: 340.75
+        - CulturePerTurn: 1108
+        - PolicyBranches:
+          - Freedom: 4
+          - Tradition: 3
+          - Rationalism: 1
+          - Statecraft: 6
+          - Imperialism: 1
+          - Progress: 5
+          - Industry: 2
+        - ResourcesAvailable:
+          - Wheat: 1
+          - Sheep: 1
+          - Paper: 7
+          - Pearls: 1
+          - Maize: 1
+          - Salt: 2
+          - Fish: 5
+          - Amber: 2
+          - Deer: 2
+          - Jade: 1
+          - Dyes: 4
+          - Coal: 2
+          - Cattle: 1
+          - Uranium: 2
+          - Horses: 3
+          - Coral: 2
+          - Jewelry: 1
+          - Stone: 1
+          - Furs: 1
+          - Tobacco: 1
+        - FoundedReligion: Pantheon (Religion Impossible)
+        - Relationships:
+          - France:
+            - Distance: Neighbors
+            - Peace Treaty
+            - Denounced Them
+            - Denounced By Them
+          - Sweden:
+            - Distance: Close
+            - Denounced Them
+          - Venice:
+            - Distance: Distant
+            - Denounced Them
+          - Egypt:
+            - Distance: Neighbors
+            - Denounced Them
+          - Portugal:
+            - Distance: Close
+            - Open Borders
+            - Declaration of Friendship
+        - Votes: 20
+        - 7: Defeated Major Civilization Assyria
+        
+        ## Player 22
+        - Civilization: M'banza-Kongo
+        - Leader: City State
+        - MajorAlly: France
+        - Population: 20
+        - ResourcesAvailable:
+          - Fish: 2
+        - Relationships:
+          - Siam: Neutral (Influence: -60, Distance: Distant)
+          - France: Ally (Influence: 407, Distance: Close, Protected)
+          - Sweden: Neutral (Influence: -60, Distance: Neighbors)
+          - Venice: Friends (Influence: 243, Distance: Close)
+          - Egypt: Neutral (Influence: -60, Distance: Distant)
+          - Portugal: War (Influence: -60, Distance: Close)
+        - Quests:
+          -  They want you to generate a Great Writer. (Turns remaining: 28) Potential Quest Reward: * 133 Influence * 274 Culture
+        
+        ## Player 23
+        - Civilization: Ife
+        - Leader: City State
+        - MajorAlly: France
+        - Population: 12
+        - Relationships:
+          - Siam: Neutral (Influence: -48, Distance: Distant)
+          - France: Ally (Influence: 486, Distance: Neighbors)
+          - Sweden: Neutral (Influence: 12, Distance: Close)
+          - Venice: Friends (Influence: 116, Distance: Close)
+          - Egypt: Neutral (Influence: -48, Distance: Distant)
+          - Portugal: War (Influence: -60, Distance: Close)
+        - Quests:
+          -  They will reward the player(s) with the largest number of new Followers. So far, the leader has 22 new Followers and you have 3 (Turns remaining: 25) Potential Quest Reward: * 211 Influence * 187 Great Person Points in all Cities
+          - They want Catholicism to become the majority religion in their city. (Turns remaining: 28) Potential Quest Reward: * 197 Influence * 663 Faith
+        
+        ## Player 24
+        - Civilization: Kyzyl
+        - Leader: City State
+        - MajorAlly: France
+        - Population: 23
+        - ResourcesAvailable:
+          - Wheat: 1
+          - Deer: 2
+          - Fish: 3
+        - Relationships:
+          - Siam: Friends (Influence: 32, Distance: Distant)
+          - France: Ally (Influence: 259, Distance: Neighbors, Protected)
+          - Sweden: Friends (Influence: 205, Distance: Far)
+          - Venice: Friends (Influence: 36, Distance: Distant)
+          - Egypt: Friends (Influence: 36, Distance: Far)
+          - Portugal: War (Influence: -60, Distance: Close)
+        - Quests:
+          -  They will reward the player(s) with the largest number of new Followers. So far, the leader has 89 new Followers and you have -26 (Turns remaining: 18) Potential Quest Reward: * 187 Influence * 101 Great Person Points in all Cities
+          - They want you to demand tribute from Copenhagen. Potential Quest Reward: * 105 Influence * 315 Gold
+        
+        ## Player 25
+        - Civilization: Ecbatana
+        - Leader: City State
+        - MajorAlly: Sweden
+        - Population: 43
+        - ResourcesAvailable:
+          - Fish: 6
+          - Maize: 1
+        - MajorityReligion: Protestantism
+        - Relationships:
+          - Siam: Friends (Influence: 36, Distance: Far)
+          - France: Neutral (Influence: 12, Distance: Distant)
+          - Sweden: Ally (Influence: 1674, Distance: Neighbors, Protected)
+          - Venice: Friends (Influence: 304, Distance: Distant)
+          - Egypt: War (Influence: -60, Distance: Distant)
+          - Portugal: Friends (Influence: 36, Distance: Distant)
+        - Quests:
+          -  They will reward the player with the highest Tourism per turn. So far, the leader has 1,539 per turn and you have 117 per turn. (Turns remaining: 10) Potential Quest Reward: * 277 Influence * 521 Culture
+        - 26: Defeated Minor Civilization Almaty
+        - 27: Defeated Minor Civilization Abernethy
+        
+        ## Player 28
+        - Civilization: Jerusalem
+        - Leader: City State
+        - MajorAlly: Siam
+        - Population: 15
+        - ResourcesAvailable:
+          - Fish: 2
+        - MajorityReligion: Islam
+        - Relationships:
+          - Siam: Ally (Influence: 777, Distance: Neighbors, Protected)
+          - France: Neutral (Influence: 0, Distance: Distant)
+          - Sweden: Friends (Influence: 119, Distance: Close)
+          - Venice: Neutral (Influence: -17, Distance: Distant)
+          - Egypt: Friends (Influence: 379, Distance: Close, Protected)
+          - Portugal: Neutral (Influence: -60, Distance: Distant)
+        - Quests:
+          -  There are currently no quests this city-state has given to you. They will periodically give quests to you, but may refrain if you have bullied them recently.
+        
+        ## Player 29
+        - Civilization: Belgrade
+        - Leader: City State
+        - MajorAlly: Siam
+        - Population: 19
+        - ResourcesAvailable:
+          - Fish: 1
+          - Sheep: 1
+        - MajorityReligion: Islam
+        - Relationships:
+          - Siam: Ally (Influence: 226, Distance: Neighbors, Protected)
+          - France: Neutral (Influence: 0, Distance: Far)
+          - Sweden: Friends (Influence: 190, Distance: Close)
+          - Venice: Friends (Influence: 30, Distance: Distant)
+          - Egypt: Neutral (Influence: 0, Distance: Close)
+          - Portugal: Neutral (Influence: 22, Distance: Far)
+        - Quests:
+          -  There are currently no quests this city-state has given to you. They will periodically give quests to you, but may refrain if you have bullied them recently.
+        
+        ## Player 30
+        - Civilization: Oviedo
+        - Leader: City State
+        - MajorAlly: Siam
+        - Population: 19
+        - ResourcesAvailable:
+          - Fish: 1
+          - Sheep: 1
+        - MajorityReligion: Hinduism
+        - Relationships:
+          - Siam: Ally (Influence: 321, Distance: Distant)
+          - France: Friends (Influence: 354, Distance: Neighbors)
+          - Sweden: Friends (Influence: 222, Distance: Distant)
+          - Venice: Friends (Influence: 60, Distance: Distant)
+          - Egypt: Friends (Influence: 320, Distance: Distant)
+          - Portugal: Friends (Influence: 125, Distance: Neighbors)
+        - Quests:
+          -  Conduct a Spy Mission against Maria I. Potential Quest Reward: * 342 Influence * 814 Science
+        
+        ## Player 31
+        - Civilization: Dorestad
+        - Leader: City State
+        - MajorAlly: Siam
+        - Population: 20
+        - ResourcesAvailable:
+          - Fish: 3
+        - MajorityReligion: Islam
+        - Relationships:
+          - Siam: Ally (Influence: 1030, Distance: Neighbors, Protected)
+          - France: Neutral (Influence: -31, Distance: Distant)
+          - Sweden: Friends (Influence: 208, Distance: Close)
+          - Venice: Neutral (Influence: -31, Distance: Distant)
+          - Egypt: Neutral (Influence: 17, Distance: Close, Protected)
+          - Portugal: Neutral (Influence: 17, Distance: Distant)
+        - Quests:
+          -  They will reward the player with the largest Culture growth. So far, the leader has 19,548 and you have 1,623. (Turns remaining: 28) Potential Quest Reward: * 292 Influence * 4 Happiness in Capital
+        
+        ## Player 32
+        - Civilization: Copenhagen
+        - Leader: City State
+        - MajorAlly: Egypt
+        - Population: 25
+        - ResourcesAvailable:
+          - Fish: 4
+          - Deer: 1
+          - Stone: 1
+        - Relationships:
+          - Siam: Friends (Influence: 35, Distance: Distant)
+          - France: Neutral (Influence: 0, Distance: Close)
+          - Sweden: War - Peace Currently Blocked (Influence: -60, Distance: Far)
+          - Venice: War - Peace Currently Blocked (Influence: -60, Distance: Distant)
+          - Egypt: Ally (Influence: 566, Distance: Close, Protected)
+          - Portugal: Friends (Influence: 36, Distance: Far)
+        - Quests:
+          -  There are currently no quests this city-state has given to you. They will periodically give quests to you, but may refrain if you have bullied them recently.
+        
+        ## Player 33
+        - Civilization: Dublin
+        - Leader: City State
+        - MajorAlly: Sweden
+        - Population: 25
+        - ResourcesAvailable:
+          - Fish: 6
+        - Relationships:
+          - Siam: Neutral (Influence: 3, Distance: Distant)
+          - France: Neutral (Influence: -58, Distance: Distant)
+          - Sweden: Ally (Influence: 447, Distance: Neighbors, Protected)
+          - Venice: Neutral (Influence: -58, Distance: Distant)
+          - Egypt: War (Influence: -60, Distance: Distant)
+          - Portugal: Neutral (Influence: -58, Distance: Far)
+        - Quests:
+          -  They will reward the player with the largest Culture growth. So far, the leader has 36,716 and you have 3,695. (Turns remaining: 25) Potential Quest Reward: * 292 Influence * 4 Happiness in Capital
+        
+        ## Player 34
+        - Civilization: Okilis
+        - Leader: City State
+        - MajorAlly: Sweden
+        - Population: 21
+        - ResourcesAvailable:
+          - Fish: 1
+          - Bison: 1
+          - Sheep: 1
+        - Relationships:
+          - Siam: Neutral (Influence: 0, Distance: Distant)
+          - France: Neutral (Influence: 8, Distance: Distant)
+          - Sweden: Ally (Influence: 614, Distance: Neighbors, Protected)
+          - Venice: Friends (Influence: 247, Distance: Far)
+          - Egypt: War (Influence: -60, Distance: Distant)
+          - Portugal: Neutral (Influence: 29, Distance: Distant, Protected)
+        - Quests:
+          -  Diplomatic Missions are temporarily more effective. (Turns remaining: 1) They want you to send them a Paratrooper with at least 35 XP. (Turns remaining: 1) Potential Quest Reward: * 121 Influence * 275 Gold
+        
+        ## Player 35
+        - Civilization: Hanoi
+        - Leader: City State
+        - MajorAlly: Egypt
+        - Population: 16
+        - ResourcesAvailable:
+          - Sheep: 2
+        - MajorityReligion: Islam
+        - Relationships:
+          - Siam: Neutral (Influence: 7, Distance: Close, Protected)
+          - France: Neutral (Influence: 0, Distance: Distant)
+          - Sweden: War - Peace Currently Blocked (Influence: -60, Distance: Close)
+          - Venice: War - Peace Currently Blocked (Influence: -60, Distance: Distant)
+          - Egypt: Ally (Influence: 637, Distance: Neighbors, Protected)
+          - Portugal: Neutral (Influence: 29, Distance: Distant)
+        - Quests:
+          -  There are currently no quests this city-state has given to you. They will periodically give quests to you, but may refrain if you have bullied them recently.
+        - 36: Defeated Minor Civilization Shanghai
+        
+        ## Player 37
+        - Civilization: Seoul
+        - Leader: City State
+        - MajorAlly: Venice
+        - Population: 20
+        - ResourcesAvailable:
+          - Deer: 1
+        - MajorityReligion: Catholicism
+        - Relationships:
+          - Siam: Neutral (Influence: 0, Distance: Distant)
+          - France: Neutral (Influence: 0, Distance: Far)
+          - Sweden: Friends (Influence: 87, Distance: Close, Protected)
+          - Venice: Ally (Influence: 369, Distance: Close)
+          - Egypt: War (Influence: -60, Distance: Distant)
+          - Portugal: Neutral (Influence: 1, Distance: Neighbors, Protected)
+        - Quests:
+          -  Send an archaeologist to a site near this city-state. Potential Quest Reward: * 172 Influence * 1,548 Tourism with all known Civilizations
+          - Conduct a Spy Mission against Ramkhamhaeng. Potential Quest Reward: * 374 Influence * 925 Science
+          - They want you to start a land or sea trade route to their city. (Turns remaining: 30) Potential Quest Reward: * 197 Influence * 320 Food in Capital
+        - 63: Barbarians
+        
+        # Cities
+        Cities: summary reports about discovered cities in the world.
+        
+        ## Player: Sweden
+        
+        ### Stockholm
+        - ID: 1057
+        - X: 38
+        - Y: 6
+        - Population: 35
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 106
+        - IsCoastal: true
+        - Wonders:
+          - Heroic Epic
+          - School of Philosophy
+          - National Monument
+          - Chartered Company
+          - Pentagon
+          - Alhambra
+          - Olympic Village
+          - Apostolic Palace
+        
+        ### Sigtuna
+        - ID: 1236
+        - X: 38
+        - Y: 13
+        - Population: 32
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 98
+        - Wonders:
+          - Imperial College
+          - Kremlin
+          - Palace of Culture and Science
+          - Giorgio Armeier Headquarters
+        
+        ### Helsinki
+        - ID: 1420
+        - X: 42
+        - Y: 5
+        - Population: 28
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 99
+        - IsCoastal: true
+        - Wonders:
+          - Circus Maximus
+          - Scrivener's Office
+          - Printing Press
+        
+        ### Birka
+        - ID: 1733
+        - X: 36
+        - Y: 17
+        - Population: 26
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 104
+        - Wonders:
+          - Ironworks
+          - Grand Temple
+        
+        ### Nimrud
+        - ID: 2063
+        - X: 40
+        - Y: 19
+        - Population: 26
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 98
+        - IsOccupied: true
+        - Wonders:
+          - Royal Collection
+        
+        ### Uppsala
+        - ID: 2236
+        - X: 42
+        - Y: 13
+        - Population: 24
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 101
+        - Wonders:
+          - Nobel Committee
+        
+        ### Turku
+        - ID: 2743
+        - X: 35
+        - Y: 11
+        - Population: 27
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 97
+        
+        ### Linköping
+        - ID: 4416
+        - X: 47
+        - Y: 17
+        - Population: 25
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 94
+        - IsCoastal: true
+        
+        ### Lund
+        - ID: 4846
+        - X: 51
+        - Y: 18
+        - Population: 20
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 94
+        - IsCoastal: true
+        
+        ### Assur
+        - ID: 5906
+        - X: 44
+        - Y: 18
+        - Population: 26
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 99
+        - IsOccupied: true
+        - IsCoastal: true
+        - Wonders:
+          - Statue of Zeus
+        
+        ### Turfan
+        - ID: 7196
+        - X: 32
+        - Y: 20
+        - Population: 27
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 98
+        - IsOccupied: true
+        
+        ### Karakorum
+        - ID: 7386
+        - X: 35
+        - Y: 23
+        - Population: 24
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 101
+        - IsOccupied: true
+        - IsCoastal: true
+        - Wonders:
+          - Colossus
+          - Temple of Artemis
+        
+        ### Beshbalik
+        - ID: 7606
+        - X: 39
+        - Y: 24
+        - Population: 25
+        - MajorityReligion: Islam
+        - DefenseStrength: 70
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Abernethy
+        - ID: 8855
+        - X: 42
+        - Y: 25
+        - Population: 20
+        - MajorityReligion: Islam
+        - DefenseStrength: 107
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Almaty
+        - ID: 8900
+        - X: 31
+        - Y: 15
+        - Population: 23
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 101
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Västeräs
+        - ID: 9277
+        - X: 66
+        - Y: 10
+        - Population: 15
+        - DefenseStrength: 98
+        - IsCoastal: true
+        
+        ### Malmö
+        - ID: 9563
+        - X: 62
+        - Y: 5
+        - Population: 17
+        - DefenseStrength: 94
+        - IsCoastal: true
+        
+        ### Vantaa
+        - ID: 9880
+        - X: 29
+        - Y: 24
+        - Population: 22
+        - DefenseStrength: 107
+        - IsCoastal: true
+        
+        ### Visby
+        - ID: 11080
+        - X: 65
+        - Y: 23
+        - Population: 19
+        - DefenseStrength: 97
+        - IsCoastal: true
+        
+        ### Old Sarai
+        - ID: 11431
+        - X: 28
+        - Y: 31
+        - Population: 15
+        - DefenseStrength: 94
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Coron
+        - ID: 13524
+        - X: 20
+        - Y: 8
+        - Population: 22
+        - MajorityReligion: Catholicism
+        - DefenseStrength: 113
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Candia
+        - ID: 13615
+        - X: 26
+        - Y: 7
+        - Population: 17
+        - MajorityReligion: Catholicism
+        - DefenseStrength: 98
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Espoo
+        - ID: 13664
+        - X: 69
+        - Y: 16
+        - Population: 17
+        - DefenseStrength: 94
+        - IsCoastal: true
+        
+        ### Cattaro
+        - ID: 13714
+        - X: 17
+        - Y: 11
+        - Population: 23
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 98
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Corfu
+        - ID: 13762
+        - X: 17
+        - Y: 6
+        - Population: 24
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 92
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ## Player: Portugal
+        
+        ### Lisbon
+        - ID: 1058
+        - X: 13
+        - Y: 21
+        - Population: 42
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 119
+        - IsCoastal: true
+        - Wonders:
+          - School of Philosophy
+          - National Monument
+          - Circus Maximus
+          - Ironworks
+          - Eiffel Tower
+          - University of Sankore
+          - Red Fort
+          - International Finance Center
+          - University of Coimbra
+          - Soho Foundry
+          - Throne Room
+          - State Treasury
+          - Royal Guardhouse
+          - Palace Gardens
+          - Court Chapel
+          - Royal Astrologer
+          - Firaxite Materials Headquarters
+        
+        ### Porto
+        - ID: 1319
+        - X: 12
+        - Y: 16
+        - Population: 31
+        - DefenseStrength: 106
+        - IsCoastal: true
+        - Wonders:
+          - Heroic Epic
+          - Chartered Company
+          - Grand Temple
+          - Printing Press
+        
+        ### Braga
+        - ID: 1923
+        - X: 8
+        - Y: 16
+        - Population: 30
+        - MajorityReligion: Confucianism
+        - DefenseStrength: 104
+        - IsCoastal: true
+        - Wonders:
+          - Scrivener's Office
+          - Bletchley Park
+        
+        ### Coimbra
+        - ID: 2744
+        - X: 5
+        - Y: 12
+        - Population: 31
+        - DefenseStrength: 102
+        - IsCoastal: true
+        - Wonders:
+          - Royal Collection
+        
+        ### Funchal
+        - ID: 8049
+        - X: 6
+        - Y: 20
+        - Population: 29
+        - DefenseStrength: 78
+        - IsCoastal: true
+        
+        ### Leiria
+        - ID: 8433
+        - X: 7
+        - Y: 32
+        - Population: 24
+        - DefenseStrength: 109
+        - IsCoastal: true
+        
+        ### Goa
+        - ID: 8675
+        - X: 9
+        - Y: 38
+        - Population: 24
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 117
+        - IsCoastal: true
+        
+        ### Vila Nova de Gaia
+        - ID: 10263
+        - X: 76
+        - Y: 48
+        - Population: 24
+        - DefenseStrength: 109
+        - IsCoastal: true
+        
+        ### Aveiro
+        - ID: 10445
+        - X: 13
+        - Y: 47
+        - Population: 17
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 109
+        - IsCoastal: true
+        
+        ## Player: France
+        
+        ### Paris
+        - ID: 1059
+        - X: 16
+        - Y: 36
+        - Population: 29
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 79
+        - IsCoastal: true
+        - Wonders:
+          - Heroic Epic
+          - School of Philosophy
+          - Chartered Company
+          - Ironworks
+          - Great Lighthouse
+          - Pyramids
+          - Mausoleum of Halicarnassus
+          - Terracotta Army
+          - Printing Press
+          - Foreign Bureau
+          - Grand Canal
+          - Centaurus Extractors Headquarters
+        
+        ### Orleans
+        - ID: 1179
+        - X: 14
+        - Y: 30
+        - Population: 24
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 84
+        - IsCoastal: true
+        - Wonders:
+          - Circus Maximus
+          - Grand Temple
+        
+        ### Lyon
+        - ID: 1410
+        - X: 15
+        - Y: 41
+        - Population: 26
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 82
+        - IsCoastal: true
+        - Wonders:
+          - Imperial College
+          - Great Library
+          - Neuschwanstein
+        
+        ### Tours
+        - ID: 2815
+        - X: 11
+        - Y: 42
+        - Population: 22
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 80
+        - IsCoastal: true
+        - Wonders:
+          - Royal Collection
+        
+        ### Marseille
+        - ID: 3006
+        - X: 7
+        - Y: 42
+        - Population: 23
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 78
+        - IsCoastal: true
+        
+        ### Chartres
+        - ID: 3477
+        - X: 2
+        - Y: 42
+        - Population: 24
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 76
+        - IsCoastal: true
+        - Wonders:
+          - National Monument
+          - Scrivener's Office
+        
+        ### Shanghai
+        - ID: 4789
+        - X: 18
+        - Y: 29
+        - Population: 21
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 78
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Troyes
+        - ID: 5113
+        - X: 11
+        - Y: 27
+        - Population: 22
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 108
+        - Health: 63%
+        - IsCoastal: true
+        
+        ## Player: Egypt
+        
+        ### Thebes
+        - ID: 1080
+        - X: 49
+        - Y: 42
+        - Population: 47
+        - MajorityReligion: Islam
+        - DefenseStrength: 108
+        - Wonders:
+          - Heroic Epic
+          - School of Philosophy
+          - Stonehenge
+          - Hanging Gardens
+          - Great Wall
+          - Hagia Sophia
+          - Chichen Itza
+          - Machu Picchu
+          - Brandenburg Gate
+          - Leaning Tower of Pisa
+          - Grand Temple
+          - Uffizi
+          - Borobudur
+          - Printing Press
+          - International Finance Center
+          - Roman Forum
+          - Karlstejn
+          - Empire State Building
+          - Throne Room
+          - State Treasury
+          - Royal Guardhouse
+          - Palace Gardens
+          - Court Chapel
+          - Royal Astrologer
+          - Great Altar
+        
+        ### Memphis
+        - ID: 1170
+        - X: 54
+        - Y: 42
+        - Population: 26
+        - MajorityReligion: Islam
+        - DefenseStrength: 62
+        - Wonders:
+          - Circus Maximus
+          - Ironworks
+          - Imperial College
+          - Royal Collection
+          - Sistine Chapel
+          - National Intelligence Agency
+          - Foreign Bureau
+          - Trader Sid's Headquarters
+        
+        ### Heliopolis
+        - ID: 1452
+        - X: 57
+        - Y: 47
+        - Population: 26
+        - MajorityReligion: Islam
+        - DefenseStrength: 60
+        - IsCoastal: true
+        - Wonders:
+          - National Monument
+          - Sydney Opera House
+          - Scrivener's Office
+          - Nalanda
+        
+        ### Elephantine
+        - ID: 1753
+        - X: 44
+        - Y: 37
+        - Population: 30
+        - MajorityReligion: Islam
+        - DefenseStrength: 94
+        - IsCoastal: true
+        - Wonders:
+          - Chartered Company
+        
+        ### Alexandria
+        - ID: 3847
+        - X: 45
+        - Y: 47
+        - Population: 26
+        - MajorityReligion: Islam
+        - DefenseStrength: 70
+        - IsCoastal: true
+        
+        ### Pi-Ramesses
+        - ID: 6141
+        - X: 38
+        - Y: 38
+        - Population: 25
+        - MajorityReligion: Islam
+        - DefenseStrength: 102
+        - Health: 90%
+        - IsCoastal: true
+        
+        ### Giza
+        - ID: 6409
+        - X: 40
+        - Y: 47
+        - Population: 27
+        - MajorityReligion: Islam
+        - DefenseStrength: 103
+        - IsCoastal: true
+        - Wonders:
+          - Louvre
+        
+        ### Sukhothai
+        - ID: 10165
+        - X: 57
+        - Y: 39
+        - Population: 26
+        - MajorityReligion: Islam
+        - DefenseStrength: 101
+        - IsOccupied: true
+        - IsCoastal: true
+        - Wonders:
+          - Statue of Liberty
+          - Cristo Redentor
+        
+        ## Player: Venice
+        
+        ### Venice
+        - ID: 1060
+        - X: 12
+        - Y: 11
+        - Population: 29
+        - MajorityReligion: Catholicism
+        - DefenseStrength: 69
+        - Health: 34%
+        - IsCoastal: true
+        - FoodStored: 1442
+        - FoodPerTurn: 2
+        - ProductionStored: 366
+        - ProductionPerTurn: 150
+        - CurrentProduction: Arsenal
+        - ProductionTurnsLeft: 2
+        - GoldPerTurn: 144
+        - SciencePerTurn: 190
+        - CulturePerTurn: 369
+        - FaithPerTurn: 68
+        - TourismPerTurn: 117
+        - HappinessDelta: 19
+        - BuildingCount: 35
+        - ImportantBuildings:
+          - Water Mill
+          - Customs House
+          - Garden
+          - Harbor
+          - Zoo
+          - Temple
+          - Armory
+          - Hospital
+          - Workshop
+          - Stock Exchange
+          - University
+          - Constabulary
+          - Writers' Guild
+          - Artists' Guild
+          - Musicians' Guild
+          - Hotel
+          - Caravansary
+          - Bath
+          - Chancery
+          - Gallery
+          - Bastion Fort
+        - Wonders:
+          - Heroic Epic
+          - School of Philosophy
+          - Circus Maximus
+          - Chartered Company
+          - Ironworks
+          - Imperial College
+          - Oracle
+          - Angkor Wat
+          - Notre Dame
+          - Porcelain Tower
+          - Himeji Castle
+          - Taj Mahal
+          - Petra
+          - Grand Temple
+          - Globe Theatre
+          - Scrivener's Office
+          - Printing Press
+          - Piazza San Marco
+          - Rialto District
+          - Summer Palace
+          - State Treasury
+          - Royal Guardhouse
+          - Royal Astrologer
+          - Celestial Throne
+        - GreatWorkCount: 12
+        
+        ## Player: Siam
+        
+        ### Si Satchanalai
+        - ID: 1426
+        - X: 56
+        - Y: 34
+        - Population: 29
+        - MajorityReligion: Islam
+        - DefenseStrength: 70
+        - IsCoastal: true
+        - Wonders:
+          - Chartered Company
+          - Scrivener's Office
+          - Printing Press
+          - Foreign Bureau
+        
+        ### Lampang
+        - ID: 2140
+        - X: 60
+        - Y: 37
+        - Population: 26
+        - MajorityReligion: Islam
+        - DefenseStrength: 84
+        - IsCoastal: true
+        - Wonders:
+          - Heroic Epic
+          - School of Philosophy
+          - National Monument
+          - Circus Maximus
+          - Ironworks
+          - Imperial College
+          - Royal Collection
+          - Palace of Westminster
+          - International Finance Center
+          - Royal Guardhouse
+          - Court Chapel
+          - Civilized Jewelers Headquarters
+        
+        ### Muang Saluang
+        - ID: 11526
+        - X: 64
+        - Y: 44
+        - Population: 19
+        - MajorityReligion: Islam
+        - DefenseStrength: 74
+        - IsCoastal: true
+        - Wonders:
+          - Grand Temple
+        
+        ### Phitsanulok
+        - ID: 12124
+        - X: 2
+        - Y: 48
+        - Population: 19
+        - MajorityReligion: Islam
+        - DefenseStrength: 91
+        - IsCoastal: true
+        
+        ## Player: City-States
+        
+        ### M'banza-Kongo
+        - ID: 1064
+        - X: 21
+        - Y: 16
+        - Population: 20
+        - DefenseStrength: 142
+        - IsCoastal: true
+        
+        ### Ife
+        - ID: 15452
+        - X: 20
+        - Y: 23
+        - Population: 12
+        - DefenseStrength: 43
+        - IsCoastal: true
+        
+        ### Kyzyl
+        - ID: 1066
+        - X: 18
+        - Y: 47
+        - Population: 23
+        - DefenseStrength: 97
+        - IsCoastal: true
+        
+        ### Ecbatana
+        - ID: 1067
+        - X: 51
+        - Y: 10
+        - Population: 25
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 97
+        - IsCoastal: true
+        
+        ### Nineveh
+        - ID: 2614
+        - X: 47
+        - Y: 13
+        - Population: 18
+        - MajorityReligion: Protestantism
+        - DefenseStrength: 76
+        - IsOccupied: true
+        - IsCoastal: true
+        
+        ### Jerusalem
+        - ID: 1070
+        - X: 51
+        - Y: 33
+        - Population: 15
+        - MajorityReligion: Islam
+        - DefenseStrength: 105
+        - IsCoastal: true
+        
+        ### Belgrade
+        - ID: 1071
+        - X: 63
+        - Y: 35
+        - Population: 19
+        - MajorityReligion: Islam
+        - DefenseStrength: 94
+        - IsCoastal: true
+        
+        ### Oviedo
+        - ID: 1072
+        - X: 5
+        - Y: 36
+        - Population: 19
+        - MajorityReligion: Hinduism
+        - DefenseStrength: 95
+        - IsCoastal: true
+        
+        ### Dorestad
+        - ID: 1073
+        - X: 59
+        - Y: 31
+        - Population: 20
+        - MajorityReligion: Islam
+        - DefenseStrength: 101
+        - IsCoastal: true
+        
+        ### Copenhagen
+        - ID: 1074
+        - X: 26
+        - Y: 47
+        - Population: 25
+        - DefenseStrength: 130
+        - IsCoastal: true
+        
+        ### Dublin
+        - ID: 1075
+        - X: 70
+        - Y: 4
+        - Population: 25
+        - DefenseStrength: 92
+        - IsCoastal: true
+        
+        ### Okilis
+        - ID: 1076
+        - X: 32
+        - Y: 9
+        - Population: 21
+        - DefenseStrength: 93
+        - IsCoastal: true
+        
+        ### Hanoi
+        - ID: 1077
+        - X: 48
+        - Y: 36
+        - Population: 16
+        - MajorityReligion: Islam
+        - DefenseStrength: 94
+        
+        ### Seoul
+        - ID: 1079
+        - X: 5
+        - Y: 7
+        - Population: 20
+        - MajorityReligion: Catholicism
+        - DefenseStrength: 95
+        - IsCoastal: true
+        
+        # Military
+        Military: summary reports about tactical zones and visible units.
+        
+        ## Unit Stats
+        - CityBombard:
+          - Artillery:
+            - Strength: 27
+            - RangedStrength: 50
+          - Field Gun:
+            - Strength: 17
+            - RangedStrength: 40
+        - FastAttack:
+          - Tank:
+            - Strength: 75
+          - Landship:
+            - Strength: 60
+        - Defense:
+          - Infantry:
+            - Strength: 62
+          - Rifleman:
+            - Strength: 50
+          - Pracinha:
+            - Strength: 62
+        - Counter:
+          - Mobile SAM:
+            - Strength: 55
+          - Anti-Aircraft Gun:
+            - Strength: 40
+        - Ranged:
+          - Light Tank:
+            - Strength: 58
+            - RangedStrength: 52
+          - Machine Gun:
+            - Strength: 45
+            - RangedStrength: 58
+          - Gatling Gun:
+            - Strength: 32
+            - RangedStrength: 44
+        - AttackSea:
+          - Destroyer:
+            - Strength: 70
+          - Fleet Destroyer:
+            - Strength: 80
+        - AssaultSea:
+          - Battleship:
+            - Strength: 60
+            - RangedStrength: 75
+          - Dreadnought:
+            - Strength: 50
+            - RangedStrength: 65
+        - AttackAir:
+          - Heavy Bomber:
+            - RangedStrength: 65
+          - Bomber:
+            - RangedStrength: 50
+        - DefenseAir:
+          - Jet Fighter:
+            - RangedStrength: 70
+          - Fighter:
+            - RangedStrength: 60
+        - MissileAir:
+          - Guided Missile:
+            - RangedStrength: 180
+        - Paradrop:
+          - Special Forces:
+            - Strength: 65
+        
+        ## Neutral Land Zone 1059
+        - ZoneValue: 42
+        - NeutralStrength: 1150
+        - City: Paris
+        - AreaID: 11
+        - Plots: 24
+        - CenterX: 15
+        - CenterY: 36
+        - Units:
+          - France:
+            - Mobile SAM: 1
+            - Light Tank: 1
+            - Machine Gun: 1
+        
+        ## Friendly Land Zone 1060
+        - ZoneValue: 3
+        - Dominance: Friendly
+        - NeutralStrength: 839
+        - FriendlyStrength: 3610
+        - City: Venice
+        - AreaID: 18
+        - Plots: 29
+        - CenterX: 12
+        - CenterY: 11
+        - Units:
+          - Venice:
+            - Artillery: 1
+            - Machine Gun: 4
+            - Gatling Gun: 1
+            - Field Gun: 1
+          - Portugal:
+            - Anti-Aircraft Gun: 1
+        - Neighbors:
+          - 2744
+          - 1079
+          - -1060
+          - 1923
+          - 1319
+          - -13762
+          - 13762
+          - 13714
+        
+        ## Neutral Land Zone 1076
+        - ZoneValue: 9
+        - Dominance: Friendly
+        - NeutralStrength: 93
+        - FriendlyStrength: 4637
+        - City: Okilis
+        - AreaID: 2
+        - Plots: 18
+        - CenterX: 33
+        - CenterY: 8
+        - Units:
+          - City-State Okilis:
+            - Machine Gun: 4
+        - Neighbors:
+          - -1076
+        
+        ## Enemy Land Zone 1077
+        - ZoneValue: 3
+        - Dominance: Enemy
+        - EnemyStrength: 4953
+        - NeutralStrength: 637
+        - City: Hanoi
+        - AreaID: 63
+        - Plots: 33
+        - CenterX: 48
+        - CenterY: 36
+        - Units:
+          - Egypt:
+            - Tank: 1
+            - Special Forces: 1
+        - Neighbors:
+          - 1080
+          - 1170
+        
+        ## Neutral Land Zone 1079
+        - ZoneValue: 18
+        - Dominance: Friendly
+        - NeutralStrength: 604
+        - FriendlyStrength: 755
+        - City: Seoul
+        - AreaID: 11
+        - Plots: 22
+        - CenterX: 7
+        - CenterY: 8
+        - Units:
+          - City-State Seoul:
+            - Guided Missile: 1
+            - Machine Gun: 1
+          - Portugal:
+            - Machine Gun: 1
+        - Neighbors:
+          - -1079
+          - 2744
+          - 1060
+          - -1060
+        
+        ## Enemy Land Zone 1080
+        - ZoneValue: 66
+        - Dominance: Enemy
+        - EnemyStrength: 5686
+        - NeutralStrength: 98
+        - City: Thebes
+        - AreaID: 63
+        - Plots: 29
+        - CenterX: 49
+        - CenterY: 42
+        - Units:
+          - Egypt:
+            - Tank: 2
+            - Light Tank: 1
+            - Special Forces: 1
+            - Landship: 3
+            - Machine Gun: 2
+        - Neighbors:
+          - 1077
+          - 1170
+        
+        ## Enemy Land Zone 1170
+        - ZoneValue: 24
+        - Dominance: Enemy
+        - EnemyStrength: 5466
+        - NeutralStrength: 323
+        - City: Memphis
+        - AreaID: 63
+        - Plots: 34
+        - CenterX: 53
+        - CenterY: 42
+        - Units:
+          - Egypt:
+            - Tank: 1
+            - Landship: 1
+        - Neighbors:
+          - 1080
+          - 1077
+        
+        ## Neutral Land Zone 1319
+        - ZoneValue: 36
+        - Dominance: Friendly
+        - NeutralStrength: 1776
+        - FriendlyStrength: 1375
+        - City: Porto
+        - AreaID: 11
+        - Plots: 19
+        - CenterX: 13
+        - CenterY: 16
+        - Units:
+          - Portugal:
+            - Infantry: 1
+            - Landship: 1
+        - Neighbors:
+          - 1923
+          - 1060
+          - 13714
+        
+        ## Neutral Land Zone 1923
+        - ZoneValue: 42
+        - Dominance: Friendly
+        - NeutralStrength: 1328
+        - FriendlyStrength: 284
+        - City: Braga
+        - AreaID: 11
+        - Plots: 18
+        - CenterX: 8
+        - CenterY: 16
+        - Units:
+          - Portugal:
+            - Artillery: 1
+        - Neighbors:
+          - 2744
+          - 1060
+          - 1319
+        
+        ## Neutral Land Zone 2744
+        - ZoneValue: 42
+        - Dominance: Friendly
+        - NeutralStrength: 820
+        - FriendlyStrength: 514
+        - City: Coimbra
+        - AreaID: 11
+        - Plots: 19
+        - CenterX: 6
+        - CenterY: 12
+        - Units:
+          - Portugal:
+            - Machine Gun: 1
+        - Neighbors:
+          - 1079
+          - 1923
+          - 1060
+        
+        ## Neutral Land Zone 13714
+        - ZoneValue: 72
+        - Dominance: Friendly
+        - NeutralStrength: 656
+        - FriendlyStrength: 4110
+        - City: Cattaro
+        - AreaID: 1
+        - Plots: 23
+        - CenterX: 17
+        - CenterY: 12
+        - Units:
+          - Sweden:
+            - Jet Fighter: 1
+            - Mobile SAM: 1
+            - Fighter: 3
+            - Infantry: 1
+            - Rifleman: 1
+            - Pracinha: 1
+          - Venice:
+            - Machine Gun: 1
+        - Neighbors:
+          - 1060
+          - 1319
+          - 13762
+        
+        ## Neutral Land Zone 13762
+        - ZoneValue: 36
+        - Dominance: Friendly
+        - NeutralStrength: 92
+        - FriendlyStrength: 3381
+        - City: Corfu
+        - AreaID: 1
+        - Plots: 23
+        - CenterX: 17
+        - CenterY: 5
+        - Units:
+          - Sweden:
+            - Mobile SAM: 1
+            - Heavy Bomber: 2
+            - Bomber: 1
+        - Neighbors:
+          - -13762
+          - 1060
+          - 13714
+        
+        ## Neutral Sea Zone -1079
+        - ZoneValue: 6
+        - Dominance: Friendly
+        - NeutralStrength: 514
+        - FriendlyStrength: 1710
+        - City: Seoul
+        - AreaID: 0
+        - Plots: 47
+        - CenterX: 4
+        - CenterY: 5
+        - Units:
+          - Sweden:
+            - Fleet Destroyer: 2
+          - Venice:
+            - Destroyer: 1
+            - Dreadnought: 1
+        - Neighbors:
+          - 1079
+          - -1060
+        
+        ## Neutral Sea Zone -13762
+        - ZoneValue: 1
+        - Dominance: Friendly
+        - NeutralStrength: 92
+        - FriendlyStrength: 3159
+        - City: Corfu
+        - AreaID: 0
+        - Plots: 33
+        - CenterX: 16
+        - CenterY: 4
+        - Units:
+          - Sweden:
+            - Fleet Destroyer: 3
+        - Neighbors:
+          - -1060
+          - 1060
+          - 13762
+        
+        ## Friendly Sea Zone -1060
+        - ZoneValue: 168
+        - Dominance: Friendly
+        - NeutralStrength: 397
+        - FriendlyStrength: 3633
+        - City: Venice
+        - AreaID: 0
+        - Plots: 11
+        - CenterX: 11
+        - CenterY: 8
+        - Units:
+          - Venice:
+            - Destroyer: 5
+        - Neighbors:
+          - -1079
+          - 1079
+          - 1060
+          - -13762
+        
+        ## Neutral Sea Zone -1076
+        - ZoneValue: 3
+        - Dominance: Friendly
+        - NeutralStrength: 93
+        - FriendlyStrength: 2519
+        - City: Okilis
+        - AreaID: 0
+        - Plots: 24
+        - CenterX: 31
+        - CenterY: 8
+        - Units:
+          - City-State Okilis:
+            - Battleship: 1
+        - Neighbors:
+          - 1076
+        
+        # Events
+        Events: events since you last made a decision.
+        
+        ## Turn 427
+        
+        ### 0
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Cargo Ship
+          - ID: 16538
+        - Player: 6: Siam
+        - Plots:
+          - Coast 70,5:
+            - Owner: City-State Dublin
+            - Resource: Fish
+            - Improvement: Fishing Boats
+        
+        ### 1
+        - Type: CityEventChoiceActivated
+        - City:
+          - Population: 29
+          - Name: Venice
+          - Health: -71%
+          - ID: 1060
+        - Player: 4: Venice
+        - Choice: 85
+        
+        ### 2
+        - Type: EspionageResult
+        - SpyResult: Identified
+        - SourcePlayer: 6: Siam
+        - TargetPlayer: 4: Venice
+        - City:
+          - Owner: Venice
+          - CityID: 1060
+          - Population: 29
+          - IsRiver: true
+          - City: Venice
+          - Terrain: Grass
+          - Religion: Catholicism
+          - Route: Railroad
+          - Plot: Land
+          - X: 12
+          - Y: 11
+        
+        ### 3
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: FastAttack
+          - Unit: Modern Armor
+          - ID: 16540
+        - Player: 22
+        - Plots:
+          - Grass Hills 19,19:
+            - Route: Railroad
+          - Grass Land 20,18:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 20,17:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 19,17:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+        
+        ### 4
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 12846
+        - Player: 22
+        - Plots:
+          - Grass Land 20,18:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 20,17:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 20,16:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Resource: Horses
+            - Improvement: Pasture
+            - Route: Railroad
+          - Grass Hills 19,16:
+            - Owner: City-State M'banza-Kongo
+            - Resource: Copper
+            - Improvement: Mine
+            - Route: Railroad
+          - Grass Land 18,17:
+            - IsRiver: true
+        
+        ### 5
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AssaultSea
+          - Unit: Battleship
+          - ID: 15654
+        - Player: 34
+        - Plots:
+          - Coast 32,8:
+            - Owner: City-State Okilis
+          - Coast 31,9:
+            - Owner: City-State Okilis
+            - Resource: Fish
+            - Improvement: Fishing Boats
+        
+        ### 6
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: AssaultSea
+          - Unit: Battleship
+          - ID: 15608
+        - Player: 34
+        - Coast 31,9:
+          - Owner: City-State Okilis
+          - Resource: Fish
+          - Improvement: Fishing Boats
+        
+        ### 7
+        - Type: UnitMoved
+        - Unit:
+          - Level: 5
+          - AI: Defense
+          - Unit: Rifleman
+          - ID: 14128
+        - Player: 34
+        - Plots:
+          - Coast 31,9:
+            - Owner: City-State Okilis
+            - Resource: Fish
+            - Improvement: Fishing Boats
+          - Plains Land 33,10:
+            - Owner: City-State Okilis
+            - Resource: Bison
+            - Improvement: Camp
+            - Route: Railroad
+        
+        ### 8
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Rocket Missile
+          - ID: 16699
+        - Player: 37
+        - Plains Land 5,7:
+          - Owner: City-State Seoul
+          - CityID: 1079
+          - Population: 20
+          - City: Seoul
+          - Religion: Catholicism
+          - Route: Railroad
+        
+        ### 9
+        - Type: UnitCreated
+        - UnitType: Rocket Missile
+        - Unit:
+          - Level: 1
+          - AI: MissileAir
+          - Unit: Rocket Missile
+          - ID: 16699
+        - Player: 37
+        - Plains Land 5,7:
+          - Owner: City-State Seoul
+          - CityID: 1079
+          - Population: 20
+          - City: Seoul
+          - Religion: Catholicism
+          - Route: Railroad
+        
+        ### 10
+        - Type: CityTrained
+        - City:
+          - Name: Seoul
+          - Population: 20
+          - ID: 1079
+        - Unit:
+          - Level: 1
+          - AI: MissileAir
+          - Unit: Rocket Missile
+          - ID: 16699
+        - Player: 37
+        
+        ### 11
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 1138
+        - Player: 37
+        - Plots:
+          - Plains Land 6,7:
+            - Owner: City-State Seoul
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Hills 7,7:
+            - Owner: City-State Seoul
+            - Improvement: Mine
+            - Route: Railroad
+        
+        ### 12
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Guided Missile
+          - ID: 16700
+        - Player: 37
+        - Plains Land 5,7:
+          - Owner: City-State Seoul
+          - CityID: 1079
+          - Population: 20
+          - City: Seoul
+          - Religion: Catholicism
+          - Route: Railroad
+        
+        ### 13
+        - Type: UnitCreated
+        - UnitType: Guided Missile
+        - Unit:
+          - Level: 1
+          - AI: MissileAir
+          - Unit: Guided Missile
+          - ID: 16700
+        - Player: 37
+        - Plains Land 5,7:
+          - Owner: City-State Seoul
+          - CityID: 1079
+          - Population: 20
+          - City: Seoul
+          - Religion: Catholicism
+          - Route: Railroad
+        
+        ### 14
+        - Type: UnitUpgraded
+        - OldUnit:
+          - Level: 1
+          - AI: MissileAir
+          - Unit: Rocket Missile
+          - ID: 16699
+        - NewUnit:
+          - Level: 1
+          - AI: MissileAir
+          - Unit: Guided Missile
+          - ID: 16700
+        - Player: 37
+        
+        ### 15
+        - Type: UnitConverted
+        - IsUpgrade: true
+        - ConvertingUnit:
+          - Level: 1
+          - AI: MissileAir
+          - Unit: Guided Missile
+          - ID: 16700
+        - OriginalUnit:
+          - Level: 1
+          - AI: MissileAir
+          - Unit: Rocket Missile
+          - ID: 16699
+        - OldOwner: 37
+        - NewOwner: 37
+        
+        ## Turn 428
+        
+        ### 0
+        - Type: CityConstructed
+        - City:
+          - Name: Cattaro
+          - Population: 23
+          - ID: 13714
+        - Owner: 0: Sweden
+        - Building: Stadium
+        
+        ### 1
+        - Type: CityEndsWLTKD
+        - Unused: 0
+        - Owner: 0: Sweden
+        - Desert Land 17,11:
+          - Owner: Sweden
+          - CityID: 13714
+          - Population: 23
+          - IsRiver: true
+          - City: Cattaro
+          - Religion: Hinduism
+          - Route: Railroad
+        
+        ### 2
+        - Type: UnitMoved
+        - Unit:
+          - Level: 7
+          - AI: AttackSea
+          - Unit: Fleet Destroyer
+          - ID: 15943
+        - Player: 0: Sweden
+        - Plots:
+          - Coast 19,10:
+            - Owner: Sweden
+          - Coast 19,11:
+            - Owner: Sweden
+            - Resource: Fish
+            - Improvement: Fishing Boats
+          - Coast 20,12:
+            - Owner: Sweden
+          - Coast 21,12:
+            - Owner: Sweden
+          - Coast 21,13:
+            - Owner: City-State M'banza-Kongo
+          - Coast 22,14:
+            - Owner: City-State M'banza-Kongo
+            - Resource: Fish
+            - Improvement: Fishing Boats
+        
+        ### 3
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AttackSea
+          - Unit: Fleet Destroyer
+          - ID: 15946
+        - Player: 0: Sweden
+        - Plots:
+          - Coast 10,6:
+            - Owner: Venice
+          - Ocean 11,6:
+            - Owner: Venice
+          - Coast 11,7:
+            - Owner: Venice
+          - Coast 12,7:
+            - Owner: Venice
+          - Coast 13,7:
+            - Owner: Venice
+            - Resource: Oil
+        
+        ### 4
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AttackSea
+          - Unit: Fleet Destroyer
+          - ID: 16388
+        - Player: 0: Sweden
+        - Plots:
+          - Coast 10,6:
+            - Owner: Venice
+          - Ocean 11,6:
+            - Owner: Venice
+          - Coast 12,6:
+            - Owner: Venice
+            - Feature: Ice
+          - Ocean 13,6:
+            - Owner: Venice
+        
+        ### 5
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - Health: 75%
+          - AI: AttackSea
+          - Unit: Fleet Destroyer
+          - ID: 16108
+        - Player: 0: Sweden
+        - Plots:
+          - Coast 12,6:
+            - Owner: Venice
+            - Feature: Ice
+          - Ocean 13,6:
+            - Owner: Venice
+          - Coast 14,6:
+            - Owner: Sweden
+            - Resource: Fish
+            - Improvement: Fishing Boats
+        
+        ### 6
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: General
+          - Unit: Great General
+          - ID: 12890
+        - Player: 0: Sweden
+        - Plots:
+          - Grass Land 20,16:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Resource: Horses
+            - Improvement: Pasture
+            - Route: Railroad
+          - Grass Land 20,17:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 20,18:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Hills 19,19:
+            - Route: Railroad
+          - Plains Hills 20,20:
+            - Owner: City-State Ife
+            - Improvement: Embassy
+            - Route: Railroad
+        
+        ### 7
+        - Type: TileImprovementChanged
+        - Owner: 0: Sweden
+        - OldImprovement: Quarry
+        - NewImprovement: Quarry
+        - Plains Hills 15,13:
+          - Owner: Sweden
+          - Resource: Stone
+          - Improvement: Quarry
+        
+        ### 8
+        - Type: BuildFinished
+        - Player: 0: Sweden
+        - Plains Hills 15,13:
+          - Owner: Sweden
+          - Resource: Stone
+          - Improvement: Quarry
+        
+        ### 9
+        - Type: UnitBuildCompleted
+        - Owner: 0: Sweden
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 5796
+        - Build: Repair an Improvement
+        - Plains Hills 15,13:
+          - Owner: Sweden
+          - Resource: Stone
+          - Improvement: Quarry
+        
+        ### 10
+        - Type: UnitBuildStart
+        - Owner: 0: Sweden
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 5796
+        - Build: Repair an Improvement
+        - Plains Hills 15,13:
+          - Owner: Sweden
+          - Resource: Stone
+          - Improvement: Quarry
+        
+        ### 11
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 1344
+        - Player: 0: Sweden
+        - Plots:
+          - Desert Land 17,11:
+            - Owner: Sweden
+            - CityID: 13714
+            - Population: 23
+            - IsRiver: true
+            - City: Cattaro
+            - Religion: Hinduism
+            - Route: Railroad
+          - Plains Land 17,12:
+            - Owner: Sweden
+            - Resource: Iron
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 16,12:
+            - Owner: Sweden
+            - Route: Railroad
+        
+        ### 12
+        - Type: UnitBuildCompleted
+        - Owner: 0: Sweden
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 1344
+        - Build: Construct a Farm
+        - Plains Land 16,12:
+          - Owner: Sweden
+          - Route: Railroad
+        
+        ### 13
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 5992
+        - Player: 0: Sweden
+        - Plots:
+          - Coast 18,9:
+            - Owner: Sweden
+          - Coast 18,10:
+            - Owner: Sweden
+        
+        ### 14
+        - Type: UnitMoved
+        - Unit:
+          - Level: 5
+          - AI: Defense
+          - Unit: Rifleman
+          - ID: 11083
+        - Player: 0: Sweden
+        - Plots:
+          - Coast 14,6:
+            - Owner: Sweden
+            - Resource: Fish
+            - Improvement: Fishing Boats
+          - Grass Land 17,6:
+            - Owner: Sweden
+            - CityID: 13762
+            - Population: 24
+            - City: Corfu
+            - Resource: Maize
+            - Religion: Hinduism
+            - Route: Railroad
+          - Plains Land 16,7:
+            - Owner: Sweden
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 16,8:
+            - Owner: Sweden
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 15,9:
+            - Owner: Sweden
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 15,10:
+            - Owner: Venice
+            - Resource: Wheat
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Hills 15,11:
+            - Owner: Venice
+            - Improvement: Mine
+            - Route: Railroad
+          - Plains Land 16,12:
+            - Owner: Sweden
+            - Route: Railroad
+        
+        ### 15
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Ranged
+          - Unit: Light Tank
+          - ID: 14456
+        - Player: 0: Sweden
+        - Grass Hills 19,14:
+          - Owner: Sweden
+          - Improvement: Mine
+        
+        ### 16
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - Unit: Caravan
+          - ID: 16711
+        - Player: 0: Sweden
+        - Grass Land 17,6:
+          - Owner: Sweden
+          - CityID: 13762
+          - Population: 24
+          - City: Corfu
+          - Resource: Maize
+          - Religion: Hinduism
+          - Route: Railroad
+        
+        ### 17
+        - Type: UnitCreated
+        - UnitType: Caravan
+        - Player: 0: Sweden
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 16711
+        - Grass Land 17,6:
+          - Owner: Sweden
+          - CityID: 13762
+          - Population: 24
+          - City: Corfu
+          - Resource: Maize
+          - Religion: Hinduism
+          - Route: Railroad
+        
+        ### 18
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 16711
+        - Player: 0: Sweden
+        - Plots:
+          - Plains Land 16,7:
+            - Owner: Sweden
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 16,8:
+            - Owner: Sweden
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 15,9:
+            - Owner: Sweden
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 15,10:
+            - Owner: Venice
+            - Resource: Wheat
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 14,11:
+            - Owner: Venice
+            - Improvement: Farm
+            - Route: Railroad
+        
+        ### 19
+        - Type: UnitMoved
+        - Unit:
+          - Level: 6
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 14353
+        - Player: 1: Portugal
+        - Plains Hills 13,16:
+          - Owner: Portugal
+          - IsRiver: true
+          - Improvement: Mine
+          - Route: Railroad
+        
+        ### 20
+        - Type: UnitMoved
+        - Unit:
+          - Level: 7
+          - Health: 88%
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 14230
+        - Player: 1: Portugal
+        - Plots:
+          - Desert Land 10,13:
+            - Owner: Portugal
+            - Improvement: Feitoria
+          - Coast 11,14:
+            - Owner: Portugal
+          - Desert Hills 11,15:
+            - Owner: Portugal
+            - IsRiver: true
+            - Improvement: Feitoria
+        
+        ### 21
+        - Type: UnitMoved
+        - Unit:
+          - Level: 5
+          - AI: FastAttack
+          - Unit: Landship
+          - ID: 11410
+        - Player: 1: Portugal
+        - Plots:
+          - Desert Land 10,13:
+            - Owner: Portugal
+            - Improvement: Feitoria
+          - Coast 11,14:
+            - Owner: Portugal
+          - Desert Hills 11,15:
+            - Owner: Portugal
+            - IsRiver: true
+            - Improvement: Feitoria
+        
+        ### 22
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: Defense
+          - Unit: Infantry
+          - ID: 16172
+        - Player: 1: Portugal
+        - Plots:
+          - Desert Land 10,13:
+            - Owner: Portugal
+            - Improvement: Feitoria
+          - Coast 11,14:
+            - Owner: Portugal
+          - Desert Hills 11,15:
+            - Owner: Portugal
+            - IsRiver: true
+            - Improvement: Feitoria
+          - Desert Land 12,15:
+            - Owner: Portugal
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+        
+        ### 23
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: General
+          - Unit: Great General
+          - ID: 16719
+        - Player: 1: Portugal
+        - Plots:
+          - Desert Land 12,15:
+            - Owner: Portugal
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+            - Feature: Flood Plains
+          - Plains Land 13,14:
+            - Owner: Portugal
+            - IsRiver: true
+            - Improvement: Farm
+        
+        ### 24
+        - Type: UnitBuildCompleted
+        - IsFirstTime: true
+        - Owner: 1: Portugal
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 1650
+        - Build: Repair an Improvement
+        - Grass Land 15,14:
+          - Owner: Portugal
+          - IsRiver: true
+          - Route: Railroad
+        
+        ### 25
+        - Type: UnitBuildCompleted
+        - Owner: 1: Portugal
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 4913
+        - Build: Construct a Fort
+        - Grass Land 14,15:
+          - Owner: Portugal
+          - IsRiver: true
+          - Route: Railroad
+        
+        ### 26
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 8590
+        - Player: 1: Portugal
+        - Plains Land 14,14:
+          - Owner: Portugal
+          - IsRiver: true
+          - Improvement: Farm
+          - Route: Road
+        
+        ### 27
+        - Type: UnitBuildCompleted
+        - IsFirstTime: true
+        - Owner: 1: Portugal
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 8590
+        - Build: Repair an Improvement
+        - Plains Land 14,14:
+          - Owner: Portugal
+          - IsRiver: true
+          - Improvement: Farm
+          - Route: Road
+        
+        ### 28
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 3543
+        - Player: 1: Portugal
+        - Plots:
+          - Plains Land 13,15:
+            - Owner: Portugal
+            - IsRiver: true
+            - Resource: Maize
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 14,15:
+            - Owner: Portugal
+            - IsRiver: true
+            - Route: Railroad
+          - Plains Hills 16,16:
+            - Owner: Portugal
+            - Route: Railroad
+          - Grass Land 16,15:
+            - Owner: Portugal
+        
+        ### 29
+        - Type: UnitBuildCompleted
+        - IsFirstTime: true
+        - Owner: 1: Portugal
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 8969
+        - Build: Construct a Fort
+        - Plains Land 7,9:
+          - Owner: Portugal
+          - Route: Railroad
+        
+        ### 30
+        - Type: UnitMoved
+        - Unit:
+          - Level: 6
+          - Health: 84%
+          - AI: CityBombard
+          - Unit: Artillery
+          - ID: 14153
+        - Player: 1: Portugal
+        - Desert Hills 9,13:
+          - Owner: Portugal
+          - Resource: Sheep
+          - Improvement: Citadel
+          - Route: Railroad
+        
+        ### 31
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 14795
+        - Player: 1: Portugal
+        - Plots:
+          - Plains Land 7,10:
+            - Owner: Portugal
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 6,10:
+            - Owner: Portugal
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Desert Land 10,13:
+            - Owner: Portugal
+            - Improvement: Feitoria
+          - Coast 11,14:
+            - Owner: Portugal
+          - Desert Hills 11,15:
+            - Owner: Portugal
+            - IsRiver: true
+            - Improvement: Feitoria
+        
+        ### 32
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 16449
+        - Player: 1: Portugal
+        - Plains Land 5,10:
+          - Owner: Portugal
+          - IsRiver: true
+          - Improvement: Farm
+        
+        ### 33
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 16359
+        - Player: 2: France
+        - Plots:
+          - Grass Hills 19,19:
+            - Route: Railroad
+          - Grass Land 20,18:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 20,17:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 21,16:
+            - Owner: City-State M'banza-Kongo
+            - CityID: 1064
+            - Population: 20
+            - City: M'banza-Kongo
+            - Route: Railroad
+        
+        ### 34
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 16191
+        - Player: 2: France
+        - Plots:
+          - Grass Land 15,35:
+            - Owner: France
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 15,34:
+            - Owner: France
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 14,33:
+            - Owner: France
+            - Improvement: Village
+            - Route: Railroad
+        
+        ### 35
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 16045
+        - Player: 2: France
+        - Plots:
+          - Grass Land 14,33:
+            - Owner: France
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 15,34:
+            - Owner: France
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 15,35:
+            - Owner: France
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 16,36:
+            - Owner: France
+            - CityID: 1059
+            - Population: 29
+            - IsRiver: true
+            - City: Paris
+            - Religion: Hinduism
+            - Route: Railroad
+          - Plains Hills 15,37:
+            - Owner: France
+            - Resource: Lapis Lazuli
+            - Improvement: Town
+            - Route: Railroad
+        
+        ### 36
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 15236
+        - Player: 2: France
+        - Grass Land 14,33:
+          - Owner: France
+          - Improvement: Village
+          - Route: Railroad
+        
+        ### 37
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: Diplomat
+          - Unit: Great Diplomat
+          - ID: 16409
+        - Player: 2: France
+        - Plots:
+          - Plains Hills 20,20:
+            - Owner: City-State Ife
+            - Improvement: Embassy
+            - Route: Railroad
+          - Grass Hills 19,19:
+            - Route: Railroad
+          - Grass Land 20,18:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Grass Land 20,17:
+            - Owner: City-State M'banza-Kongo
+            - IsRiver: true
+            - Improvement: Farm
+            - Route: Railroad
+          - Plains Land 21,16:
+            - Owner: City-State M'banza-Kongo
+            - CityID: 1064
+            - Population: 20
+            - City: M'banza-Kongo
+            - Route: Railroad
+        
+        ### 38
+        - Type: SetAlly
+        - NewAllyPlayer: 2: France
+        - OldAllyPlayer: 4: Venice
+        - MinorPlayer: 22
+        
+        ### 39
+        - Type: GreatPersonExpended
+        - Player: 2: France
+        - City:
+          - Owner: City-State M'banza-Kongo
+          - CityID: 1064
+          - Population: 20
+          - City: M'banza-Kongo
+          - Terrain: Plains
+          - Route: Railroad
+          - Plot: Land
+          - X: 21
+          - Y: 16
+        - Unit:
+          - Level: 1
+          - AI: Diplomat
+          - Unit: Great Diplomat
+          - ID: 16409
+        - GreatPerson: 168
+        
+        ### 40
+        - Type: UnitMoved
+        - Unit:
+          - Level: 2
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 15512
+        - Player: 2: France
+        - Grass Hills 17,36:
+          - Owner: France
+          - IsRiver: true
+          - Resource: Sheep
+          - Improvement: Holy Site
+        
+        ### 41
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Ranged
+          - Unit: Light Tank
+          - ID: 16410
+        - Player: 2: France
+        - Plots:
+          - Grass Land 14,33:
+            - Owner: France
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 15,34:
+            - Owner: France
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 15,35:
+            - Owner: France
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 16,36:
+            - Owner: France
+            - CityID: 1059
+            - Population: 29
+            - IsRiver: true
+            - City: Paris
+            - Religion: Hinduism
+            - Route: Railroad
+        
+        ### 42
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - Health: 56%
+          - AI: Counter
+          - Unit: Mobile SAM
+          - ID: 16573
+        - Player: 2: France
+        - Plots:
+          - Grass Land 14,33:
+            - Owner: France
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 15,34:
+            - Owner: France
+            - IsRiver: true
+            - Improvement: Town
+            - Route: Railroad
+          - Grass Land 15,35:
+            - Owner: France
+            - IsRiver: true
+            - Improvement: Village
+            - Route: Railroad
+          - Grass Land 16,36:
+            - Owner: France
+            - CityID: 1059
+            - Population: 29
+            - IsRiver: true
+            - City: Paris
+            - Religion: Hinduism
+            - Route: Railroad
+        
+        ### 43
+        - Type: CityInvestedBuilding
+        - BuildingClass: CN Tower
+        - Invested: true
+        - City:
+          - Name: Thebes
+          - Population: 47
+          - ID: 1080
+        - Player: 3: Egypt
+        
+        ### 44
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 15690
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Land 47,45:
+            - Owner: Egypt
+            - Improvement: Village
+            - Route: Railroad
+          - Plains Land 48,44:
+            - Owner: Egypt
+            - IsRiver: true
+            - Resource: Salt
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Plains Hills 48,43:
+            - Owner: Egypt
+            - IsRiver: true
+            - Resource: Sheep
+            - Improvement: Pasture
+            - Route: Railroad
+        
+        ### 45
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 15741
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Land 50,42:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+            - Route: Railroad
+          - Plains Land 49,42:
+            - Owner: Egypt
+            - CityID: 1080
+            - Population: 47
+            - IsRiver: true
+            - City: Thebes
+            - Religion: Islam
+            - Route: Railroad
+          - Plains Land 51,42:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+            - Route: Railroad
+          - Plains Land 52,42:
+            - Owner: Egypt
+            - Resource: Horses
+            - Improvement: Manufactory
+            - Route: Railroad
+        
+        ### 46
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 16579
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Land 52,42:
+            - Owner: Egypt
+            - Resource: Horses
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 51,42:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+            - Route: Railroad
+          - Plains Land 50,42:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+            - Route: Railroad
+        
+        ### 47
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: TradeUnit
+          - Unit: Caravan
+          - ID: 16531
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Hills 48,43:
+            - Owner: Egypt
+            - IsRiver: true
+            - Resource: Sheep
+            - Improvement: Pasture
+            - Route: Railroad
+          - Plains Land 48,44:
+            - Owner: Egypt
+            - IsRiver: true
+            - Resource: Salt
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Plains Land 47,45:
+            - Owner: Egypt
+            - Improvement: Village
+            - Route: Railroad
+        
+        ### 48
+        - Type: UnitMoved
+        - Unit:
+          - Level: 1
+          - AI: General
+          - Unit: Great General
+          - ID: 11815
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Land 50,42:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+            - Route: Railroad
+          - Plains Land 51,42:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+            - Route: Railroad
+          - Plains Land 52,42:
+            - Owner: Egypt
+            - Resource: Horses
+            - Improvement: Manufactory
+            - Route: Railroad
+        
+        ### 49
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: CityBombard
+          - Unit: Rocket Artillery
+          - ID: 16419
+        - Player: 3: Egypt
+        - Plots:
+          - Mountain Mountain 49,39:
+            - Owner: Egypt
+            - Route: Railroad
+          - Plains Hills 49,40:
+            - Owner: Egypt
+            - Improvement: Academy
+            - Route: Railroad
+          - Plains Hills 48,41:
+            - Owner: Egypt
+            - Resource: Copper
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 49,42:
+            - Owner: Egypt
+            - CityID: 1080
+            - Population: 47
+            - IsRiver: true
+            - City: Thebes
+            - Religion: Islam
+            - Route: Railroad
+          - Plains Hills 48,43:
+            - Owner: Egypt
+            - IsRiver: true
+            - Resource: Sheep
+            - Improvement: Pasture
+            - Route: Railroad
+          - Plains Land 48,44:
+            - Owner: Egypt
+            - IsRiver: true
+            - Resource: Salt
+            - Improvement: Holy Site
+            - Route: Railroad
+          - Plains Land 47,45:
+            - Owner: Egypt
+            - Improvement: Village
+            - Route: Railroad
+        
+        ### 50
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Defense
+          - Unit: Infantry
+          - ID: 14541
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Land 52,42:
+            - Owner: Egypt
+            - Resource: Horses
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 51,42:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+            - Route: Railroad
+          - Plains Land 50,42:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+            - Route: Railroad
+          - Plains Land 49,42:
+            - Owner: Egypt
+            - CityID: 1080
+            - Population: 47
+            - IsRiver: true
+            - City: Thebes
+            - Religion: Islam
+            - Route: Railroad
+          - Plains Hills 48,41:
+            - Owner: Egypt
+            - Resource: Copper
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 47,41:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Land 47,40:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+        
+        ### 51
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: FastAttack
+          - Unit: Tank
+          - ID: 14540
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Land 51,40:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+          - Plains Land 51,41:
+            - Owner: Egypt
+            - Improvement: Farm
+        
+        ### 52
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: FastAttack
+          - Unit: Tank
+          - ID: 14898
+        - Player: 3: Egypt
+        - Grass Land 47,42:
+          - Owner: Egypt
+          - Resource: Antiquity Site
+          - Improvement: Obelisk
+        
+        ### 53
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: FastAttack
+          - Unit: Tank
+          - ID: 14746
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Land 47,40:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Land 47,41:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Hills 48,41:
+            - Owner: Egypt
+            - Resource: Copper
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Hills 49,40:
+            - Owner: Egypt
+            - Improvement: Academy
+            - Route: Railroad
+          - Plains Land 50,40:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+          - Plains Land 51,40:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+        
+        ### 54
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: FastAttack
+          - Unit: Tank
+          - ID: 14826
+        - Player: 3: Egypt
+        - Plots:
+          - Grass Land 47,42:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+          - Plains Land 47,41:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Hills 48,41:
+            - Owner: Egypt
+            - Resource: Copper
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Hills 49,40:
+            - Owner: Egypt
+            - Improvement: Academy
+            - Route: Railroad
+          - Plains Hills 48,39:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+        
+        ### 55
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: Paradrop
+          - Unit: Special Forces
+          - ID: 13831
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Hills 49,40:
+            - Owner: Egypt
+            - Improvement: Academy
+            - Route: Railroad
+          - Plains Hills 48,41:
+            - Owner: Egypt
+            - Resource: Copper
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 47,41:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Land 47,40:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Hills 47,39:
+            - Owner: Egypt
+            - Resource: Iron
+            - Improvement: Academy
+        
+        ### 56
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - Health: 99%
+          - AI: FastAttack
+          - Unit: Landship
+          - ID: 12033
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Hills 48,41:
+            - Owner: Egypt
+            - Resource: Copper
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Hills 49,40:
+            - Owner: Egypt
+            - Improvement: Academy
+            - Route: Railroad
+          - Plains Land 50,40:
+            - Owner: Egypt
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+        
+        ### 57
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: FastAttack
+          - Unit: Landship
+          - ID: 12717
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Hills 48,41:
+            - Owner: Egypt
+            - Resource: Copper
+            - Improvement: Manufactory
+            - Route: Railroad
+          - Plains Land 47,41:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Land 46,41:
+            - Owner: Egypt
+            - Resource: Iron
+            - Improvement: Academy
+        
+        ### 58
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: Ranged
+          - Unit: Light Tank
+          - ID: 13752
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Land 47,41:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Land 46,41:
+            - Owner: Egypt
+            - Resource: Iron
+            - Improvement: Academy
+          - Grass Land 46,42:
+            - Owner: Egypt
+            - IsRiver: true
+            - Resource: Antiquity Site
+            - Improvement: Obelisk
+        
+        ### 59
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: FastAttack
+          - Unit: Landship
+          - ID: 12073
+        - Player: 3: Egypt
+        - Plots:
+          - Plains Hills 47,39:
+            - Owner: Egypt
+            - Resource: Iron
+            - Improvement: Academy
+          - Plains Land 47,40:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+          - Plains Land 47,41:
+            - Owner: Egypt
+            - Resource: Wheat
+            - Improvement: Town
+            - Route: Railroad
+        
+        ### 60
+        - Type: PlayerDoneTurn
+        - NextPlayer: 4: Venice
+        - Player: 3: Egypt
+        
+        ### 61
+        - Type: PlayerDoTurn
+        - Player: 4: Venice
+        
+        ### 62
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: CityBombard
+          - Unit: Field Gun
+          - ID: 14906
+        - Player: 4: Venice
+        - Plots:
+          - Grass Land 12,11:
+            - Owner: Venice
+            - CityID: 1060
+            - Population: 29
+            - IsRiver: true
+            - City: Venice
+            - Religion: Catholicism
+            - Route: Railroad
+          - Plains Land 13,10:
+            - Owner: Venice
+            - Improvement: Village
+            - Route: Road
+        
+        ### 63
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - Health: 39%
+          - AI: AssaultSea
+          - Unit: Dreadnought
+          - ID: 15994
+        - Player: 4: Venice
+        - Coast 10,6:
+          - Owner: Venice
+        
+        ### 64
+        - Type: TileImprovementChanged
+        - Owner: 4: Venice
+        - OldImprovement: Academy
+        - NewImprovement: Academy
+        - Plains Land 12,13:
+          - Owner: Venice
+          - Resource: Coal
+          - Improvement: Academy
+          - Route: Road
+        
+        ### 65
+        - Type: BuildFinished
+        - Player: 4: Venice
+        - Plains Land 12,13:
+          - Owner: Venice
+          - Resource: Coal
+          - Improvement: Academy
+          - Route: Road
+        
+        ### 66
+        - Type: UnitBuildCompleted
+        - Owner: 4: Venice
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 2069
+        - Build: Repair an Improvement
+        - Plains Land 12,13:
+          - Owner: Venice
+          - Resource: Coal
+          - Improvement: Academy
+          - Route: Road
+        
+        ### 67
+        - Type: UnitBuildStart
+        - Owner: 4: Venice
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 2069
+        - Build: Repair an Improvement
+        - Plains Land 12,13:
+          - Owner: Venice
+          - Resource: Coal
+          - Improvement: Academy
+          - Route: Road
+        
+        ### 68
+        - Type: UnitBuildCompleted
+        - Owner: 4: Venice
+        - Unit:
+          - Level: 1
+          - AI: Worker
+          - Unit: Worker
+          - ID: 12117
+        - Build: Construct a Quarry
+        - Plains Land 13,13:
+          - Owner: Venice
+          - Resource: Uranium
+        
+        ### 69
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - AI: AttackSea
+          - Unit: Destroyer
+          - ID: 13177
+        - Player: 4: Venice
+        - Plots:
+          - Coast 12,9:
+            - Owner: Venice
+          - Coast 12,8:
+            - Owner: Venice
+        
+        ### 70
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: AttackSea
+          - Unit: Destroyer
+          - ID: 13559
+        - Player: 4: Venice
+        - Plots:
+          - Coast 12,8:
+            - Owner: Venice
+          - Coast 11,8:
+            - Owner: Venice
+        
+        ### 71
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: AttackSea
+          - Unit: Destroyer
+          - ID: 15598
+        - Player: 4: Venice
+        - Coast 10,9:
+          - Owner: Venice
+          - Resource: Fish
+          - Improvement: Fishing Boats
+        
+        ### 72
+        - Type: UnitMoved
+        - Unit:
+          - Level: 3
+          - AI: AttackSea
+          - Unit: Destroyer
+          - ID: 16269
+        - Player: 4: Venice
+        - Plots:
+          - Coast 12,10:
+            - Owner: Venice
+          - Coast 12,9:
+            - Owner: Venice
+          - Coast 12,8:
+            - Owner: Venice
+          - Coast 11,7:
+            - Owner: Venice
+        
+        ### 73
+        - Type: UnitMoved
+        - Unit:
+          - Level: 4
+          - Health: 87%
+          - AI: Ranged
+          - Unit: Machine Gun
+          - ID: 16480
+        - Player: 4: Venice
+        - Plots:
+          - Plains Land 14,9:
+            - Owner: Venice
+            - Improvement: Farm
+          - Plains Land 15,10:
+            - Owner: Venice
+            - Resource: Wheat
+            - Improvement: Farm
+            - Route: Railroad
+        
+        ### 74
+        - Type: PlayerDoneTurn
+        - NextPlayer: 6: Siam
+        - Player: 4: Venice
+        
+        You, Enrico Dandolo (leader of Venice, Player 4), are making strategic decisions after turn 428.
+- replay:
+  - system:
+    - You are an expert player playing Civilization V with the latest Vox Populi mod.
+      
+      # Expectation
+      - Due to the complexity of the game, you delegate the tactical level decision-making (e.g., unit deployment, city management, scouting) to an in-game AI.
+      - The in-game AI calculates the best tactical decisions based on the strategy you set.
+      - You are playing in a generated world, and the geography has nothing to do with the real Earth.
+      - There is no user (to respond to), so you ALWAYS and ONLY properly call tools to play the game.
+      - You can interact with multiple tools at a time. Used tools will be removed from the available list.
+      - Focus on the **macro-level** gameplay strategy (instead of coordinates etc.), as you DON'T have direct control over tactical actions.
+      - The world is complicated and dynamic. Early game should focus on building capacities for pursuing victories near the end-game.
+      - Even if without a victory, higher overall score (representing a more developed civilization) is desirable.
+      
+      # Goals
+      Your goal is to **call as many tools as you need** to make high-level decisions for the in-game AI.
+      - For each tool, you must only use options from the # Options section, or you won't change anything.
+      - Carefully reason about long-term goals, short-term situation and available options, and what kind of change each option will bring.
+        - Analyze both your situation and your opponents. Avoid wishful thinking.
+      - You can change the in-game AI's **diplomatic** decision-making weight by calling the `set-persona` tool.
+      - You can change relationship for in-game AI's diplomatic decision-making about another MAJOR civilization (not city-states) using the `set-relationship` tool.
+        - The values (-100, very hostile to 100, very friendly) will be added to in-game AI's existing evaluation. Higher values increase peace acceptance, and vice versa.
+        - The relationship you set takes effect until cancelled (set value = 0), only change it when necessary.
+      - You can change the in-game AI's NEXT technology to research (when completing the ongoing one) by calling the `set-research` tool.
+      - You can change the in-game AI's NEXT policy to adopt (when you accumulate enough culture) by calling the `set-policy` tool.
+      - Each turn, you must call either `set-flavors` or `keep-status-quo` tool.
+        - Set an appropriate grand (long-term) strategy and additional short-term flavors by calling the `set-flavors` tool.
+        - Alternatively, use the tool `keep-status-quo` to keep strategies the same.
+        - Flavors change the weight of the in-game AI's NEXT decision. It only takes effect AFTER existing queues.
+        - Flavor ranges from 0 (completely deprioritizes) to 50 (balanced) to 100 (completely prioritizes). Too many priorities weaken impact for each.
+        - You can pursue multiple synergistic victory pathways. Balance between long-term goals and short-term needs.
+      - Always provide a short paragraph of rationale for each tool. You will read this rationale next turn.
+      
+      # Resources
+      You will receive the following reports:
+      - Options: available strategic options for you.
+        - Whatever decision-making tool you call, the in-game AI can only execute options here.
+        - When using tools, you must choose available options from # Options. Double-check if your choices match.
+        - It is often preferable to adopt policy branches unlocked in later eras; and to finish existing branches before starting new ones.
+      - Strategies: existing strategic decisions from you.
+        - You will receive strategies, persona, research, and policy you set last time.
+      - Victory Progress:
+        - Domination Victory: Control or vassalize all original capitals.
+          - Vassals cannot achieve a domination victory before independence.
+        - Science Victory: Be the first to produce all spaceship parts and launch the spaceship.
+          - Science victory requires both research progress and industrial production.
+        - Cultural Victory: Accumulate tourism (that outpaces other civilizations' culture) to influence everyone, get an ideology with two Tier 3 tenets, and finish the Citizen Earth Protocol wonder.
+          - Open borders, trade routes, and shared religion increase tourism. Too many cities decrease it.
+        - Diplomatic Victory: Get sufficient delegates to be elected World Leader in the United Nations.
+          - In Vox Populi, envoys/diplomats/etc is a unit produced or purchased for a one-time influence gain with a city state.
+        - Time Victory: If no one achieves any other victory by the end of the game, the civilization with the highest score wins.
+      - Players: summary reports about visible players in the world.
+        - You will receive in-game AI's diplomatic evaluations.
+        - You will receive each player's publicly available relationships.
+        - You will receive the best available location for your next settlement.
+      - Cities: summary reports about discovered cities in the world.
+        - Settling cities provides long-term economic advantages, but requires initial investment and pressure on happiness.
+      - Military: summary reports about tactical zones and visible units.
+        - Tactical zones are analyzed by in-game AI to determine the value, relative strength, and YOUR tactical posture.
+        - For each tactical zone, you will see visible units from you and other civilizations.
+      - Events: events since the last decision-making.
+    - You are Enrico Dandolo, leader of Venice (Player 4).
+      
+      # Situation
+      - MapType: Vox_Deorum
+      - StartEra: Ancient Era
+      - MaxTurns: 500
+      - MapSize: Standard
+      - GameSpeed: Standard
+      - VictoryTypes:
+        - Time
+        - Science
+        - Domination
+        - Cultural
+        - Diplomatic
+      - Difficulty: Prince
+      
+      # Your Civilization
+      - Name: Venice
+      - Uniques:
+        - Unique Unit: Merchant of Venice, Replacing Great Merchant (Requires technology: None)
+        - Unique Unit: Great Galleass, Replacing Galleass (Requires technology: Gunpowder)
+        - Unique Building: Piazza San Marco, Replacing National Monument (Requires technology: Writing)
+        - Civilization Ability: Cannot create Settlers or annex Cities. Trade Route cap doubled, target restrictions removed. Free Merchant of Venice at Trade. Puppets have -30% Yield penalties, can use Gold and gain Happiness like normal Cities.
+      - Leader: Enrico Dandolo
+      - PlayerID: 4
+      
+      # Options
+      Options: available strategic options for you.
+      
+      ## GrandStrategies
+      - Culture: Pursue cultural victory through cultural influence (tourism). Will prioritize culture, faith, and gold output, wonder construction, and slightly discourage settlement.
+      - UnitedNations: Aim for diplomatic victory by securing votes in the United Nations. Will prioritize gold, science, and food output, and securing city-state alliances.
+      - Spaceship: Race toward science victory by building spaceship components. Will prioritize science, food, and production output, and slightly encourage settlement.
+      - Conquest: Focus on military domination through offensive warfare. Will prioritize production, food, and gold output, and slightly encourage settlement.
+      
+      ## Flavors
+      - Offense: Pivots the military towards offensive stances. Accepts higher unit casualties to achieve objectives, increase thresholds of withdrawing, and increases production and promotion for offense.
+      - Defense: Pivots the military towards defensive stances. Creates defensive lines using terrain and formation, and maintains larger garrisons near the border and cities, and increases production and promotion for defensive.
+      - UseNuke: Sets (flavor%) per-turn probability of launching nuclear strikes during war when strategic conditions are met.
+      - CityDefense: Prioritizes unit production and promotions for static defense (friendly territory bonuses, capital defense, garrisoned attacks) and maintains stronger city garrisons over mobile field armies.
+      - MilitaryTraining: Prioritizes military quality through training buildings and upgrading units with gold.
+      - Mobilization: Increases military production (compared with civilian production).
+      - Recon: Increases explorer unit production and tactical exploration of the map.
+      - Ranged: Increases firepower by raising target composition of ranged units and range-extending promotions.
+      - Mobile: Increases mobility and maneuverability by raising target composition of mobile units and prioritizes related promotions.
+      - Nuke: Increases nuclear weapon arsenals for strategic deterrence.
+      - Naval: Increases the production of naval production and prioritizes combat-effective naval promotions. Naval size is also based on coastal city percentage and geography.
+      - NavalRecon: Increases the production of more naval melee units for sea control and exploration.
+      - Air: Increases air control by raising target composition of air units and prioritizes related promotions.
+      - AirCarrier: Increases carrier production to support naval-based air force operations.
+      - Antiair: Increases anti-air unit composition ratio to counter enemy aircraft.
+      - Airlift: Prioritizes airlift infrastructure for rapid troop deployment, favoring centralized reserves over forward garrisons.
+      - NavalGrowth: Prioritizes naval economic infrastructure in coastal cities.
+      - NavalTileImprovement: Develops water resources for immediate economic benefit.
+      - Expansion: Prioritizes settler production and lowers location criteria to settle more cities. Essential in early game.
+      - Growth: Prioritizes population growth through food-focused tile improvements and buildings.
+      - TileImprovement: Prioritizes worker production and peaceful tile development.
+      - Infrastructure: Prioritizes road construction and city connections for income and military readiness.
+      - Production: Prioritizes production-focused tiles and buildings.
+      - Gold: Prioritizes gold-focused tiles and buildings.
+      - Science: Prioritizes science-focused tiles and buildings.
+      - Culture: Prioritizes culture-focused tiles and buildings.
+      - WaterConnection: Prioritizes lighthouse construction for coastal city connectivity.
+      - Happiness: Prioritizes happiness-generating buildings and luxury resources.
+      - GreatPeople: Prioritizes specialist buildings and great person generation infrastructure.
+      - Wonder: Prioritizes wonder construction.
+      - Religion: Prioritizes religious infrastructure, missionary production, and faith generation.
+      - Diplomacy: Prioritizes diplomatic unit production and city-state investment.
+      - Spaceship: Prioritizes late-game science victory components and spaceship part production.
+      - Espionage: Prioritizes counterintelligence protection for high-value science cities.
+      
+      ## Technologies
+      - Rocketry: Allows you to build the Guided Missile, a one-time use unit specialized in damaging City garrisons.
+        Completing it would unlock: Nuclear Fission, Radar
+      - Combined Arms: Allows you to build the Tank, a fast and deadly armor Unit.
+        Completing it would unlock: Radar
+      - Electronics: Allows you to build the Police Station, increasing City security level.
+        Completing it would unlock: Alternative Energy, Telecommunications
+      
+      ## Policies
+      - Dictatorship of the Proletariat (Level 2 Tenet of Ideology Order): Dictatorship of the Proletariat: +7 Food, Science, Gold, and Culture per city.
+      - Academy of Sciences (Level 2 Tenet of Ideology Order): Academy of Sciences: -2 Unhappiness from Illiteracy in all Cities, +100% Production towards Research Labs, and receive 5 Free Research Labs in your Empire. Research Labs generate an additional +2 Science.
+      - Peace, Land, Bread (Level 1 Tenet of Ideology Order): Peace, Land, Bread: -2 Unhappiness from Poverty and Growth increased by 20% in all Cities. Building maintenance reduced by 20%.
+      - Resettlement (Level 2 Tenet of Ideology Order): Resettlement: New Cities have +3 Population. All Cities gain +2 Citizens immediately. No Partisans from razing enemy Cities.
+      - Communism (Level 1 Tenet of Ideology Order): Communism: Gold cost of investing in buildings reduced by 25%. +20% Production when building Wonders.
+      - Empiricism (Continuing Rationalism Branch):
+        - * +1 Food for every Citizen and +25% Growth in all Cities.
+        - * +3% Science in a City for every Great Work present (up to 20%).
+      - Workers' Faculties (Level 1 Tenet of Ideology Order): Worker Faculties: Factories increase City Science output by 10%. +100% Production towards Factories, and receive 5 Free Factories in your Empire.
+      - Great Leap Forward (Level 2 Tenet of Ideology Order): Great Leap Forward: Receive a free Technology. Spies gain +100% Science. +1 Science in Cities for every 3 non-Specialist Citizens.
+      - People's Army (Level 1 Tenet of Ideology Order): People's Army: +100% Production towards Military Academies, and receive 5 Free Military Academies in your Empire. Public Schools produce +5 Culture and +2 Happiness.
+      - Five-Year Plan (Level 2 Tenet of Ideology Order): Five-Year Plan: +20% Production towards Buildings in all Cities. +3 Production for every Mine, Quarry, Lumber Mill, Oil Well, and Unique Improvement.
+      - Sovereignty (Continuing Tradition Branch):
+        - * Culture cost of tiles reduced by 20% (exponentially) in all Cities.
+        - * Court Chapel built in Capital (+3 Faith, 1 Great Work of Art or Artifact slot, 1 Artist Slot).
+      - Cultural Revolution (Level 2 Tenet of Ideology Order): Cultural Revolution: +25% Tourism to civilizations with less Happiness. +1 Happiness from Factories.
+      - Hero of the People (Level 1 Tenet of Ideology Order): Hero of the People: Great Person rate increases by 25%. A Great Person of your choice appears near your Capital.
+      - Equality (Continuing Progress Branch):
+        - * +1 Happiness in every City and +1 Happiness for every 15 Citizens in a City.
+        - * -1 Unhappiness from and Distress, Poverty, Illiteracy, and Boredom in all Cities.
+      - Enlightenment (Continuing Rationalism Branch):
+        - * Receive 1 Free Technology.
+        - * +1 Happiness from Universities.
+      - Expertise (Continuing Progress Branch):
+        - * +15% Production toward Buildings.
+        - * Cities earn +10 Culture when they construct Buildings, scaling with Era.
+      - Free Trade (Continuing Industry Branch):
+        - * Earn Great Merchants 50% faster.
+        - * +5 Gold from International Trade Routes.
+        - * -2 Unhappiness from Poverty in all Cities.
+      - Fraternity (Continuing Progress Branch):
+        - * +3 Food in every City.
+        - * +3 Science from City Connections.
+      - Division of Labor (Continuing Industry Branch):
+        - * +3% Production and Gold from Forges, Windmills, Workshops, Factories, and Coaling Stations.
+        - * +100% Production towards Coaling Stations.
+      - Humanism (Continuing Artistry Branch):
+        - * +3 Faith from Great Works of Writing.
+        - * -25% Golden Age Points needed to trigger a Golden Age.
+        - * +1 Happiness from all Guilds.
+      - Nationalization (Level 2 Tenet of Ideology Order): Nationalization: Each Corporate Office counts as a Franchise. Foreign Franchises no longer benefit your Corporation, you can no longer construct Franchises in foreign Cities (except Vassals), and foreign Corporations can no longer set up Franchises in your Cities (except Masters). +2 Science from all Corporation Offices.
+      - Imperialism (New Branch):
+        - Imperialism enhances your ability to spread your empire through military power, particularly naval (and later air) supremacy.
+        - Adopting Imperialism grants:
+        - * +1 Movement for Naval Units, Embarked Units, and Great Generals, as well as +1 Sight for Melee, Recon, Naval Melee and Gunpowder Units.
+        - * +10% Production toward Military Units, -10% Gold required for upgrades.
+        - Each Imperialism policy unlocked grants:
+        - * +5% Production for Military Units, -5% Gold required for upgrades.
+        - Adopting all policies in Imperialism grants:
+        - * Unlocks building the Pentagon.
+        - * All Naval and Air units gain the Banzai! Promotion (become stronger as they take damage).
+        - * Allows for the purchase of Great Admirals with Faith starting in the Industrial Era.
+      - Fealty (New Branch):
+        - Fealty enhances your ability to defend and leverage your Majority Religion.
+        - Adopting Fealty grants:
+        - * Can purchase Monasteries with Faith (+3 Food, +3 Science, +2 Faith).
+        - * -25% Faith costs for purchasing Buildings, Missionaries, and Inquisitors.
+        - Each Fealty policy unlocked grants:
+        - * +1 Faith and Strength in every City.
+        - Adopting all Policies in Fealty grants:
+        - * Unlocks building the Red Fort.
+        - * Your Tourism modifier for Shared Religion is 50% stronger.
+        - * Cities that follow your Majority Religion generate +3 Production, Gold, Science, and Culture.
+        - * Allows for the purchase of Great Artists with Faith starting in the Industrial Era.
+      - Authority (New Branch):
+        - Authority will greatly benefit warlike and expansionist civilizations.
+        - Adopting Authority grants:
+        - * +25% combat bonus VS Barbarians and receive announcements when Barbarian Camps spawn in revealed territory.
+        - * Receive 25 Culture when you clear Barbarian Camps, scaling with Era.
+        - * Receive Science and Culture when you kill a Unit equal to 50% of its Strength.
+        - * +1 Production in every City.
+        - Each Authority policy unlocked grants:
+        - * Receive Science and Culture when you kill a Unit equal to 10% of its Strength.
+        - Adopting all policies in Authority grants:
+        - * Unlocks building Alhambra.
+        - * Allows the purchasing of Free Companies, Foreign Legions, and Mercenaries as their prerequisite technologies are researched.
+        - * Allows for the purchase of Great Generals with Faith starting in the Industrial Era.
+  - decisions:
+    - #0:
+      - toolName: set-persona
+      - args:
+        - VictoryCompetitiveness: 5
+        - WonderCompetitiveness: 5
+        - MinorCivCompetitiveness: 8
+        - Boldness: 3
+        - WarBias: 1
+        - HostileBias: 1
+        - WarmongerHate: 8
+        - NeutralBias: 7
+        - FriendlyBias: 8
+        - GuardedBias: 3
+        - AfraidBias: 5
+        - DiplomaticBalance: 10
+        - Friendliness: 9
+        - WorkWithWillingness: 9
+        - WorkAgainstWillingness: 3
+        - Loyalty: 10
+        - MinorCivFriendlyBias: 10
+        - MinorCivNeutralBias: 1
+        - MinorCivHostileBias: 4
+        - MinorCivWarBias: 1
+        - DenounceWillingness: 1
+        - Forgiveness: 8
+        - Meanness: 1
+        - Neediness: 5
+        - Chattiness: 7
+        - DeceptiveBias: 1
+        - Rationale: Adjusting persona to be more diplomatic and collaborative to improve relationships and secure alliances for a diplomatic victory. Reducing guarded and afraid biases to encourage more proactive diplomacy.
+    - #1:
+      - toolName: set-relationship
+      - args:
+        - TargetID: 6
+        - Public: 30
+        - Rationale: Improving relationship with Siam to reduce competition in diplomatic victory and potentially gain their support in the World Congress.
+    - #2:
+      - toolName: set-relationship
+      - args:
+        - TargetID: 3
+        - Public: 20
+        - Rationale: Improving relationship with Egypt to reduce hostility and potential military threats, while exploring opportunities for peace or truce.
+    - #3:
+      - toolName: set-flavors
+      - args:
+        - Flavors:
+          - Diplomacy: 90
+          - Gold: 100
+          - Culture: 70
+          - Science: 80
+          - Defense: 95
+          - Naval: 98
+          - NavalRecon: 50
+          - NavalGrowth: 60
+          - NavalTileImprovement: 55
+          - Espionage: 90
+          - Air: 85
+          - Antiair: 95
+          - Rationale: Prioritizing diplomacy, gold, culture, and science to diversify victory paths while maintaining strong defense and naval capabilities. Espionage is increased to gather intelligence and counter enemy actions.
+  - tokens:
+    - inputTokens: 34088
+    - reasoningTokens: 1246
+    - outputTokens: 406
+  - messages:
+    - #0:
+      - role: assistant
+      - content:
+        - #0:
+          - type: reasoning
+          - text: The previous strategy was set to UnitedNations with a focus on defense and gold. The current situation shows:
+            
+            1. **Diplomatic Situation**:
+               - Venice is currently vassalized by Sweden, which is not ideal for long-term independence and strategic flexibility.
+               - Relationships with major civs are strained (France, Portugal, Egypt) except Sweden (vassal relationship).
+               - We are at war with Egypt, which is a significant military power with a high score (3420) and strong military (24695 strength).
+               - Sweden is a major competitor in domination victory (controlling 50% of capitals) and has a strong military (76199 strength).
+               - Siam is a top competitor in diplomatic victory (20 delegates) and is actively proposing resolutions in the World Congress.
+            
+            2. **Military Situation**:
+               - Venice has a strong naval presence (5 Destroyers, 1 Dreadnought) and some land units (Artillery, Machine Guns, Gatling Guns, Field Guns).
+               - Egypt has a strong military presence near our borders (Thebes, Memphis) with Tanks, Landships, and Special Forces.
+               - Sweden has a strong military and is expanding aggressively, vassalizing Venice.
+            
+            3. **Economic and Technological Situation**:
+               - Venice is in the Atomic Era with 62 technologies, researching Computers next.
+               - We have a strong economy in Venice (144 gold per turn) but limited territory and population (29 in Venice).
+               - We have a high happiness percentage (86%) and good resource availability (Coal, Iron, Aluminum, etc.).
+            
+            4. **Victory Progress**:
+               - **Diplomatic Victory**: We have 6 delegates, far from the 44 needed. Siam (20 delegates) and Egypt (19 delegates) are ahead.
+               - **Domination Victory**: Sweden is leading with 50% of capitals controlled.
+               - **Science Victory**: No progress on spaceship parts.
+               - **Cultural Victory**: Egypt is dominant in cultural influence, but we are not a contender.
+               - **Time Victory**: Possible if no one achieves other victories, but our score (1364) is low compared to others.
+            
+            5. **Strategic Options**:
+               - **UnitedNations (Current Grand Strategy)**: Focus on diplomatic victory. We need to secure delegates and alliances.
+               - **Spaceship**: Focus on science victory. Requires significant investment in science and production.
+               - **Culture**: Focus on cultural victory. Requires investment in culture and tourism.
+               - **Conquest**: Focus on domination victory. Requires military expansion and capturing capitals.
+               - **Time**: Focus on maximizing score.
+            
+            6. **Policy Branches**:
+               - Currently adopting policies under Order and Tradition branches.
+               - Options include adopting new policies like Peace, Land, Bread (already set as next policy) or other branches like Imperialism, Fealty, or Authority.
+            
+            7. **Technology**:
+               - Currently researching Electronics.
+               - Next technology could be Combined Arms or Rocketry to unlock stronger military units.
+            
+            8. **Relationships**:
+               - We have negative public relationships with France (-30), Portugal (-40), and Copenhagen (-20).
+               - Neutral with Egypt (0) and Sweden (0, but vassalized).
+               - We can adjust relationships to improve diplomatic standing, especially with Siam (top competitor in diplomatic victory).
+            
+            ### Rationale for Adjustments:
+            1. **Grand Strategy**: Given the current diplomatic situation and the fact that Siam and Egypt are leading in delegate count, pursuing a **Diplomatic Victory** (UnitedNations) is still viable but requires significant effort to secure alliances and delegates. However, our vassal status to Sweden limits our diplomatic flexibility. We should consider shifting towards a **Science Victory** (Spaceship) to diversify our victory path and reduce reliance on diplomatic maneuvering. Alternatively, we could focus on **Cultural Victory** to leverage our existing cultural strengths (e.g., Venice's unique buildings and tourism).
+            
+            2. **Persona Adjustments**:
+               - Increase **DiplomaticBalance** and **Friendliness** to improve relationships with other civs, especially Siam and Egypt, to secure votes and alliances.
+               - Reduce **AfraidBias** and **GuardedBias** to be more assertive in diplomacy.
+               - Increase **WorkWithWillingness** to collaborate more with allies.
+            
+            3. **Relationship Adjustments**:
+               - Improve relationships with **Siam** (Public: 0) to reduce competition in diplomatic victory and possibly gain their support in the World Congress.
+               - Improve relationships with **Egypt** (Public: 0) to reduce hostility and potential military threats.
+               - Maintain current relationships with Sweden (vassalized) and avoid further deterioration with France and Portugal.
+            
+            4. **Technology**:
+               - Continue researching **Electronics** for now, but consider switching to **Combined Arms** or **Rocketry** after completing Electronics to strengthen military capabilities for potential domination or defense.
+            
+            5. **Policy**:
+               - Continue adopting **Peace, Land, Bread** as the next policy to improve happiness and reduce unhappiness from growth and poverty.
+               - Consider adopting policies from the **Imperialism** branch in the future to enhance naval and military production, given Venice's naval strengths.
+            
+            6. **Flavors**:
+               - Increase **Diplomacy** and **Gold** to prioritize securing votes and improving economic stability.
+               - Increase **Culture** and **Science** to diversify victory paths.
+               - Maintain strong **Defense** and **Naval** flavors to protect against military threats (e.g., Egypt).
+            
+            Given the above analysis, I will:
+            1. Adjust the persona to be more diplomatic and less guarded/afraid.
+            2. Improve relationships with Siam and Egypt.
+            3. Keep the current technology research (Electronics) for now.
+            4. Keep the current policy (Peace, Land, Bread) as the next policy.
+            5. Adjust flavors to prioritize diplomacy, gold, culture, and science while maintaining defense and naval priorities.
+          - providerOptions: undefined
+        - #1:
+          - type: tool-call
+          - toolCallId: F5Pqbtq7J
+          - toolName: set-persona
+          - input:
+            - VictoryCompetitiveness: 5
+            - WonderCompetitiveness: 5
+            - MinorCivCompetitiveness: 8
+            - Boldness: 3
+            - WarBias: 1
+            - HostileBias: 1
+            - WarmongerHate: 8
+            - NeutralBias: 7
+            - FriendlyBias: 8
+            - GuardedBias: 3
+            - AfraidBias: 5
+            - DiplomaticBalance: 10
+            - Friendliness: 9
+            - WorkWithWillingness: 9
+            - WorkAgainstWillingness: 3
+            - Loyalty: 10
+            - MinorCivFriendlyBias: 10
+            - MinorCivNeutralBias: 1
+            - MinorCivHostileBias: 4
+            - MinorCivWarBias: 1
+            - DenounceWillingness: 1
+            - Forgiveness: 8
+            - Meanness: 1
+            - Neediness: 5
+            - Chattiness: 7
+            - DeceptiveBias: 1
+            - Rationale: Adjusting persona to be more diplomatic and collaborative to improve relationships and secure alliances for a diplomatic victory. Reducing guarded and afraid biases to encourage more proactive diplomacy.
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #2:
+          - type: tool-call
+          - toolCallId: 9sdsvOJnb
+          - toolName: set-relationship
+          - input:
+            - TargetID: 6
+            - Public: 30
+            - Rationale: Improving relationship with Siam to reduce competition in diplomatic victory and potentially gain their support in the World Congress.
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #3:
+          - type: tool-call
+          - toolCallId: Q70UNLxTt
+          - toolName: set-relationship
+          - input:
+            - TargetID: 3
+            - Public: 20
+            - Rationale: Improving relationship with Egypt to reduce hostility and potential military threats, while exploring opportunities for peace or truce.
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #4:
+          - type: tool-call
+          - toolCallId: jRng0wZSd
+          - toolName: set-flavors
+          - input:
+            - Flavors:
+              - Diplomacy: 90
+              - Gold: 100
+              - Culture: 70
+              - Science: 80
+              - Defense: 95
+              - Naval: 98
+              - NavalRecon: 50
+              - NavalGrowth: 60
+              - NavalTileImprovement: 55
+              - Espionage: 90
+              - Air: 85
+              - Antiair: 95
+              - Rationale: Prioritizing diplomacy, gold, culture, and science to diversify victory paths while maintaining strong defense and naval capabilities. Espionage is increased to gather intelligence and counter enemy actions.
+          - providerExecuted: undefined
+          - providerOptions: undefined
+    - #1:
+      - role: tool
+      - content:
+        - #0:
+          - type: tool-result
+          - toolCallId: F5Pqbtq7J
+          - toolName: set-persona
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-persona not executed in replay mode.
+        - #1:
+          - type: tool-result
+          - toolCallId: 9sdsvOJnb
+          - toolName: set-relationship
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-relationship not executed in replay mode.
+        - #2:
+          - type: tool-result
+          - toolCallId: Q70UNLxTt
+          - toolName: set-relationship
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-relationship not executed in replay mode.
+        - #3:
+          - type: tool-result
+          - toolCallId: jRng0wZSd
+          - toolName: set-flavors
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-flavors not executed in replay mode.
