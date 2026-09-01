@@ -1,0 +1,31 @@
+# Core data manipulation and analysis
+pandas
+
+# Numerical computing
+numpy
+
+# Statistical analysis
+scipy
+statsmodels
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# Modeling and evaluation
+scikit-learn
+imbalanced-learn
+tabulate
+
+# Optional model backends and tuning
+optuna
+torch
+xgboost
+
+# Text processing
+nltk
+
+# Jupyter notebook support (optional, for running notebooks)
+jupyter
+ipykernel
