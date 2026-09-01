@@ -1,0 +1,16 @@
+{
+  "model": "score",
+  "mode": "params",
+  "metric": "log_loss",
+  "direction": "minimize",
+  "best_value": 0.3033298518407704,
+  "best_params": {
+    "exponent": 4.236336869793002
+  },
+  "n_trials": 1000,
+  "resample_method": null,
+  "features": [
+    "score_ratio"
+  ],
+  "generated_code": "exponent: float = 4.23634,"
+}

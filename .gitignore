@@ -1,0 +1,14 @@
+__pycache__
+.claude/settings.local.json
+copy-data.bat
+mount-drive.bat
+*_predictions.csv
+*_data.csv
+*.db
+reasoning_trails_*.md
+models/output/baseline_model/model.pkl
+multi_flavor_events.csv
+.venv/
+**/.DS_Store
+.tmp/
+nuke/replay_exploratory.ipynb

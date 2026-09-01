@@ -1,0 +1,24 @@
+{
+  "model": "xgboost",
+  "mode": "params",
+  "metric": "log_loss",
+  "direction": "minimize",
+  "best_value": 0.2801756687480509,
+  "best_params": {
+    "n_estimators": 100,
+    "max_depth": 3,
+    "learning_rate": 0.18922744461195684,
+    "subsample": 0.9099523972244598,
+    "colsample_bytree": 0.8217110508839047,
+    "min_child_weight": 9,
+    "gamma": 2.5040544091350405e-05,
+    "reg_lambda": 16.89293662054122,
+    "calibrate": true,
+    "calibration_method": "isotonic"
+  },
+  "best_trial": 208,
+  "n_trials_so_far": 209,
+  "resample_method": null,
+  "features": null,
+  "generated_code": "n_estimators: int = 100,\nmax_depth: int = 3,\nlearning_rate: float = 0.189227,\nsubsample: float = 0.909952,\ncolsample_bytree: float = 0.821711,\nmin_child_weight: int = 9,\ngamma: float = 2.50405e-05,\nreg_lambda: float = 16.8929,\ncalibrate: bool = True,\ncalibration_method: str = 'isotonic',"
+}

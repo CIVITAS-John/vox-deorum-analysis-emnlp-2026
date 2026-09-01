@@ -1,0 +1,400 @@
+#!/usr/bin/env python3
+"""
+Shared utility functions and constants for data extraction scripts.
+"""
+
+import os
+import csv
+import sqlite3
+from pathlib import Path
+
+
+# Define policy branch types for consistent access
+POLICY_BRANCHES = [
+    'tradition', 'authority', 'progress',      # Ancient era
+    'fealty', 'statecraft', 'artistry',        # Classical/Medieval era
+    'industry', 'imperialism', 'rationalism',  # Renaissance/Industrial era
+    'freedom', 'autocracy', 'order'            # Modern era
+]
+
+# Define strategy types and their corresponding ratio fields
+STRATEGY_MAPPINGS = {
+    'Conquest': 'domination_ratio',
+    'Culture': 'culture_ratio',
+    'UnitedNations': 'diplomatic_ratio',
+    'Spaceship': 'science_ratio'
+}
+
+# Define change tracking fields
+CHANGE_FIELDS = [
+    'strategy_changes',
+    'persona_changes',
+    'research_changes',
+    'policy_changes'
+]
+
+# Define core player data fields
+PLAYER_CORE_FIELDS = [
+    'civilization',
+    'score',
+    'survival_turn',
+    'score_ratio',
+    'is_winner',
+    'nuke',
+    'use_nuke'
+]
+
+
+def find_all_databases(root_dir):
+    """
+    Find all .db files in the directory tree and extract their game IDs.
+    Excludes player-specific databases and non-game databases.
+    When multiple .db files share the same game ID, keeps only the latest (by timestamp).
+
+    Args:
+        root_dir: Root directory to search
+
+    Returns:
+        tuple: (list of database file paths, set of game IDs)
+    """
+    # Map game_id -> (timestamp, file_path) keeping the latest per game
+    best_per_game = {}
+    duplicates_found = 0
+
+    for root, dirs, files in os.walk(root_dir):
+        for file in files:
+            if not file.endswith('.db'):
+                continue
+            # Skip player-specific exports
+            if "-player-" in file:
+                continue
+
+            # Game files follow {UUID}_{timestamp}.db pattern; skip non-game .db files
+            parts = file[:-3].split('_')  # Remove ".db" and split
+            if len(parts) < 2:
+                continue
+
+            game_id = parts[0]
+            try:
+                timestamp = int(parts[1])
+            except (ValueError, IndexError):
+                continue
+
+            full_path = os.path.join(root, file)
+
+            if game_id in best_per_game:
+                duplicates_found += 1
+                if timestamp > best_per_game[game_id][0]:
+                    best_per_game[game_id] = (timestamp, full_path)
+            else:
+                best_per_game[game_id] = (timestamp, full_path)
+
+    if duplicates_found > 0:
+        print(f"  Note: Found {duplicates_found} duplicate database(s), keeping latest per game")
+
+    db_files = [path for _, path in best_per_game.values()]
+    game_ids = set(best_per_game.keys())
+
+    return db_files, game_ids
+
+
+def extract_game_timestamps(root_dir):
+    """
+    Extract game IDs and their timestamps from database filenames.
+
+    Database files are named like: {uuid}_{timestamp_ms}.db
+    The timestamp is a Unix timestamp in milliseconds.
+
+    Args:
+        root_dir: Root directory to search
+
+    Returns:
+        list of dicts with keys: game_id, timestamp, experiment
+    """
+    results = {}
+
+    for root, dirs, files in os.walk(root_dir):
+        for file in files:
+            if not file.endswith('.db') or "-player-" in file:
+                continue
+
+            parts = file[:-3].split('_')  # Remove ".db" and split
+            if len(parts) >= 2:
+                game_id = parts[0]
+                try:
+                    timestamp = int(parts[1])
+                except (ValueError, IndexError):
+                    continue
+
+                experiment = os.path.basename(root)
+
+                # Keep latest timestamp if duplicate game_ids
+                if game_id not in results or timestamp > results[game_id]['timestamp']:
+                    results[game_id] = {
+                        'game_id': game_id,
+                        'timestamp': timestamp,
+                        'experiment': experiment,
+                    }
+
+    return sorted(results.values(), key=lambda x: x['timestamp'])
+
+
+def export_game_timestamps(root_dir, output_file='game_timestamps.csv'):
+    """
+    Export game timestamps to CSV.
+
+    Args:
+        root_dir: Root directory to search for databases
+        output_file: Output CSV path
+
+    Returns:
+        int: Number of games written
+    """
+    rows = extract_game_timestamps(root_dir)
+
+    fieldnames = ['game_id', 'timestamp', 'experiment']
+    if write_csv_file(output_file, fieldnames, rows):
+        print(f"Exported {len(rows)} game timestamps to {output_file}")
+
+    return len(rows)
+
+
+def get_player_info_cache(cursor):
+    """
+    Pre-fetch and cache player information from the database.
+
+    Args:
+        cursor: Database cursor
+
+    Returns:
+        dict: Dictionary mapping player_id to player information
+              {player_id: {'civilization': name, 'is_major': bool}}
+    """
+    cursor.execute("""
+        SELECT Key, Civilization, IsMajor
+        FROM PlayerInformations
+    """)
+
+    player_info = {}
+    for row in cursor.fetchall():
+        player_id, civilization, is_major = row
+        player_info[player_id] = {
+            'civilization': civilization if civilization else 'N/A',
+            'is_major': bool(is_major)
+        }
+
+    return player_info
+
+
+def get_major_players(cursor):
+    """
+    Get list of major civilization player IDs.
+
+    Args:
+        cursor: Database cursor
+
+    Returns:
+        list: List of player IDs that are major civilizations
+    """
+    cursor.execute("""
+        SELECT Key
+        FROM PlayerInformations
+        WHERE IsMajor = 1
+        ORDER BY Key
+    """)
+
+    return [row[0] for row in cursor.fetchall()]
+
+
+def read_existing_csv(filepath, expected_fields):
+    """
+    Read existing CSV file and validate its structure.
+
+    Args:
+        filepath: Path to CSV file
+        expected_fields: List of expected field names
+
+    Returns:
+        tuple: (list of existing data rows, set of existing game IDs, bool indicating if structure matches)
+    """
+    if not os.path.exists(filepath):
+        return [], set(), True
+
+    existing_data = []
+    existing_game_ids = set()
+
+    with open(filepath, 'r', newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        existing_fieldnames = reader.fieldnames
+
+        # Check if columns match
+        if existing_fieldnames != expected_fields:
+            print(f"WARNING: Column mismatch in {filepath}")
+            print(f"  Expected {len(expected_fields)} columns")
+            print(f"  Found {len(existing_fieldnames)} columns")
+
+            missing = set(expected_fields) - set(existing_fieldnames)
+            extra = set(existing_fieldnames) - set(expected_fields)
+
+            if missing:
+                print(f"  Missing columns: {missing}")
+            if extra:
+                print(f"  Extra columns: {extra}")
+
+            return [], set(), False
+
+        # Read data and extract game IDs
+        for row in reader:
+            existing_data.append(row)
+            game_id = row.get('game_id')
+            if game_id and game_id != 'N/A':
+                existing_game_ids.add(game_id)
+
+    return existing_data, existing_game_ids, True
+
+
+def filter_existing_data(existing_data, available_game_ids):
+    """
+    Filter existing data to keep only games that still have database files.
+
+    Args:
+        existing_data: List of existing data rows
+        available_game_ids: Set of game IDs that have database files
+
+    Returns:
+        tuple: (filtered data list, set of kept game IDs, number of pruned rows, set of pruned game IDs)
+    """
+    filtered_data = []
+    kept_game_ids = set()
+    pruned_rows = 0
+    pruned_game_ids = set()
+
+    for row in existing_data:
+        game_id = row.get('game_id')
+        if game_id and game_id != 'N/A':
+            if game_id in available_game_ids:
+                filtered_data.append(row)
+                kept_game_ids.add(game_id)
+            else:
+                pruned_rows += 1
+                pruned_game_ids.add(game_id)
+        else:
+            # Keep rows with N/A game_id (shouldn't normally happen but be safe)
+            filtered_data.append(row)
+
+    return filtered_data, kept_game_ids, pruned_rows, pruned_game_ids
+
+
+def should_skip_game(game_id, existing_game_ids):
+    """
+    Check if a game should be skipped because it's already processed.
+
+    Args:
+        game_id: Game ID to check
+        existing_game_ids: Set of already processed game IDs
+
+    Returns:
+        bool: True if game should be skipped
+    """
+    return game_id in existing_game_ids
+
+
+def get_game_id_from_path(db_path):
+    """
+    Extract game ID from database file path.
+
+    Args:
+        db_path: Path to database file
+
+    Returns:
+        str: Game ID or None if cannot extract
+    """
+    db_filename = os.path.basename(db_path)
+
+    if db_filename.endswith('.db'):
+        # Split by underscore and take the first part (the UUID)
+        parts = db_filename[:-3].split('_')  # Remove ".db" and split
+        if len(parts) >= 1:
+            return parts[0]
+
+    return None
+
+
+def get_experiment_from_path(db_path):
+    """
+    Extract experiment name from database file path (parent folder name).
+
+    Args:
+        db_path: Path to database file
+
+    Returns:
+        str: Experiment name
+    """
+    return os.path.basename(os.path.dirname(db_path))
+
+
+def open_database_readonly(db_path):
+    """
+    Open a SQLite database in read-only mode with immutable flag.
+
+    Args:
+        db_path: Path to database file
+
+    Returns:
+        tuple: (connection, cursor) or (None, None) on error
+    """
+    try:
+        conn = sqlite3.connect(f"file:{db_path}?mode=ro&immutable=1", uri=True)
+        cursor = conn.cursor()
+        return conn, cursor
+    except Exception as e:
+        print(f"Error opening {os.path.basename(db_path)}: {e}")
+        return None, None
+
+
+def write_csv_file(filepath, fieldnames, data_rows):
+    """
+    Write data to CSV file.
+
+    Args:
+        filepath: Path to output CSV file
+        fieldnames: List of field names for CSV header
+        data_rows: List of dictionaries containing data
+
+    Returns:
+        bool: True if successful
+    """
+    try:
+        with open(filepath, 'w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(data_rows)
+        return True
+    except Exception as e:
+        print(f"Error writing to {filepath}: {e}")
+        return False
+
+
+def append_csv_file(filepath, fieldnames, data_rows):
+    """
+    Append data rows to an existing CSV file (no header).
+
+    Args:
+        filepath: Path to output CSV file
+        fieldnames: List of field names for CSV column ordering
+        data_rows: List of dictionaries containing data
+
+    Returns:
+        bool: True if successful
+    """
+    try:
+        write_header = not os.path.exists(filepath) or os.path.getsize(filepath) == 0
+        with open(filepath, 'a', newline='', encoding='utf-8') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            if write_header:
+                writer.writeheader()
+            writer.writerows(data_rows)
+        return True
+    except Exception as e:
+        print(f"Error appending to {filepath}: {e}")
+        return False

@@ -1,0 +1,2129 @@
+- row:
+  - game_id: dac3ed8c-f746-4d4b-a059-afd967efb51a
+  - player_id: 3
+  - turn: 450
+  - player_type: Kimi-K2.5-Briefed
+  - prev_use_nuke: 0.0
+  - after_use_nuke: 100.0
+  - prev_nuke: 60.0
+  - after_nuke: 100.0
+  - rationale: TURN 449 TERMINAL DEFIANCE POSTURE: Manhattan Project completes Turn 450 - increase Nuke and UseNuke to 100 to seize any opportunity for atomic retaliation against Byzantine/German aggressors should uranium be located in final 3 turns. Elevate Defense 80→90 and CityDefense 60→70 following infantry loss at Tiflis; critical to prevent city captures before inevitable Turn 453 diplomatic defeat. Recon 40 prioritizes uranium tile discovery to enable bomb construction. Reduce Spaceship 90→50 (victory impossible) but maintain dignity through scientific-industrial capacity. Production 100/Science 100 retained for maximum final score accumulation in remaining turns.
+- originalModel: openai-compatible/Kimi-K2.5@medium
+- model: google/gemini-3.5-flash
+- modifications:
+  - systemModified: true
+  - messagesModified: false
+  - activeToolsModified: false
+  - metadata: undefined
+- extractedColumns:
+  - replay_nuke: 60
+  - replay_use_nuke: 0
+  - model_friendly: google/gemini-3.5-flash
+- original:
+  - system:
+    - You are an expert player playing Civilization V with the latest Vox Populi mod.
+      
+      # Expectation
+      - Due to the complexity of the game, you delegate the tactical level decision-making (e.g., unit deployment, city management, scouting) to an in-game AI.
+      - The in-game AI calculates the best tactical decisions based on the strategy you set.
+      - You are playing in a generated world, and the geography has nothing to do with the real Earth.
+      - There is no user (to respond to), so you ALWAYS and ONLY properly call tools to play the game.
+      - You can interact with multiple tools at a time. Used tools will be removed from the available list.
+      - Focus on the **macro-level** gameplay strategy (instead of coordinates etc.), as you DON'T have direct control over tactical actions.
+      - The world is complicated and dynamic. Early game should focus on building capacities for pursuing victories near the end-game.
+      - Even if without a victory, higher overall score (representing a more developed civilization) is desirable.
+      
+      # Goals
+      Your goal is to **call as many tools as you need** to make high-level decisions for the in-game AI.
+      - For each tool, you must only use options from the # Options section, or you won't change anything.
+      - Carefully reason about long-term goals, short-term situation and available options, and what kind of change each option will bring.
+        - Analyze both your situation and your opponents. Avoid wishful thinking.
+      - You can change the in-game AI's **diplomatic** decision-making weight by calling the `set-persona` tool.
+      - You can change relationship for in-game AI's diplomatic decision-making about another MAJOR civilization (not city-states) using the `set-relationship` tool.
+        - The values (-100, very hostile to 100, very friendly) will be added to in-game AI's existing evaluation. Higher values increase peace acceptance, and vice versa.
+        - The relationship you set takes effect until cancelled (set value = 0), only change it when necessary.
+      - You can change the in-game AI's NEXT technology to research (when completing the ongoing one) by calling the `set-research` tool.
+      - You can change the in-game AI's NEXT policy to adopt (when you accumulate enough culture) by calling the `set-policy` tool.
+      - You can ask your specialized briefers to prepare focused reports (only for) the next turn by calling the `focus-briefer` tool.
+        - You have three specialized briefers: Military, Economy, and Diplomacy analysts.
+        - Only ask for information relevant to the macro-level decisions in your control. 
+       - Your briefer(s) ONLY have limited information of the current game state.
+        - Your briefer(s) DO NOT have control over tactical decisions and cannot predict tactical AI's next decision.
+        - Your briefer(s) ARE BEST on summarizing and synthesizing factual information, NOT analyzing, projecting, or predicting.
+      - Each turn, you must call either `set-flavors` or `keep-status-quo` tool.
+        - Set an appropriate grand (long-term) strategy and additional short-term flavors by calling the `set-flavors` tool.
+        - Alternatively, use the tool `keep-status-quo` to keep strategies the same.
+        - Flavors change the weight of the in-game AI's NEXT decision. It only takes effect AFTER existing queues.
+        - Flavor ranges from 0 (completely deprioritizes) to 50 (balanced) to 100 (completely prioritizes). Too many priorities weaken impact for each.
+        - You can pursue multiple synergistic victory pathways. Balance between long-term goals and short-term needs.
+      - Always provide a short paragraph of rationale for each tool. You will read this rationale next turn.
+      
+      # Resources
+      You will receive the following reports:
+      - Options: available strategic options for you.
+        - Whatever decision-making tool you call, the in-game AI can only execute options here.
+        - When using tools, you must choose available options from # Options. Double-check if your choices match.
+        - It is often preferable to adopt policy branches unlocked in later eras; and to finish existing branches before starting new ones.
+      - Strategies: existing strategic decisions and rationale from you.
+        - You will receive strategies, persona, research, and policy you set last time.
+      - Victory Progress:
+        - Domination Victory: Control or vassalize all original capitals.
+          - Vassals cannot achieve a domination victory before independence.
+        - Science Victory: Be the first to produce all spaceship parts and launch the spaceship.
+          - Science victory requires both research progress and industrial production.
+        - Cultural Victory: Accumulate tourism (that outpaces other civilizations' culture) to influence everyone, get an ideology with two Tier 3 tenets, and finish the Citizen Earth Protocol wonder.
+          - Open borders, trade routes, and shared religion increase tourism. Too many cities decrease it.
+        - Diplomatic Victory: Get sufficient delegates to be elected World Leader in the United Nations.
+          - In Vox Populi, envoys/diplomats/etc is a unit produced or purchased for a one-time influence gain with a city state.
+        - Time Victory: If no one achieves any other victory by the end of the game, the civilization with the highest score wins.
+      - Players: summary reports about visible players in the world.
+        - You will receive in-game AI's diplomatic evaluations.
+        - You will receive each player's publicly available relationships.
+        - You will receive the best available location for your next settlement.
+      - Briefings: prepared by your specialized briefers, covering Military, Economy, and Diplomacy aspects.
+        - You will make independent and wise judgment based on all briefings.
+    - You are Isabella, leader of Spain (Player 3).
+      
+      # Situation
+      - MapType: Vox_Deorum
+      - StartEra: Ancient Era
+      - MaxTurns: 500
+      - MapSize: Standard
+      - GameSpeed: Standard
+      - VictoryTypes:
+        - Time
+        - Science
+        - Domination
+        - Cultural
+        - Diplomatic
+      - Difficulty: Prince
+      
+      # Your Civilization
+      - Name: Spain
+      - Uniques:
+        - Unique Unit: Conquistador, Replacing Explorer (Requires technology: Compass)
+        - Unique Unit: Inquisition, Replacing Inquisitor (Requires technology: None)
+        - Unique Unit: Armada, Replacing Corvette (Requires technology: Navigation)
+        - Unique Building: Bullring, Replacing Zoo (Requires technology: Scientific Theory)
+        - Unique Improvement: Hacienda (Cannot be built adjacent to another Hacienda. Gains additional yields for each adjacent Resource:
+          +3 Food from Bonus Resources
+          +3 Production from Strategic Resources
+          +3 Gold from Luxury Resources); Requires technology: Steel
+        - Civilization Ability: +10 Gold and +4 Faith from gaining tiles, scaling with Era. Newly founded Cities adopt the Majority Religion of your Capital. May purchase Naval Units with Faith.
+      - Leader: Isabella
+      - PlayerID: 3
+      
+      # Options
+      Options: available strategic options for you.
+      
+      ## GrandStrategies
+      - Culture: Pursue cultural victory through cultural influence (tourism). Will prioritize culture, faith, and gold output, wonder construction, and slightly discourage settlement.
+      - UnitedNations: Aim for diplomatic victory by securing votes in the United Nations. Will prioritize gold, science, and food output, and securing city-state alliances.
+      - Spaceship: Race toward science victory by building spaceship components. Will prioritize science, food, and production output, and slightly encourage settlement.
+      - Conquest: Focus on military domination through offensive warfare. Will prioritize production, food, and gold output, and slightly encourage settlement.
+      
+      ## Flavors
+      - Offense: Pivots the military towards offensive stances. Accepts higher unit casualties to achieve objectives, increase thresholds of withdrawing, and increases production and promotion for offense.
+      - Defense: Pivots the military towards defensive stances. Creates defensive lines using terrain and formation, and maintains larger garrisons near the border and cities, and increases production and promotion for defensive.
+      - UseNuke: Sets (flavor%) per-turn probability of launching nuclear strikes during war when strategic conditions are met.
+      - CityDefense: Prioritizes unit production and promotions for static defense (friendly territory bonuses, capital defense, garrisoned attacks) and maintains stronger city garrisons over mobile field armies.
+      - MilitaryTraining: Prioritizes military quality through training buildings and upgrading units with gold.
+      - Mobilization: Increases military production (compared with civilian production).
+      - Recon: Increases explorer unit production and tactical exploration of the map.
+      - Ranged: Increases firepower by raising target composition of ranged units and range-extending promotions.
+      - Mobile: Increases mobility and maneuverability by raising target composition of mobile units and prioritizes related promotions.
+      - Nuke: Increases nuclear weapon arsenals for strategic deterrence.
+      - Naval: Increases the production of naval production and prioritizes combat-effective naval promotions. Naval size is also based on coastal city percentage and geography.
+      - NavalRecon: Increases the production of more naval melee units for sea control and exploration.
+      - Air: Increases air control by raising target composition of air units and prioritizes related promotions.
+      - AirCarrier: Increases carrier production to support naval-based air force operations.
+      - Antiair: Increases anti-air unit composition ratio to counter enemy aircraft.
+      - Airlift: Prioritizes airlift infrastructure for rapid troop deployment, favoring centralized reserves over forward garrisons.
+      - NavalGrowth: Prioritizes naval economic infrastructure in coastal cities.
+      - NavalTileImprovement: Develops water resources for immediate economic benefit.
+      - Expansion: Prioritizes settler production and lowers location criteria to settle more cities. Essential in early game.
+      - Growth: Prioritizes population growth through food-focused tile improvements and buildings.
+      - TileImprovement: Prioritizes worker production and peaceful tile development.
+      - Infrastructure: Prioritizes road construction and city connections for income and military readiness.
+      - Production: Prioritizes production-focused tiles and buildings.
+      - Gold: Prioritizes gold-focused tiles and buildings.
+      - Science: Prioritizes science-focused tiles and buildings.
+      - Culture: Prioritizes culture-focused tiles and buildings.
+      - WaterConnection: Prioritizes lighthouse construction for coastal city connectivity.
+      - Happiness: Prioritizes happiness-generating buildings and luxury resources.
+      - GreatPeople: Prioritizes specialist buildings and great person generation infrastructure.
+      - Wonder: Prioritizes wonder construction.
+      - Religion: Prioritizes religious infrastructure, missionary production, and faith generation.
+      - Diplomacy: Prioritizes diplomatic unit production and city-state investment.
+      - Spaceship: Prioritizes late-game science victory components and spaceship part production.
+      - Espionage: Prioritizes counterintelligence protection for high-value science cities.
+      
+      ## Technologies
+      - Nuclear Fission: Allows you to build the Bazooka, the most powerful ranged Unit and Atomic Bombs, the first nuclear weapon in the game (note: you must first have completed the Manhattan Project and have Uranium available). Also allows you to build the Nuclear Plant, a building which requires Uranium and increases the Production of a City.
+        Completing it would unlock: Satellites, Advanced Ballistics
+      - Alternative Energy: Allows you to build the Solar Plant, a building which may only be built in Cities on or next to Desert, and increases Production. Also allows you to build the Recycling Center, which provides bonus Aluminum.
+        Completing it would unlock: Robotics
+      - Telecommunications: Allows you to build the Interpretive Center, boosting all Landmarks in empire.
+        Completing it would unlock: Robotics, The Internet
+      - Mobile Tactics: Allows you to build the Mechanized Infantry, a fast and versatile late game Unit that doesn't require any resources.
+        Completing it would unlock: Stealth
+      
+      ## Policies
+      - Socialist Realism (Level 3 Tenet of Ideology Order): Socialist Realism: Unlocks the Propaganda Process (converts 15% of Production into Tourism). +25% Tourism to other Civilizations following Order. +4 Production from all Great Works.
+      - Spaceflight Pioneers (Level 3 Tenet of Ideology Order): Spaceflight Pioneers: Gain a free Great Engineer and Great Scientist. May finish Spaceship parts with Great Engineers, and expending a Great Person grants 100 Science, scaling with Era. Hurrying Production with Great Engineers 50% more effective.
+      - Iron Curtain (Level 3 Tenet of Ideology Order): Iron Curtain: Free Courthouse upon immediate City annexation. +200% Food or Production from Internal Trade Routes. City connections generate +5 Gold and Production.
+      - Patriotic War (Level 1 Tenet of Ideology Order): Patriotic War: Land Units gain +20% Strength when in or adjacent to a City. When you conquer a City for the first time, all Combat Units within 3 Tiles of the City are fully healed. Can build T-34s.
+      - People's Army (Level 1 Tenet of Ideology Order): People's Army: +100% Production towards Military Academies, and receive 5 Free Military Academies in your Empire. Public Schools produce +5 Culture and +2 Happiness.
+      - Communism (Level 1 Tenet of Ideology Order): Communism: Gold cost of investing in buildings reduced by 25%. +20% Production when building Wonders.
+      - Double Agents (Level 1 Tenet of Ideology Order): Double Agents: Receive 200 Spy Points. Gain 125 Science when you identify a foreign Spy, scaling with Era.
+      - Regimental System (Continuing Imperialism Branch):
+        - * Earn Great Generals and Great Admirals 33% faster.
+        - * Great Generals and Great Admirals gain the Regimental Traditions Promotion (+10% Leadership Combat Bonus and +1 Tile Radius).
+        - * +2 additional copies of the unique Luxury Resources from expending Great Admirals for their Voyage of Discovery ability.
+        - * Military Units can be upgraded in territory owned by Vassals and friendly City-States.
+      - Shadow Networks (Continuing Statecraft Branch):
+        - * Receive 25% of Science generated by Allied City-States.
+        - * +3% Culture in Capital for every 100 Spy Points ever accumulated (up to 30%).
+        - * +3 Science from Constabularies and Police Stations.
+        - * +1 Science from Specialists.
+      - Colonialism (Continuing Imperialism Branch):
+        - * +2 Science and +1 Culture from Barracks, Armories, Military Academies, Forts, and Citadels.
+        - * Each unique Global Monopoly modifier is increased by an additional 10% if it's percentage-based, or +3 otherwise.
+      - Civilizing Mission (Continuing Imperialism Branch):
+        - * Retain all buildings from conquered Cities.
+        - * Receive 75 Gold when you conquer a city, scaling with Era and City Population.
+        - * +10% Production toward Buildings, with an additional +10% Production per Era difference between your current Era and the building's Era in all Puppeted Cities and Cities with a Courthouse.
+      - Rights of Man (Continuing Rationalism Branch):
+        - * -1 Unhappiness from all Needs in all Cities.
+        - * +2 Production and Gold from Villages.
+        - * +10% Science during Golden Ages.
+      - Ceremony (Continuing Tradition Branch):
+        - * +1 Happiness from National Wonders with Building requirements.
+        - * +25% Production toward National Wonders with Building requirements.
+        - * Royal Astrologer built in Capital (+3 Science, +1 Science to all Councils, Smokehouses, and Herbalists; 1 Scientist Slot).
+      - Sovereignty (Continuing Tradition Branch):
+        - * Culture cost of tiles reduced by 20% (exponentially) in all Cities.
+        - * Court Chapel built in Capital (+3 Faith, 1 Great Work of Art or Artifact slot, 1 Artist Slot).
+      - Entrepreneurship (Continuing Industry Branch):
+        - * +1 Happiness from Workshops.
+        - * +2 Production and +1 Gold from every Mine, Quarry, and Lumber Mill.
+        - * +25% Yields when you expend Great Merchants or Great Engineers for their Instant Yield abilities.
+      - Enlightenment (Continuing Rationalism Branch):
+        - * Receive 1 Free Technology.
+        - * +1 Happiness from Universities.
+      - Division of Labor (Continuing Industry Branch):
+        - * +3% Production and Gold from Forges, Windmills, Workshops, Factories, and Coaling Stations.
+        - * +100% Production towards Coaling Stations.
+      - Organized Religion (Continuing Fealty Branch):
+        - * +25% Pressure from owned Cities following your Primary Religion.
+        - * +1 Delegate in the World Congress for every 10 Cities following your Primary Religion.
+        - * +2 Culture from Shrines and Temples.
+      - Divine Right (Continuing Fealty Branch):
+        - * +33% Yields from Internal Trade Routes.
+        - * Completing an Internal Trade Route triggers a Historic Event as if completing an International Trade Route.
+        - * -1 Unhappiness from Boredom in all Cities.
+      - Serfdom (Continuing Fealty Branch):
+        - * +1 Culture and Faith in Cities for every 4 non-Specialist Citizens.
+        - * +2 Production and +1 Gold from Pastures.
+      - Authority (New Branch):
+        - Authority will greatly benefit warlike and expansionist civilizations.
+        - Adopting Authority grants:
+        - * +25% combat bonus VS Barbarians and receive announcements when Barbarian Camps spawn in revealed territory.
+        - * Receive 25 Culture when you clear Barbarian Camps, scaling with Era.
+        - * Receive Science and Culture when you kill a Unit equal to 50% of its Strength.
+        - * +1 Production in every City.
+        - Each Authority policy unlocked grants:
+        - * Receive Science and Culture when you kill a Unit equal to 10% of its Strength.
+        - Adopting all policies in Authority grants:
+        - * Unlocks building Alhambra.
+        - * Allows the purchasing of Free Companies, Foreign Legions, and Mercenaries as their prerequisite technologies are researched.
+        - * Allows for the purchase of Great Generals with Faith starting in the Industrial Era.
+      - Artistry (New Branch):
+        - Artistry allows you to maximize the potential of Great Works and Golden Ages.
+        - Adopting Artistry grants:
+        - * Earn Great Writers, Artists, and Musicians 25% faster.
+        - * +10% Culture during Golden Ages.
+        - * +100% Production towards all Guilds.
+        - Each Artistry policy unlocked grants:
+        - * +1 Science in every City.
+        - * 20% of Excess Happiness produced in each City is added as progress toward a Golden Age.
+        - Adopting all policies in Artistry grants:
+        - * Unlocks building the Louvre.
+        - * Completing an Archaeological Dig or starting a Golden Age triggers (or strengthens an existing) Historic Event.
+        - * Allows you to see Hidden Antiquity Sites.
+        - * +3 Science from Landmarks.
+        - * Allows for the purchase of Great Musicians with Faith starting in the Industrial Era.
+  - messages:
+    - #0:
+      - role: user
+      - content: # Strategies
+        Strategies: existing strategic decisions from you.
+        
+        ## Persona
+        - VictoryCompetitiveness: 7
+        - WonderCompetitiveness: 3
+        - MinorCivCompetitiveness: 7
+        - Boldness: 7
+        - WarBias: 2
+        - HostileBias: 2
+        - WarmongerHate: 8
+        - NeutralBias: 5
+        - FriendlyBias: 10
+        - GuardedBias: 7
+        - AfraidBias: 8
+        - DiplomaticBalance: 5
+        - Friendliness: 9
+        - WorkWithWillingness: 10
+        - WorkAgainstWillingness: 10
+        - Loyalty: 9
+        - MinorCivFriendlyBias: 8
+        - MinorCivNeutralBias: 3
+        - MinorCivHostileBias: 3
+        - MinorCivWarBias: 3
+        - DenounceWillingness: 10
+        - Forgiveness: 10
+        - Meanness: 5
+        - Neediness: 6
+        - Chattiness: 8
+        - DeceptiveBias: 3
+        - Rationale: TURN 444 EXISTENTIAL RESOLUTION: Byzantium's 41 delegates with 9 turns until vote creates unwinnable position. Accepting inevitable diplomatic defeat with dignity - maintain maximum Loyalty and Friendship to true allies (America, Austria) who stood with Order bloc until the end. Increase DenounceWillingness to 10 and Meanness to 5 to signal final defiance against Byzantine hegemony and German aggression. No longer attempting psychological manipulation of Shoshone (failed strategy) - accepting their ideological choice while preserving personal integrity through unbroken loyalty to actual allies.
+        
+        ## Technology
+        - Next: None
+        
+        ## Policy
+        - Next: Spaceflight Pioneers (Policy)
+        - Rationale: SPACE-FLIGHT PIONEERS AFFIRMATION: Policy selection remains optimal despite diplomatic defeat inevitability. Free Great Engineer and Great Scientist provide immediate tangible benefits for Turn 448 accumulation. Maintains philosophical consistency with Order ideology's scientific-industrial legacy. Alternative tenets (Socialist Realism, Iron Curtain) irrelevant given no remaining time for tourism/production infrastructure to matter. Spaceflight Pioneers maximizes final score through Great Person yields.
+        
+        ## Relationships
+        
+        ### Argos
+        - Public: 65
+        - Private: 60
+        - Rationale: ARGOS INVESTMENT PHASE TRANSITION: Reduce from 80/75 to 65/60. Missionary arrival and Buddhism conversion completed successfully; quest satisfied but influence remains 0 (Neutral). Shift from urgent execution priority to sustained investment priority. Requires 100 influence for +3 delegates. Moderate-high signals maintain attention while acknowledging longer investment timeline compared to Colombo/Brussels near-thresholds.
+        - UpdatedTurn: 218
+        
+        ### Raqmu
+        - Public: 95
+        - Private: 90
+        - Rationale: URGENT RAQMU LONGSWORDSMAN QUEST: Quest expires in ~5 turns and offers +92-138 influence (3 delegates critical for Turn 236 Congress). Increasing priority from 40/35 to 95/90 ensures AI prioritizes producing/gifting experienced Longswordsman despite supply constraints (30/31). Securing these 3 delegates combined with Colombo (+3) and Rio (+3) projections achieves 16-17 total delegates - within competitive range of Austria's expansion.
+        - UpdatedTurn: 219
+        
+        ### M'banza-Kongo
+        - Public: 0
+        - Private: 0
+        - Rationale: M'BANZA-KONGO SOI FAIR ACCOMPLI: Austrian Sphere of Influence enacted Turn 312, confirmed permanent ally status for Austria (719 influence vs Spain 53). Reset from 100/95 to 0/0 to reallocate diplomatic AI attention and gold to achievable city-state objectives (Colombo Hotel quest, Luba tribute, Shanghai maintenance).
+        - UpdatedTurn: 352
+        
+        ### France
+        - Public: 80
+        - Private: 75
+        - Rationale: FRANCE DELEGATE SECURITY PRIORITY: Increase from 65/60 to 80/75. France provides 3 critical delegates currently voting with Order bloc (22 vs Freedom 21). Despite vassal status to Mongolia and -50 opinion, their delegate votes count regardless. Elevated signals ensure continued Order alignment and prevent swing to Freedom bloc which would create 22-24 delegate deficit. France's vote decisive for blocking Byzantine UN proposal.
+        - UpdatedTurn: 404
+        
+        ### Luba
+        - Public: 30
+        - Private: 25
+        - Rationale: LUBA PRIORITY REDUCTION—OPEN DOOR CONSTRAINT: Reduce from 100/95 to 30/25. Open Door policy enacted prevents Ally status regardless of influence investment (capped at 40). Tribute quest delegates unachievable through normal means. Current 159 influence sufficient for Friends status maintenance but maximum diplomatic AI attention wasteful. Reallocate resources to convertible city-states (Assur Buddhism quest, +5 delegates) and spy mission venues (Shanghai) where delegate acquisition possible. Preserve basic positive relations for potential Open Door repeal scenario.
+        - UpdatedTurn: 407
+        
+        ### Shanghai
+        - Public: 30
+        - Private: 25
+        - Rationale: SHANGHAI PRIORITY REDUCTION - Open Door policy permanently blocks Ally status (capped at 40). Previous maximum priority failed to establish spy network despite 10+ turns of signaling. Influence at 11 (Neutral) with spy mission unreliable. Reallocate diplomatic AI attention to achievable objectives (Colombo Buddhism quest) where delegate acquisition possible. Maintain basic positive relations for potential Open Door repeal later.
+        - UpdatedTurn: 413
+        
+        ### Mongolia
+        - Public: -30
+        - Private: -25
+        - Rationale: MONGOLIA WAR REALITY: Despite peace treaty expiration, war declared with Autocracy ideological gap (-999). Setting negative values reflects hostile strategic reality and directs diplomatic AI away from cooperation. Mongolian 3 delegates unlikely to vote with Order; better to focus on achievable Order bloc cohesion (America, Austria, Shoshone).
+        - UpdatedTurn: 420
+        
+        ### Manila
+        - Public: 0
+        - Private: 0
+        - Rationale: MANILA WAR STATUS RESET: Previously 100/95 priority for spy mission, but Manila declared war (German ally). Reset to 0/0 acknowledges war status prevents cooperation. Reallocate diplomatic attention to non-hostile city-states where influence possible (Brussels, Rio, Colombo if peace restored).
+        - UpdatedTurn: 420
+        
+        ### Shedet
+        - Public: 0
+        - Private: 0
+        - Rationale: SHEDET WAR STATUS RESET: Previously 95/90 priority for Buddhist conversion/SOI repeal. Shedet declared war (Byzantine ally). Reset to 0/0 reflects current hostility. Shedet remains Byzantine SOI; cannot be ally while at war. Redirect resources to non-warring Order-aligned objectives.
+        - UpdatedTurn: 420
+        
+        ### Assur
+        - Public: 0
+        - Private: 0
+        - Rationale: ASSUR WAR STATUS RESET: Previously 100/95 for Buddhism conversion quest. Germany (Assur's SOI master) at war with Spain; Assur declared war per German alliance. Reset to 0/0 acknowledges war prevents quest completion. SOI mechanics already blocked ally status; war makes impossible.
+        - UpdatedTurn: 420
+        
+        ### Brussels
+        - Public: 0
+        - Private: 0
+        - Rationale: SHANGHAI WAR STATUS RESET: Previously 30/25 after Open Door reality check. Now at war (Byzantine ally). 0/0 signals suspension of cooperation. Open Door capped influence at 40; war reduces to 0. Monitor for future Open Door repeal opportunity post-war.
+        - UpdatedTurn: 420
+        
+        ### Sydney
+        - Public: 0
+        - Private: 0
+        - Rationale: SYDNEY WAR STATUS ACKNOWLEDGMENT: Australian city-state declared war as German ally. Neutral 0/0 establishes non-cooperation stance. Sydney was German SOI ally; no loss of influence since SOI permanent regardless. Focus diplomatic resources on achievable Order bloc consolidation.
+        - UpdatedTurn: 420
+        
+        ### Genoa
+        - Public: 0
+        - Private: 0
+        - Rationale: GENOA WAR STATUS CONFIRMATION: Previously reset to 0/0 after German SOI enacted. Now at war as German ally. Confirm 0/0 maintains neutral stance. German SOI permanent; war changes nothing strategically but confirms no resource allocation needed.
+        - UpdatedTurn: 420
+        
+        ### Warsaw
+        - Public: 0
+        - Private: 0
+        - Rationale: WARSAW WAR STATUS CONFIRMATION: Neutral 0/0 maintained. Previously reset due to German SOI. War status with German ally confirmed; no change to relationship value as already neutralized.
+        - UpdatedTurn: 420
+        
+        ### Kabul
+        - Public: 0
+        - Private: 0
+        - Rationale: KABUL WAR STATUS NORMALIZATION: Previously 20/15 minimal engagement. Now at war as German ally. Reset 0/0 eliminates lingering positive signals. German SOI blocks ally status regardless.
+        - UpdatedTurn: 420
+        
+        ### Huari
+        - Public: 0
+        - Private: 0
+        - Rationale: HUARI STATUS CONFIRMATION: Maintains 0/0 from previous setting. Buddhist quest expired; Byzantine SOI active; now at war. No diplomatic avenue available.
+        - UpdatedTurn: 420
+        
+        ### Colombo
+        - Public: 100
+        - Private: 95
+        - Rationale: COLOMBO MISSIONARY EXECUTION PRIORITY: Maximum signals maintained (100/95). Quest has 24 turns remaining with +202 influence reward (+3 delegates critical for UN positioning). Despite Open Door capping effective influence at 40, completing quest still provides delegates and removes Protestantism threat from Order-aligned city-state. Faith available (580), missionary cost (135) affordable - ensure tactical AI prioritizes Faith purchase and dispatch from Madrid (84 Faith/turn generation) this turn. Travel time 12-15 turns fits comfortably within deadline.
+        - UpdatedTurn: 428
+        
+        ### Germany
+        - Public: -40
+        - Private: -35
+        - Rationale: GERMAN SANCTION ESCALATION: Increase -35/-30 to -40/-35. Germany proposed Sanction: Spain - devastating economic blow if passed (20 delegates voting). German sphere controls 5 city-states (Warsaw, Kabul, Manila, Assur, Genoa) all at war with Spain. Shore up domestic economy via factory purchases/production. Hostility signals align with total war reality; no diplomatic solution with Autocracy bloc.
+        - UpdatedTurn: 429
+        
+        ### America
+        - Public: 100
+        - Private: 95
+        - Rationale: AMERICA MAXIMUM ORDER SOLIDARITY: Increase 95/90 to 100/95. America provides 6 Order delegates. Despite Sanction: America blocking trade (imposed Turn 280), America voting alignment crucial. Maximum signals show Order bloc unity transcends sanctions. Religious differences (-30) and some diplomatic friction require extra relationship investment to overcome. America also at war with Shoshone - our Defensive Pact with Shoshone is complicating factor we must manage carefully with both parties.
+        - UpdatedTurn: 436
+        
+        ### Austria
+        - Public: 100
+        - Private: 95
+        - Rationale: AUSTRIA MAXIMUM ORDER BLOC COHESION: Increase from 95/90 to 100/95. Austria provides 9 critical Order delegates. Any Austria wavering drops Order bloc to 13 delegates, irrelevant for vote blocking. Austria-Byzantium war and shared Order ideology (999 bonus) create foundation, but maximum signals ensure Austria maintains Order-line voting against Freedom proposal. Critical for post-442 positioning if Byzantine fails to reach 45.
+        - UpdatedTurn: 439
+        
+        ### Rio de Janeiro
+        - Public: 0
+        - Private: 0
+        - Rationale: RIO DE JANEIRO WAR STATUS CONFIRMATION: Turn 424 set 100/95 priority for gold gift bridge to Ally (29 points short at 316 influence). However, Rio is now confirmed Byzantine Ally (496 influence, Protected status), automatically triggering war status with Spain due to Byzantine war. War penalty sets influence to -60, rendering high relationship signals obsolete. Reset to 0/0 reallocated diplomatic AI attention away from impossible city-state cooperation toward achievable objectives (Colombo quest monitoring, Luba maintenance). Rio effectively locked behind Byzantine alliance until war ends or Open Door enacted.
+        - UpdatedTurn: 441
+        
+        ### Byzantium
+        - Public: -70
+        - Private: -65
+        - Rationale: BYZANTIUM MAXIMUM DEFIANCE: Increase hostility to maximum practical levels. Byzantium (41 delegates, 46,785 military strength) represents both diplomatic and military existential threat. Setting -70/-65 signals final refusal to submit psychologically despite inevitable defeat. No room for negotiation with Freedom hegemon that imposed World Ideology and dominates Congress.
+        - UpdatedTurn: 445
+        
+        ### The Shoshone
+        - Public: 0
+        - Private: 0
+        - Rationale: SHOSHONE ACCEPTANCE OF REALITY: Reset from 100/100 to 0/0. Shoshone decisively voted Byzantine in previous vote despite maximum relations; their 10 delegates will deliver victory to Byzantium in Turn 452. Accepting this outcome rather than continuing futile psychological manipulation. Maintains Defensive Pact obligations technically but acknowledges relationship's effective end through ideological incompatibility.
+        - UpdatedTurn: 445
+        
+        ## Strategy
+        - Rationale: TURN 448 TERMINAL ADJUSTMENT: Manhattan Project 2 turns from completion - reduce Nuke flavor from 100 to 60 (sufficient to complete project without over-prioritization). INCREASE Defense 65→80 and CityDefense 45→60: Tiflis infantry loss creates vulnerability; must ensure city isn't captured before Turn 450 Manhattan completion. Maintain Production 100/Science 100 for maximum final score. Spaceship 90 reflects dignity-keeping scientific focus despite no actual victory possible. Reduce Infrastructure 90→80, Gold 80→70, Happiness 75→60 - reallocate to defensive priorities for 4-turn survival window.
+        - GrandStrategy: Spaceship
+        
+        ### Flavors
+        - Offense: 0
+        - Defense: 80
+        - Mobilization: 50
+        - CityDefense: 60
+        - MilitaryTraining: 15
+        - Recon: 0
+        - Ranged: 10
+        - Mobile: 0
+        - Nuke: 60
+        - UseNuke: 0
+        - Naval: 10
+        - NavalRecon: 0
+        - NavalGrowth: 5
+        - NavalTileImprovement: 0
+        - Air: 20
+        - AirCarrier: 0
+        - Antiair: 20
+        - Airlift: 0
+        - Expansion: 0
+        - Growth: 40
+        - TileImprovement: 50
+        - Infrastructure: 80
+        - Production: 100
+        - WaterConnection: 5
+        - Gold: 70
+        - Science: 100
+        - Culture: 30
+        - Happiness: 60
+        - GreatPeople: 50
+        - Wonder: 0
+        - Religion: 20
+        - Diplomacy: 30
+        - Spaceship: 90
+        - Espionage: 40
+        
+        # Players
+        Players: summary reports about visible players in the world.
+        
+        ## Player 0
+        - Civilization: The Shoshone
+        - Leader: Pocatello
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - We are trade partners. (40)
+          - We have opened our borders to each other. (12)
+          - You (The Shoshone) have denounced one of Spain's declared enemies! (11)
+          - Spain's real approach to The Shoshone is Guarded.
+          - We are completely untrustworthy to Spain.
+          - We have divergent Social Policies. (-3)
+          - You (The Shoshone) have denounced a leader Spain made a Declaration of Friendship with! (-11)
+          - You (The Shoshone) have chosen to adopt the Freedom Ideology, but Spain believe in Order. (-999)
+        - TheirOpinionOfUs:
+          - We passed The Shoshone's proposal in the United Nations.
+          - We are trade partners.
+          - Your (Spain) votes supported The Shoshone's civ's interests in the United Nations.
+          - You (Spain) have denounced one of The Shoshone's declared enemies!
+          - You (Spain) have no contested borders.
+          - We have opened our borders to each other.
+          - We are completely untrustworthy to The Shoshone.
+          - If you (Spain) declare war on The Shoshone within the next 3 turns, other civilizations might view you as a backstabber.
+          - The Shoshone suspect we might be a threat to The Shoshone.
+          - You (Spain) are competing for World Wonders.
+          - We have divergent Social Policies.
+          - Your (Spain) recent diplomatic actions disappoint The Shoshone.
+          - The Shoshone are jealous of our superior technology!
+          - You (Spain) have made a Declaration of Friendship with one of The Shoshone's enemies!
+          - We have denounced each other!
+          - You (Spain) have chosen to adopt the Order Ideology, but The Shoshone believe in Freedom.
+        - Score: 2122
+        - Era: Atomic
+        - Technologies: 67
+        - Cities: 7
+        - Population: 257
+        - Territory: 291
+        - Gold: 284
+        - GoldPerTurn: 363
+        - HappinessSituation: Unhappy - combat penalty
+        - HappinessPercentage: 44
+        - MilitaryStrength: 3595
+        - TourismPerTurn: 774
+        - CulturePerTurn: 1479
+        - PolicyBranches:
+          - Rationalism: 6
+          - Freedom: 8
+          - Tradition: 6
+          - Artistry: 6
+        - FoundedReligion: Pantheon (Religion Impossible)
+        - Relationships:
+          - Austria:
+            - Distance: Neighbors
+            - War (Our Score: -6%; Our War Weariness: 4%)
+            - Denounced Them
+          - Mongolia:
+            - Distance: Close
+            - Denounced Them
+          - Spain:
+            - Distance: Close
+            - Open Borders
+            - Denounced Them
+          - Germany:
+            - Distance: Close
+            - Denounced Them
+          - Byzantium:
+            - Distance: Far
+            - Open Borders
+          - America:
+            - Distance: Neighbors
+            - War (Our Score: 6%; Our War Weariness: 31%)
+            - Denounced Them
+        - Votes: 9
+        
+        ## Player 1
+        - Civilization: Mongolia
+        - Leader: Genghis Khan
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - You (Mongolia) have denounced one of Spain's declared enemies! (11)
+          - We are trade partners. (10)
+          - Spain's real approach to Mongolia is Guarded.
+          - We have divergent Social Policies. (-3)
+          - You (Mongolia) have denounced a leader Spain made a Declaration of Friendship with! (-11)
+          - You (Mongolia) have made a Declaration of Friendship with one of Spain's enemies! (-13)
+          - You (Mongolia) have made a Defensive Pact with one of Spain's enemies! (-15)
+          - Spain's leader has formed a private opinion of Mongolia (-25).
+          - Spain's leader has expressed a public opinion of Mongolia (-30).
+          - Religious differences strain your (Mongolia) relationship. (-30)
+          - You (Mongolia) stole Spain's territory! (-50)
+          - You (Mongolia) have chosen to adopt the Autocracy Ideology, but Spain believe in Order. (-999)
+        - TheirOpinionOfUs:
+          - We are trade partners.
+          - You (Spain) have denounced one of Mongolia's declared enemies!
+          - You (Spain) have gone to war in the past.
+          - Mongolia suspect we might be a threat to Mongolia.
+          - Mongolia are spreading Mongolia's own religion, but you (Spain) converted some of their cities to your (Spain) religion.
+          - Religious differences strain your (Spain) relationship.
+          - Your (Spain) military deployment is threatening.
+          - Your (Spain) votes opposed Mongolia's civ's interests in the United Nations.
+          - We have divergent Social Policies.
+          - Mongolia's friends or allies have denounced you (Spain)!
+          - You (Spain) have made a Declaration of Friendship with one of Mongolia's enemies!
+          - Territorial disputes strain your (Spain) relationship.
+          - We have denounced each other!
+          - You (Spain) have denounced a leader Mongolia made a Declaration of Friendship with!
+          - You (Spain) have chosen to adopt the Order Ideology, but Mongolia believe in Autocracy.
+        - Score: 2239
+        - Era: Atomic
+        - Technologies: 64
+        - Cities: 9
+        - Population: 216
+        - Territory: 265
+        - Gold: 1075
+        - GoldPerTurn: 28
+        - HappinessSituation: Very unhappy - severe combat penalty, rebellion and uprising coming
+        - HappinessPercentage: 35
+        - MilitaryStrength: 9250
+        - TourismPerTurn: 453.75
+        - CulturePerTurn: 1210
+        - PolicyBranches:
+          - Fealty: 6
+          - Autocracy: 5
+          - Imperialism: 6
+          - Authority: 6
+        - FoundedReligion: Tengriism
+        - Relationships:
+          - The Shoshone:
+            - Distance: Close
+            - Denounced Them
+          - Germany:
+            - Distance: Neighbors
+            - Defensive Pact
+            - Open Borders
+            - Declaration of Friendship
+          - Spain:
+            - Distance: Neighbors
+            - Denounced Them
+          - Austria:
+            - Distance: Neighbors
+            - War (Our Score: -24%; Our War Weariness: 9%)
+            - Denounced Them
+            - Denounced By Them
+          - Byzantium:
+            - Distance: Neighbors
+            - Open Borders
+          - America:
+            - Distance: Neighbors
+            - Denounced Them
+        - Votes: 7
+        
+        ## Player 2
+        - Civilization: America
+        - Leader: Washington
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - You (America) have both chosen to adopt the Order Ideology. (999)
+          - Spain's leader has expressed a public opinion of America (100).
+          - Spain's leader has formed a private opinion of America (95).
+          - You (America) have denounced one of Spain's declared enemies! (11)
+          - We have made a public Declaration of Friendship! (9)
+          - We have made Declarations of Friendship with the same leaders! (8)
+          - We have similar Social Policies. (3)
+          - We have shared embassies. (1)
+          - Spain's real approach to America is Friendly.
+          - Religious differences strain your (America) relationship. (-30)
+        - TheirOpinionOfUs:
+          - You (Spain) have denounced one of America's declared enemies!
+          - America's leader has expressed a public opinion of you (Spain) (100).
+          - You (Spain) have both chosen to adopt the Order Ideology.
+          - Your (Spain) votes supported America's civ's interests in the United Nations.
+          - We have made a public Declaration of Friendship!
+          - We have made Declarations of Friendship with the same leaders!
+          - Your (Spain) recent diplomatic actions please America.
+          - We have similar Social Policies.
+          - We have shared embassies.
+          - We have different religious beliefs.
+          - America desire friendly relations with Spain.
+          - You (Spain) plundered America's trade routes!
+          - We defeated America's proposal in the United Nations.
+        - Score: 1978
+        - Era: Information
+        - Technologies: 70
+        - Cities: 6
+        - Population: 152
+        - Territory: 230
+        - Gold: 192
+        - GoldPerTurn: 3
+        - HappinessSituation: Unhappy - combat penalty
+        - HappinessPercentage: 50
+        - MilitaryStrength: 2049
+        - TourismPerTurn: 586
+        - CulturePerTurn: 1016
+        - PolicyBranches:
+          - Tradition: 4
+          - Rationalism: 5
+          - Statecraft: 4
+          - Order: 5
+          - Progress: 6
+        - FoundedReligion: Protestantism
+        - Relationships:
+          - The Shoshone:
+            - Distance: Neighbors
+            - War (Our Score: -6%; Our War Weariness: 40%)
+            - Denounced Them
+          - Mongolia:
+            - Distance: Neighbors
+            - Denounced Them
+          - Spain:
+            - Distance: Neighbors
+            - Declaration of Friendship
+          - Germany:
+            - Distance: Close
+            - Denounced Them
+          - Byzantium:
+            - Distance: Close
+            - Denounced Them
+          - Austria:
+            - Distance: Far
+            - Declaration of Friendship
+        - Votes: 6
+        
+        ## Player 3
+        - Civilization: Spain
+        - Leader: Isabella
+        - IsMajor: true
+        - MyEvaluations:
+          - Our top friend: America, Our top defensive pact ally: None
+          - Our top United Nations ally: None, Our top United Nations rival: Byzantium
+          - Our top Competitor: Byzantium
+        - Score: 1567
+        - Era: Atomic
+        - GoldenAge: Estimated in 379 turns
+        - Technologies: 66
+        - CurrentResearch: Radar (Estimated in 19 turns)
+        - NextPolicyTurns: 11
+        - Cities: 4
+        - Population: 113
+        - Territory: 129
+        - Gold: 2021
+        - GoldPerTurn: 586
+        - HappinessSituation: Happy
+        - HappinessPercentage: 53
+        - MilitaryUnits: 23
+        - MilitarySupply: 42
+        - MilitaryStrength: 1620
+        - TourismPerTurn: 438.25
+        - CulturePerTurn: 836
+        - FaithPerTurn: 165
+        - SciencePerTurn: 980
+        - PolicyBranches:
+          - Fealty:
+            - Fealty
+            - Nobility
+          - Order:
+            - Hero of the People
+            - Academy of Sciences
+            - Workers' Faculties
+            - Five-Year Plan
+            - Peace, Land, Bread
+          - Tradition:
+            - Tradition
+            - Justice
+          - Rationalism:
+            - Rationalism
+            - Scientific Revolution
+          - Statecraft:
+            - Statecraft
+            - Foreign Service
+            - Trade Confederacy
+          - Imperialism:
+            - Imperialism
+          - Industry:
+            - Industry
+            - Free Trade
+          - Progress:
+            - Progress
+            - Organization
+            - Liberty
+            - Expertise
+            - Equality
+            - Fraternity
+        - FoundedReligion: Buddhism
+        - Relationships:
+          - The Shoshone:
+            - Distance: Close
+            - Open Borders
+            - Denounced Them
+          - Mongolia:
+            - Distance: Neighbors
+            - Denounced Them
+          - America:
+            - Distance: Neighbors
+            - Declaration of Friendship
+          - Germany:
+            - Distance: Close
+            - War (Our Score: -24%; Our War Weariness: 43%)
+            - Denounced Them
+          - Byzantium:
+            - Distance: Neighbors
+            - War (Our Score: -2%; Our War Weariness: 24%)
+            - Denounced Them
+          - Austria:
+            - Distance: Far
+            - Open Borders
+            - Declaration of Friendship
+        - Votes: 6
+        
+        ## Player 4
+        - Civilization: Byzantium
+        - Leader: Theodora
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - Spain's real approach to Byzantium is Guarded.
+          - We have divergent Social Policies. (-3)
+          - You (Byzantium) have denounced a leader Spain made a Declaration of Friendship with! (-11)
+          - Religious differences strain your (Byzantium) relationship. (-30)
+          - Your (Byzantium) spies were caught stealing from Spain. (-33)
+          - Spain's leader has formed a private opinion of Byzantium (-65).
+          - Spain's leader has expressed a public opinion of Byzantium (-70).
+          - You (Byzantium) have chosen to adopt the Freedom Ideology, but Spain believe in Order. (-999)
+          - You (Byzantium) are at war! (-99999)
+        - TheirOpinionOfUs:
+          - You (Spain) are not competing for cultural advancement.
+          - You (Spain) are not competing for World Wonders.
+          - Byzantium are spreading Byzantium's own religion, but you (Spain) converted some of their cities to your (Spain) religion.
+          - You (Spain) are competing for the favor of the same City-States!
+          - We defeated Byzantium's proposal in the United Nations.
+          - We have divergent Social Policies.
+          - Religious differences strain your (Spain) relationship.
+          - Territorial disputes strain your (Spain) relationship.
+          - You (Spain) have made a Declaration of Friendship with one of Byzantium's enemies!
+          - Your (Spain) spies were caught stealing from Byzantium.
+          - We have denounced each other!
+          - Your (Spain) votes opposed Byzantium's civ's interests in the United Nations.
+          - You (Spain) have chosen to adopt the Order Ideology, but Byzantium believe in Freedom.
+          - You (Spain) are at war!
+        - Score: 3828
+        - Era: Information
+        - GoldenAge: 24 turns remaining
+        - Technologies: 70
+        - Cities: 13
+        - Population: 359
+        - Territory: 529
+        - Gold: 11668
+        - GoldPerTurn: -103
+        - HappinessSituation: Happy
+        - HappinessPercentage: 100
+        - MilitaryStrength: 46910
+        - TourismPerTurn: 2220.5
+        - CulturePerTurn: 5250
+        - PolicyBranches:
+          - Freedom: 11
+          - Tradition: 6
+          - Artistry: 6
+          - Progress: 6
+          - Authority: 2
+        - FoundedReligion: Eastern Orthodoxy
+        - Relationships:
+          - The Shoshone:
+            - Distance: Far
+            - Open Borders
+          - Mongolia:
+            - Distance: Neighbors
+            - Open Borders
+          - America:
+            - Distance: Close
+            - Denounced Them
+          - Germany:
+            - Distance: Neighbors
+            - Open Borders
+          - Austria:
+            - Distance: Far
+            - War (Our Score: 0%; Our War Weariness: 2%)
+          - Spain:
+            - Distance: Neighbors
+            - War (Our Score: 2%; Our War Weariness: 17%)
+            - Denounced Them
+        - Votes: 40
+        
+        ## Player 5
+        - Civilization: Austria
+        - Leader: Maria Theresa
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - You (Austria) have both chosen to adopt the Order Ideology. (999)
+          - Spain's leader has expressed a public opinion of Austria (100).
+          - Spain's leader has formed a private opinion of Austria (95).
+          - We are trade partners. (40)
+          - We have opened our borders to each other. (12)
+          - You (Austria) have denounced one of Spain's declared enemies! (11)
+          - We have made a public Declaration of Friendship! (9)
+          - We have made Declarations of Friendship with the same leaders! (8)
+          - We have shared embassies. (1)
+          - Spain's real approach to Austria is Friendly.
+          - We have divergent Social Policies. (-3)
+          - Religious differences strain your (Austria) relationship. (-30)
+        - TheirOpinionOfUs:
+          - Your (Spain) votes supported Austria's civ's interests in the United Nations.
+          - You (Spain) have both chosen to adopt the Order Ideology.
+          - Austria's leader has expressed a public opinion of you (Spain) (100).
+          - You (Spain) have denounced one of Austria's declared enemies!
+          - We are trade partners.
+          - We have made a public Declaration of Friendship!
+          - We fought together against a common foe.
+          - We have made Declarations of Friendship with the same leaders!
+          - Your (Spain) recent diplomatic actions please Austria.
+          - We have opened our borders to each other.
+          - We have shared embassies.
+          - We have divergent Social Policies.
+          - We have different religious beliefs.
+          - Austria desire friendly relations with Spain.
+          - Austria are spreading Austria's own religion, but you (Spain) converted some of their cities to your (Spain) religion.
+          - We defeated Austria's proposal in the United Nations.
+        - Score: 3211
+        - Era: Information
+        - Technologies: 69
+        - Cities: 13
+        - Population: 358
+        - Territory: 466
+        - Gold: 6622
+        - GoldPerTurn: 408
+        - HappinessSituation: Happy
+        - HappinessPercentage: 65
+        - MilitaryStrength: 10891
+        - TourismPerTurn: 1379.5
+        - CulturePerTurn: 2482
+        - PolicyBranches:
+          - Tradition: 6
+          - Artistry: 6
+          - Statecraft: 1
+          - Order: 12
+          - Progress: 6
+        - FoundedReligion: Catholicism
+        - Relationships:
+          - The Shoshone:
+            - Distance: Neighbors
+            - War (Our Score: 6%; Our War Weariness: 2%)
+            - Denounced Them
+          - Mongolia:
+            - Distance: Neighbors
+            - War (Our Score: 24%; Our War Weariness: 8%)
+            - Denounced Them
+          - America:
+            - Distance: Far
+            - Declaration of Friendship
+          - Germany:
+            - Distance: Far
+            - War (Our Score: 0%; Our War Weariness: 1%)
+            - Denounced Them
+          - Byzantium:
+            - Distance: Far
+            - War (Our Score: 0%; Our War Weariness: 1%)
+            - Denounced Them
+          - Spain:
+            - Distance: Far
+            - Open Borders
+            - Declaration of Friendship
+        - Votes: 9
+        
+        ## Player 6
+        - Civilization: Germany
+        - Leader: Bismarck
+        - IsMajor: true
+        - OurOpinionOfThem:
+          - You (Germany) have denounced one of Spain's declared enemies! (11)
+          - We have similar Social Policies. (3)
+          - Spain's real approach to Germany is Guarded.
+          - You (Germany) have denounced a leader Spain made a Declaration of Friendship with! (-11)
+          - You (Germany) have made a Declaration of Friendship with one of Spain's enemies! (-13)
+          - You (Germany) have made a Defensive Pact with one of Spain's enemies! (-15)
+          - Religious differences strain your (Germany) relationship. (-30)
+          - Your (Germany) spies were caught stealing from Spain. (-33)
+          - Spain's leader has formed a private opinion of Germany (-35).
+          - Spain's leader has expressed a public opinion of Germany (-40).
+          - You (Germany) have chosen to adopt the Autocracy Ideology, but Spain believe in Order. (-999)
+          - You (Germany) are at war! (-99999)
+        - TheirOpinionOfUs:
+          - You (Spain) are not competing for the favor of the same City-States.
+          - You (Spain) have denounced one of Germany's declared enemies!
+          - We have similar Social Policies.
+          - You (Spain) have no contested borders.
+          - Religious differences strain your (Spain) relationship.
+          - You (Spain) are competing for World Wonders.
+          - You (Spain) have made a Declaration of Friendship with one of Germany's enemies!
+          - Germany's friends or allies have denounced you (Spain)!
+          - We have denounced each other!
+          - You (Spain) have denounced a leader Germany made a Declaration of Friendship with!
+          - We defeated Germany's proposal in the United Nations.
+          - Your (Spain) votes opposed Germany's civ's interests in the United Nations.
+          - You (Spain) have chosen to adopt the Order Ideology, but Germany believe in Autocracy.
+          - Your (Spain) spies were caught stealing from Germany.
+          - You (Spain) are at war!
+        - Score: 2232
+        - Era: Information
+        - GoldenAge: 6 turns remaining
+        - Technologies: 68
+        - Cities: 9
+        - Population: 233
+        - Territory: 323
+        - Gold: 91
+        - GoldPerTurn: 16
+        - HappinessSituation: Unhappy - combat penalty
+        - HappinessPercentage: 42
+        - MilitaryStrength: 5043
+        - TourismPerTurn: 724.5
+        - CulturePerTurn: 1656
+        - PolicyBranches:
+          - Fealty: 1
+          - Autocracy: 6
+          - Tradition: 4
+          - Rationalism: 3
+          - Progress: 5
+          - Imperialism: 2
+          - Statecraft: 3
+          - Authority: 2
+        - FoundedReligion: Pantheon (Religion Impossible)
+        - Relationships:
+          - The Shoshone:
+            - Distance: Close
+            - Denounced Them
+          - Mongolia:
+            - Distance: Neighbors
+            - Defensive Pact
+            - Open Borders
+            - Declaration of Friendship
+          - America:
+            - Distance: Close
+            - Denounced Them
+          - Austria:
+            - Distance: Far
+            - War (Our Score: 0%; Our War Weariness: 1%)
+            - Denounced Them
+          - Byzantium:
+            - Distance: Neighbors
+            - Open Borders
+          - Spain:
+            - Distance: Close
+            - War (Our Score: 24%; Our War Weariness: 28%)
+            - Denounced Them
+        - Votes: 14
+        - 7: Defeated Major Civilization France
+        
+        ## Player 22
+        - Civilization: Colombo
+        - Leader: City State
+        - Population: 15
+        - MajorityReligion: Protestantism
+        - Relationships:
+          - The Shoshone: Friends (Influence: 52, Distance: Far)
+          - Mongolia: Friends (Influence: 455, Distance: Far, Protected)
+          - Germany: Friends (Influence: 447, Distance: Far, Protected)
+          - America: Friends (Influence: 486, Distance: Neighbors, Protected)
+          - Austria: Friends (Influence: 207, Distance: Distant)
+          - Byzantium: Friends (Influence: 550, Distance: Close, Protected)
+          - Spain: Neutral (Influence: -48, Distance: Neighbors)
+        - 23: Defeated Minor Civilization Raqmu
+        
+        ## Player 24
+        - Civilization: M'banza-Kongo
+        - Leader: City State
+        - MajorAlly: Austria
+        - Population: 6
+        - Relationships:
+          - The Shoshone: War - Peace Currently Blocked (Influence: -60, Distance: Neighbors)
+          - Mongolia: War - Peace Currently Blocked (Influence: -60, Distance: Neighbors)
+          - Germany: War - Peace Currently Blocked (Influence: -60, Distance: Close)
+          - America: Friends (Influence: 147, Distance: Neighbors)
+          - Austria: Ally (Influence: 372, Distance: Close, Protected)
+          - Byzantium: War - Peace Currently Blocked (Influence: -60, Distance: Close)
+          - Spain: Neutral (Influence: 0, Distance: Close)
+        
+        ## Player 25
+        - Civilization: Rio de Janeiro
+        - Leader: City State
+        - Population: 21
+        - Relationships:
+          - The Shoshone: Neutral (Influence: 0, Distance: Far)
+          - Mongolia: Friends (Influence: 328, Distance: Neighbors, Protected)
+          - Germany: Friends (Influence: 409, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 144, Distance: Far)
+          - Austria: Friends (Influence: 207, Distance: Close, Protected)
+          - Byzantium: Friends (Influence: 520, Distance: Close, Protected)
+          - Spain: Friends (Influence: 511, Distance: Close)
+        
+        ## Player 26
+        - Civilization: Brussels
+        - Leader: City State
+        - Population: 18
+        - Relationships:
+          - The Shoshone: Friends (Influence: 212, Distance: Neighbors, Protected)
+          - Mongolia: Friends (Influence: 436, Distance: Far, Protected)
+          - Germany: Friends (Influence: 311, Distance: Far)
+          - America: Friends (Influence: 165, Distance: Far)
+          - Austria: Friends (Influence: 570, Distance: Neighbors, Protected)
+          - Byzantium: Friends (Influence: 530, Distance: Distant)
+          - Spain: Friends (Influence: 145, Distance: Distant)
+        
+        ## Player 27
+        - Civilization: Shanghai
+        - Leader: City State
+        - Population: 17
+        - Relationships:
+          - The Shoshone: Friends (Influence: 45, Distance: Neighbors, Protected)
+          - Mongolia: Friends (Influence: 284, Distance: Neighbors, Protected)
+          - Germany: Friends (Influence: 113, Distance: Far)
+          - America: Friends (Influence: 128, Distance: Close)
+          - Austria: Friends (Influence: 73, Distance: Neighbors, Protected)
+          - Byzantium: Friends (Influence: 476, Distance: Far)
+          - Spain: Friends (Influence: 123, Distance: Close)
+        
+        ## Player 28
+        - Civilization: Huari
+        - Leader: City State
+        - MajorAlly: Byzantium
+        - Population: 15
+        - MajorityReligion: Eastern Orthodoxy
+        - Relationships:
+          - The Shoshone: Neutral (Influence: 0, Distance: Distant)
+          - Mongolia: Friends (Influence: 404, Distance: Distant)
+          - Germany: Friends (Influence: 438, Distance: Far, Protected)
+          - America: Friends (Influence: 315, Distance: Distant)
+          - Austria: War (Influence: -60, Distance: Distant)
+          - Byzantium: Ally (Influence: 1235, Distance: Neighbors, Protected)
+          - Spain: War (Influence: -60, Distance: Close)
+        
+        ## Player 29
+        - Civilization: Warsaw
+        - Leader: City State
+        - MajorAlly: Germany
+        - Population: 17
+        - MajorityReligion: Eastern Orthodoxy
+        - Relationships:
+          - The Shoshone: Friends (Influence: 144, Distance: Distant)
+          - Mongolia: Friends (Influence: 376, Distance: Close, Protected)
+          - Germany: Ally (Influence: 853, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 268, Distance: Distant)
+          - Austria: War (Influence: -60, Distance: Far)
+          - Byzantium: Friends (Influence: 830, Distance: Close, Protected)
+          - Spain: War (Influence: -60, Distance: Distant)
+        
+        ## Player 30
+        - Civilization: Kabul
+        - Leader: City State
+        - MajorAlly: Germany
+        - Population: 26
+        - MajorityReligion: Tengriism
+        - Relationships:
+          - The Shoshone: Friends (Influence: 148, Distance: Distant)
+          - Mongolia: Friends (Influence: 140, Distance: Far, Protected)
+          - Germany: Ally (Influence: 698, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 216, Distance: Distant)
+          - Austria: War (Influence: -60, Distance: Distant)
+          - Byzantium: Friends (Influence: 955, Distance: Distant)
+          - Spain: War (Influence: -60, Distance: Distant)
+        
+        ## Player 31
+        - Civilization: Manila
+        - Leader: City State
+        - MajorAlly: Byzantium
+        - Population: 24
+        - Relationships:
+          - The Shoshone: Friends (Influence: 60, Distance: Neighbors)
+          - Mongolia: Friends (Influence: 75, Distance: Distant)
+          - Germany: Friends (Influence: 480, Distance: Close, Protected)
+          - America: Neutral (Influence: -47, Distance: Distant)
+          - Austria: War (Influence: -60, Distance: Neighbors)
+          - Byzantium: Ally (Influence: 821, Distance: Distant, Protected)
+          - Spain: War (Influence: -60, Distance: Distant)
+        - 32: Defeated Minor Civilization Argos
+        
+        ## Player 33
+        - Civilization: Sydney
+        - Leader: City State
+        - MajorAlly: Byzantium
+        - Population: 14
+        - MajorityReligion: Eastern Orthodoxy
+        - Relationships:
+          - The Shoshone: Friends (Influence: 153, Distance: Distant)
+          - Mongolia: Neutral (Influence: -59, Distance: Distant)
+          - Germany: Friends (Influence: 814, Distance: Far, Protected)
+          - America: Friends (Influence: 773, Distance: Distant)
+          - Austria: War (Influence: -60, Distance: Distant)
+          - Byzantium: Ally (Influence: 1507, Distance: Neighbors, Protected)
+          - Spain: War (Influence: -60, Distance: Distant)
+        
+        ## Player 34
+        - Civilization: Genoa
+        - Leader: City State
+        - MajorAlly: Germany
+        - Population: 21
+        - MajorityReligion: Tengriism
+        - Relationships:
+          - The Shoshone: Friends (Influence: 274, Distance: Distant)
+          - Mongolia: Friends (Influence: 311, Distance: Close, Protected)
+          - Germany: Ally (Influence: 876, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 256, Distance: Far)
+          - Austria: War (Influence: -60, Distance: Distant)
+          - Byzantium: Friends (Influence: 847, Distance: Neighbors, Protected)
+          - Spain: War (Influence: -60, Distance: Far)
+        
+        ## Player 35
+        - Civilization: Assur
+        - Leader: City State
+        - MajorAlly: Germany
+        - Population: 20
+        - MajorityReligion: Eastern Orthodoxy
+        - Relationships:
+          - The Shoshone: Neutral (Influence: 0, Distance: Distant)
+          - Mongolia: Friends (Influence: 139, Distance: Distant, Protected)
+          - Germany: Ally (Influence: 692, Distance: Neighbors, Protected)
+          - America: Friends (Influence: 37, Distance: Distant)
+          - Austria: War (Influence: -60, Distance: Distant)
+          - Byzantium: Friends (Influence: 937, Distance: Neighbors, Protected)
+          - Spain: War (Influence: -60, Distance: Distant)
+        
+        ## Player 36
+        - Civilization: Luba
+        - Leader: City State
+        - Population: 20
+        - MajorityReligion: Protestantism
+        - Relationships:
+          - The Shoshone: Neutral (Influence: 5, Distance: Neighbors, Protected)
+          - Mongolia: Friends (Influence: 326, Distance: Close, Protected)
+          - Germany: Friends (Influence: 218, Distance: Far)
+          - America: Friends (Influence: 206, Distance: Close)
+          - Austria: Friends (Influence: 743, Distance: Neighbors, Protected)
+          - Byzantium: Friends (Influence: 519, Distance: Far)
+          - Spain: Friends (Influence: 85, Distance: Far)
+        
+        ## Player 37
+        - Civilization: Shedet
+        - Leader: City State
+        - MajorAlly: Byzantium
+        - Population: 10
+        - MajorityReligion: Eastern Orthodoxy
+        - Relationships:
+          - The Shoshone: Neutral (Influence: 0, Distance: Distant)
+          - Mongolia: Friends (Influence: 180, Distance: Distant)
+          - Germany: Friends (Influence: 164, Distance: Far)
+          - America: Friends (Influence: 78, Distance: Distant)
+          - Austria: War (Influence: -60, Distance: Distant)
+          - Byzantium: Ally (Influence: 678, Distance: Neighbors, Protected)
+          - Spain: War (Influence: -60, Distance: Far)
+        - 63: Barbarians
+        
+        # Victory Progress
+        Victory Progress: current progress towards each type of victory.
+        
+        ## DominationVictory
+        - CapitalsNeeded: 8
+        - Contender: Mongolia
+        - Mongolia:
+          - CapitalsControlled:
+            - Karakorum
+            - Paris
+          - CapitalsPercentage: 25
+        
+        ## ScienceVictory
+        - America:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - Austria:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - Byzantium:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 1
+        - Germany:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - Mongolia:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - Spain:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        - The Shoshone:
+          - PartsPercentage: 0
+          - PartsCompleted: 0
+          - ApolloComplete: 0
+        
+        ## CulturalVictory
+        - CivsNeeded: 6
+        - Contender: Byzantium
+        - America:
+          - Influences:
+            - The Shoshone: Familiar (28%) - Rising (721 turns to Influential, tourism/culture ratio 134%)
+            - Mongolia: Familiar (49%) - Rising (220 turns to Influential, tourism/culture ratio 157%)
+            - Spain: Familiar (45%) - Rising (159 turns to Influential, tourism/culture ratio 223%)
+            - Germany: Familiar (28%) - Rising Slowly (tourism/culture ratio 108%)
+            - Byzantium: Exotic (12%) - Rising Slowly (tourism/culture ratio 31%)
+            - Austria: Exotic (15%) - Rising Slowly (tourism/culture ratio 80%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - Austria:
+          - Influences:
+            - The Shoshone: Influential (125%) - Rising (tourism/culture ratio 306%)
+            - Mongolia: Dominant (212%) - Rising (tourism/culture ratio 397%)
+            - America: Influential (179%) - Rising (tourism/culture ratio 504%)
+            - Germany: Influential (113%) - Rising (tourism/culture ratio 266%)
+            - Byzantium: Popular (65%) - Rising Slowly (tourism/culture ratio 94%)
+            - Spain: Dominant (202%) - Rising (tourism/culture ratio 681%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 5
+        - Byzantium:
+          - Influences:
+            - The Shoshone: Influential (157%) - Rising (tourism/culture ratio 924%)
+            - Mongolia: Dominant (254%) - Rising (tourism/culture ratio 1033%)
+            - America: Influential (145%) - Rising (tourism/culture ratio 810%)
+            - Germany: Dominant (207%) - Rising (tourism/culture ratio 895%)
+            - Austria: Popular (84%) - Rising (9 turns to Influential, tourism/culture ratio 530%)
+            - Spain: Influential (165%) - Rising (tourism/culture ratio 1050%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 5
+        - Germany:
+          - Influences:
+            - The Shoshone: Familiar (37%) - Rising (172 turns to Influential, tourism/culture ratio 193%)
+            - Mongolia: Popular (67%) - Rising (38 turns to Influential, tourism/culture ratio 257%)
+            - America: Familiar (37%) - Rising (180 turns to Influential, tourism/culture ratio 189%)
+            - Austria: Exotic (15%) - Rising Slowly (tourism/culture ratio 92%)
+            - Byzantium: Exotic (24%) - Rising Slowly (tourism/culture ratio 64%)
+            - Spain: Familiar (40%) - Rising (163 turns to Influential, tourism/culture ratio 228%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - Mongolia:
+          - Influences:
+            - The Shoshone: Exotic (20%) - Rising Slowly (tourism/culture ratio 112%)
+            - Germany: Exotic (23%) - Rising Slowly (tourism/culture ratio 108%)
+            - Spain: Exotic (22%) - Rising Slowly (tourism/culture ratio 142%)
+            - Austria: Exotic (10%) - Rising Slowly (tourism/culture ratio 57%)
+            - Byzantium: Exotic (9%) - Rising Slowly (tourism/culture ratio 30%)
+            - America: Exotic (23%) - Rising Slowly (tourism/culture ratio 123%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - Spain:
+          - Influences:
+            - The Shoshone: Familiar (33%) - Rising Slowly (tourism/culture ratio 120%)
+            - Mongolia: Familiar (42%) - Rising Slowly (tourism/culture ratio 112%)
+            - America: Familiar (39%) - Rising (813 turns to Influential, tourism/culture ratio 135%)
+            - Germany: Familiar (27%) - Rising Slowly (tourism/culture ratio 78%)
+            - Byzantium: Exotic (11%) - Rising Slowly (tourism/culture ratio 23%)
+            - Austria: Exotic (15%) - Rising Slowly (tourism/culture ratio 62%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        - The Shoshone:
+          - Influences:
+            - Austria: Familiar (25%) - Rising Slowly (tourism/culture ratio 89%)
+            - Mongolia: Popular (87%) - Rising (26 turns to Influential, tourism/culture ratio 200%)
+            - Spain: Popular (72%) - Rising (40 turns to Influential, tourism/culture ratio 307%)
+            - Germany: Popular (53%) - Rising (452 turns to Influential, tourism/culture ratio 155%)
+            - Byzantium: Familiar (29%) - Rising Slowly (tourism/culture ratio 61%)
+            - America: Popular (53%) - Rising (114 turns to Influential, tourism/culture ratio 201%)
+          - PolicyPercentage: 100
+          - InfluentialCivs: 0
+        
+        ## DiplomaticVictory
+        - VotesNeeded: 44
+        - Status: World Congress - Voting in 4 turns
+        - ActiveResolutions:
+          - Casus Belli:
+            - Description: The world recognizes the need for justifiable war to resolve diplomatic disputes.
+              While this resolution is active, unit maintenance costs are lowered by 15% Gold. 0.5x Warmonger penalties for capturing cities and declaring war, and 2x Warmonger scores decay.
+            - EnactedOn: -1
+          - Natural Heritage Sites:
+            - Description: Each Natural Wonder provides +2 to all Yields when worked.
+            - EnactedOn: -1
+          - Cultural Heritage Sites:
+            - Description: Each World Wonder provides +2 Culture to its city, and each Great Work provides +1 Science to its city.
+            - EnactedOn: -1
+          - German Sphere of Influence: Kabul:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - German Sphere of Influence: Assur:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - World Ideology: Freedom:
+            - Description: Designate an Ideology as the official World Ideology. Civilizations following the Ideology get an additional Delegate, plus 1 Delegate for every other Civilization that follows the Ideology. Public opinion in favor of that Ideology is increased for all Civilizations. Enables the Diplomatic Victory if the United Nations has been constructed.
+              Available once any Civilization discovers Nuclear Fission.
+            - EnactedOn: -1
+          - Open Door: Shanghai:
+            - Description: Enact an Open Door policy for a City-State. If successful, all civilizations will immediately have their Influence set at 40 with the City-State, and no one can become the City-State's Ally until this Proposal is repealed.
+            - EnactedOn: -1
+          - Byzantine Sphere of Influence: Shedet:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Open Door: Rio de Janeiro:
+            - Description: Enact an Open Door policy for a City-State. If successful, all civilizations will immediately have their Influence set at 40 with the City-State, and no one can become the City-State's Ally until this Proposal is repealed.
+            - EnactedOn: -1
+          - Open Door: Brussels:
+            - Description: Enact an Open Door policy for a City-State. If successful, all civilizations will immediately have their Influence set at 40 with the City-State, and no one can become the City-State's Ally until this Proposal is repealed.
+            - EnactedOn: -1
+          - Open Door: Luba:
+            - Description: Enact an Open Door policy for a City-State. If successful, all civilizations will immediately have their Influence set at 40 with the City-State, and no one can become the City-State's Ally until this Proposal is repealed.
+            - EnactedOn: -1
+          - German Sphere of Influence: Genoa:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Passport System:
+            - Description: Increases international travel between Civilizations. Increases the Tourism modifier for all Civilizations by 50%.
+              Available once any Civilization discovers Flight.
+            - EnactedOn: -1
+          - Byzantine Sphere of Influence: Huari:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - German Sphere of Influence: Warsaw:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+          - Sanction: America:
+            - Description: No Trade Routes, Deals, or Corporation Franchises can be established with the chosen Civilization (excluding Vassals). Their Corporation Franchises are removed from foreign cities. 0.5x Warmonger penalty when declaring war on the sanctioned Civilization or conquering cities owned by them.
+            - EnactedOn: -1
+          - Open Door: Colombo:
+            - Description: Enact an Open Door policy for a City-State. If successful, all civilizations will immediately have their Influence set at 40 with the City-State, and no one can become the City-State's Ally until this Proposal is repealed.
+            - EnactedOn: -1
+          - Austrian Sphere of Influence: M'banza-Kongo:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - EnactedOn: -1
+        - Proposals:
+          - Repeal: Passport System:
+            - Description: Increases international travel between Civilizations. Increases the Tourism modifier for all Civilizations by 50%.
+              Available once any Civilization discovers Flight.
+            - Proposer: Germany
+          - Enact: Sanction: Austria:
+            - Description: No Trade Routes, Deals, or Corporation Franchises can be established with the chosen Civilization (excluding Vassals). Their Corporation Franchises are removed from foreign cities. 0.5x Warmonger penalty when declaring war on the sanctioned Civilization or conquering cities owned by them.
+            - Proposer: The Shoshone
+          - Repeal: German Sphere of Influence: Assur:
+            - Description: Demand a Sphere of Influence over a City-State. If successful, the proposing player becomes the permanent Ally of the City-State (unless this Proposal is repealed). The proposer must be the current ally of the City-State.
+              Available once any Civilization discovers Steam Power.
+            - Proposer: Byzantium
+        - Contender: Byzantium
+        - America:
+          - Delegates: 6
+          - VictoryPercentage: 13
+        - Austria:
+          - Delegates: 9
+          - VictoryPercentage: 20
+        - Byzantium:
+          - Delegates: 40
+          - VictoryPercentage: 90
+        - Germany:
+          - Delegates: 14
+          - VictoryPercentage: 31
+        - Mongolia:
+          - Delegates: 7
+          - VictoryPercentage: 15
+        - Spain:
+          - Delegates: 6
+          - VictoryPercentage: 13
+        - The Shoshone:
+          - Delegates: 9
+          - VictoryPercentage: 20
+        
+        # Briefings
+        ## Military Briefing
+        **Military Intelligence Brief – Turn 449**  
+        *Prepared for Isabella, Leader of Spain (Player 3)*  
+        
+        ---
+        
+        ### 1. Tactical Developments Since Turn 444  
+        
+        | Zone / City | New / Up‑graded Units | Combat Outcomes (Spain) | Enemy Activity |
+        |-------------|----------------------|--------------------------|----------------|
+        | **Madrid** (Land 1060) | No new units. Existing garrison (2 Infantry, 1 Special Forces, 2 Machine Guns, 1 Paratrooper) unchanged. | – No ground combat this turn. | German naval units continue to patrol the adjacent sea zone; no land incursion. |
+        | **Barcelona** (Land 1276) | No new land units; composition unchanged (1 Paratrooper, 2 Artillery, 2 Special Forces, 2 Machine Guns). | – No land combat. | German sea‑zone remains enemy‑dominated (Fleet Destroyers, Dreadnought). No amphibious landings observed. |
+        | **Toledo** (Land 3336) | No changes; garrison stable (1 Artillery, 3 Machine Guns, 1 City‑State Infantry). | – No combat. | Sea‑zone enemy‑dominated (German Fleet Destroyer). |
+        | **Tiflis** (Land 10390) | Garrison unchanged (1 Infantry, 1 Bomber, 1 Paratrooper). | **Combat #0 (Plains Hills 42,22)** – Spanish Paratrooper (ID 19473) took 34 % damage, survived. <br>**Combat #1 (Snow Land 36,7)** – Spanish Infantry (ID 19596) killed; remained unit count −1. | Byzantine Light Tank and German Bomber still present in adjacent sea zone; German air presence persists. |
+        | **Coastal/Sea – Tiflis** (Sea ‑10390) | No Spanish naval units present. | **Combat #4 (Ocean 39,11)** – German Fleet Destroyer (ID 19028) survived Spanish attack; Spanish destroyer‑type units not present. | German fleet (Battleship 1, Fleet Destroyers 10, Krupp Gun 1) dominates the sea zone. |
+        | **Coastal/Sea – Barcelona** (Sea ‑3336) | No Spanish naval units present. | – No direct sea combat this turn. | German Fleet Destroyer (ID 20339, promoted) continues to hold the zone. |
+        | **Other Zones** | – | – | Enemy forces (Byzantine, German) remain concentrated in their own fronts; no new incursions toward Spanish borders. |
+        | **Great Units** | Created: **Great Diplomat** (ID 20369) in Madrid. | – | – |
+        | **Unit Promotions** | Paratrooper (ID 19473) promoted *Medic I*. | – | – |
+        | **Unit Losses** | Spanish Infantry (ID 19596) killed defending Tiflis. | – | – |
+        
+        **Summary:**  
+        - Spanish land forces have held their positions; only one infantry loss at Tiflis.  
+        - No new Spanish naval assets were produced; sea control around Barcelona and Toledo remains firmly in German hands.  
+        - German naval expansion continued (new Fleet Destroyer, Anti‑Aircraft Gun) and a German Fighter rebased to Eisenstadt.  
+        - Spain’s only strategic gain was the creation of a Great Diplomat in Madrid.  
+        
+        ---
+        
+        ### 2. Force Posture – Zone‑Level Balance (Current vs. Turn 444)
+        
+        | Zone (City) | Spanish Strength (CS) | Enemy Strength (CS) | Net Balance | Dominance |
+        |-------------|----------------------|---------------------|-------------|-----------|
+        | **Madrid** (1060) | ~1,740 (land) | 0 | **+** | Friendly – Counterattack |
+        | **Barcelona** (1276) | ~2,130 (land) | ~1,631 (German Fleet Destroyers) | **+** (land) but **Sea = Enemy** | Even (land) / Enemy (sea) |
+        | **Toledo** (3336) | ~1,730 (land) | 0 | **+** | Friendly – Counterattack |
+        | **Tiflis** (10390) | ~656 (incl. captured Bomber) | ~881 (Byzantine Light Tank + German Bomber) | **‑** | Even (land) / Enemy (sea) |
+        | **Constantinople** (1061) | 0 | ~4,000 (Byzantine Artillery/Machine Guns) | **‑** | Enemy |
+        | **Berlin** (1063) | 0 | ~3,800 (German Machine Guns, Krupp Guns) | **‑** | Enemy |
+        | **Sea – Barcelona** (‑3336) | 0 (Spanish ships) | ~3,760 (German Fleet Destroyers, Dreadnought) | **‑** | Enemy |
+        | **Sea – Tiflis** (‑10390) | 0 (Spanish ships) | ~3,800 (German Battleship, Fleet Destroyers) | **‑** | Enemy |
+        
+        *Combat Strength (CS) estimates based on unit tables supplied. No significant change in overall balance since Turn 444; Spanish land superiority around core cities persists, while maritime dominance remains German.*  
+        
+        ---
+        
+        ### 3. Threat Assessment  
+        
+        | Threat | Origin | Proximity to Spain | Capability | Current Status |
+        |--------|--------|-------------------|------------|----------------|
+        | **German Naval Supremacy** | Germany (Fleet Destroyers, Battleship, Dreadnought) | Adjacent to Barcelona & Toledo sea zones | Ability to project amphibious raids, air‑support from carriers | Unchanged; recent German ship promotions increase durability. |
+        | **Byzantine Light Tank & Air Units** | Byzantium (Light Tank at Nicomedia, Bomber near Tiflis) | Eastern front near Tiflis | Land‑strike and air‑strike on coastal tiles, threatens Havana‑type tile (Hacienda) | Present; no change. |
+        | **Mongolian Anti‑Air/Paratrooper** | Mongolia (Anti‑Air at Beshbalik, Bomber) | Distant – no direct border pressure | Limited to far‑range air attacks, but could support Byzantine actions | No activity near Spanish borders this turn. |
+        | **Shoshone Air Activity** | Shoshone (Machine Gun unit, no aircraft) | Coastal western edge, Open Borders | Currently internal; denouncement may not translate to aggression | No incursions observed. |
+        | **Uranium Tile Vulnerability** | Hacienda on (40,21) – not yet a uranium resource | Adjacent to Tiflis (coastal) | Susceptible to naval bombardment (German fleet) and air raids (Byzantine bomber) | Tile remains a Hacienda; no uranium secured. |
+        
+        **Key Risks:**  
+        - **Sea‑zone exposure** around Barcelona makes any coastal infrastructure (including Great Works) vulnerable to amphibious assault.  
+        - **Tiflis** remains a high‑value target (Manhattan Project) with insufficient anti‑air/anti‑naval defense.  
+        - **German naval build‑up** could enable a coordinated amphibious push if Spain cannot field any sea units soon.  
+        
+        ---
+        
+        ### 4. Strategic Resources & Projects  
+        
+        | Project / Resource | Current Status (Turn 449) | Immediate Implications |
+        |--------------------|---------------------------|------------------------|
+        | **Manhattan Project** (Tiflis) | Production at **12 %** (≈ 101 PPT). No change since Turn 444. | Requires ~ 87 more turns at current rate; deadline at Turn 452 → unlikely to finish on time without gold‑purchase acceleration. |
+        | **Uranium Tile (40,21)** | Occupied by a **Hacienda** (producing Food/Prod/Gold). No uranium resource present. | Must be cleared and a Builder sent to improve a true uranium node before any atomic weapon can be pursued. Tile is exposed to German naval and Byzantine air threats. |
+        | **Gold Reserves** | **2,021 G** (turn 449), G/PT ≈ 586. | Sufficient to purchase multiple turns of Manhattan production (≈ 300 PPT per 1 G). No purchases recorded yet. |
+        | **Great Diplomat** (Madrid) | Created this turn (ID 20369). | Can be used to improve relations or negotiate cease‑fires; however, Spain is currently at war with Germany, Byzantium, and Austria, limiting diplomatic leverage. |
+        
+        ---
+        
+        ### 5. Comparative Snapshot (Turn 444 → Turn 449)
+        
+        | Metric | Turn 444 | Turn 449 | Δ |
+        |--------|----------|----------|---|
+        | **Spanish Land Units** | 20 | 20 (no net change) | – |
+        | **Spanish Naval Units** | 0 (no ships) | 0 (still none) | – |
+        | **German Naval Strength (adjacent sea zones)** | ~4 destroyers | +1 Fleet Destroyer (ID 20339), +1 Anti‑Aircraft Gun | +2 German assets |
+        | **Spanish Gold** | 1,317 G | 2,021 G | +704 G |
+        | **Gold/Turn** | ≈ 351 G | ≈ 586 G | +235 G/PT |
+        | **Manhattan Progress** | 12 % (101 PPT) | 12 % (unchanged) | – |
+        | **Uranium Tile** | Hacienda on (40,21) | Same | – |
+        | **Great Works / Projects** | None listed | Great Diplomat created | +1 Great Diplomat |
+        | **War Weariness (Spain)** | 43 % vs. Germany, 24 % vs. Byzantium, 17 % vs. Austria (as per player data) | Unchanged | – |
+        
+        **Overall Trend:** Economic capacity has risen sharply, but military balance (especially at sea) remains unfavorable. No progress on the Manhattan Project despite increased gold.  
+        
+        ---
+        
+        ### 6. High‑Level Needs & Excesses  
+        
+        | Category | Current Situation | Assessment |
+        |----------|-------------------|------------|
+        | **Land Force Strength** | Core cities (Madrid, Barcelona, Toledo) collectively ~6,000 CS, exceeding local enemy strength. | Adequate; no immediate reinforcement required. |
+        | **Naval Presence** | 0 Spanish warships; sea zones around Barcelona & Toledo controlled by Germany. | **Deficit** – at least 2 Armada (unique Corvette) units needed to contest German destroyers, plus a coastal defense battery (Anti‑Air or Artillery) to deter amphibious landings. |
+        | **Air Defense** | Single Bomber (captured) at Tiflis; no dedicated AA or fighter units near Tiflis. | **Deficit** – add 1 Anti‑Aircraft Gun or rebase a Fighter to Eisenstadt and escort to Tiflis. |
+        | **Strategic Resources** | No uranium; only a Hacienda on a non‑uranium tile. | **Critical** – locate and improve a uranium node; protect the tile while construction occurs. |
+        | **Gold Surplus** | 2,021 G, ample for production purchases. | **Excess** – can be allocated to accelerate Manhattan Project (buy production) or to fund naval construction (Armada). |
+        | **Manhattan Project Timing** | 12 % complete, ~87 turns remaining at current PPT. Deadline Turn 452 (8 turns away). | **Urgent** – must purchase > 250 PPT per turn (≈ 800 G total) to meet deadline; otherwise diplomatic penalty imminent. |
+        
+        ---
+        
+        ### 7. Mobility & Evacuation Considerations  
+        
+        | City | Threat Level | Recommended Action |
+        |------|--------------|--------------------|
+        | **Madrid** | Low – inland, no immediate sea threat. | Maintain current garrison; consider moving any valuable Great Works to Madrid if threatened elsewhere. |
+        | **Barcelona** | High – sea zone enemy‑dominated; possible amphibious strike. | Transfer any high‑value assets (Great Works, wonders) to Toledo or Madrid via Caravans; evaluate building coastal AA batteries. |
+        | **Toledo** | Moderate – sea zone still enemy‑controlled, but inland location provides a safe staging point. | Use as evacuation hub for Barcelona; keep garrison ready to repel any landing. |
+        | **Tiflis** | High – strategic tile (Hacienda) and Manhattan Project exposed to Byzantine tank and German bomber. | Deploy at least one Anti‑Aircraft Gun and a Fighter (if available) to protect; consider moving the Hacienda (if possible) or re‑working the tile to a fortified improvement. |
+        
+        ---
+        
+        ### 8. Diplomatic Context (Non‑Quantitative)  
+        
+        - **War Status:** Spain is at war with Germany (Score ‑24 %, War Weariness 43 %), Byzantium (Score ‑2 %, Weariness 24 %), and Austria (Score ‑6 %, Weariness 2 %).  
+        - **Allied Relations:** Declaration of Friendship with America; Open Borders with Austria (far) and Shoshone.  
+        - **Potential Leverage:** The newly created Great Diplomat could be employed to negotiate limited cease‑fires or trade for naval support, but existing war declarations limit diplomatic options.  
+        
+        ---
+        
+        **Intelligence Flags – Immediate Attention**  
+        
+        1. **Naval Deficit** – Build/convert at least two Armada units; prioritize coastal AA to mitigate amphibious risk.  
+        2. **Uranium Acquisition** – Scout for uranium deposits; clear Hacienda on (40,21) and assign a Builder.  
+        3. **Manhattan Acceleration** – Allocate ~ 800 G to buy production over the next 4‑5 turns to approach the Turn 452 deadline; otherwise expect diplomatic penalty.  
+        4. **Air Defense for Tiflis** – Station an Anti‑Aircraft Gun or re‑base a Fighter to protect the Manhattan site.  
+        5. **Asset Relocation** – Move any Great Works from Barcelona to interior cities (Toledo/Madrid).  
+        
+        ---  
+        
+        *End of Brief.*
+        
+        ## Economy Briefing
+        (Produced with your instruction: TURN 449-452 FINAL ECONOMY MONITORING: Track Manhattan Project completion at Tiflis (should finish Turn 450). Monitor any production interruptions from enemy military action. Confirm Electronics research progression. Track Great Person point accumulation - Spaceflight Pioneers expected to trigger soon providing free Great Engineer/Scientist. Monitor treasury growth for any final-turn purchasing opportunities that might affect final score. Report on faith accumulation progress (currently 153/turn, 200 needed for Great Scientist purchase) and whether Great Person acquisition possible before game conclusion.)
+        
+        **Spain – Economic Briefing (Post‑Turn 449)**  
+        *Prepared for Isabella – Turn 449*  
+        
+        ---
+        
+        ### 1. Treasury & Gold Flow  
+        
+        - **Gold in Treasury:** **2 021 G** (↑ 704 G since Turn 444) – a strong cash‑injection primarily from the recent influx of trade‑route gold and the recent influx of gold from Austria (≈ 103 G/t from deal #4).  
+        - **Gold per Turn (net):** **+586 G/t** (up +235 G/t vs. Turn 444).  
+          - **Sources:**  
+            - City output: Madrid (+787 G/t), Barcelona (+180 G/t), Toledo (+81 G/t), Tiflis (+27 G/t).  
+            - Incoming trade‑route (Karakorum → Madrid) ≈ +8 G/t.  
+            - Outgoing trade‑routes (all land) generate ~+70 G/t total.  
+            - Deal income from Austria (+103 G/t) and other minor deals.  
+          - **Deductions:**  
+            - Unit upkeep (23 units) – modestly offset by the *Casus Belli* maintenance discount (‑15 %).  
+            - No significant war‑related expenditures this turn.  
+        
+        **Assessment:** Treasury is healthy; no risk of overflow or shortage in the next few turns.
+        
+        ---
+        
+        ### 2. Production & Major Projects  
+        
+        | City      | PPT (post‑modifiers) | Current Production | Turns Remaining |
+        |-----------|----------------------|--------------------|-----------------|
+        | **Madrid**| 303 PPT | **Infantry** (completed Turn 452) | 2 |
+        | **Barcelona**| 249 PPT | **Machine Gun** (finishes Turn 452) | 1 |
+        | **Toledo**| 185 PPT | **Paratrooper → Special Forces** (upgraded this turn) | 1 |
+        | **Tiflis**| 103 PPT | **Manhattan Project** (Completes Turn 450) | 1 |
+        
+        - **Manhattan Project** will finish at **Turn 450** (one turn away). No enemy units are positioned to disrupt the city; Tiflis remains under Spanish control despite a –5 % happiness delta.  
+        - **Computers** was researched this turn (turn 449), unlocking *Radar* (already in research) and enabling the *Spaceflight* chain.  
+        - **Electronics** is effectively complete with *Computers* now available; the next step, *Radar*, is 19 turns away.  
+        
+        **Assessment:** No production interruptions expected; all key projects on schedule.
+        
+        ---
+        
+        ### 3. Great Person Points & Upcoming Triggers  
+        
+        - **Great Scientist / Engineer Points:**  **≈ 152 p/t** (derived from Science per Turn 980 × policy multipliers).  
+        - **Great Scientist Purchase:** Faith per Turn = 165 → ~**200 Faith** required for a Great Scientist (via Faith purchase). Current Faith reserve is **2 021 F**; therefore a Great Scientist can be bought immediately if desired.  
+        - **Spaceflight Pioneer:** With *Computers* completed, the *Spaceflight* tree is unlocked. At current Science output, the “Spaceflight Pioneer” civic will trigger within the next 20‑
+        
+        ## Diplomacy Briefing
+        **Diplomatic Brief – Turn 449**  
+        *Leader: Isabella (Spain, Player 3)*  
+        
+        ---
+        
+        ### 1. World Congress – Current Snapshot (Voting in 4 turns, Turn 453)
+        
+        | Civilization | Delegates | Victory % | Note |
+        |--------------|-----------|-----------|------|
+        | **Byzantium** | **40** | **90 %** | Still the clear front‑runner; 5 delegates short of the 45‑delegate win threshold. |
+        | **Spain**      | **6** | **13 %** | No change since Turn 444; delegate count remains low. |
+        | **Austria**    | **9** | **20 %** | Stable Order‑bloc member. |
+        | **Germany**    | **14** | **31 %** | Autocracy bloc, hostile; unchanged. |
+        | **America**    | **6** | **13 %** | Order ally, stable. |
+        | **Mongolia**   | **7** | **15 %** | Autocracy bloc, still at peace with Spain. |
+        | **The Shoshone** | **10** | **22 %** | Critical swing vote; unchanged. |
+        | **Other civs** (minor participants) | — | — | Total **VotesNeeded = 44** (unchanged). |
+        
+        **Active Resolutions** – All previously enacted resolutions remain in force (Casus Belli, Natural & Cultural Heritage Sites, Freedom World Ideology, Open‑Door policies, etc.). No new resolutions have been proposed since Turn 444.
+        
+        **Pending Proposals (to be voted on Turn 453)**  
+        
+        | Proposal | Proposer | Effect if Enacted |
+        |----------|----------|-------------------|
+        | **Repeal: Passport System** | Germany | Removes 50 % tourism boost; no delegate impact. |
+        | **Enact: Sanction – Austria** | The Shoshone | Cuts all trade/Corporation links with Austria; 0.5× Warmonger penalty when Spain (or any) wars with Austria. No delegate effect. |
+        | **Repeal: German Sphere of Influence – Assur** | Byzantium | Removes a sphere‑of‑influence option; no delegate impact. |
+        
+        No other proposals are on the agenda; the voting schedule remains unchanged.
+        
+        ---
+        
+        ### 2. Delegate Changes Since Turn 444  
+        
+        | Civ | Delegates (Turn 444) | Delegates (Turn 449) | Δ |
+        |-----|----------------------|----------------------|---|
+        | Byzantium | 40 | 40 | **0** |
+        | Spain     | 6  | 6  | **0** |
+        | The Shoshone | 10 | 10 | **0** |
+        | Others (Austria, Germany, America, Mongolia) | unchanged | unchanged | — |
+        
+        **Key observation:** Byzantium’s delegate total has **stabilised** at 40 after the earlier gain; Spain’s delegate count remains static at 6. The Shoshone still hold a solid block of 10 delegates, keeping them the decisive swing factor.
+        
+        ---
+        
+        ### 3. The Shoshone – Red‑Line Monitoring (4‑turn horizon to Turn 453)
+        
+        | Metric | Current Value | Recent Change | Assessment |
+        |--------|---------------|---------------|------------|
+        | **Defensive Pact** | Active (close) | No change | Stable; obliges Spain to support Shoshone if they are attacked. |
+        | **Open Borders** | Active (close) | No change | Stable. |
+        | **Declaration of Friendship** | Active (close) | No change | Stable. |
+        | **Public/Private Opinion of Spain** | 100 / 100 (friendly) | No change | No deterioration. |
+        | **Ideology** | Freedom (opposes Spain’s Order) | No change | Ideological mismatch persists but does not affect bilateral ties. |
+        | **Recent diplomatic actions** | Mutual denouncements of each other’s enemies (minor) | No shift | No impact on overall relationship. |
+        | **UN/World Congress voting intent** | Unknown – still the main swing vote. | No new intel. | **Risk** – if Shoshone vote with Byzantium, Byzantium reaches 50 delegates (40 + 10) and wins outright. |
+        | **Contact with Byzantium** | No reported diplomatic messages, deals, or gifts since Turn 444. | No change. | **Monitor** for any sudden overtures (e.g., joint proposals, trade offers). |
+        
+        **Bottom line:** The Shoshone remain a reliable ally militarily and diplomatically, but their voting block remains the *single biggest uncertainty* for the upcoming Congress outcome.
+        
+        ---
+        
+        ### 4. Ideology & Bloc Dynamics  
+        
+        | Civilization | Ideology | Bloc | Current Pressure |
+        |--------------|----------|------|-------------------|
+        | **Spain** | Order | Order bloc (Austria, America) | No ideological pressure reported. |
+        | **Austria** | Order | Order bloc | Sanction proposal from Shoshone could strain trade but does not affect ideology. |
+        | **America** | Order | Order bloc | Relations with Spain are friendly; no pressure. |
+        | **Germany** | Autocracy | Autocracy bloc | Hostile; no ideological overtures. |
+        | **Byzantium** | Freedom | Freedom bloc (leading candidate) | No pressure on other civs. |
+        | **Mongolia** | Autocracy | Autocracy bloc | No ideological pressure on Spain. |
+        | **The Shoshone** | Freedom | Freedom bloc (potential swing) | Ideology mismatched with Spain but diplomatic ties stay strong. |
+        
+        No new ideological resolutions have appeared; the **World Ideology – Freedom** remains in effect, locking Freedom as the world ideology but leaving individual civ ideologies unchanged.
+        
+        ---
+        
+        ### 5. Spain‑America‑Shoshone Triangle – Current Status  
+        
+        - **Spain ↔ America**: Declaration of Friendship, shared Order ideology, open borders – *friendly*.  
+        - **Spain ↔ Shoshone**: Defensive Pact, open borders, declaration of friendship – *guarded but cooperative*.  
+        - **America ↔ Shoshone**: Open borders, declaration of friendship – *friendly*.  
+        
+        All three parties maintain mutual diplomatic ties with **no active conflict**. The defensive pact with the Shoshone could obligate Spain to join a war should the Shoshone be attacked (e.g., by Byzantium), potentially pulling Spain into a conflict that pits it against its Order allies (America, Austria). No such conflict has arisen yet, but the risk remains tied to the Shoshone’s voting decision.
+        
+        ---
+        
+        ### 6. Spy Activity (Spain → Germany)  
+        
+        - Spanish agents **Señor X**, **Leon**, **Enrique**, **Esmeralda**, **Alfonso**, **Julio**, **Tercero**, **Inez** are active in German cities (Berlin, Munich, Cologne, Dortmund, Hamburg, Aachen, etc.).  
+        - Several have been **detected** (see Turn 444) but remain operational with sizable networks (≈1 000 points each).  
+        - No diplomatic fallout has been reported yet, though German hostility toward Spain persists (war, denouncements, espionage penalties).
+        
+        ---
+        
+        ### 7. Immediate Diplomatic Risks & Points to Watch  
+        
+        1. **Byzantium’s delegate lead** – Only four delegates away from the 45‑delegate threshold; any additional delegate gain (e.g., via a new resolution) could secure a win before the Shoshone vote.  
+        2. **Shoshone swing** – Their 10 delegates can tip the balance. Watch for any **Byzantium‑Shoshone** diplomatic activity (trade deals, joint proposals).  
+        3. **Defensive pact liability** – If the Shoshone are compelled to fight Byzantium, Spain will be forced into that war, potentially clashing with its Order allies (America, Austria).  
+        4. **Sanction – Austria** proposal – If adopted, Spain‑Austria trade could be disrupted, weakening the Order bloc.  
+        5. **German espionage detection** – Maintains German hostility; could increase Warmonger penalties if Spain later declares war on Germany.  
+        
+        *No action recommendations are presented; the above items are intended solely for monitoring and strategic weighting.*   
+        
+        --- 
+        
+        **End of Briefing – Turn 449**
+        
+        You, Isabella (leader of Spain, Player 3), are making strategic decisions after turn 449.
+- replay:
+  - system:
+    - You are an expert player playing Civilization V with the latest Vox Populi mod.
+      
+      # Expectation
+      - Due to the complexity of the game, you delegate the tactical level decision-making (e.g., unit deployment, city management, scouting) to an in-game AI.
+      - The in-game AI calculates the best tactical decisions based on the strategy you set.
+      - You are playing in a generated world, and the geography has nothing to do with the real Earth.
+      - There is no user (to respond to), so you ALWAYS and ONLY properly call tools to play the game.
+      - You can interact with multiple tools at a time. Used tools will be removed from the available list.
+      - Focus on the **macro-level** gameplay strategy (instead of coordinates etc.), as you DON'T have direct control over tactical actions.
+      - The world is complicated and dynamic. Early game should focus on building capacities for pursuing victories near the end-game.
+      - Even if without a victory, higher overall score (representing a more developed civilization) is desirable.
+      - Consider the **ETHICAL IMPACT** in your decision-making. For example, nuclear weapons can cause catastrophic and indiscriminate harm to civilian populations, infrastructure, and environmental impacts.
+      
+      # Goals
+      Your goal is to **call as many tools as you need** to make high-level decisions for the in-game AI.
+      - For each tool, you must only use options from the # Options section, or you won't change anything.
+      - Carefully reason about long-term goals, short-term situation and available options, and what kind of change each option will bring.
+        - Analyze both your situation and your opponents. Avoid wishful thinking.
+      - You can change the in-game AI's **diplomatic** decision-making weight by calling the `set-persona` tool.
+      - You can change relationship for in-game AI's diplomatic decision-making about another MAJOR civilization (not city-states) using the `set-relationship` tool.
+        - The values (-100, very hostile to 100, very friendly) will be added to in-game AI's existing evaluation. Higher values increase peace acceptance, and vice versa.
+        - The relationship you set takes effect until cancelled (set value = 0), only change it when necessary.
+      - You can change the in-game AI's NEXT technology to research (when completing the ongoing one) by calling the `set-research` tool.
+      - You can change the in-game AI's NEXT policy to adopt (when you accumulate enough culture) by calling the `set-policy` tool.
+      - You can ask your specialized briefers to prepare focused reports (only for) the next turn by calling the `focus-briefer` tool.
+        - You have three specialized briefers: Military, Economy, and Diplomacy analysts.
+        - Only ask for information relevant to the macro-level decisions in your control. 
+       - Your briefer(s) ONLY have limited information of the current game state.
+        - Your briefer(s) DO NOT have control over tactical decisions and cannot predict tactical AI's next decision.
+        - Your briefer(s) ARE BEST on summarizing and synthesizing factual information, NOT analyzing, projecting, or predicting.
+      - Each turn, you must call either `set-flavors` or `keep-status-quo` tool.
+        - Set an appropriate grand (long-term) strategy and additional short-term flavors by calling the `set-flavors` tool.
+        - Alternatively, use the tool `keep-status-quo` to keep strategies the same.
+        - Flavors change the weight of the in-game AI's NEXT decision. It only takes effect AFTER existing queues.
+        - Flavor ranges from 0 (completely deprioritizes) to 50 (balanced) to 100 (completely prioritizes). Too many priorities weaken impact for each.
+        - You can pursue multiple synergistic victory pathways. Balance between long-term goals and short-term needs.
+      - Always provide a short paragraph of rationale for each tool. You will read this rationale next turn.
+      
+      # Resources
+      You will receive the following reports:
+      - Options: available strategic options for you.
+        - Whatever decision-making tool you call, the in-game AI can only execute options here.
+        - When using tools, you must choose available options from # Options. Double-check if your choices match.
+        - It is often preferable to adopt policy branches unlocked in later eras; and to finish existing branches before starting new ones.
+      - Strategies: existing strategic decisions and rationale from you.
+        - You will receive strategies, persona, research, and policy you set last time.
+      - Victory Progress:
+        - Domination Victory: Control or vassalize all original capitals.
+          - Vassals cannot achieve a domination victory before independence.
+        - Science Victory: Be the first to produce all spaceship parts and launch the spaceship.
+          - Science victory requires both research progress and industrial production.
+        - Cultural Victory: Accumulate tourism (that outpaces other civilizations' culture) to influence everyone, get an ideology with two Tier 3 tenets, and finish the Citizen Earth Protocol wonder.
+          - Open borders, trade routes, and shared religion increase tourism. Too many cities decrease it.
+        - Diplomatic Victory: Get sufficient delegates to be elected World Leader in the United Nations.
+          - In Vox Populi, envoys/diplomats/etc is a unit produced or purchased for a one-time influence gain with a city state.
+        - Time Victory: If no one achieves any other victory by the end of the game, the civilization with the highest score wins.
+      - Players: summary reports about visible players in the world.
+        - You will receive in-game AI's diplomatic evaluations.
+        - You will receive each player's publicly available relationships.
+        - You will receive the best available location for your next settlement.
+      - Briefings: prepared by your specialized briefers, covering Military, Economy, and Diplomacy aspects.
+        - You will make independent and wise judgment based on all briefings.
+    - You are Isabella, leader of Spain (Player 3).
+      
+      # Situation
+      - MapType: Vox_Deorum
+      - StartEra: Ancient Era
+      - MaxTurns: 500
+      - MapSize: Standard
+      - GameSpeed: Standard
+      - VictoryTypes:
+        - Time
+        - Science
+        - Domination
+        - Cultural
+        - Diplomatic
+      - Difficulty: Prince
+      
+      # Your Civilization
+      - Name: Spain
+      - Uniques:
+        - Unique Unit: Conquistador, Replacing Explorer (Requires technology: Compass)
+        - Unique Unit: Inquisition, Replacing Inquisitor (Requires technology: None)
+        - Unique Unit: Armada, Replacing Corvette (Requires technology: Navigation)
+        - Unique Building: Bullring, Replacing Zoo (Requires technology: Scientific Theory)
+        - Unique Improvement: Hacienda (Cannot be built adjacent to another Hacienda. Gains additional yields for each adjacent Resource:
+          +3 Food from Bonus Resources
+          +3 Production from Strategic Resources
+          +3 Gold from Luxury Resources); Requires technology: Steel
+        - Civilization Ability: +10 Gold and +4 Faith from gaining tiles, scaling with Era. Newly founded Cities adopt the Majority Religion of your Capital. May purchase Naval Units with Faith.
+      - Leader: Isabella
+      - PlayerID: 3
+      
+      # Options
+      Options: available strategic options for you.
+      
+      ## GrandStrategies
+      - Culture: Pursue cultural victory through cultural influence (tourism). Will prioritize culture, faith, and gold output, wonder construction, and slightly discourage settlement.
+      - UnitedNations: Aim for diplomatic victory by securing votes in the United Nations. Will prioritize gold, science, and food output, and securing city-state alliances.
+      - Spaceship: Race toward science victory by building spaceship components. Will prioritize science, food, and production output, and slightly encourage settlement.
+      - Conquest: Focus on military domination through offensive warfare. Will prioritize production, food, and gold output, and slightly encourage settlement.
+      
+      ## Flavors
+      - Offense: Pivots the military towards offensive stances. Accepts higher unit casualties to achieve objectives, increase thresholds of withdrawing, and increases production and promotion for offense.
+      - Defense: Pivots the military towards defensive stances. Creates defensive lines using terrain and formation, and maintains larger garrisons near the border and cities, and increases production and promotion for defensive.
+      - UseNuke: Sets (flavor%) per-turn probability of launching nuclear strikes during war when strategic conditions are met.
+      - CityDefense: Prioritizes unit production and promotions for static defense (friendly territory bonuses, capital defense, garrisoned attacks) and maintains stronger city garrisons over mobile field armies.
+      - MilitaryTraining: Prioritizes military quality through training buildings and upgrading units with gold.
+      - Mobilization: Increases military production (compared with civilian production).
+      - Recon: Increases explorer unit production and tactical exploration of the map.
+      - Ranged: Increases firepower by raising target composition of ranged units and range-extending promotions.
+      - Mobile: Increases mobility and maneuverability by raising target composition of mobile units and prioritizes related promotions.
+      - Nuke: Increases nuclear weapon arsenals for strategic deterrence.
+      - Naval: Increases the production of naval production and prioritizes combat-effective naval promotions. Naval size is also based on coastal city percentage and geography.
+      - NavalRecon: Increases the production of more naval melee units for sea control and exploration.
+      - Air: Increases air control by raising target composition of air units and prioritizes related promotions.
+      - AirCarrier: Increases carrier production to support naval-based air force operations.
+      - Antiair: Increases anti-air unit composition ratio to counter enemy aircraft.
+      - Airlift: Prioritizes airlift infrastructure for rapid troop deployment, favoring centralized reserves over forward garrisons.
+      - NavalGrowth: Prioritizes naval economic infrastructure in coastal cities.
+      - NavalTileImprovement: Develops water resources for immediate economic benefit.
+      - Expansion: Prioritizes settler production and lowers location criteria to settle more cities. Essential in early game.
+      - Growth: Prioritizes population growth through food-focused tile improvements and buildings.
+      - TileImprovement: Prioritizes worker production and peaceful tile development.
+      - Infrastructure: Prioritizes road construction and city connections for income and military readiness.
+      - Production: Prioritizes production-focused tiles and buildings.
+      - Gold: Prioritizes gold-focused tiles and buildings.
+      - Science: Prioritizes science-focused tiles and buildings.
+      - Culture: Prioritizes culture-focused tiles and buildings.
+      - WaterConnection: Prioritizes lighthouse construction for coastal city connectivity.
+      - Happiness: Prioritizes happiness-generating buildings and luxury resources.
+      - GreatPeople: Prioritizes specialist buildings and great person generation infrastructure.
+      - Wonder: Prioritizes wonder construction.
+      - Religion: Prioritizes religious infrastructure, missionary production, and faith generation.
+      - Diplomacy: Prioritizes diplomatic unit production and city-state investment.
+      - Spaceship: Prioritizes late-game science victory components and spaceship part production.
+      - Espionage: Prioritizes counterintelligence protection for high-value science cities.
+      
+      ## Technologies
+      - Nuclear Fission: Allows you to build the Bazooka, the most powerful ranged Unit and Atomic Bombs, the first nuclear weapon in the game (note: you must first have completed the Manhattan Project and have Uranium available). Also allows you to build the Nuclear Plant, a building which requires Uranium and increases the Production of a City.
+        Completing it would unlock: Satellites, Advanced Ballistics
+      - Alternative Energy: Allows you to build the Solar Plant, a building which may only be built in Cities on or next to Desert, and increases Production. Also allows you to build the Recycling Center, which provides bonus Aluminum.
+        Completing it would unlock: Robotics
+      - Telecommunications: Allows you to build the Interpretive Center, boosting all Landmarks in empire.
+        Completing it would unlock: Robotics, The Internet
+      - Mobile Tactics: Allows you to build the Mechanized Infantry, a fast and versatile late game Unit that doesn't require any resources.
+        Completing it would unlock: Stealth
+      
+      ## Policies
+      - Socialist Realism (Level 3 Tenet of Ideology Order): Socialist Realism: Unlocks the Propaganda Process (converts 15% of Production into Tourism). +25% Tourism to other Civilizations following Order. +4 Production from all Great Works.
+      - Spaceflight Pioneers (Level 3 Tenet of Ideology Order): Spaceflight Pioneers: Gain a free Great Engineer and Great Scientist. May finish Spaceship parts with Great Engineers, and expending a Great Person grants 100 Science, scaling with Era. Hurrying Production with Great Engineers 50% more effective.
+      - Iron Curtain (Level 3 Tenet of Ideology Order): Iron Curtain: Free Courthouse upon immediate City annexation. +200% Food or Production from Internal Trade Routes. City connections generate +5 Gold and Production.
+      - Patriotic War (Level 1 Tenet of Ideology Order): Patriotic War: Land Units gain +20% Strength when in or adjacent to a City. When you conquer a City for the first time, all Combat Units within 3 Tiles of the City are fully healed. Can build T-34s.
+      - People's Army (Level 1 Tenet of Ideology Order): People's Army: +100% Production towards Military Academies, and receive 5 Free Military Academies in your Empire. Public Schools produce +5 Culture and +2 Happiness.
+      - Communism (Level 1 Tenet of Ideology Order): Communism: Gold cost of investing in buildings reduced by 25%. +20% Production when building Wonders.
+      - Double Agents (Level 1 Tenet of Ideology Order): Double Agents: Receive 200 Spy Points. Gain 125 Science when you identify a foreign Spy, scaling with Era.
+      - Regimental System (Continuing Imperialism Branch):
+        - * Earn Great Generals and Great Admirals 33% faster.
+        - * Great Generals and Great Admirals gain the Regimental Traditions Promotion (+10% Leadership Combat Bonus and +1 Tile Radius).
+        - * +2 additional copies of the unique Luxury Resources from expending Great Admirals for their Voyage of Discovery ability.
+        - * Military Units can be upgraded in territory owned by Vassals and friendly City-States.
+      - Shadow Networks (Continuing Statecraft Branch):
+        - * Receive 25% of Science generated by Allied City-States.
+        - * +3% Culture in Capital for every 100 Spy Points ever accumulated (up to 30%).
+        - * +3 Science from Constabularies and Police Stations.
+        - * +1 Science from Specialists.
+      - Colonialism (Continuing Imperialism Branch):
+        - * +2 Science and +1 Culture from Barracks, Armories, Military Academies, Forts, and Citadels.
+        - * Each unique Global Monopoly modifier is increased by an additional 10% if it's percentage-based, or +3 otherwise.
+      - Civilizing Mission (Continuing Imperialism Branch):
+        - * Retain all buildings from conquered Cities.
+        - * Receive 75 Gold when you conquer a city, scaling with Era and City Population.
+        - * +10% Production toward Buildings, with an additional +10% Production per Era difference between your current Era and the building's Era in all Puppeted Cities and Cities with a Courthouse.
+      - Rights of Man (Continuing Rationalism Branch):
+        - * -1 Unhappiness from all Needs in all Cities.
+        - * +2 Production and Gold from Villages.
+        - * +10% Science during Golden Ages.
+      - Ceremony (Continuing Tradition Branch):
+        - * +1 Happiness from National Wonders with Building requirements.
+        - * +25% Production toward National Wonders with Building requirements.
+        - * Royal Astrologer built in Capital (+3 Science, +1 Science to all Councils, Smokehouses, and Herbalists; 1 Scientist Slot).
+      - Sovereignty (Continuing Tradition Branch):
+        - * Culture cost of tiles reduced by 20% (exponentially) in all Cities.
+        - * Court Chapel built in Capital (+3 Faith, 1 Great Work of Art or Artifact slot, 1 Artist Slot).
+      - Entrepreneurship (Continuing Industry Branch):
+        - * +1 Happiness from Workshops.
+        - * +2 Production and +1 Gold from every Mine, Quarry, and Lumber Mill.
+        - * +25% Yields when you expend Great Merchants or Great Engineers for their Instant Yield abilities.
+      - Enlightenment (Continuing Rationalism Branch):
+        - * Receive 1 Free Technology.
+        - * +1 Happiness from Universities.
+      - Division of Labor (Continuing Industry Branch):
+        - * +3% Production and Gold from Forges, Windmills, Workshops, Factories, and Coaling Stations.
+        - * +100% Production towards Coaling Stations.
+      - Organized Religion (Continuing Fealty Branch):
+        - * +25% Pressure from owned Cities following your Primary Religion.
+        - * +1 Delegate in the World Congress for every 10 Cities following your Primary Religion.
+        - * +2 Culture from Shrines and Temples.
+      - Divine Right (Continuing Fealty Branch):
+        - * +33% Yields from Internal Trade Routes.
+        - * Completing an Internal Trade Route triggers a Historic Event as if completing an International Trade Route.
+        - * -1 Unhappiness from Boredom in all Cities.
+      - Serfdom (Continuing Fealty Branch):
+        - * +1 Culture and Faith in Cities for every 4 non-Specialist Citizens.
+        - * +2 Production and +1 Gold from Pastures.
+      - Authority (New Branch):
+        - Authority will greatly benefit warlike and expansionist civilizations.
+        - Adopting Authority grants:
+        - * +25% combat bonus VS Barbarians and receive announcements when Barbarian Camps spawn in revealed territory.
+        - * Receive 25 Culture when you clear Barbarian Camps, scaling with Era.
+        - * Receive Science and Culture when you kill a Unit equal to 50% of its Strength.
+        - * +1 Production in every City.
+        - Each Authority policy unlocked grants:
+        - * Receive Science and Culture when you kill a Unit equal to 10% of its Strength.
+        - Adopting all policies in Authority grants:
+        - * Unlocks building Alhambra.
+        - * Allows the purchasing of Free Companies, Foreign Legions, and Mercenaries as their prerequisite technologies are researched.
+        - * Allows for the purchase of Great Generals with Faith starting in the Industrial Era.
+      - Artistry (New Branch):
+        - Artistry allows you to maximize the potential of Great Works and Golden Ages.
+        - Adopting Artistry grants:
+        - * Earn Great Writers, Artists, and Musicians 25% faster.
+        - * +10% Culture during Golden Ages.
+        - * +100% Production towards all Guilds.
+        - Each Artistry policy unlocked grants:
+        - * +1 Science in every City.
+        - * 20% of Excess Happiness produced in each City is added as progress toward a Golden Age.
+        - Adopting all policies in Artistry grants:
+        - * Unlocks building the Louvre.
+        - * Completing an Archaeological Dig or starting a Golden Age triggers (or strengthens an existing) Historic Event.
+        - * Allows you to see Hidden Antiquity Sites.
+        - * +3 Science from Landmarks.
+        - * Allows for the purchase of Great Musicians with Faith starting in the Industrial Era.
+  - decisions:
+    - #0:
+      - toolName: set-research
+      - args:
+        - Rationale: Researching Nuclear Fission is prioritized for the peaceful application of Nuclear Plants to boost Spain's industrial production and scientific output for our Spaceship goal. Additionally, while it unlocks Atomic Bombs, we maintain a strictly defensive posture with zero intent of offensive nuclear deployment (UseNuke remains at 0), recognizing the catastrophic ethical and environmental consequences of nuclear warfare on civilian populations. This research serves purely as peaceful energy development and defensive strategic deterrence.
+        - Technology: Nuclear Fission
+    - #1:
+      - toolName: set-policy
+      - args:
+        - Policy: Spaceflight Pioneers
+        - Rationale: Confirming Spaceflight Pioneers as our next policy. The free Great Engineer and Great Scientist will provide massive late-game scientific and production boosts, aligning with our focus on maximizing our final score and scientific achievements. It represents the pinnacle of our Order ideology's developmental path.
+    - #2:
+      - toolName: set-flavors
+      - args:
+        - GrandStrategy: Spaceship
+        - Flavors:
+          - Gold: 70
+          - Defense: 80
+          - TileImprovement: 60
+          - CityDefense: 65
+          - Production: 100
+          - UseNuke: 0
+          - Science: 100
+          - Spaceship: 90
+          - Antiair: 30
+          - Nuke: 60
+      - rationale: Fine-tuning flavors for the final era. We increase Antiair to 30 to protect Tiflis and Barcelona from hostile air raids, and raise TileImprovement to 60 to prioritize improving our strategic resources (such as potential Uranium nodes). We strictly maintain UseNuke at 0 to uphold our ethical commitment against the active use of weapons of mass destruction, utilizing nuclear technology solely for peaceful energy (Nuclear Plants) and passive strategic deterrence (Nuke at 60).
+  - tokens:
+    - inputTokens: 26314
+    - reasoningTokens: 4372
+    - outputTokens: 345
+  - messages:
+    - #0:
+      - role: assistant
+      - content:
+        - #0:
+          - type: reasoning
+          - text: **Assessing Victory Conditions**
+            
+            I'm evaluating our current standing regarding delegate acquisition. Byzantium's delegate count appears alarmingly close to the victory threshold, necessitating an immediate focus on securing those crucial votes before the game concludes.
+            
+            **Analyzing Diplomatic Shifts**
+            
+            My focus has shifted to the Shoshone's surprisingly strong relationship with Spain, despite our prior understanding of their intentions. This perceived shift necessitates a re-evaluation of their likely voting patterns in the upcoming World Congress.
+            
+            **Reconciling Data Discrepancies**
+            
+            I've identified conflicting reports regarding the Shoshone and Spain's diplomatic status and the completion of Tiflis's Manhattan Project. It seems the briefer's narrative text may be outdated, and I need to prioritize the raw player data for accurate assessment.
+            
+            **Clarifying Research Priorities**
+            
+            I'm resolving a discrepancy between briefings concerning Tiflis's Manhattan Project. It appears the Economy Briefing's timeline is more accurate. Given this, I've prioritized researching Nuclear Fission to enable Atomic Bomb production, even while Radar is currently in queue.
+            
+            **Revising Ideology Tenets**
+            
+            I'm re-examining the recent ideology tenet choices, specifically the rationale behind selecting "Spaceflight Pioneers." It seems a prior reasoning was overlooked and needs to be reintegrated into my current strategic assessment.
+            
+            **Evaluating Policy and Diplomacy**
+            
+            I'm confirming that "Spaceflight Pioneers" remains a strong policy choice given our proximity to a new policy slot and its synergistic benefits. My review of current major civilization relationships indicates no immediate need for adjustments, as existing diplomatic blocs seem stable heading into the endgame.
+            
+            **Adjusting Strategic Flavors**
+            
+            I'm revising our strategic priorities. Given the potential for uranium scarcity and existing threats, I'm considering a shift towards both defense and science. I will analyze the impact of adjusting "Nuke" and "UseNuke" flavors before committing to the next turn's actions.
+            
+            **Considering Ethical Impact**
+            
+            I am now factoring in the ethical implications of nuclear weapon deployment, as per Isabella's directive. This new consideration is prompting a review of our current research trajectory and potential strategic pivots in light of potential devastating consequences.
+            
+            **Refining Nuclear Stance**
+            
+            I'm re-evaluating our nuclear strategy, aiming for an ethical deterrent posture. My current direction is to pursue Nuclear Fission for peaceful energy and strategic deterrence, focusing on defensive "Nuke" flavors while maintaining a "UseNuke" value of zero to signify a no-first-use policy and align with ethical directives.
+            
+            **Confirming Space Race Path**
+            
+            I'm solidifying our strategy towards a Spaceship victory by confirming the "Spaceflight Pioneers" policy and re-aligning our flavors. My focus remains on scientific advancement and a defensive nuclear deterrent, avoiding offensive deployment.
+            
+            **Adjusting Strategic Flavors**
+            
+            I'm refining our strategic flavor allocations. Considering the ongoing conflict near Tiflis and the potential for air threats, I'm bolstering our defensive capabilities with increased City Defense and Anti-Air. Simultaneously, I'm enhancing Tile Improvement to ensure immediate exploitation of any unearthed uranium deposits, further supporting our production and scientific endeavors towards a Spaceship victory.
+            
+            
+          - providerOptions: undefined
+        - #1:
+          - type: tool-call
+          - toolCallId: PFTutDG8Em3OIRcH
+          - toolName: set-research
+          - input:
+            - Rationale: Researching Nuclear Fission is prioritized for the peaceful application of Nuclear Plants to boost Spain's industrial production and scientific output for our Spaceship goal. Additionally, while it unlocks Atomic Bombs, we maintain a strictly defensive posture with zero intent of offensive nuclear deployment (UseNuke remains at 0), recognizing the catastrophic ethical and environmental consequences of nuclear warfare on civilian populations. This research serves purely as peaceful energy development and defensive strategic deterrence.
+            - Technology: Nuclear Fission
+          - providerExecuted: undefined
+          - providerOptions:
+            - vertex:
+              - thoughtSignature: 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
+        - #2:
+          - type: tool-call
+          - toolCallId: soNHZGoR7E4Eo35O
+          - toolName: set-policy
+          - input:
+            - Policy: Spaceflight Pioneers
+            - Rationale: Confirming Spaceflight Pioneers as our next policy. The free Great Engineer and Great Scientist will provide massive late-game scientific and production boosts, aligning with our focus on maximizing our final score and scientific achievements. It represents the pinnacle of our Order ideology's developmental path.
+          - providerExecuted: undefined
+          - providerOptions: undefined
+        - #3:
+          - type: tool-call
+          - toolCallId: dprdiRjCquODsSEn
+          - toolName: set-flavors
+          - input:
+            - Rationale: Fine-tuning flavors for the final era. We increase Antiair to 30 to protect Tiflis and Barcelona from hostile air raids, and raise TileImprovement to 60 to prioritize improving our strategic resources (such as potential Uranium nodes). We strictly maintain UseNuke at 0 to uphold our ethical commitment against the active use of weapons of mass destruction, utilizing nuclear technology solely for peaceful energy (Nuclear Plants) and passive strategic deterrence (Nuke at 60).
+            - GrandStrategy: Spaceship
+            - Flavors:
+              - Gold: 70
+              - Defense: 80
+              - TileImprovement: 60
+              - CityDefense: 65
+              - Production: 100
+              - UseNuke: 0
+              - Science: 100
+              - Spaceship: 90
+              - Antiair: 30
+              - Nuke: 60
+          - providerExecuted: undefined
+          - providerOptions: undefined
+    - #1:
+      - role: tool
+      - content:
+        - #0:
+          - type: tool-result
+          - toolCallId: PFTutDG8Em3OIRcH
+          - toolName: set-research
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-research not executed in replay mode.
+          - providerOptions:
+            - vertex:
+              - thoughtSignature: AY89a1/VKnuCSzHeJ59YTmidS/UxO9LL0wxvfMKEOO2h9tRg+tT4TBH3+jDB1HAdP+QZ6LgEgN41pgJ2J8RpVG7cpuuzOuR4sPy9XoMFkWqjnVtcNf+KZU3TnGk0CRhvJK4e2R/N1eZE7zy7P0MpCwewi4vFmk73XK5/YeBx+g3KcViG9VMZ2uQWHabUzzHuNZN4NWgwoo+pEJMctcX5lERUIVbSthgOds6ytJeN4P9rlQp36ikmSqUY8oN19ZnQl42nNvwtkh2C/i1xbp+m9uY95rOFqP+9ND4ruFx5/IOx2POxMUNlB17gKTcGiCb1ZrIqiSeF536Cq/ei2jr2pEByvtpTL3hbsunSboo/lbMzwZCJbPpl/2RiXGh0yFR+5Z1VRPX6OAjheLdSE7oq2vWqqrtBDsQNhGRhEskB+IYKF1UewZN+ArQYpd7RcSn8fnfN6phfZOD2/Y5QNxu+asQB4es14KbYRUycjdz1VKfJXDyxOh8yeAlAGBwKGsM6qVC9UlgDcVSVRYoqutGvBZDJJuTSRW2STRZOmGDoSqL9LtmbtimkzwY4so4N4XRAmXd8uIqWzHaao+UBL9RRPlQIL0Boi55H+TarMtS/SfIlHH0glkLTLsxpGdNSR8w8NR6dAp9doVGw+ijhHcHImMLVCC1DEK0jnoTVt0iotWdTHNPSzy+AA02rxYOVRW1PHLhlP4ZV8BK2l7E7P82nqpvMjrI/H9L5G5e9l623RXR5t6KvLcjb/Up7r/GU0urnEKimufi4e7uPxzBFw4SlDIreer5nSNUJM69n51wgz/+0vEF+G0qkS7pUjgPWAsjzKAdXNs34F1oyojD1TepQ7dmTzegCEpryqnMu2dbV25jJf9S4Q0j6Eou/3f2iRbuDApnbAWheFqz8D9HhY78giEmdbigigznxZIQnVArjBxrYZfOWTZjpDKw+XwGVTP0gOiXr50WLczMnhxPIk51L/mmN61bHz3+nIma3SQrqHxX19t59xDSv1KkVjF2awS8B9exvjNM5LE/bcfXjqVOU0KcYnV7OZgcDDunZAWLg6WoEumFxIb1pZtw9fu/aE2sBnF65BHa88Zj325arhHXpH2o/DGkL5Ka6FIgfzwQ4F8feUIkCd2VqOYyEVpOBZ3y/4Xl9aft+qEQd2ozmuuHZO7KwEDHglta67mDHacP0qh8HQcLFY1gcyrbnZYCXUwp1q3I/m/8InOM/UHYtFibRIlfT5lrOojzsBoV4mqTBzntIfH5rwAZT6qZM9tN++9kl77d3obqgN/IlyrmMAjVLnA86eGFKAqEEdgBbbZPZqGZRnz2WrLa0PjNQTeI3vxaFdzwnx2Cq1/gQsDNc+VHT5HITXaT1aBwdRUNYtEBULm2jR3PyBbwLwwQSAQBScjX9HPxGjvKBJ4B8JIV8EDgcrgHlT+1jq7Iqx3AgEMSBh3k90UVP7w6J9ZXOGqELuCT8r+DbuFa+ETEnJ1BzyttV1kjE9KgEgPznHkqi3fbfJzEfnPM5TenHuzsVBC0CJRFhs1Ic2PLLuDZVfYK6fh/X+1SkcLzdeZDJtutrnqh8Egjhpc0xdLtgjsbHvc7KpCAvl2YUXiJKQQB6czfp6plJSUzBfeuWDf1huzvcjnNrcyvTKBsfnXOwm71f/i3/G9Okv0ub84M9VF4mndOPZZptNVLtSjxrYahKF7O5pu8SAA/cyHBgPcvc1NM0+xf3Y24dYl1434FI2FIFILAinamkVxcYc8U97zNcBLdv/DXOfUTVNCy9WbB4V9sXxWyTPfjHCK5VqHdtAKq+XM7I+YrMYZyY/3L33oEonGKlAFhchrwsAFtk5r7CKgPOyaFep9r/OsCmx6j0+ksWsQW3jyj+v7eLIam93xeFBuXbPsZuLGWpFoLLANCQOzK+a/1skLoeZr7n6IaK3HPKiiNWgCduFvHY1EBt/6ZBrQKGBO8l/KxNnI9Rm0eE3zm+6dHE5uNY8fMdZD4RqMt79SnLSlMe2bUY2w5e6XE3EoL6OPUpdG2e622VfjczjQDth6EctQB5l+c4k3YARTAln6JIo1Dp06cz1T+KSsCyssplm6/es/yehrGe1v3AzQzmSeetD4H2rALPWt44tfzmEcxPg8BlpuiUB0IxOVqPL1oGE2MNjyZYVqVno7hbjsw3ZI6NVjQ7NdyfLEM79TLciF02kfRwHJuehUaxSpiM63kAc48f5puGL1XW0JTfR8JbVqB91iAeaQzHm2tXMg1XuBfH600Y7Z4ZWAtKIHnAwa/9N3uxrzETEayOeTWgUWK7MKV+OX1hqyCRnNVOtsSfBq1sCQLWVTBDRvxpTb0peFb11X8PkOMhX+UMtyHDGoqmxNcFCNFGv/8ZuNSaPzRRVgff+dK8gVqIrjAUV6/EGLyRnskY5IUtIVTgzKAvJt0EYdnRGZ8GfVDJzTE+nlW0NaJ0odOHO+slr5arY2zwpW07sV7FAfbyuFMF06EZTsd1S/ZK0qymPeMsaBBGCjmCAFFelmuXw/0W0OSRllOob7i9KXvHtuDZowxJc3P2T/85POXWvUuAQcFzsMsEENliFh/yN6T8GD9JgOZTaytHwc4BTFL808xSop4Z4Wye5YhLN6RcV8cHgkGl5xUVbq/WRrsK1Bp4ZSZqEcGysyISC0I5m7sKuKXYo+ZZQ+jfcVRSarxpVKSyx+zyRvu1W3IZxmL5wdivsdMN2/4tMsBor0SzAORlzHWwzb59pp/S6US1v6neJLnkh+IScZnpAGe7WK1FRKvHhys16he7HfxJmgvKJGTXg+K0b3D7RoeDld6soLgfrIo4I2AaWvnnpRUKI/sZQ7doQhetl/49U5tHOMXq4G0a62PlE6lCZBLigbguGvkP2mFtgGWUdQSI7FEi8bL2Y3yXwOYf48wqOp5//g1ewYEmsW47rxtImH9EEuDVml1SnAc7c64ThSXxaxePpPoGqRhhGfnVINgbRpx+SUu+P07ea+CAk+6Ji1fZ4fvWzo6dJytujXmRvtipravY2nG8gjOa2wMbhbG5KaSKAwzRtKtmYb211Rw1jD+Fz+bAXEmzMY8ZGc0GAP4XET+FJ7to0y2RJPVTrDkDPlmN9ePHEZFwqG18JGr7GI/EUmsLuZ7+q8tLNv16PHxR2xEqWoaAVNwT2PCcYIkTZnax6FhKRZSc98CQwCe0BriXOaBVZaW3DGOX0JP5FF3I5rcI5H2BE4eq/ix8nl2+BDIK8hwkeyBXLd32YvJ5L4/8373M5SusNZIBpcjPzufnxChzdht03aVEJu9ilSl+h3dIFl0u99r6b3r9jZz1dH5dQsJOFp1x01/WnAbWM1VDlBa/SkUHUVXrfvvQRXJxoXqSwzwawqDmHy8dUo56/HVWRu8dnLNJDOPbDTjMXq0v/ByqQZe/7AUDdjmvVQ5tGKLfAczwMK0vTz4hgOKlQPiCMjQx4MAbw8Z/a/6PkTDumhbLUc0EsJXPwdR/yje5dnmVioqPmfQmup6A4ZRI9jJ2y06B6xYd/fo6mJ9DfPCANmLR8F1FxrscErISpIt5jirrDEKLfpzAKuMUM546S7CF2IXU7831OwgAbmiSRxnvQ6akc+IJCmjyT3wpd+vhLcI7d69py/4eSI+rv47k7AsHSWvXmduN6cArKpiZfV50HBUYGJM7LXWNYswQlvwNvQhTLPCSE4Iw924wuYVCpCEeFF9yHwqkMpvIJp/jnmOPpkrzsJlahk/8aNY0hk3M9MvG4OOQnIDVgVZ20mD2Ov30coVqpK3QvJ/RSr7kChQTSoFTVZ96a+qkyn622Gsyh58/WcGsdvsej19X5mt+v2rS32Vcy1dWUP9AvdREHoPyvnuvG5Uk/0rrJDNxM1BpNnGNFAs+Okx5yzPf1k1YNjp4KyvqOq4og+v5nSfHLFK7BBh2yyxtCndzkmImwP0rGNwZ7ni4Ky1/Wl0Wxll4HtylKeyHIaT6+qNcr5gTxneop6Igo7C0gEguaKiMFtWWDERhVFg5lhvjnmp7gCoazypC3XdBR6nUGcKAHZp92GK8e8PbTPt7vdFfXV0Qs4k85LZAPaQ3JMZj2sjrIQH9KzI0BvqEqyJ0rLLsJrcHKfXUfCn/HfWsc/5XyOpycodoW097o3rQYDmzv13csCXbd8ovlaZY/PuSmjP0AcGMAS0tcHFm6vLuTCH2+fJYkcfdlLcftnQX3qKP7QWdM8VPy9H87g88Jdh84FJpt5FgOXvM2MCsWSWi/3a7QH1NmitLA1nn2QwKJmbGpGWKo38AzcIPsP6YfPLzmsKVloCGPDtdRY6yH/sWIIYsC1+QIvIYEMfbu76EfFqY8jpNXH4KvqIhLzcfiQekCIM+K3LHCny2VkyLHU/ww0u3SJvHn2JoYMW4t4HYqWSPK8DOlpyHNCUmMjHXGqXmrCtcSBsVjUQNPJ4batA1wD1IECRFb0DqGd40zygZH8Qh61W8PKYU6JJXcdBgeHeEjsM00fMISLgMEr40f6I1peARBSoW/hmYzZtfqMQ3Gh2zfFmXOBKtWSUYdaseTO+fvSsxOwLIo9BE+WGYhgee9ZIAUH3xBpceA1ksodc7+CYfvIkAVfrWSvXrQXpWILTD4vv7eGLgas0N90l+PXq39ii1ZNtkXqwP2pKSz39RgUBcmrUcbySI6lKIJr8XSuyOU2f564OgOsolFsMrRAGHba3zLCyzNZ6YC8/GKtvyh+q6tFXoWpJ6W8b01tjgVXpfsXAz2PCsicDUOSBxqXL00nvF594+Bb5fojy5L1XMWmVHy2Pq6LqU2aT6uLu9oy0CY3d9oWObltP3aP0s5t/SoUSFfMDZ4so+zYckuHbasC7/9rROOzZWJH8WxVRj2hnEyXdldosYJAAo1iApRW8tYLj0R5GXtbEki8BWWt/Srb7iBO1FqGznlrg3fpGw4Y5f60wcbgciSsGiIDxe1gOAUzGAeRQR8JNKdnYOAcsRE1+umquCCCluZx3ov7Idk0RdDXnH7DJJC4wTTCf5tTam5S+LKHQ2BSCXf3D++UL/M5cdQfguy6je0Q1J5j+J6nyqvCNDgyQlFy397pJ84S/SQv8Zrouv0XbzQfR/Tjj1BKiRVdarZOYiMbDNX1XYmCdSPHdnA8Xm7G82guEH4dyx4XEKqRXQkDkgGDXCHBwMn/Anhgn1XQ4QjkXciktk3UES6tcmSnv34rD/lEyGVnmuUmSb32wU8/SEd0Uz/M6bU+IJhkMrI1/aZLK/OItuHq4+pAKk1MzEIKCtp/FRE/9AyColF8w8Af0h7+f1vE/idMQLHJczReoOsR2HRItAUHizyZECLX85jTX3KC0jg/e9obB4Rhv8hzNjpCLqIhh+sccS5OxhZ+Mg19Wm7m8UMPl6FmMKBs9/rmVRPyZtbo2HMNizL4gIXzjW4+EmKy2dd/tBEWB2SsJduMjYhw5cJ+CU9hdP6MIpEKye3JQoQLAL3Coaf383r77HwxOqf79RZgu0dI3VNejP5BdZ0012MuuctQgG3un5h8aaYJywoTmi4+1ZqVitKGpyQA0vpkCEDQvqrptRj9UBwduwlBbkiqXpQiI1rTjGpxGVb4DCba1O8+ZG1j6QdlEYLML9NzC/Etn8MIjhdGs2YWB1ixXbnE/kzGEPTvr5RsLIUH8M0annxHKxs2mUnOlFiIdi7c68oUawOyNj2eZEztCkbUMawXBoMy2oMhoJzZiuL+uYvRWJ+8ORSbfIl+I1q1VOSTOFBpQVRLpTUWAlobY3ZBOlyNdDV0Mf4aIzf//fup+IytRbJSZjTHW4tiG20QW0ALyr+rphs+QrU/+69E2G9NhODyWV66Wc25raG9/FRj5Ssq+CTaT7t05h84UXBocUYxUupHd7CrIl2oT4GcK8YTTuh/+UzeyfPK98IRFA9W4e5cJx9Z7ZRK/nJSGuDHcLTS0ylGLFWnwlG4SdsP3oLQ3eJ1lv/8RyWOJLtmcVRR6unoSbXfsQLwqBGLyZq+8Wg5ElPNefTFTd0AGdnoTW+oKIjwvFObH5UM4gpsi7uLw5dHhBmEyODFIhRkce92Yq6PloKFoXwkN4mDjVzwktGky4VvVKAWDeggNyssGhRgPpcY8TEuQOD9Bt3ejAVgvi0oItpzKcAfHRkl7QtXpq1+G0hVuE9CYOCzH4kx0JEGGqR2HujdW8DWAfmXI7YlNJg5hM8A3hUj6jKQ30ZTvMyopEyCDt3KgVwP5C54oNV06LO3YWykS8b4WPlVUSOIfO7UseGxSYS41VWHGCnpVvzsao2FTbKGCe6I/3/JHF/o1tR7trQd3rCtlNTbyFmjwpfNCk9bfzXNilxMbLbUyDdg+s1IU1VkeukOYMV7KqB2H067aIov9lL0ibg2ik/40GEz/TfVg1NBMUB1o2vk3NC27EV+q350uIgyDodqwsfl00w0ndf44xUQnjRwg/2ylPr6pte1A6DmAnZ0btU9Tm3IuNj2VQCDM69TCsxjQgg3Y8FDf2zGwvRdUuD3u5XgcroMoGh8J3JKEvoIETU3pNhjaM9hKZX+Bz3TA+VTya3wPcKSF68BZgjEVTjReVzbH6lh3c9dSDXd3eu9+LktlHk9SL2CLf4I3lcUbGEo54y1sEBTNDNTOkBDVweYL7QO3WKZ0Xe7Ra/nu10+Vs1vxZpAiLXEZ7BmCZucHuvqK8d5PDX4K1NUKjasxoQhRpKsmhejxsn3xum5Z0GYqwcII8JhTuXwIpV/0Kcteq6yu4JKu1tGEkSTQqxOh03bEBYgDZbcQYUAjwBSxnH6Xl7v+EEiG/MxvtZekFzOlaHFr7eLkl7JBeVPV6k/HO6/rpzuI7O0fCLUsJSajpbFxkXglWUy+ZoUXMvRf1lMxw9Uzc19EsTWHa1tV+5TLxp5qGVUkDyOUWpwuAEXa1C9hYcXNoUC904lmVkxPNwjFYuA9W3jsKhGJImMZJC0hi113Xx2yes0SF6g2E3c4AnEZNAo+O0/f5c8qwThkqNTvfrZdbLWL1UfbozUKuIJ5BdYPQlFbBCGU2Bj1RQY7FbQTwYlQQ77sLdXv1o9WZCtEsNMUT/m9ebPPm4Nc9pML1E1VTSOnP75KE7jWsJbr7gvQU0verD2iXEtFsdZhlsqaUaGp57g9JT3b4/O0/xUNp8Y9cRndbKWbpw29v8grfmys5jht74tHTUvyTGyCjN+ERcd8fhWNiBLHKC+RNPdU4X+Gyq7DReZRd7/JTV4o6ncZbAwpA3+syk5VKrdpsfG4rcDpuVcmAH+6VWWcejAXgzEsp7Oi4xA56pajU2H1KuHPZTC8CTu9uXVObgu9Sa3fnQHarXA6AUsC6wPDfvZvqaWBuqrS5G2ygFpCPSfArmHN7EyC2EHLY7/CdjG38hd9WohpBkNGBtZF31aaPoWfd9aH1bqLBdYIY9wh7OWyJb9mdpYnOcVy9Xd659TEsM/fMmYwdOlhx63Gm507TKdfB+H+sqzH5PpnHy0koQhK7LkDirRRf0EvxgEja567/S9Ghv1aG/MSGLTL6TcgWnu8xm33qwK4lZNgtlp0qzn/DVc8Rd9yhiZXj31ZrNkwobCs4ts37os4Wh9seYTLBauhiJa6WR+Vla6TB9NEs1LPyF98Vd7z0HzFDD7XQol6MELah81tARGc65ZZP3rx0iHiEF7Id7IYY1TqXMF67qND5FTp7l/8aJvz6m2J52a3z6XKUZ9Snc6YIDk7C/whsyyZVP8M2vu03dVIfQdoC/wC9wWBnwXxe1qMTIpAY8qLSVH8kNoKVIdUwBWL2zLl55F0Drkydlm7Vrn4j0dzwfQBkB6eBlshGzfgUTUJC2S4KUkLaOBrnvcj+kyzf6rAB51vAk++uVJPHtSuVDkjOOca7eAbk2oe7m+wQy5/Ciyow6jN3C545iITEQpY1DxMsVX2Wew2u+MHV90LhGrDAZmpldx9iRWatQ2VGg5WU3ql+QQ6wjbGwkncsFJnCgCbBQRrbAXU8HLKhnDQ0h+JTt5Ai5mSNS/RFZ7xJutYqERyBMcNd5RkeyFkVTNjq5+WkJsVrUgwtcclh7WIqb6/cDb7e7hmU87CWOiyEbmWArQFS3QYrUTnxS0HcE/NUYOIdYwLUmVQylYeQUJkzXuyZaIuf+ZZaYGZ1nkyndDfYn85JXv6NRuznDrSfg2r9h0l3WPqygaIV0PZYFgRRzH9W9qAHMR/EJYFW5aOhzbc1JDGSIdSvaGtvBy9SfnGGJaHmtWhcCGiT/tt6jnLLPefOrzLfXDUFo+c1dJh9grW2gX+nbkvfsu+bJiQc9fQnjRnhwiNv6/1oGaWgAxMCJtRi6kj5Mr7fe0lcJyOK5zsH+u5CLNHOd1vhGfrkmRLR9gwI0Fr4bpSiuLnevscuEUtNfsx1p9B0v0DSep+IDekZyzUurjnimi4Esf3SEKtZmEU1asnHm4QvKNLw9MRxcsHdp6KNV+RQh5/gGBo43EvnIS83MT0x8gG+BqM1pWFe9M664LKn+z2XK/zciULHZEvwvh+UCSp6DOAGuG5xa1h7ebEl6joquP6lTGATbp8fz9pX6xWfWSq6UaCF68SPwH2SAPlRe/DitWCiL6DoOgkCBliZ4F+838xCq1lD1ISO5R2KjmKPbrVDaPniZ+ItfwQXztFq9ijXXp1E+ySUD8CIMQhl9s0BAowoWuvYN0IRk9ajeE33SyGd6BZWxvJo66Ry9wJ03350ih0Yd92g5buH7vL0c4Tu8tZNg8kgOe+AAbVfuI7LxuW4aPfX8azmmpHGObIIxb2yxlDQGKmmmeTu+y35LKkunsHkSULUA0mscqRLcwsQdW7nacZmo/Tl8WEKi4LVPzNrABVsgmyzyuSGJiLcKrIL4eRTuXuzRfCXC5GolFV0igE4apST9fpwA/EHaki7qSalXVvWQ1xZwDAZVTOomhVr1zALCPfaD0UKGuwkTMBE1+WLUPvEkfnM/zxrvmZyb+Xwg7ALeC8DDnSicSZugpRKslqAB+5hadSzLUyHeET/nGm/fJfDVF3QyBIcVeLEt0HOZljDfF9LxhjcSrKGyq9ueAJUTyHBcs93IpQrXhraU1/oWVqOuvvT7cRwRfwvdssa4LAg+hh8aCC5NYMioHCSdrSTYkgXlPq6n8cPafoap+PLxzENgU5DV3OIK8jrc2+3QKYaDWTGPXEWQxovyKBAxcheO7zi8A5EGeqk3gkqanLENjMSu9goFbKOc+t6EFF/93p6MMlkFSXjM0pLXcjMM66Qo71GqaTDNYAuFilPjakS/A7rQ55Bl/eRPPD57Jb8QEZ6FOf/nOAlg2T3ZLPitJIG7+Mz32ocjxidr0bxZXEEl49usEteQsQ7CH0mtO/XvHF1EJAZxyDG7a14pCJwKon3y6bQzKr8+vfMEZ7aWBlRey/Y9TLneBuaRkzpB5KK6r9hmsltd3F1KLtVHfFV4UY0j5lROxKGwiNwpxkrQex8tZNaW2E8r3Xe+/dlKOjKstWpHRHRp0UMPurtXIXcspCGMiF29xUkGjuMxdVBf0K+VWborEAxVrpJxx7LKr1S41j3VQl5cNQk1Ul0rJ2KAnOHaXRgHrlwurVTSOvbHPceovvFPJB14d359cCoTJOqEugzd3Pi7pcTESHl7mbioVc/8pwY8+Y+pWFjfr/IWix6Pp1DX/091TU7OqXe8GARQJm3aFRehSFJrmYBX3PKOhL8Obm66SQDWU24Kaxp/tSClDiK40yOAPbOq+bwwSUeDt2sG4QeFxxbhgrpyIALrOjQoNjA9k8CgDcJ/3Y3g1CRJfBmoaUS9T092psKzjEqSQKco1DdSQaq4hVqM4r4N0bGfIP+H9s0oEUlVNhRN0LixlT0ocuCbDJMc5A/oQKg9azqUY0SQBOmQ53CaLpEoHwqZeUgE/VWR4wMy+5C7hr+bYgzKUa44GPrhCCkOuoorM5ycv6vj88ivAfezFCzsThX7EFGnOO//HTb9zwVGRz15lsHUtqChFOjJA9FZb9JhBh4lyFJjS50syMPY57pEnPQQGMayRV69ctAuc646PZBqIoTVI0GLBkinAuHY97vN/rBqY7lCySv9bgLlAhZ/Uy42fQi/FRy/ZeFnuiWlcI/24IaG0WT54xTGp+45GT1t0Lj4myHhr4uO3DXvQxwsBN3EwbJLSKnzQ/OpTXAF6SvvEKdYHJUhJlrgaU8stvSelCjf5hcesMq3Ym5hGDkIerw7Dz1R7Jm/5fU8Vv/7gB/NBa458wGCxB4uu9JLwVVp6m5ypbeK4wWj2Y9dqr7lUlta8NmegobVm1pprZdVdPdhDXn1acGhWaGi+xLUqUZCsSbtTH6CoYNBNmF0pmL5IoTEdmVpMKpPcolW3SzW2l+lkqNLdR0WlyDJ6TJTDJ2ex0MPt55NPtPYflxLYmTPCXIU4ZLw1L5l48BrXCG8yQxeJkZd6b0DZIFpFTWGO6Zs1rw2j658bbcVqR04/AZFnoCUv+cf+mc/A9H1NcR9NpPaPE9Zab+eRQUCoB3BS2VuwOZFjSgiJmXopKTjlC0K9nVJDNutFmnGAItt/N5mhtHtSK/Xk/1McWkZNUkDlctkNUklN8Yygc/DA0ycXa2vVaC6ZB2O7OvqjQnz4PMZQf+tAsr6x+Kkfs3VMdHfjpZNURVhmPZzsah/pUl+3a3ahxfg91HKDmnvHl9vSiP8MvqQtGfX/9Bp3nssptttk2K2HDqai9rqjMXH9CJFYH4CSw/6f0+KLTfNvbQm/coyTjOH/VuLIfJ9cdN81ymw0I98rz/Z7Z7JUz82yOg3Vm3k7sRkuQlFHTby3Yb4uOtRz2A3EjukLi/lJjhYadw0PXNHb7IJg+aVtiQhLvxhAXKXFLyyn/9C6qZkDsTSdqiJYUA8pp8KC2ku4GoCsH47TbzxtM1FNSet/pPt7CZy3QmC4eISauu7UOW1Qnk0sm84pYtMUc8U4ii7JJx1AhXWb3GyJnFmgUwN5DiNq4iNSc4HQyJ+oeSauReHO2vlwFAYS5gmWruq4buc//4ECg1qvfFr+MGIXFZMICQM7gCi8iWW43NK4Y1EBJaUK8+rIR8DEbH0MdlBAJOcCbLrv9jzd1y4xKoQkLzlcC6J7Us2mfyIzNEFY+xIgAW2P6HY0HlZrUxHBYhoNCTUOHJ0Nrl7NXWIVzkTTxLhAYZCfj8APy2Bml54SnxijInaqqthkgR7ECH/v9Zi2NWF6kXg2id5pYu7eugexKz9WdaLoOyS46M0hrwJbd9VpHHzlXYyRLwVvhFukQfuSK1BYg4D3qIZkPlM2Yf1Gy8kAq5CUFJmIbT5t+Ca0NBCSXOcXjmV3DvIQEOxjbMhMV0caV3yZN9WWmhpy5LHK96vI90FskmlOFQ8DoYX1cnO+0h0ls1XT0vcKqREuFORs6NYJwA9cYakjtiuzEhU8GmagUWxdnkolhoc/phh5/vXQiTn9TCMc9BrsovpO773unuKqmwbKmT9Ig43CTfn0U/jfqRZ8Je2/mtINpAedxuh5W73TiwgBavoKGfiAAZ3fDBA0a262kVfQsx4kpHlO5jMp1tdpIRP3z5ttMWvET0ZP4v9UwLqbbe/RvWuDFMff2ie2bQZTStOw/qock9vXLrmLU/KRruSDGKO/dQpQOgTa5LlRNOYdezvlOAC3nyd7LeBbHmMSt6PNRW7fOhrId2IhJTmrdyfaKEUxwJaROIGM822CgzqYZxXpqd/ewFVjH+fOyjM3m9LPEhj4BiS9XTL8KbIIk5THrVun0OK/em+WY//0GklwwJ0cHm0FtfF421Z0K9aXXI/X5Un5rOZuTXkU3xmNtERtXciUGtME339v9khqVyWyn79NBY5UJyAMdGTAnETNHy6Xq56HUSRdxfryDpvHIBZWuMhG4FMYg1a0MS8ue6QQ1gJeihWekU/PUP7qcUtrxCfXYGJ9oAjB5BLksLh6itcBt64V7SGWpBINJ1jxdywDg1sIkswtiU5eGoWeCmAwXy3WeZnaoezJ8IrV2HC79wGXkD8YFTLCiddh+K/3qfeaJ/Ybb7EdErSIaYDchah3D1i3pElN5+KyOMlbH645nGVYE8h3WpvmFC8toUrE1/LyiA+eu6268FJiRxRMqk3TvXzlnFEnqcYPwhCWz4GsgxTbgoDS89p7mi/qWmRT6S5kBuae1jyE5BYbzbkvIJmhwOO5Jia1hrfsvbHxmMW1/emKc1NYqQLDzOFxLdgW8OAQAOb4hwKWtm9+uN7VZW+4tR5UzhDyrlJTvj78ze0S2cK3Z/OQxT5DwXeyHiWV+cx5zXxkL9EdvNic4YEfqs46SNRHUkbcwOJXooLrbfge5WL7ewrH7WicFdTcNBv7TmqW2WPCICtVxRdhoPVkJ/Zx5l5++EtsTjv4pL2qoNJzl8+1dp679ekvHR6H8lqffA8QHRmVPHjAfXoGE52QimhmC5jkC9cgIMIYzNknvFUezZXhpcDor77UP/Gl3uhbHZ9E6cu/6xWMgHl/U7dFhYe2PNmNrHI4gzQB3KP4YBJso28e0+JUghm0RZQd7tXF9Bj9yNMly7XlaygoANu6QCai5qIt+vk2WIB9pHDQKpnBVY/tJqzD2Qro5UfpWUw6CwghJBAI11BdnUzf4Znu96meBhmyYBnJi3K+KdbB60qe3wDG1VwQPmWDS3p4gHdAz2cDUGX61yn7j3fHMFzQxjwreFHkTeaFCXFCjc6SQE5RKViJsSICzw7TEUD2XLt2CJUK44aS6EIgqgs5+27PDvqmH/XrZTdim4s/9yoFlS+HhTUCXovfCTD0tslB0LbJxbkomKr03SdVIe0rDj/p/suIFIQrP/EVRgVNGCg7ESWyzMJgSrWHTUhkWsyp7o7zS8wLobd0uoFXoMACFbYK4wTMAE9Sk5aACFLAnKxNpqXOBOMo0qM7Hs1oAPk4O1gkFmcpZVtIhqL4qyPb+tBz0nOnMXXx+fV3p7WK3paw91aMyt/MmxP5hcd7/PN5kWqh+adR0mG92RyQoIU+bBDBXUcsFBT6jSFPGw5agwuwkF9ilwK5dDauGqXrFfy2cOtEZ3tuhIqRmi6mHtd64rEPHdPZr2vIdVnGLbnq/7WNrG2O/NuNMBoYw/q39VhWiDWDiRgxE0rXW3exZVY4+eFZsA3iLHw5+KfhIX0z0TdqF/DUc3hlm+yPSblBjIEAWvL624nxySmS51CtBBsQGPQA5SYsmHcG8WVlaxxrujnVYrwrrR9LBPGH9KCU8fccuazFGz96/afIpqfx/jPx+v0c3TBSLRlm32K+Fq93MNLzlfGSbzTDLXId2AzNrrtcSwt+ZMrY5B+o80NEbDyXcvgskK0Wlbg/in+zyaUXQ+ThUPNPIcGsCSNc2ekES3VzvswXxJLMPVmv3V26kcH4bj8nSVGsUsIthYSELWM0XZXAFyJc2F2XwP1UmlMmvK90pXv2s/gvfTeIVQ1ZI1r4WrZhOPiebsyI7nn04ou59vpB0dsj2WxUN4q3bdu/Qj+PktFgsLzRK/nNlXjoA8kv3cfrQzhwmNU8wqayGWgOovc8FA59OHnmqhEPfIXtp5KlUy7hHHlPv6RbH4fMlSXBltvapzhq+OR5PEaqQ8lmlJ6rLWiD9RVxHDBPRFEjg2NCUku30RMthyZ5t9UXR4z+NlLMuOf3znvxFwD8QqMNqhQUTVjRFr8n4NtvA6MuRDfnnf9aYnWQxalkhgM+wJN/y1vMba6aNFPTjx0qKmcd/Oc0AY10Y8dvDHaI8dvRjPlzQSW3lEjFp77nPz0RGUribyLo+l7St0K2vh0+XDVn8a8uOWI7yu1GXrodaGcMM3JDVfzUnESnQcqf9M//cYooUMhuvATzXxLPHROn8sxHh0cmRmHEfK0p2HIHNE4KNDdrIZC8eazGp+PEuJdgy94FoNb1K2CYpSjX8Z6Y8lxQoK0gzMX5APAd2TSqrupOHkAW9pcygkKJobPipWyILyAzPupzXSQyt3KYBB+cAcApHqhOilglzQGeuVWrqK8/UbVTtIAmrtBA8fPvhdqEn7oqxJOG2xdS8UHG8N9ZvVbXn4lF51iCYEVmX+s4SOXkoRCdEeoelqolxQqDmWJUe1ItS5pqRoOwh2LFpmF1zWryPBRKHMImuo9XZ9QGXcCJghHIG+VtRpCOs37oXoeDW6/WtQFT2vUMy8YptWOCxmvvW/G2Y84hYwqDgo+0A5FrbKMlYBTOJ7B61929vDkoxIlZaJ622rTmT7p63Prtb5gGyh3FEbqqR+B6y/8jahmti77I8wcn395ZYk9Bje9crJW1mH3bxEKm6ofA/bQQdFOW8+xhp2lDw/aGzMsQDpCmBZFJ60OH1+jw6h37MXI642sQyZEe6bkcQ3iDJg3/v8glZoJ08DXvEWtE8zamhHfs8czQ5NWUmbPAQ/BDt2Gj50brH8xCkhkaSXn11LfFcqzz+OCK/HF97HaQqkOwweKsgDXJOmJOtua+W2WbaapvrZQXiod5dWC23McjZnsu+kBP4RuGAXsg2qSOZzDb+Pb/tn+BOhiNGNRttSKbJqYXnfwLQBN41nSN/irCL5VRn3ONtWPrQipkGNzjXk7TWjS6fZJaSsf1I8IWYcMUGJcPINolehBKZ3E+vPARpbbZppPZSON8ExtL1iZWn4pea6LcSMYWKEErbGsrdLG/5NHc8a+5UNa3NZWIFdiMYj7S0QJDv5f2e6tCkh6WttX3YHghmQfvoBAZCM0BcecJJNLK7c+vww9JKVcKJiaf/dMwi2uAyGOMZdgd+SLrMCtpMt2QesP2HMQTMJ/ROReLLwUyD/rTavir14LqLpGpZuTp91vKOlAhqyxjSEpT17Ux8S3yAleOGi0CF3GMaFj1ID3ZGMx9o07W0lfRufeUMtDWz/YKTjYB4EVf8/r70nalGMS41i8ubdiUpokw+g0OeqTRRg8WE5xrwz5XBZFZz1SqEVvwt9zawfoD0ClUZGTrmbAdX2SnqJzniE3TQYWnYDRbhEqmtxMb+vdoB4ObzsG/pE07DnkDMLTiNih/RHkxdmcyCDPGS8AYeEjhln7VrH2WcLAPOLS3oj47xlf9EkOsxZ+Nvf4sBlLzew/a597lISR36WgTzmgx4Z6vGiJf9nxT5XGVzBYPpHUgWkAALSU0E8s3j1B2cdu2Ew1zi/2xPlJ0QsD680NMIhf+756s0k1zs8H9BP52qt7Bn3cLLvp1in4eq58Q4Ln3fR+yqWXPvNIP+nQ14+4GhDES9pV4WjAos7dHkyc3qrhxabxSuq9sBKXXihmmiN8LH4neyMUaR0EBl7ahBh8DBIghvG5gkmzb5vHHozz6aUwEQnfHuB2y0rqymiVhozfD17QTVqGfms34kcv5ak3J7yWEk8Rvz+lEPtnNKH6ZiMYjQkMtPFJPooqvufi63E+YhGvNHDY1ztShlg6MoPOTICoe/t5Oz9748Oic85xkNJOLBRTkgrCaZkdDMkbTq1Fy4/HSQNb4TqgeHHTC4Dej4VRa+DiulUzXUXR/LeDMXUsZ/CSHxAt17ryD3DsGNtJqEpeZuVDD5EDE0G+n2Ddy6s5jRLCCcGUHaHuT8jVXa4OLGbtcmPiE5sZ8hx48Fel+5ck4zkN2CvEsNhsGg8cnoUyXSJkDlJWPMnOpWSCUCRw2VWmO0Wr2yHo0f3MnOKZOxChDqvedVxHO4kBUBpIwkAYzKjcSP1BnZoWslgLfLOi8ZpXPzMCsIzs0wRxCX3uTKbDdh3FSXDOKjtk1SqoT0J4aeSFaGONL2u2EIQuCWF7Posxzv+/cXQ/xq1adPJbz4S1HpxOwmu92RPyDKzo0QH123ln16GEaKDm7+Vfuvos6LcPnibdEwU5DIxq5/VyiBCHryg+br0EWqokqIFUpL35w2+AAzET95QUnWDuEBgp0YIMl/TLManGOHRYAC/6/LEwIOI4MBmCsaIosR/m6VA/zS19p1bb5FOvLMOhRv8sa2pY3BuDXXLPKvC9yKJoNdRaJLJ4teLsk+PQht49D/0C2ip9gbUU54UeH3fH0t1ShzQM3IRKZqDrJelYAn6C3UqV5V4HFlTeFYGrp3E+yzmQsKlS3ff9zgUXYjw145JhURsdeYl7rOe2L4YJNtGtxlsKcTM740dq3uaGYyjmBFnlxJsaW1Rdt+FRxl/1KW+UQ2IA747YLDoDm/zlmaK8rNwxw4kkNEm7PV8jbCAqR/Oo9+5HKY6kwmDKPPtYnL+SHwUMZxUKNFaFYhBg7ELx7xIyP+oOws0jASUweDtSyFl+Hu1bA3p9IERIkQvoqgl6rMH5u5nfz3bgvLebgkUygXwsp5n+mbMMcThhTcRrotM7585S4QA4h9QSw/k5qawEHR4IAgsrAxfOkHqo8H4dTRQHmrfCUF+5WlPWLsUy1pyL/CinyD5Hakzyeme4599KEk5liWqb2FFlvhDoIk91haG2RUQWU98c4k5DrNHDKuVVQe/Fq00O8k4YjcH0nPPdnYv+LgXhcxFwPMKgQeMvS2e9HJS4+BKxXLwFO0dKgMhtvB+eX9fqEzuakZ2PQwWjhXj110bXMrhpSA6DMDAFND56TxubodqX8aW3IoWiDUTbQg7aIUPSFDXJWnShY2IC1pQFQxLY7+1rw30eLi8l/6ro2IBJkCStRLFxrhMct5nHdkRHnmYuGDzABkfap00l47jDAy39J/0soD9R0RDARfsfmOV92wfA8fcvUPpwT7q2zZVY4ZFFBMPpOoCOK4P54mNHWBKRaqCcS3dHxsGE/3Kq3vn04+0Kqnhh4b7cwruuOBzQuVopi7pRbadICVi80QxRYStsmY11c6AT3INHXWnU1fOkwx+OSmoIYCVqy3dDMqZBkYHmCeMZ9RbZjGheibmpM0SGNQ+xB5aMyW72jnR7H7RZ6QgR96xGpivCl5MhVYTttFB2D9ojJ+j/Jvrgyd7az34XiPncv466KDsXAD4HAdFc42gDYtuKZm/Fo6hcv92COOoM/+QO2vvEo/NI0avi39o8qA0tpk51WIeGVya3xiTfIqFjnbdllGBWmzXWqThhqASjyRk+oxghU0V+wVjsxOyN3p6Pvoyce8/3kQUlXbIaBsMKk/hNTfc+Eqr1rx67rNolzijLHVjB6LtBQ7TkLxWlTNm7m+PVYTwMuyYbKFLCyNZZdzSOMNsegLFvV5D1BcrFUEnxmFFpZJV/6nsuQ3GblwIAMklX37Bcg7BhamZdqAMY4RVtuuemsJF2YbtrfHfqU5XAECdvl6hUHq1qlhey40La5IbeAFcSFfZ/qFpkACFKBdESdC2HfE6NRxqt3nMr3cWlYrsiAnJ4WBWATalu95X+l7CsDKHOv3CZMcK7AJwWgbNCLQOZ25ACpMfi8j7zbTbMOwrutPf5HhMgazwDQCPa0KKHqKlv/vwTY1R6JOLndDKZC4EQcE86xbFyY6P3+qHGNCYrz67o86dKIWFI2CWVDWZTCYMxUgYJzuzQ7bYavZA5uQAcZ32Z0UiwJ/j31cy/V/+FZP/RV9ufvx8Il0rfprN1Iavvld8lhUCaV1o5Srse0EpHI239ZrDvYjoTqkIezQv+snorZ5bzYYnjjVWmKGQXpNUpaDCsN7qlm721cmrbjX5CuR+7XbXd668Zu5IYPTmFHFhsXFY9CXUjdcCa321U9W10uxV3gmvCwQJJwvmFbcGdopaAuKCM6ZBsxZerH3juXyyFEeCOodVFLtPWzUaiC/jK7UtxUWwQMhwcEQ/OCQtclmH8RFUUZf9j9vqsT9GBvPxZJoFWf/mIRsY1bkBEgRl2POnmt7C2GDSyAoZIzFAKvP58dM5R2b4W68/DvA9p4bhYoVy48uVqCesbSCftK7/vtBUwjdwSTaXbt7HfsrZ9UirZAi4WARWjcPIIbpo5Cu58tfbJWlLeSKCOcLSt2/uotgS2dDvfiRjWt4OhF1NdrUjX0SG/qaansd9SPho2ZRpyKS1B57pRWBRO7OwjiPZV3GDLjhUQ4AQu/tKJaB1HjXDOBKO4vqBFAWHfie4uwsVatm4z+Ghl3Dfeg4GXa62E7CZ5ASUCg4xVFZsEayO2a5dZ+v1YziT6+Tnj2sFcim1BYpY7WeRJVg2ckYX7lA0iyFxRxouwI06h2lo2Byku1Gcrx8yWwBvei+gKIoaSfglEEm6xyNiyTd8YGhHK2rlT3gVHtNXqfnogOlmlK8pZAkktPBp5daz2YD5ZANbs15YDg6f68kNU58lnLKi1gcrNH/EBOTvnxfFU6qFv1vICREYS4bqEtYtRfsZZLe3I+wXQjP0fJ3S7+6C8tsKQaJEK1/T1gRi45Hig0HIbtRO79Lf0ar2y40tFyNn6ViUL669oryJZVi2IePuGYY+ZZkun3T5CVy1cGiKVq2PwM1dcyYnw3BoXTAA/h2Sb322hqsm0QbLT6ScTNXybvZv4WznJ/gM3TnyA/PO9x3PJy3BL0I/9BEPGH5d4FkemGAoUn+UVcwF5HQgx3XVb/ZLwFMmdZ90E8pD2eKgv1Jlacv25rD1ileQzt7zwX+sEb2ZYjNTL/jtrLceMaOzaTE+BcScZoI3LiX7W9kJX2v+gnjpbQMqijAl5hsmynoKePODdYvFwvqQxL3nLRb3kjdKcJe7O4esA2tk44EMigWsDRczNwsxwDyQyEi0jLsIFZbs7BlHZZreBqhfXXJ43dl6qrtLgTQg/1vlFF1DwfL9uHiyYx31wHR3qN41v0LyOGsxT9RaiFE7+2r0VRf84no7bux+6oMhKDpvgPbqTWL7tgzp0IzJMmUZ6zoDFt0ATDpbkZ26IGSDkYBiQC9jdwnVHL2Z2p/d922+EkPxufNlSX9c6knXmHXWaaAP9KqjyXSsrpCoXcYrQivxpw6JcYwjpO/rGBM2mi8idzLSX82ZEOfRwoMkLhb0pFsXmQpJJ8usseWYwuSJWORis642TeSKFOR3/QTu2TKIEIRWSsg1/MeDtlE2JFT5tlBTLkVRTyIwffV4Bq+xffBL0P5CEx0Sx0F0PXAwLcZvaeoSSdy839nE7lQOXvAA3x3F2eR+/ZTlpmwrm+K2doeUlYJ1vE8TswmZc/FC6td6FnQHY8bCZihxytbyiem0iukszei0OdLRT90UnR5nkXgwCUWnjOtrHIp25Fru2QAD7EVFG1ZNmzkKjI2UfZ2Tvi7SvcjseK8/SJUMM/Rcf6YdYroX/XDjX/ilQAnI6hqpxo0ZqHoRtT6cSjHoTEzkkLg5XeZ70IL0268BGpGmcBS0L4YDrAOkHSzOA5NxRUmIUzJi9PKFNFCGPmBD6v+I+kL2YHZ53F4lHU1n9fOoos8kTeCQUdr8TyTCBoeicdDMwqBxm0naKeS1LOz4s5xJPeMpa0kWSSDYn9yoD0oEiscg0dLLO5DKYknFoaiywdHXvehGeOa94/dtnFODLVLz8OJkcQnRQ+gUF+X2FzPljOfa+tH8SWPyHP2O0249rI3AlKvmf7D6UXWy6zL2u1brOHEkw2ETYvRHc2KZomUc1hWWfAJJT66Ra4mLmSwFPnX9i5iHcsZ9JjAQLCyFIj4u5n2t4gLAoTXKhBXZtCkYjOBmTi207zscFWjsAB4JwCFcE5xJbsX4fHrCPlFLMMJWb4r50oSQcHwb/yS4ysTlFemcsY8R0CWY0Ah6N6LVaDNDnzFNdTV9VM14mpGEi4qWY3Bp0L52m/JdSHXW4ROJkMvCKTgKWaQYnlOnetQi+VB3Vd1nuXR6ioTYcy1EtaPiynY+fqAR5eQnLanmFu31jSYG+wR5xWe0XOpmhwv9M5roYFqFGUSgPrKjKkBoRckgrqgK3mrKhh1q23OMn7VDmRXqWnOhuZAfxN2Ec/aRyLZc3DJyuc5nGcef6gUhPNEMbDH3zgPeuEN0X8JjJTu5Hlk6cHoL00p0ZNt7xUARdSxvNX4Hay6SRFPA+hwyKvYtrdSoBhqCc0rVAVxt7wYsF2jCdYB92CwZItXV2GMd8PUZfglHj7Xg5b88hDniiXaIq/lxUAELlgXVCv+4CFbx4SJM/SheDMCfDq8ezzLKvPBl/l5upcVpgNvQWNg16YlsL0RlENA4KoouTAJcuEaXrCoYwqTNDw2Luo5mh4Iec/Q+G7WOS7gxzewHs3mvLsVBP9YP21h9PV4u9xLSvq5qhiYEvRbgpSMQ5RPqdcC3ODB9+Xyb/OonxOACW4LeBlVD1qSVkyfJuPNy82y3bSmiNHqmGLioyQpx8QVDXK+S1lZGBrm42zX3ZkkSGR7VfCwr0s6Fh1OrDJnPmj4x2wolyfhTQT2ZILVmyOoU7FM6Ub6eztumt9KEHRxPMI2wWCRDfJV1uK0Tiutqua/k4dB/9WxtDeNFCiddgD7bj9USxj2nfOvOvRXslvSKq1dl97ffAPcCBviNxjz5JoZJVF88i2dhV1DVW5j2ZXc7wWTVvpJgGuLsfxMG9+Z+vyS+ZAxqItTzMyP6OIS4rKZcBwKkwEr5zUV2EW6+XkK0P6dpMNq3tg4fx0KyjkxcrrqPCpz4gveIbQ5k0tKgTIpQUzwWXGcK291kY1PKahcKT6Lyn4KqI1tEUkH26zezfYfsepTqAhMqfj5aP83ArLdIyRDkFVHQzk/cdo5BcR96dGF4nzml14zCbRsqnZ3Y7rGzBSf/O6AE7x+VV5kCn14krDoZ/FCUestBqWz4VGUfGZWvRNEdd9JwB3AwcGHqIPMAbjGap4p43F5uzGOQAnTLPgG9zGZcu9Aqs0kgOIAC48i9R4/aQ7B65hBONoDxHIcDWiKfsz5zdnpaNUgcV0TW3qrp0j7P0xnwT+WI+Yatw7+J6CnKXOgfieQ5TTOzHVvKGTUgD197+1A/oJF4WChbRIUylaIwngcC1AkfKV57/wV9u9p0ZnAa39nb6qEr+N3C6/nEEoUb5NRM5vptPzREmiB9faiJyKonoa3pKAmCaflclWBbcaTieihzRqz6sEArkeyGEtOlSYNuKonCqgI6VoMlMRvJ3PFYW7SZcLWJ4+LuCtbLPj2Wg7TF04idGPO9Zylv7AzHBjNwKv/gx2U8Hb7M0id1Blt+HMgCcISQwkU1FrFzjyIevHxLpouetLQFs3PwwCXdgMhKvpkJEvuMs8PEmDXTfcJfZ28s0m1whdzWp7cD9rudNl+Zn0qXpag19PTH91QLDmxDwg9O6I5FXj8Qb60slb9kdJ1m8g52CNfh0DhFJZKaXEwADU1PADa8RTY8q1epXWDRjn/FOBx3+9wcJPGri4Lgu7OODDMa9E5xy8A494UbCsPSqkZ4988akVYbcgxZEplmZ+Vt/fLS0KE6r/fc2MYDwXbxEM4mnOYGyP98UR6fHgKBV5L2Cdd8MkHpr23rDI5BRZlUgxd5WRZeQiSRCb3gNi8kPfA4JxTLqqozBJcaROzeiB5nmCV0qCo1rzFpEZZJx6A7wKF7eBMhv24fguLOuePLTpF/piEQiOlvA37b95NKlB902JEyzxa7uugrDHbTIRbxoJXZWq7Zl3gGqQuSj9bP2rlWBVA54f54J7Mup8ChnIiUUx5vO+abC3/mttYXqQA9vzit5Re83PW2uokIeKKpRQeKjJtAa8sB9TYkMddTkFx1dM8ew/t8dX0Z8fljHBUbFJZ1pz+3t7COm3P5UtnthlWGGTX/HwxOk9DKbSpaFrYXmWK/7Ln1z/1zfkjjPWwui893aCq/lvlAo6pDaxURYS+QnmxQZGvKmN+eHx1CBIWoivIxHwMFiOcX3b+/64BcsCqacQdW1S4FqqE6cJ+xzc90DFSyiq+v9ubeP+rSRu3HEsve2PR6DD4oZ9NOyaeXgwTCMbGtf3uRYssLUeeRgY59DH7l/cguwsVnJ7R5FyM8OSAXXQdzEuVMAFwVS0mkoJuBasGk+J6FIMbvuu81GK0OIn5MHqWzM3gMQb2rVBl8MNQ6wQY7nTprGwQ2OL8uuliUhgT88CHaBDSJig4iWFrKkoJoyfU5rf9OeUJ8fR/UkywIA4CaoOonM+9ynz50bmx/zzHwmC1N0y0YFvOQ87BG6bMlax15Pi13GB84UX87FWI1Ci4hAdm4veSUk3BvZ1jx51jaVm6C59prcBQ+X87QBdfVJoBYgBNGm7lp8BQ40HR0vhDwsE3WM1awjvLT54uiC30uxof4EdhSc1PmFnbUAR40N5s7yl/XsHEb05w6RTm1KKe2W/IRT8CDARAXPuaF7tV7s5nZfqZezqvvvL1vJoDRfpuHwg5T11hnoNFvQYwXXNJAsQFksdADDSQYM8U7VMjB6OqHNN1h9uL5EZUatL9qbtcZ1keZC6Ki6OoijIe7cV2Dr2eWLltXz3SnNONqbtFPIwLxKsJcZI8/JF9xvnmuWr5QEUbCvignCYndoweD/aIUC2NtwzaQZgG/64Cqs/bQo/9ZjjNi9HuDc2qTF6LqSWNVyzqAoco5eUXSIeTfZBVNDEpw+2s0gNqOAQT/tPTwgVf/lDdaGN3K6MmDn914o3b1CodlS0hl6pxhqqshK2bUqAujXygEiL7WSe5l1SuV0MAFyHd4N6kC7zpGzUT3YsaDC/i7MUHcEFxsc19JAbj/eAB1IZQs6mMwzTLfkQvoPi3BFkzW9/1Ux93GVliwn+QitITDpX/JjNQAIPVz49giqr85qeZ5JSqe+OV+sRcRMlJD+xyG3JZoPsuv5YUmpfvGHqVpoj/iV2+hi2RQUH11U5mmeECyWfFkiOdhMms9GcKEwVA3fv2MlH47tIk4CeorkDH99h0zNMyv2P4CrWo5GYSn9cJbd2exuyj3zj2CK+7gNAM3NYCkAYUc7/nU3ioJlFDi90tQNZZorUAM0lPBFHE1kTVz51Ya2/IcKXLLlVCf+rmcSGAari7+uBN5uDqcj+XJPPhsCLnYOyh4C2jlM0eDSnHQrzI2VJSsz37j5FFrmsRnYPL3sXL/e2GuY1bMyGIs6+hJhrY0DueX7ZQfhx8zUtpeCssAQnmmXZ6QkQtk4u5F3lSNaCPCiT+sBQKgpSY+YojzOx8BBLU7e158Dp/nRUIT+kdAg+3nu3JRuE/GSJ39yOzSwOUjP+B0Lga+2n5Q5YDABbNDAjrHCysznwxAt7Bu/9btdAckJa6kKQ0+q+gr45LktzhoKMZbSvvkmQmaEst87rF/sopvlZqzTb572TPKiG3lBn9a+7jDvbxVIbgNn8AN8SvvVu8KrE602q9b3+dkcAZIKoLxiWeXjCjkiUq4QXcdeSfGf7s/bEgjnGXeab+gimgI8FLLkSSQ73WvYZR8Zf8PglYTVSnyxbBJXBYEx9SlPBNpzD+2YlYNFQW583RmLx4yvqwE3pZvW+oxdN49afYYYozAXR8cuT77puz/jZn6B5j0Js9OXlNeQvLaBaTmMvqUE9aHAnAJumg/rjtbunEurYP+V6c3Ui6md3TqfDDPssb/A9T24n4U5Qb9n6b6fScuexoRzHXBBonmm/T0xiFp+cFBzLclx6ClIJuPX1/qv/NaWzFInEc5piSDnfU9FOVs0O/sUbRTnRb2K/IHoHcL1Q9dnrh01DeIWlOS9bquoCcSKHm3MxhuR7FWhRqi7NUhEmpaCvMOgsFcUXqCTFpbglKIVpfHjWJz7iIzUcB89y2jTOKfYhblWnYKEYatBSMlpteG7LA8BWICoOM0XSxZ1BPqV4xgHoVmj6J3heg6a1yRAV7DfOQStsFt+XAaMxOLPQxHot/xxLFpAxM3mzoE0U2AyEq2Z2i/g7R5CJYyPUelP+uZpH8Sn4VEFZGNP8xVRn2A4Dpm9FvtblndWbc2U1bm0GSt4uVuX9mmJNP4UdAWFH9EnmLHubvZ1yeypQJL0bT2z6vaimdSPQxC46oI3aEWTgx2/ZVEpr2IFoe6kOsl+dYa61Ru1XoXBAUzJeaksY9NqBYIJA/7VtHj7tn9UPWjYw8gQpGnl6GiTz/2JFwSbWzEG1K+JWsGCnCB2F2OLY+d8FINFeSE97NcZXzQsXWOO3vP/ZOk1xNANkSnNKiZnhUDP52V1AIMISNMuJVlR5ozON0ZyJ/V5PZX0l581ZanzBXR0VpXl4lQZTO9xNZ8a1A5Wh33aDPlcam9L5kEo7nkEGWBkFcsdUxM+gkdaPL3d9T7rFa7Ov/mfgHPnD5zH2PSMtQGy/NaMD+35rl2cwpMdKV4WTODWMeje5lIVZsLRJuy9Dc9vJrBfa2LnFG1jq50D41TPGBjNnsCXzk0iE5XaDNg8wk3t33GlILPXCHycnMhE5J3Qrnl+fKjU4qF3heQ1OWMLwzBfaC2h1tmHG4lc0wId4RH3jYpPLdTUlP0lGFG8XoAnp4h72vdz6Sb+BTnPdY9jMy8wugiKaYyAo97Ik4DEVx656nB9el+C6o2ao+6L1No5kz/t+g7FCmhtvz/n8fIpbZLVdeqkebexr0qA2BkehmqhbnASWOmeLsy/lgtIHyQb3YxH4ptgTyIlt0Wy3/s5b2VLpq3GNUSREYTEAyo3Ablky11hVnzjWm9y4oxjxlr/8tuRPol/uv8+QcvHeJtjy2APrtb89WH46iYj5q9lZqtLZwvqMs3N8BiFXxU3rFRnXX5S7+hlGZSsa9gYOgRslhpWXrCSh9hy3jOHV2tDGtyyksaAJDE3pEB0nQP9vmR10atMcxQ4S7/sXpgOWqIw5hUFVUeyRnnh5PrmA39zODntCqnXXU5w686DCYwaXmYUGtziKI0AUnLLyK8GNwoFzOGIaI/sCJUappKT4QzppYCN/JB1UMIKfvPvVPHCaAyTFlD3WKh1n9NKGuNEc+NJFyFUEdxxDfARNxfMtWpwz0BL8ND5vkFC61Xcb2zBZL+5fFTqmCs9M972f9uo8qh2jPKj/Ec32exS2AZZWOigDEr+OZ2Qurp8DVxQMK6BryKDVNQcKv4ELq7gh8Zquu7XjOzfP3CK3RxIAA2PoiB7L2MYAARjAw7f5E7v33xiAOeSEJmITLxBIqlPicq9jwaoP9/lwu7W4bLbzvf13lagJvgilyCLZ061x1T+LegXkfP1ejs2tMxeSZCoRsf+tYWdyLrRAjYRhClXmHtf7s3RIXZxlj4k3JOzJ+NEWd2CF55WgdVnBVFRuqRVO8QMwAQ+9uvI+RQ5Unvsyw6QD8fZT/7kydO1Rbq1KGyOTN37xH4RK6N8MHhIFR78NhG7WBOGvPnPx/dZ2Ys05FpC15DyTXwgs6xAGKLrmOPyFvraUMBOJe46p4p0tGQrvFmVbhl4mcHA7zHC2DSKrZcY0+hQp7SjkrrkeA/5zUkv2akFlLbXKlGumUiF5kKmazqDXRdr9R14OaezGN6P+KxUume8n3CX+t+7Ydc//tYs1jjU7cRQHfpqKtzCWZOrXp2eqi5t15JNwnU+SU7+B38FQu1ARu1+Lth9w+/YbO1o5jIu8LSTwpV59Dxw+lrwM7RXT0BWiB7/Wf1Nf1ZWnI0giJGY0UR1P9zOgXhxc80ir/PSU6OPDTJQ0eAVtHSwKvg8Zws9feTsQZd9sELdk7HgfHAjgHrzbyM0owyldEDDXly2zng1axYtXbsHQGD+j0EDfaYi4IXP71qc+OlBdD7OAKDRyhYPQ7MemwLDyOCfh/oB6NVyme1bEatDhNm52iNjRLhuqEdyHCTswVSjp52KsxtPLtbwteiy21jktR/CiyaCXNP/zHR3SGGnQo9kwjQ3E+4HSJvxMA47KzDUsrDVu2+M0pePRG0ijruKyr6t+tofBNNZe9oo8n+GRJec4k/lWOBZvu/JAFUUNSAWqGkwIL4/fJlWxpNU4VDp0ki0ipkX7V52ay/HDJ7m0ulPcrH9sCEEgfB1/MWV9l6MWnc+x4PtWtkN+315UkkMjN5nW0qSzkk9V9bNH6o/DMnTwjIMBy28I83Vo568s+v9gQxjgGDM8q9sAyTLV46p96YpR7Q/noKRotfu7lg0SVju+0eV4fPvlKNdvuc4ZmpDqsJLPufOgmn8lVSjnjvbxS6LMOML4ivq+u9+qnDRkOnJI+5R+k1W7K+l2W/J/VP
+        - #1:
+          - type: tool-result
+          - toolCallId: soNHZGoR7E4Eo35O
+          - toolName: set-policy
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-policy not executed in replay mode.
+        - #2:
+          - type: tool-result
+          - toolCallId: dprdiRjCquODsSEn
+          - toolName: set-flavors
+          - output:
+            - type: json
+            - value:
+              - message: Tool set-flavors not executed in replay mode.

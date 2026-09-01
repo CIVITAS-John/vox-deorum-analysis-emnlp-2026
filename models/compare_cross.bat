@@ -1,0 +1,1 @@
+python compare_models.py --models=naive,score,baseline,xgboost,mlp,grouped_mlp,interaction_mlp,attention_mlp --n-splits 0 --output-dir output_cross
